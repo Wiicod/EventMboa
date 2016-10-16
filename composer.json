@@ -6,7 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
+        "laravel/framework": "5.2.*",
+        "webpatser/laravel-countries": "dev-master",
+        "mpociot/laravel-apidoc-generator": "^1.6",
+        "simplesoftwareio/simple-qrcode": "~1",
+        "laravel/cashier-braintree": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -46,5 +50,7 @@
     },
     "config": {
         "preferred-install": "dist"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : true
 }
