@@ -15,7 +15,7 @@ class AddOrganizerOnEvent extends Migration
         //
         Schema::table('events',function(Blueprint $table){
 
-            $table->integer('organizer_id')->unsigned()->index()->unique()->nullable();;
+            $table->integer('organizer_id')->unsigned()->index()->nullable();;
             $table->foreign('organizer_id')->references('id')->on('organizers')->onDelete('set null');
 
         });

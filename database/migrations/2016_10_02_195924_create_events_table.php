@@ -16,8 +16,8 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->string('recurring');
             $table->string('banner_picture');
             $table->tinyInteger('status');

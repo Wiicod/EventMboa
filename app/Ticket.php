@@ -8,7 +8,7 @@ class Ticket extends Model
 {
     //
     protected $fillable =['id','event_id','name','description','quantity','amount','start_date','end_date',
-        'listing_privity'];
+        'listing_privity','max_command'];
 
     protected $dates=['start_date','end_date','created_at','updated_at'];
 

@@ -20,6 +20,11 @@ class CreatePeopleTable extends Migration
             $table->string('cell_phone');
             $table->date('birthdate');
             $table->string('picture')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('google')->nullable();
+            $table->string('linkedin')->nullable();
             $table->integer('user_id')->unsigned()->index()->unique();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

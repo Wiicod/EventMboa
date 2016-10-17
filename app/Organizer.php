@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Organizer extends Model
 {
     //
-    protected $fillable =['id','name','description','image','link'];
+    protected $fillable =['id','name','description','image','web_site','facebook','twitter','instagram','google',
+        'linkedin'];
 
     protected $dates=['created_at','updated_at'];
 

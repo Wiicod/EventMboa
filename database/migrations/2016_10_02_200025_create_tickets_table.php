@@ -16,10 +16,11 @@ class CreateTicketsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
+            $table->integer('max_command');
             $table->integer('quantity');
             $table->float('amount');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->string('listing_privity');
             $table->integer('event_id')->unsigned()->index();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');

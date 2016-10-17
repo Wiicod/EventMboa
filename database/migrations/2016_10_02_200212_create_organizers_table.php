@@ -17,7 +17,12 @@ class CreateOrganizersTable extends Migration
             $table->string('name')->unique();
             $table->text('description');
             $table->string('image');
-            $table->string('link');
+            $table->string('linkedin')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('google')->nullable();
+            $table->string('web_site');
             $table->timestamps();
         });
     }
