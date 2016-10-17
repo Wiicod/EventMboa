@@ -14,7 +14,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','braintree_id','paypal_email','card_brand','card_last_four','trial_ends_at'
     ];
 
     /**
@@ -25,4 +25,27 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function person(){
+        return $this->hasOne('App\Person');
+    }
+
+    public function contacts(){
+        return $this->hasMany('App\Contact');
+    }
+
+    public function creators(){
+        return $this->hasMany('App\Event');
+    }
+
+    public function intrested_events(){
+        return $this->belongsToMany('App\Event','intrested_events');
+    }
+
+    public function tickets(){
+        return $this->belongsToMany('App\Ticket',"participants")->withPivot('id','ticket_id','user_id','number',
+            'created_at','updated_at');
+    }
+
+
 }

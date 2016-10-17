@@ -15,9 +15,9 @@ class AddTopicAndTypeOnEvent extends Migration
         //
         Schema::table('events',function(Blueprint $table){
 
-            $table->integer('event_topic_id')->unsigned()->index()->unique()->nullable();;
+            $table->integer('event_topic_id')->unsigned()->index()->nullable();;
             $table->foreign('event_topic_id')->references('id')->on('event_topics')->onDelete('set null');
-            $table->integer('event_type_id')->unsigned()->index()->unique()->nullable();;
+            $table->integer('event_type_id')->unsigned()->index()->nullable();;
             $table->foreign('event_type_id')->references('id')->on('event_types')->onDelete('set null');
         });
     }
