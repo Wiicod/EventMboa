@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class PersonRequest extends Request
 {
     public function wantsJson()
@@ -31,7 +29,20 @@ class PersonRequest extends Request
         {
             case 'GET':
             {
-                return [];
+                return [
+                    'first_name' => 'required|max:255',
+                    'last_name' => 'required|max:255',
+                    'user_id' => 'required|integer|exists:users,id',
+                    'home_phone' => 'required|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|max:255',
+                    'cell_phone' => 'required|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|max:255',
+                    'birthdate' => 'required|date|date_format:"Y-m-d"',
+                    'picture' => 'required|image',
+                    'facebook' => 'url|max:255',
+                    'twitter' => 'url|max:255',
+                    'instagram' => 'url|max:255',
+                    'google' => 'url|max:255',
+                    'linked' => 'url|max:255',
+                ];
             }
             case 'DELETE':
             {
@@ -45,7 +56,7 @@ class PersonRequest extends Request
                     'user_id'=>'required|integer|exists:users,id',
                     'home_phone'=>'required|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|max:255',
                     'cell_phone'=>'required|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|max:255',
-                    'birthdate'=>'required|date|date_format:"d-m-Y"',
+                    'birthdate' => 'required|date|date_format:"Y-m-d"',
                     'picture'=>'required|image',
                     'facebook'=>'url|max:255',
                     'twitter'=>'url|max:255',
@@ -62,7 +73,7 @@ class PersonRequest extends Request
                     'user_id'=>'integer|exists:users,id',
                     'home_phone'=>'regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|max:255',
                     'cell_phone'=>'regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|max:255',
-                    'birthdate'=>'date|date_format:"d-m-Y"',
+                    'birthdate' => 'date|date_format:"Y-m-d"',
                     'picture'=>'image',
                     'facebook'=>'url|max:255',
                     'twitter'=>'url|max:255',

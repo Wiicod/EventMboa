@@ -12,8 +12,6 @@ class Person extends Model
 
     protected $dates=['birthdate','created_at','updated_at'];
 
-    protected $dateFormat='d-m-Y H:i:s';
-
     public function user(){
         return $this->belongsTo('App\User');
     }

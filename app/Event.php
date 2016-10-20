@@ -7,26 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     //
+    public static $Status = ['new', 'created', 'active', 'end'];
     protected $fillable =['id','creator','event_topic_id','name','description','event_type_id','organizer_id',
     'start_date','end_date','recurring','banner_picture','status'];
-
     protected $dates=['start_date', 'end_date','created_at','updated_at'];
-
-    protected $dateFormat='d-m-Y H:i:s';
-
-    private $Status=['new','created','active','end'];
-
 
     public function getStatusAttribute($val){
 
-        return strlen($val)==1?$this->Status[$val]:$val;
+        return strlen($val) == 1 ? self::$Status[$val] : $val;
     }
 
-    public function setProfilAttribute($val){
+    public function setStatusAttribute($val)
+    {
         if(is_string($val)&&strlen($val)==1){
             $this->attributes['status']=$val;
         }else{
-            $this->attributes['status']=array_search($val,$this->Status);
+            $this->attributes['status'] = array_search($val, self::$Status);
         }
     }
 

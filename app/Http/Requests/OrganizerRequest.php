@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class OrganizerRequest extends Request
 {
     public function wantsJson()
@@ -31,7 +29,17 @@ class OrganizerRequest extends Request
         {
             case 'GET':
             {
-                return [];
+                return [
+                    'name' => 'required|max:255',
+                    'description' => 'required',
+                    'image' => 'required|image',
+                    'linkedin' => 'url|max:255',
+                    'facebook' => 'url|max:255',
+                    'google' => 'url|max:255',
+                    'instagram' => 'url|max:255',
+                    'twitter' => 'url|max:255',
+                    'web_site' => 'url|max:255',
+                ];
             }
             case 'DELETE':
             {

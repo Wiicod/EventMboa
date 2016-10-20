@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateEventLinksTable extends Migration
 {
@@ -16,7 +16,7 @@ class CreateEventLinksTable extends Migration
             $table->increments('id');
             $table->string('url');
             $table->string('name');
-            $table->integer('event_id')->unsigned()->index()->unique();
+            $table->integer('event_id')->unsigned()->index();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
 
             $table->timestamps();

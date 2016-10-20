@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class EventRequest extends Request
 {
     public function wantsJson()
@@ -35,7 +33,19 @@ class EventRequest extends Request
             }
             case 'DELETE':
             {
-                return [];
+                return [
+                    'creator' => 'required|integer|exists:events,id',
+                    'event_topic_id' => 'required|integer|exists:event_topics,id',
+                    'event_type_id' => 'required|integer|exists:event_types,id',
+                    'organizer_id' => 'integer|exists:organizers,id',
+                    'name' => 'required|max:255',
+                    'recurring' => 'required|max:255',
+                    'banner_picture' => 'required|image',
+                    'description' => 'required',
+                    'start_date' => 'required|date|date_format:"Y-m-d H:i:s"',
+                    'end_date' => 'required|date|date_format:"Y-m-d H:i:s"'
+
+                ];
             }
             case 'POST':
             {
@@ -48,8 +58,8 @@ class EventRequest extends Request
                     'recurring'=>'required|max:255',
                     'banner_picture'=>'required|image',
                     'description'=>'required',
-                    'start_date'=>'required|date|date_format:"d-m-Y H:i:s"',
-                    'end_date'=>'required|date|date_format:"d-m-Y H:i:s"'
+                    'start_date' => 'required|date|date_format:"Y-m-d H:i:s"',
+                    'end_date' => 'required|date|date_format:"Y-m-d H:i:s"'
 
                 ];
             }
@@ -63,8 +73,8 @@ class EventRequest extends Request
                     'name'=>'max:255',
                     'recurring'=>'max:255',
                     'banner_picture'=>'image',
-                    'start_date'=>'date|date_format:"d-m-Y H:i:s"',
-                    'end_date'=>'date|date_format:"d-m-Y H:i:s"'
+                    'start_date' => 'date|date_format:"Y-m-d H:i:s"',
+                    'end_date' => 'date|date_format:"Y-m-d H:i:s"'
 
                 ];
             }

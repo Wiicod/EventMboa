@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class TypePaymentRequest extends Request
 {
     public function wantsJson()
@@ -31,7 +29,11 @@ class TypePaymentRequest extends Request
         {
             case 'GET':
             {
-                return [];
+
+                return [
+                    'name' => 'required|max:255',
+                    'description' => 'required'
+                ];
             }
             case 'DELETE':
             {

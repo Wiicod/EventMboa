@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class ContactRequest extends Request
 {
 
@@ -28,11 +26,20 @@ class ContactRequest extends Request
      */
     public function rules()
     {
+
+
+        echo "ou" . $this->method();
+
         switch($this->method())
         {
             case 'GET':
             {
-                return [];
+                return [
+                    'firskt_name' => 'required|max:255',
+                    'last_name' => 'required|max:255',
+                    'email' => 'required|email|unique:contacts|max:255',
+                    'user_id' => 'required|integer|exists:users,id'
+                ];
             }
             case 'DELETE':
             {
@@ -40,6 +47,7 @@ class ContactRequest extends Request
             }
             case 'POST':
             {
+
                 return [
                     'first_name'=>'required|max:255',
                     'last_name'=>'required|max:255',
@@ -61,7 +69,13 @@ class ContactRequest extends Request
                 return [
                 ];
             }
-            default:break;
+            default:
+                return [
+                    'first_name' => 'required|max:255',
+                    'last_name' => 'required|max:255',
+                    'email' => 'required|email|unique:contacts|max:255',
+                    'user_id' => 'required|integer|exists:users,id'
+                ];
         }
     }
 }

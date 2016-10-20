@@ -11,7 +11,8 @@ class Contact extends Model
 
     protected $dates=['created_at','updated_at'];
 
-    protected $dateFormat='d-m-Y H:i:s';
+    //protected $dateFormat='d-m-Y H:i:s';
+
 
     public function user(){
         return $this->belongsTo('App\User');

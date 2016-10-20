@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class EventTypeRequest extends Request
 {
     public function wantsJson()
@@ -31,7 +29,10 @@ class EventTypeRequest extends Request
         {
             case 'GET':
             {
-                return [];
+                return [
+                    'name' => 'required|max:255',
+                    'description' => 'required'
+                ];
             }
             case 'DELETE':
             {

@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class UserRequest extends Request
 {
     public function wantsJson()
@@ -31,7 +29,10 @@ class UserRequest extends Request
         {
             case 'GET':
             {
-                return [];
+                return [
+                    'password' => 'required|max:255',
+                    'email' => 'required|email|unique:contacts|max:255',
+                ];
             }
             case 'DELETE':
             {

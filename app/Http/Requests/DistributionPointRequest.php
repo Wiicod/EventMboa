@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class DistributionPointRequest extends Request
 {
     public function wantsJson()
@@ -31,7 +29,12 @@ class DistributionPointRequest extends Request
         {
             case 'GET':
             {
-                return [];
+                return [
+                    'town_id' => 'required|integer|exists:towns,id',
+                    'ticket_id' => 'required|integer|exists:tickets,id',
+                    'name' => 'required|max:255',
+                    'date' => 'required|date|date_format:"Y-m-d H:i:s"'
+                ];
             }
             case 'DELETE':
             {
@@ -43,7 +46,7 @@ class DistributionPointRequest extends Request
                     'town_id'=>'required|integer|exists:towns,id',
                     'ticket_id'=>'required|integer|exists:tickets,id',
                     'name'=>'required|max:255',
-                    'date'=>'required|date|date_format:"d-m-Y H:i:s"'
+                    'date' => 'required|date|date_format:"Y-m-d H:i:s"'
                 ];
             }
             case 'PUT':
@@ -52,7 +55,7 @@ class DistributionPointRequest extends Request
                     'town_id'=>'integer|exists:towns,id',
                     'ticket_id'=>'integer|exists:tickets,id',
                     'name'=>'max:255',
-                    'date'=>'date|date_format:"d-m-Y H:i:s"'
+                    'date' => 'date|date_format:"Y-m-d H:i:s"'
                 ];
             }
             case 'PATCH':

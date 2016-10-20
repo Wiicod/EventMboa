@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class TicketTypePaymentRequest extends Request
 {
     public function wantsJson()
@@ -31,7 +29,10 @@ class TicketTypePaymentRequest extends Request
         {
             case 'GET':
             {
-                return [];
+                return [
+                    'ticket_id' => 'required|integer|exists:tickets,id',
+                    'type_payment_id' => 'required|integer|exists:type_payments,id'
+                ];
             }
             case 'DELETE':
             {

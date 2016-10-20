@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class TownRequest extends Request
 {
     public function wantsJson()
@@ -31,7 +29,10 @@ class TownRequest extends Request
         {
             case 'GET':
             {
-                return [];
+                return [
+                    'name' => 'required|max:255',
+                    'country_id' => 'required|integer|exists:countries,id'
+                ];
             }
             case 'DELETE':
             {

@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class ParticipantRequest extends Request
 {
     public function wantsJson()
@@ -31,7 +29,11 @@ class ParticipantRequest extends Request
         {
             case 'GET':
             {
-                return [];
+                return [
+                    'number' => 'required|integer',
+                    'user_id' => 'required|integer|exists:users,id',
+                    'ticket_id' => 'required|integer|exists:tickets,id'
+                ];
             }
             case 'DELETE':
             {

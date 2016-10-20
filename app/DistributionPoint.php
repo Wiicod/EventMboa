@@ -11,8 +11,6 @@ class DistributionPoint extends Model
 
     protected $dates=['date','created_at','updated_at'];
 
-    protected $dateFormat='d-m-Y H:i:s';
-
     public function town(){
         return $this->belongsTo('App\Town');
     }
