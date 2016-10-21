@@ -14,9 +14,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','braintree_id','paypal_email','card_brand','card_last_four','trial_ends_at'
+        'email', 'password', 'braintree_id', 'paypal_email', 'card_brand', 'card_last_four', 'trial_ends_at'
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -25,6 +24,26 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    private $foreign = [];
+    private $files = [];
+
+    /**
+     * @return array
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    public function getForeign()
+    {
+        return $this->foreign;
+    }
+
+    public function getLabel()
+    {
+        return $this->email;
+    }
 
     public function person(){
         return $this->hasOne('App\Person');

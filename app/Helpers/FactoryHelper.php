@@ -32,7 +32,7 @@ class FactoryHelper
     {
 
         $path = $faker->file("public/seeds/" . $src . "/", "storage/app/img/" . $src);
-        $path = "static" . explode("storage/app", $path)[1];
+        $path = explode("storage/app", $path)[1];
         return $path;
     }
 

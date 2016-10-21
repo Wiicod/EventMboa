@@ -12,6 +12,28 @@ class Event extends Model
     'start_date','end_date','recurring','banner_picture','status'];
     protected $dates=['start_date', 'end_date','created_at','updated_at'];
 
+    private $foreign = ['event_topic', 'event_type', 'organizer', 'event_links'];
+
+    private $files = ['banner_picture'];
+
+    /**
+     * @return array
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    public function getForeign()
+    {
+        return $this->foreign;
+    }
+
+    public function getLabel()
+    {
+        return $this->name;
+    }
+
     public function getStatusAttribute($val){
 
         return strlen($val) == 1 ? self::$Status[$val] : $val;

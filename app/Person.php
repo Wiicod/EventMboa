@@ -12,6 +12,28 @@ class Person extends Model
 
     protected $dates=['birthdate','created_at','updated_at'];
 
+    private $foreign = ['user'];
+
+    private $files = ['picture'];
+
+    /**
+     * @return array
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    public function getForeign()
+    {
+        return $this->foreign;
+    }
+
+    public function getLabel()
+    {
+        return $this->first_name . " " . $this->last_name;
+    }
+
     public function user(){
         return $this->belongsTo('App\User');
     }

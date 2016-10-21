@@ -11,10 +11,32 @@ class DistributionPoint extends Model
 
     protected $dates=['date','created_at','updated_at'];
 
+    private $foreign = ['ticket', 'town'];
+
+    private $files = [];
+
+    /**
+     * @return array
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    public function getLabel()
+    {
+        return $this->name;
+    }
+
     public function town(){
         return $this->belongsTo('App\Town');
     }
     public function ticket(){
         return $this->belongsTo('App\Ticket');
+    }
+
+    public function getForeign()
+    {
+        return $this->foreign;
     }
 }

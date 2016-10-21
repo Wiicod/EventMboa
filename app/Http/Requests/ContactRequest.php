@@ -27,9 +27,6 @@ class ContactRequest extends Request
     public function rules()
     {
 
-
-        echo "ou" . $this->method();
-
         switch($this->method())
         {
             case 'GET':

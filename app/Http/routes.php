@@ -15,9 +15,35 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::auth();
+Route::get('/img/{model}/{image}', function ($model, $image) {
+
+    //do so other checks here if you wish
+
+
+    $filename = "img/" . $model . "/" . $image;
+
+    if (!Storage::has($filename)) abort(404);
+    $path = storage_path('app/') . $filename;
+    $file = Storage::get($filename);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+
+    //return Storage::get("stock-images/".$type."/".$image); //will ensure a jpg is always returned
+});
 
 Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
+
+//    Route::post('/register','AuthenticateController@register');
+    Route::post('/signup', 'AuthenticateController@signup');
+    Route::post('/signin', 'AuthenticateController@signin');
+});
+
+
+Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
+
+    Route::post('/refresh_token', 'AuthenticateController@signin');
 
     Route::resource('contact', 'ContactController');
     Route::resource('country', 'CountryController');
