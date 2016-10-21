@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class RestHelper
 {
@@ -113,5 +118,30 @@ class RestHelper
         } else {
             return Response::json(array("erreur" => "the " . $name . " you are looking for does not exist"), 422);
         }
+    }
+
+    public function getAuthenticatedUser()
+    {
+        try {
+
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['the user does not exist'], 404);
+            }
+
+        } catch (TokenExpiredException $e) {
+
+            return response()->json(['token expire'], $e->getStatusCode());
+
+        } catch (TokenInvalidException $e) {
+
+            return response()->json(['token invalid'], $e->getStatusCode());
+
+        } catch (JWTException $e) {
+
+            return response()->json(['token absent'], $e->getStatusCode());
+
+        }
+
+        return $user;
     }
 }

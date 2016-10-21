@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\RestHelper;
 use App\Http\Requests;
+use App\Http\Requests\IntrestedEventRequest;
 use App\IntrestedEvent;
-use Illuminate\Http\Request;
 
 class IntrestedEventController extends Controller
 {
@@ -36,7 +36,7 @@ class IntrestedEventController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(IntrestedEventRequest $request)
     {
         //
         return RestHelper::store(IntrestedEvent::class, $request->all());
@@ -72,7 +72,7 @@ class IntrestedEventController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(IntrestedEventRequest $request, $id)
     {
         //
         return RestHelper::update(IntrestedEvent::class, $request->all(), $id);

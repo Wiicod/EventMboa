@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\EventLink;
 use App\Helpers\RestHelper;
 use App\Http\Requests;
-use Illuminate\Http\Request;
+use App\Http\Requests\EventLinkRequest;
 
 class EventLinkController extends Controller
 {
@@ -36,7 +36,7 @@ class EventLinkController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventLinkRequest $request)
     {
         //
         return RestHelper::store(EventLink::class, $request->all());
@@ -73,7 +73,7 @@ class EventLinkController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EventLinkRequest $request, $id)
     {
         //
         return RestHelper::update(EventLink::class, $request->all(), $id);

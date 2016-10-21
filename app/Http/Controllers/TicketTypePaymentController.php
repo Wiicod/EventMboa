@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\RestHelper;
 use App\Http\Requests;
+use App\Http\Requests\TicketTypePaymentRequest;
 use App\TicketTypePayment;
-use Illuminate\Http\Request;
 
 class TicketTypePaymentController extends Controller
 {
@@ -36,7 +36,7 @@ class TicketTypePaymentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TicketTypePaymentRequest $request)
     {
         //
         return RestHelper::store(TicketTypePayment::class, $request->all());
@@ -72,7 +72,7 @@ class TicketTypePaymentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TicketTypePaymentRequest $request, $id)
     {
         //
         return RestHelper::update(TicketTypePayment::class, $request->all(), $id);

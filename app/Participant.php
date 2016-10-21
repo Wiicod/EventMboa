@@ -3,14 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use QrCode;
 
 class Participant extends Model
 {
     //
-    protected $fillable =['id','user_id','ticket_id','number'];
-
+    protected $fillable = ['id', 'user_id', 'ticket_id', 'number', 'name', 'phone', 'email'];
+    protected $appends = array('qrcodes');
     private $foreign = ['user', 'ticket'];
-
     private $files = [];
 
     /**
@@ -32,12 +32,43 @@ class Participant extends Model
         return $this->user_id . ' ticket ' . $this->ticket_id . ' number ' . $this->number;
     }
 
-    public function ticket(){
-        return $this->belongsTo('App\Ticket');
+    public function getQrcodesAttribute()
+    {
+
+        $res = [];
+        $n = (int)$this->attributes['number'];
+
+
+        if ($this->user()->exists()) {
+            for ($i = 0; $i < $n; $i++) {
+                $res[] = QrCode::errorCorrection('H')->color(255, 0, 255)->generate('ticket '
+                    . $this->ticket()->first()->name . ' ' . $i . '/' . $n
+                    . ' for ' . $this->user()->first()->email
+                );
+            }
+        } else {
+            for ($i = 0; $i < $n; $i++) {
+                $res[] = QrCode::errorCorrection('H')->color(255, 0, 255)->generate('ticket '
+                    . $this->ticket()->first()->name . ' ' . $i . '/' . $n
+                    . ' for ' . $this->name
+                );
+            }
+        }
+
+
+        return $res;
+
+
     }
 
     public function user(){
         return $this->belongsTo('App\User');
+    }
+
+    public function ticket()
+    {
+        return $this->belongsTo('App\Ticket');
+
     }
 
 }

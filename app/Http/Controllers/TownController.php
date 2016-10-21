@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\RestHelper;
 use App\Http\Requests;
+use App\Http\Requests\TownRequest;
 use App\Town;
-use Illuminate\Http\Request;
 
 class TownController extends Controller
 {
@@ -36,7 +36,7 @@ class TownController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TownRequest $request)
     {
         //
         return RestHelper::store(Town::class, $request->all());
@@ -72,7 +72,7 @@ class TownController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TownRequest $request, $id)
     {
         //
         return RestHelper::update(Town::class, $request->all(), $id);

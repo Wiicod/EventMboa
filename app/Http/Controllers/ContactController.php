@@ -6,6 +6,7 @@ use App\Contact;
 use App\Helpers\RestHelper;
 use App\Http\Requests;
 
+
 class ContactController extends Controller
 {
     /**

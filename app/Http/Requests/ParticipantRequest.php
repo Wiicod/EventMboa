@@ -31,7 +31,10 @@ class ParticipantRequest extends Request
             {
                 return [
                     'number' => 'required|integer',
-                    'user_id' => 'required|integer|exists:users,id',
+                    'name' => 'max:255|required_with:email,phone',
+                    'phone' => 'required_with:email,name|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|',
+                    'email' => 'max:255|email|required_with:name,phone',
+                    'user_id' => 'required_without:name,phone,email|integer|exists:users,id',
                     'ticket_id' => 'required|integer|exists:tickets,id'
                 ];
             }
@@ -43,7 +46,10 @@ class ParticipantRequest extends Request
             {
                 return [
                     'number'=>'required|integer',
-                    'user_id'=>'required|integer|exists:users,id',
+                    'name' => 'max:255|required_with:email,phone',
+                    'phone' => 'required_with:email,name|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|',
+                    'email' => 'max:255|email|required_with:name,phone',
+                    'user_id' => 'required_without:name,phone,email|integer|exists:users,id',
                     'ticket_id'=>'required|integer|exists:tickets,id'
                 ];
             }
@@ -51,7 +57,10 @@ class ParticipantRequest extends Request
             {
                 return [
                     'number'=>'integer',
-                    'user_id'=>'integer|exists:users,id',
+                    'name' => 'max:255|required_with:email,phone',
+                    'phone' => 'required_with:email,name|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|',
+                    'email' => 'max:255|email|required_with:name,phone',
+                    'user_id' => 'required_without:name,phone,email|integer|exists:users,id',
                     'ticket_id'=>'integer|exists:tickets,id'
                 ];
             }

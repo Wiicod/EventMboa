@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DistributionPoint;
 use App\Helpers\RestHelper;
 use App\Http\Requests;
-use Illuminate\Http\Request;
+use App\Http\Requests\DistributionPointRequest;
 
 class DistributionPointController extends Controller
 {
@@ -36,7 +36,7 @@ class DistributionPointController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DistributionPointRequest $request)
     {
         //
         return RestHelper::store(DistributionPoint::class, $request->all());
@@ -72,7 +72,7 @@ class DistributionPointController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DistributionPointRequest $request, $id)
     {
         //
         return RestHelper::update(DistributionPoint::class, $request->all(), $id);

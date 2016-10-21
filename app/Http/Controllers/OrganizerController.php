@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\RestHelper;
 use App\Http\Requests;
+use App\Http\Requests\OrganizerRequest;
 use App\Organizer;
-use Illuminate\Http\Request;
 
 class OrganizerController extends Controller
 {
@@ -36,7 +36,7 @@ class OrganizerController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrganizerRequest $request)
     {
         //
         return RestHelper::store(Organizer::class, $request->all());
@@ -72,7 +72,7 @@ class OrganizerController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OrganizerRequest $request, $id)
     {
         //
         return RestHelper::update(Organizer::class, $request->all(), $id);

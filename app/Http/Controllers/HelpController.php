@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Help;
 use App\Helpers\RestHelper;
 use App\Http\Requests;
-use Illuminate\Http\Request;
+use App\Http\Requests\HelpRequest;
 
 class HelpController extends Controller
 {
@@ -36,7 +36,7 @@ class HelpController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HelpRequest $request)
     {
         //
         return RestHelper::store(Help::class, $request->all());
@@ -72,7 +72,7 @@ class HelpController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(HelpRequest $request, $id)
     {
         //
         return RestHelper::update(Help::class, $request->all(), $id);

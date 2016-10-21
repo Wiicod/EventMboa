@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\RestHelper;
 use App\Http\Requests;
+use App\Http\Requests\TypePaymentRequest;
 use App\TypePayment;
-use Illuminate\Http\Request;
 
 class TypePaymentController extends Controller
 {
@@ -36,7 +36,7 @@ class TypePaymentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TypePaymentRequest $request)
     {
         //
         return RestHelper::store(TypePayment::class, $request->all());
@@ -72,7 +72,7 @@ class TypePaymentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TypePaymentRequest $request, $id)
     {
         //
         return RestHelper::update(TypePayment::class, $request->all(), $id);

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\RestHelper;
 use App\Http\Requests;
+use App\Http\Requests\PersonRequest;
 use App\Person;
-use Illuminate\Http\Request;
 
 class PersonController extends Controller
 {
@@ -36,7 +36,7 @@ class PersonController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PersonRequest $request)
     {
         //
         return RestHelper::store(Person::class, $request->all());
@@ -72,7 +72,7 @@ class PersonController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PersonRequest $request, $id)
     {
         //
         return RestHelper::update(Person::class, $request->all(), $id);

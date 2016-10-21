@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\EventType;
 use App\Helpers\RestHelper;
 use App\Http\Requests;
-use Illuminate\Http\Request;
+use App\Http\Requests\EventTypeRequest;
 
 class EventTypeController extends Controller
 {
@@ -36,7 +36,7 @@ class EventTypeController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventTypeRequest $request)
     {
         //
         return RestHelper::store(EventType::class, $request->all());
@@ -72,7 +72,7 @@ class EventTypeController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EventTypeRequest $request, $id)
     {
         //
         return RestHelper::update(EventType::class, $request->all(), $id);

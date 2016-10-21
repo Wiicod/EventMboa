@@ -160,6 +160,9 @@ $factory->define(Participant::class, function (Faker\Generator $faker) {
     return [
         'user_id' => $user->id,
         'ticket_id' => $ticket->id,
+        'name' => $faker->name,
+        'phone' => $faker->phoneNumber,
+        'email' => $faker->email,
         'number' => rand(1, 5),
     ];
 
