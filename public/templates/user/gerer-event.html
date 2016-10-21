@@ -1,0 +1,71 @@
+<section id="gerer">
+    <div class="container">
+        <div class="row" style="margin-top: 30px">
+            <div class="col-lg-8 col-sm-8 col-md-8">
+                <h1>Gérer les événements</h1>
+            </div>
+            <div class="col-lg-4 col-sm-4 col-md-4" style="padding-top: 20px">
+                <select ng-model="user_event" class="form-control"
+                        ng-options="u.nom as u.nom for u in users"
+                        >
+                    <option value="">Tous les événements</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-1 col-md-4">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control form-input" ng-model="searchKey" placeholder="Rechercher un événement ou un participant">
+                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="/#accueil" ng-click="choixEvent(0)" data-toggle="tab">En ligne {{eventOnline.length}}</a></li>
+                        <li><a href="/#livres" ng-click="choixEvent(1)" data-toggle="tab">Avant-projets {{eventSave.length}}</a></li>
+                        <li><a href="/#témoignages" ng-click="choixEvent(2)" data-toggle="tab">Passés {{eventPassed.length}}</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="row-fluid">
+                            <div class="col-lg-12 text-center" ng-if="events.length==0" style="background: #eee">
+                                <img src="images/simple-black-calendar-512.png" style="width: 20% !important; text-align: center" />
+                                <p>Vous n'avez aucun événements</p>
+                            </div>
+                        </div>
+                        <div ng-if="events.length>0" class="row-fluid" ng-repeat="e in events" >
+                            <div class="event">
+                                <div class="col-lg-9">
+                                    <a ui-sref="details({nom:e.titre})"><h3 >{{e.titre}}</h3></a>
+                                    <div class="e-date">{{e.date_debut}}</div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="progress" style="margin-top: 15px">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: {{(e.billet_vendu*100)/e.billets[0].quantite}}%">
+                                        </div>
+                                    </div>
+                                    Billets vendus : {{e.billet_vendu}}/{{e.billets[0].quantite}}
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <ul class="nav navbar-nav">
+                                        <li><a ui-sref="panneau({id:e.id})"><i class="fa fa-gear"></i> Gérer</a></li>
+                                        <li><a ui-sref="create({id:e.id,target:'modifier'})"><i class="fa fa-edit"></i> Modifier</a></li>
+                                        <li><a ui-sref="details({nom:e.titre})"><i class="fa fa-eye"></i> Afficher</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

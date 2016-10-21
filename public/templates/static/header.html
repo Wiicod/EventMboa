@@ -1,0 +1,53 @@
+<header role="banner">
+    <div class="fluid-container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <!-- Mobile Toggle Menu Button -->
+                <a href="#" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+                <a class="navbar-brand logo" href="index.html">
+                    EventMboa
+                </a>
+                <ul class="nav navbar-nav">
+                    <li class=""><a href="#" ui-sref="events" data-nav-section="home"><span>Parcourir</span></a></li>
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class=""><a href="#"><span>Aide</span></a></li>
+                    <li class=""><a href="#" ui-sref="register"><span>Ouvrir un compte</span></a></li>
+                    <li class=""><a href="#" ui-sref="login"><span>Se connecter</span></a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="/#"><i class="fa fa-user"></i>&nbsp;
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a ui-sref="billet">
+                                    <div class="row">
+                                        <div class="col-lg-9">Billets</div>
+                                        <div class="col-lg-3">4</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a ui-sref="save">
+                                    <div class="row">
+                                        <div class="col-lg-9">Sauvegardés</div>
+                                        <div class="col-lg-3"></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a ui-sref="myEvent">Gérer les événements</a></li>
+                            <li><a ui-sref="profil">Profil d'organisateur</a></li>
+                            <li><a ui-sref="myContact">Contact</a></li>
+                            <li class="divider"></li>
+                            <li><a ui-sref="compte">Paramètres du compte</a></li>
+                            <li><a ui-sref="logout">Se déconnecter</a></li>
+                        </ul>
+                    </li>
+                    <li class="active"><a href="#" ui-sref="create"><span>Créer un événement</span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>

@@ -1145,20 +1145,20 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.28",
+            "version": "1.0.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "a9663643ff2d16d7f66ed1e0d3212c5491bc9044"
+                "reference": "1b5c4a0031697f46e779a9d1b309c2e1b24daeab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a9663643ff2d16d7f66ed1e0d3212c5491bc9044",
-                "reference": "a9663643ff2d16d7f66ed1e0d3212c5491bc9044",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/1b5c4a0031697f46e779a9d1b309c2e1b24daeab",
+                "reference": "1b5c4a0031697f46e779a9d1b309c2e1b24daeab",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.5.9"
             },
             "conflict": {
                 "league/flysystem-sftp": "<1.0.6"
@@ -1224,7 +1224,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2016-10-07 12:20:37"
+            "time": "2016-10-19 20:38:46"
         },
         {
             "name": "mnapoli/front-yaml",
@@ -1432,16 +1432,16 @@
         },
         {
             "name": "mpociot/laravel-apidoc-generator",
-            "version": "1.6.5",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpociot/laravel-apidoc-generator.git",
-                "reference": "f76ce805fd148a312be704fbad453a132ee69a30"
+                "reference": "c1a50b523f2558cc9f58c5cfbbbf74ea1fe65f47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpociot/laravel-apidoc-generator/zipball/f76ce805fd148a312be704fbad453a132ee69a30",
-                "reference": "f76ce805fd148a312be704fbad453a132ee69a30",
+                "url": "https://api.github.com/repos/mpociot/laravel-apidoc-generator/zipball/c1a50b523f2558cc9f58c5cfbbbf74ea1fe65f47",
+                "reference": "c1a50b523f2558cc9f58c5cfbbbf74ea1fe65f47",
                 "shasum": ""
             },
             "require": {
@@ -1481,7 +1481,7 @@
                 "documentation",
                 "laravel"
             ],
-            "time": "2016-10-06 12:43:28"
+            "time": "2016-10-19 18:45:04"
         },
         {
             "name": "mpociot/reflection-docblock",
@@ -2148,16 +2148,16 @@
         },
         {
             "name": "simplesoftwareio/simple-qrcode",
-            "version": "1.4.6",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SimpleSoftwareIO/simple-qrcode.git",
-                "reference": "a2d509cff8e4f2ebd9fa523a72d9d229662fdda6"
+                "reference": "49266b1c6aa94bd5ddcdaba74f7b3e6956a82c01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SimpleSoftwareIO/simple-qrcode/zipball/a2d509cff8e4f2ebd9fa523a72d9d229662fdda6",
-                "reference": "a2d509cff8e4f2ebd9fa523a72d9d229662fdda6",
+                "url": "https://api.github.com/repos/SimpleSoftwareIO/simple-qrcode/zipball/49266b1c6aa94bd5ddcdaba74f7b3e6956a82c01",
+                "reference": "49266b1c6aa94bd5ddcdaba74f7b3e6956a82c01",
                 "shasum": ""
             },
             "require": {
@@ -2195,7 +2195,7 @@
                 "qrcode",
                 "wrapper"
             ],
-            "time": "2016-10-12 21:23:04"
+            "time": "2016-10-18 00:27:02"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3245,7 +3245,7 @@
         },
         {
             "name": "windwalker/renderer",
-            "version": "3.1",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ventoviro/windwalker-renderer.git",
@@ -3302,7 +3302,7 @@
         },
         {
             "name": "windwalker/structure",
-            "version": "3.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ventoviro/windwalker-structure.git",

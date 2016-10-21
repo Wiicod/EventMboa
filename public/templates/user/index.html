@@ -1,0 +1,61 @@
+<div ui-view="header"></div>
+
+<div id="content">
+    <div class="container">
+        <div class="row" style="margin-top: 30px">
+            <div class="col-lg-8 col-sm-8 col-md-8">
+                <h1 class="bold">Paramètres du compte</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="panel-group" id="accordion">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="">
+                                <a data-toggle="collapse" data-parent="#accordion" href="/#collapse1">
+                                    <i class="fa fa-gear"></i> Paramètres</a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse">
+                            <ul class="nav">
+                                <li ng-class="{'active':choix=='compte'}" ng-click="choix='compte'"><a ui-sref="compte">Coordonnées</a></li>
+                                <li ng-class="{'active':choix=='pass'}" ng-click="choix='pass'"><a ui-sref="pass">Mot de passe</a></li>
+                                <li ng-class="{'active':choix=='sociaux'}" ng-click="choix='sociaux'"><a ui-sref="sociaux">Paramètres sociaux</a></li>
+                                <li ng-class="{'active':choix=='om'}" ng-click="choix='om'"><a ui-sref="om">Orange Money</a></li>
+                                <li ng-class="{'active':choix=='carte'}" ng-click="choix='carte'"><a ui-sref="carte">Cartes bancaires</a></li>
+                                <li><a ui-sref="close">Fermer le compte</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="">
+                                <a data-toggle="collapse" data-parent="#accordion" href="/#collapse2">
+                                    <i class="fa fa-credit-card"></i> Paiements</a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse in">
+                            <ul class="nav">
+                                <li ng-class="{'active':choix=='recap'}" ng-click="choix='recap'"><a ui-sref="recap">Récapitulatif des paiements</a></li>
+                                <!--<li ng-class="{'active':choix=='frais'}" ng-click="choix='frais'"><a ui-sref="frais">Frais et crédit</a></li>-->
+                                <li ng-class="{'active':choix=='facture'}" ng-click="choix='facture'"><a ui-sref="facture">Factures</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-9" ui-view="detail">
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+<div ui-view="footer"></div>

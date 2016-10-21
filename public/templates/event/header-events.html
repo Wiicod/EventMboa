@@ -1,0 +1,27 @@
+<header role="banner">
+    <div class="fluid-container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <!-- Mobile Toggle Menu Button -->
+                <a href="#" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+                <a class="navbar-brand logo" href="index.html">
+                    EventMboa
+                </a>
+            </div>
+            <div style="float: left; width: 30%">
+                <form ng-submit="searchEvent(key)">
+                    <input type="text" ng-model="key" required class="input" placeholder="Recherche d'événements"/>
+                </form>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class=""><a ui-sref="events"><span>Parcourir</span></a></li>
+                    <li class=""><a href="#"><span>Aide</span></a></li>
+                    <li class=""><a href="#" ui-sref="register"><span>Ouvrir un compte</span></a></li>
+                    <li class=""><a href="#" ui-sref="login"><span>Se connecter</span></a></li>
+                    <li class=""><a href="#" ui-sref="create"><span>Créer un événement</span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>

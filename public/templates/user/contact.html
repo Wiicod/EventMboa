@@ -1,0 +1,98 @@
+<section id="gerer">
+    <div class="container">
+        <div class="row" style="margin-top: 30px">
+            <div class="col-lg-8 col-sm-8 col-md-8">
+                <h1>Contacts</h1>
+            </div>
+            <div class="col-lg-4" style="margin-top: 25px" ng-if="contacts.length>0">
+                <button class="btn btn-main" data-toggle="modal" href="/#contactModal">Ajouter contact</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 text-center">
+                <div class="row" ng-if="contacts.length>0">
+                    <div class="col-lg-7">
+                        <div class="input-group input-group-lg">
+                            <input type="text" ng-model="searchKey" class="form-control form-input"
+                                   placeholder="Rechercher un contact">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <table class="table text-capitalize" ng-if="contacts.length>0">
+                    <thead>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="c in contacts|orderBy:'-nom':true|filter:searchKey">
+                            <td>{{c.nom}}</td>
+                            <td>{{c.prenom}}</td>
+                            <td>{{c.email}}</td>
+                            <td>
+                                <a ng-click="choixContact(c)" data-toggle="modal" href="/#contactModal">
+                                    <i class="fa fa-edit fa-lg"></i></a>
+                                &nbsp;
+                                &nbsp;
+                                <a ng-click="supprimer(c)"><i class="fa fa-trash fa-lg"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="" ng-if="contacts.length==0">
+                    <img src="images/contact_people_14393.png" style="width: 20%!important; text-align: center" alt=""/>
+
+                    <h4 class="bold">Gérer tous vos contacts au même endroit</h4>
+                    <p>
+                        Ajoutez et importez facilement des adresses électroniques à partir de votre boîte Gmail, Outlook, ou d'autres fichiers.
+                        Envoyez et suivez les invitations pour promouvoir votre événement.
+                    </p>
+                    <button class="btn btn-main" data-toggle="modal" href="/#contactModal">Ajouter des contacts</button>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <h3>Extensions</h3>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#"><img class="media-object"  style="width: 90px !important; height: 90px !important;"
+                                         src="images/G_is_For_Google_New_Logo_Thumb.png"></a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading bold">Google</h4>
+                        <p class="small-text">Importez vos contacts google.</p>
+                        <span class="requis small"> Bientôt disponible.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="Agent" aria-hidden="true">
+    <div class="modal-dialog" style="width: 35%;">
+        <form class="modal-content" ng-submit="enregistrerContact(contact)">
+            <div class="modal-header" style="background: #EFF2F5">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center text-uppercase bold">{{titre}}</h4>
+            </div>
+            <div class="modal-body" style="background: #F8F8FA">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Saisissez l'e-mail, le prénom, le nom de famille en les séparant par des virgules.
+                        Chaque nouveau contact doit être séparé par un point-virgule
+                        <textarea ng-model="contact" placeholder="johndoe@gmail.com,John,Doe" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-main" type="submit">Enregistrer</button>
+                <button id="close" class="btn btn-main hide" data-dismiss="modal">Fermer</button>
+            </div>
+        </form><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

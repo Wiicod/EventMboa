@@ -1,0 +1,26 @@
+<div class="container">
+    <form class="form-signin" ng-submit="signin(auth)">
+        <h2 class="text-center">Ouvrir un compte.</h2>
+        <h4 class="text-center">Vous avez déjà un compte?</h4>
+        <h4 class="text-center"><a href="" ui-sref="login">Connectez-vous.</a></h4>
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="auth.login" placeholder="Adresse email" required/>
+        </div>
+        <div class="form-group">
+            <input type="password" ng-model="auth.motDePasse" placeholder="Mot de passe" class="form-control"/>
+        </div>
+        <div class="form-group text-center message">
+            {{message}}
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-main  btn-green"> ouvrir un compte</button>
+        </div>
+        <p class="small-text" style="margin-top: 15px;text-align: center">
+            En m'inscrivant, j'accepte <a href="" ui-sref="condition">les conditions d'utilisation du service</a>, <a
+                href="" ui-sref="politique-donnees">la politique de protection des données</a> ,
+            et <a href="" ui-sref="politique-cookies">la politique relative aux cookies</a> d'EventMboa et j'accepte de recevoir des communications marketing de la part d'EventMboa.
+        </p>
+    </form>
+
+
+</div>

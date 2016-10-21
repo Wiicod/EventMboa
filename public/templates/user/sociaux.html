@@ -1,0 +1,41 @@
+<section id="compte">
+    <h1 class="bold">Paramètres sociaux</h1>
+    <div class="row">
+        <div class="col-lg-9">
+            <form ng-submit="enregistrerSociaux(social)">
+                <div class="form-group">
+                    <h3><i class="fa fa-facebook"></i> Page Facebook</h3>
+                    <p>{{compte.email}}</p>
+                    <input  type="url" ng-model="social.facebook" placeholder="http://www.facebook.com/" class="form-control"/>
+                </div>
+
+                <div class="form-group">
+                    <h3><i class="fa fa-twitter"></i> Page Twitter</h3>
+                    <p>{{compte.email}}</p>
+                    <input  type="url" ng-model="social.twitter" placeholder="http://www.twitter.com/" class="form-control"/>
+                </div>
+
+                <div class="form-group">
+                    <h3><i class="fa fa-google-plus"></i> Page Google+</h3>
+                    <p>{{compte.email}}</p>
+                    <input  type="url" ng-model="social.google" placeholder="http://www.facebook.com/" class="form-control"/>
+                </div>
+
+                <div class="form-group">
+                    <h3><i class="fa fa-instagram"></i> Page Instagram</h3>
+                    <p>{{compte.email}}</p>
+                    <input  type="url" ng-model="social.instagram" placeholder="http://www.instagram.com/" class="form-control"/>
+                </div>
+
+                <div class="form-group">
+                    <h3><i class="fa fa-linkedin-square"></i> Page LinkedIn</h3>
+                    <p>{{compte.email}}</p>
+                    <input  type="url" ng-model="social.linkedin" placeholder="http://www.linkedin.com/" class="form-control"/>
+                </div>
+
+                <button type="submit" class="btn btn-main">sauvegarder</button>
+                
+            </form>
+        </div>
+    </div>
+</section>

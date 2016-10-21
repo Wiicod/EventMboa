@@ -1,0 +1,62 @@
+<section id="compte">
+    <h1 class="bold">Gérer les invitations par e-mail</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <button class="btn-main btn" data-toggle="modal" href="/#inviationModal">créer une invitation</button>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <h4>Ventes par type de billet</h4>
+        <table class="table">
+            <thead>
+                <th>Type de billet</th>
+                <th>Prix</th>
+                <th>Vendu</th>
+                <th>Statut</th>
+                <th>Fin des ventes</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="c in commandes|orderBy:'-date':true">
+                    <td>{{c.numero}}</td>
+                    <td>{{c.acheteur}}</td>
+                    <td>{{c.quantite}}</td>
+                    <td>{{c.prix}}</td>
+                    <td>{{c.date}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div class="modal fade" id="invitationModal" tabindex="-1" role="dialog" aria-labelledby="Agent" aria-hidden="true">
+    <div class="modal-dialog" style="width: 35%;">
+        <form class="modal-content" ng-submit="enregistrerOM(no)">
+            <div class="modal-header" style="background: #EFF2F5">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center text-uppercase bold">{{titre}}</h4>
+            </div>
+            <div class="modal-body" style="background: #F8F8FA">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Titulaire <span class="requis">*</span></label>
+                            <input type="text" ng-model="no.titulaire" placeholder="Titulaire du numéro" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Numéro <span class="requis">*</span></label>
+                            <input type="text" ng-model="no.numero" placeholder="Numéro" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-main" type="submit">Enregistrer</button>
+                <button id="close" class="btn btn-main hide" data-dismiss="modal">Fermer</button>
+            </div>
+        </form><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

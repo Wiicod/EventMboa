@@ -1,0 +1,131 @@
+<section id="compte">
+    <h1 class="bold">Informations du compte</h1>
+    <div class="row">
+        <div class="col-lg-9">
+            <form ng-submit="modifierEmail(compte)">
+                <div class="form-group">
+                    <h3>Adresse e-mail du compte</h3>
+                    <p>{{compte.email}}</p>
+                    <button class="btn btn-main btn-reverse" ng-if="!modMail" ng-click="modMail=true">Modifier</button>
+                </div>
+
+                <div class="form-group" ng-if="modMail">
+                    <label>Nouvelle adresse e-mail</label>
+                    <input  type="email" ng-model="compte.email" placeholder="" class="form-control"/>
+                </div>
+
+                <div class="form-group" ng-if="modMail">
+                    <label>Votre mot de passe actuel</label>
+                    <input  type="password" ng-model="compte.password" value="********" placeholder="" class="form-control"/>
+                </div>
+            </form>
+            <form ng-submit="enregistrerCompte(compte)">
+                <div class="form-group">
+                    <h3>Photo de profil</h3>
+                    <div style="padding: 10px;">
+                        <i ng-if="no_image && compte.image==undefined" class="fa fa-user fa-4x" style="font-size: 8em;"></i>
+                        <img  src="{{compte.image}}" id="image" style="width: 30% !important;" alt=""/>
+                    </div>
+                    <p style="font-size: 15px">
+                        JPG, GIF ou PNG de moins de 1MO. Ce sont les images carrées qui rendent le mieux.
+                        {{compte.image}}
+                    </p>
+                    <input type="file" style="display: none"
+                           id="im" onchange="angular.element(this).scope().fileNameChanged(this)">
+                    <a class="btn btn-main btn-reverse bold" ng-click="click_im()">Choisir un fichier</a>
+                </div>
+
+                <div class="form-group">
+                    <h3>Coordonnées</h3>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Nom</label>
+                            <input type="text" ng-model="compte.nom" class="form-control"/>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Prénom</label>
+                            <input type="text" ng-model="compte.prenom" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Téléphone</label>
+                            <input type="text" ng-model="compte.home_phone" class="form-control"/>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Portable</label>
+                            <input type="text" ng-model="compte.cell_phone" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Site web</label>
+                    <input type="url" ng-model="compte.lien" class="form-control"/>
+                </div>
+
+                <div class="form-group">
+                    <h3>Domicile</h3>
+                    <label>adresse</label>
+                    <input type="url" ng-model="compte.adresse.adresse" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label>Ville</label>
+                    <input type="text" ng-model="compte.adresse.ville" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Pays</label>
+                            <select ng-model="compte.adresse.pays" class="form-control">
+                                <option value=""disabled>Pays</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Boîte postale</label>
+                            <input type="number" min="0" ng-model="compte.adresse.code_postal" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Autres informations</h3>
+                    <label>sexe</label>
+                    <select ng-model="compte.sexe" class="form-control">
+                        <option value=""disabled>Sexe</option>
+                        <option value="M">Homme</option>
+                        <option value="F">Femme</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Date de naissance</label>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <select ng-model="compte.date_naissance.jour" class="form-control">
+                                <option value=""disabled>Jour</option>
+                                <option ng-repeat="a in jours" value="{{a}}">{{a}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <select ng-model="compte.date_naissance.mois" class="form-control">
+                                <option value=""disabled>Mois</option>
+                                <option ng-repeat="a in mois" value="{{a.valeur}}">{{a.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <select ng-model="compte.date_naissance.annee" class="form-control">
+                                <option value=""disabled>Année</option>
+                                <option ng-repeat="a in annees" value="{{a}}">{{a}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-main">sauvegarder</button>
+            </form>
+        </div>
+    </div>
+</section>

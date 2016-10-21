@@ -1,0 +1,74 @@
+<section id="compte">
+    <h1 class="bold">Orange money
+        <a class="pull-right" ng-click="clearOM()"
+           data-toggle="modal" href="/#omModal" title="Ajouter un compte orange money">
+            <i class="fa fa-plus"></i>
+        </a>
+    </h1>
+    <div class="row-fluid" ng-if="om.length==0">
+        <p>Ici seront affichés les factures perçu par EventMboa sur tous vos événements à billets payant.</p>
+    </div>
+    <div class="row-fluid" ng-if="om.length>0">
+        <div class="col-lg-6 pull-right">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control form-input" ng-model="searchKey"
+                       placeholder="Recherche">
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <th>Titulaire</th>
+                <th>Numéro</th>
+                <th>
+                    <span class="pull-right">Actions
+                    </span>
+                </th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="o in om|orderBy:'-titulaire':true|filter:searchKey">
+                    <td>{{o.titulaire}}</td>
+                    <td>{{o.numero}}</td>
+                    <td>
+                        <div class="pull-right">
+                            <a href="/#omModal" data-toggle="modal" ng-click="choixOM(o)"><i class="fa fa-edit"></i></a>
+                            &nbsp;&nbsp;
+                            <a  ng-click="supprimer(o)"><i class="fa fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div class="modal fade" id="omModal" tabindex="-1" role="dialog" aria-labelledby="Agent" aria-hidden="true">
+    <div class="modal-dialog" style="width: 35%;">
+        <form class="modal-content" ng-submit="enregistrerOM(no)">
+            <div class="modal-header" style="background: #EFF2F5">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center text-uppercase bold">{{titre}}</h4>
+            </div>
+            <div class="modal-body" style="background: #F8F8FA">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Titulaire <span class="requis">*</span></label>
+                            <input type="text" ng-model="no.titulaire" placeholder="Titulaire du numéro" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Numéro <span class="requis">*</span></label>
+                            <input type="text" ng-model="no.numero" placeholder="Numéro" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-main" type="submit">Enregistrer</button>
+                <button id="close" class="btn btn-main hide" data-dismiss="modal">Fermer</button>
+            </div>
+        </form><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
