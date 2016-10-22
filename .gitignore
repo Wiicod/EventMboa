@@ -4,5 +4,6 @@
 /public/docs
 Homestead.yaml
 Homestead.json
+/public/vendor
 .env
 /.idea

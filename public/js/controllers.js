@@ -5,8 +5,40 @@ controller
     .controller('AppCtrl',['$scope',function($scope){
 
     }])
-    .controller('AuthCtrl',['$scope',function($scope){
+    .controller('AuthCtrl', ['$scope', '$auth', '$state', '$stateParams', function ($scope, $auth, $state, $stateParams) {
         $scope.message="";
+
+
+        $scope.signup = function () {
+            $auth.signup($scope.auth).then(function (response) {
+                // tu stocke xa dans le rootScope au cas ou !!!
+                console.log(response.data.user);
+                $auth.setToken(response.data.token);
+                console.info('Signup  successfully.');
+                $state.go('home');
+
+            }, function (error) {
+                console.error(error);
+            });
+        };
+
+        $scope.login = function () {
+            $auth.login($scope.auth).then(function (response) {
+                // tu stocke xa dans le rootScope au cas ou !!!
+                console.log(response.data.user);
+                var t = response.data.token;
+                $auth.setToken(t);
+                console.info('Logged in successfully.');
+                if ($stateParams.next) {
+                    $state.go($stateParams.next.name);
+                } else {
+                    $state.go('home');
+                }
+            }, function (error) {
+                console.error(error);
+            });
+        }
+
     }])
     .controller('CreateCtrl',['$scope','$filter',function($scope,$filter){
         $scope.message="";
@@ -71,7 +103,13 @@ controller
         });
         // fin image
     }])
-    .controller('HeaderCtrl',['$scope',function($scope){
+    .controller('HeaderCtrl', ['$scope', '$auth', '$state', function ($scope, $auth, $state) {
+
+        $scope.logout = function () {
+            $auth.logout();
+            $state.go('home');
+        };
+
         $scope.searchEvent=function(key){
             console.log(key);
             // à faire
@@ -93,13 +131,23 @@ controller
             hoverPack();
         });
     }])
-    .controller('EventCtrl',['$scope','$stateParams',function($scope,$stateParams){
+    .controller('EventCtrl', ['$scope', '$stateParams', 'Restangular', function ($scope, $stateParams, Restangular) {
         $scope.categories=categories;
         // filtre avc undescore pour chercher suivant la categorie et le titre
         $scope.event=events[0];
         //angular.forEach(categories,function(v,k){
         //
         //});
+
+        // example d utilisation de restangular c valable pour le post put delete regarde juste la doc
+        //tu pouvais aussi utilise la factorie customize Event k j ai cree
+        Restangular.all('event').getList().then(function (events) {
+            console.log(events);
+            $scope.events = events;
+        }, function (err) {
+            console.log(err);
+        });
+
 
         $scope.events=events;
     }])

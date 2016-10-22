@@ -1,8 +1,8 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
-  "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "name": "eventmboa",
+  "description": "plateforme web de billeterie",
+  "version": "1.0.0",
+  "homepage": "https://www.eventmboa.com",
   "license": "MIT",
   "private": true,
   "dependencies": {
@@ -12,6 +12,8 @@
     "angular-ui-router": "ui-router#~0.3.1",
     "textAngular": "~1.5.12",
     "ngmap": "~1.17.6",
-    "angular-qr": "latest"
+    "angular-qr": "latest",
+    "restangular": "^1.5.2",
+    "satellizer": "^0.15.5"
   }
 }
