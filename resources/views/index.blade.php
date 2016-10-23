@@ -83,6 +83,8 @@
 	<script src='vendor/textAngular/dist/textAngular-rangy.min.js'></script>
 	<script src='vendor/textAngular/dist/textAngular-sanitize.min.js'></script>
 	<script src='vendor/textAngular/dist/textAngular.min.js'></script>
+	<script src='vendor/restangular/dist/restangular.min.js'></script>
+	<script src='vendor/satellizer/dist/satellizer.min.js'></script>
 
 
 	<script src="js/app.js"></script>

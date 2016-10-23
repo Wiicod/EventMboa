@@ -2,7 +2,28 @@
  * Created by Thedward on 10/08/2016.
  */
 
-config.config(['$stateProvider','$urlRouterProvider',
+config
+
+    .config(['$authProvider', function ($authProvider) {
+        'ngInject';
+
+        $authProvider.httpInterceptor = function () {
+            return true;
+        }
+
+        $authProvider.loginUrl = '/api/signin';
+        $authProvider.signupUrl = '/api/signup';
+        $authProvider.tokenRoot = 'data';//compensates success response macro
+
+    }])
+
+    .config(['RestangularProvider', function (RestangularProvider) {
+        //set the base url for api calls on our RESTful services
+        var newBaseUrl = "/api";
+
+        RestangularProvider.setBaseUrl(newBaseUrl);
+    }])
+    .config(['$stateProvider', '$urlRouterProvider',
     //'NgAdminConfigurationProvider',
     function($stateProvider,$urlRouterProvider
              //,NgAdminConfigurationProvider

@@ -1,13 +1,16 @@
 /**
  * Created by Thedward on 10/08/2016.
  */
+//pas besion met juste les chemins en relatif
 var adresse="http://Ip_adreess/app_name/";
 
 
 /******************************************************************************************************************
  Sercives
  *****************************************************************************************************************/
-service.factory('NameFactory', ['$http','$filter','$q','$rootScope',
+service
+
+    .factory('NameFactory', ['$http', '$filter', '$q', '$rootScope',
     function ($http,$filter,$q,$rootScope) {
 
         var factory = {
@@ -44,3 +47,17 @@ service.factory('NameFactory', ['$http','$filter','$q','$rootScope',
         return factory
 
     }])
+
+    //juste si necessaire (par exemple pour faire un certains traitement avant de retourner au contronlleur ou autre
+    // methode )
+    // sinon u pas besion de declare les factories
+    .factory("Events",
+        ["Restangular", function (Restangular) {
+            var service = Restangular.service("event");
+            // I can add custom methods to my Students service
+            // by adding functions here service
+            service.autremethode = function (event) {
+                //validate student data
+            };
+            return service;
+        }]);

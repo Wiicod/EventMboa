@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Requests\UserRequest;
 use App\User;
 use Carbon\Carbon;
 use HttpResponse;
@@ -38,10 +39,10 @@ class AuthenticateController extends Controller
         }
 
         // if no errors are encountered we can return a JWT
-        return response()->json(compact('token'));
+        return response()->json(compact('token', 'user'));
     }
 
-    public function getAuthenticatedUser()
+    public function get_authenticated_user()
     {
         try {
 
@@ -96,9 +97,10 @@ class AuthenticateController extends Controller
         return Response::json(compact('refreshToken'), 200);
     }
 
-    public function signup()
+    public function signup(UserRequest $request)
     {
         $credentials = Input::only('email', 'password');
+        $credentials['password'] = bcrypt($credentials['password']);
 
         try {
             $user = User::create($credentials);
@@ -112,6 +114,6 @@ class AuthenticateController extends Controller
         Log::info(Carbon::now() . 'the user' . $user->email . ' is loged ');
 
 
-        return Response::json(compact('token'));
+        return Response::json(compact('token', 'user'));
     }
 }

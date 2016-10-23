@@ -41,9 +41,10 @@ Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
 });
 
 
-Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
+Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function () {
 
     Route::post('/refresh_token', 'AuthenticateController@signin');
+    Route::get('authenticated-user', 'AuthenticateController@get_authenticated_user');
 
     Route::resource('contact', 'ContactController');
     Route::resource('country', 'CountryController');
@@ -62,7 +63,6 @@ Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
     Route::resource('town', 'TownController');
     Route::resource('type_payment', 'TypePaymentController');
     Route::resource('user', 'UserController');
-    /*Route::post('refresh','AuthenticateController@refreshToken' 'jwt.auth');
-    Route::get('user-token','AuthenticateController@getAuthenticatedUser');*/
+
 
 });

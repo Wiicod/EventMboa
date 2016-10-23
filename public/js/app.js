@@ -13,6 +13,8 @@ angular.module('mboa', [
   'ui.router',
   'satellizer',
   //'mp.datePicker',
+  'satellizer',
+  'restangular',
   'textAngular',
   'ngFileUpload',
   'angularUtils.directives.dirPagination',
@@ -21,15 +23,21 @@ angular.module('mboa', [
   'mboa.config',
   'mboa.directives',
   'mboa.filter'
-]).
-    run(['$log','$state','$rootScope','$location',
-      function($log,$state,$rootScope,$location){
+]).run(['$log', '$state', '$rootScope', '$location', 'Restangular',
+  function ($log, $state, $rootScope, $location, Restangular) {
         $log.debug("startApp running ");
 
+    Restangular.all('contact').getList().then(function (data) {
+      console.log(data);
+
+    });
         //$rootScope.$on('$stateChangeStart',function(event,toState,toParams,fromState){
         //  console.log("");
         //})
 
 
+
       }])
+
+
 ;

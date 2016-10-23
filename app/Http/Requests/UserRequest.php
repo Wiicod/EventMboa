@@ -31,7 +31,7 @@ class UserRequest extends Request
             {
                 return [
                     'password' => 'required|max:255',
-                    'email' => 'required|email|unique:contacts|max:255',
+                    'email' => 'required|email|unique:users|max:255',
                 ];
             }
             case 'DELETE':
@@ -42,14 +42,14 @@ class UserRequest extends Request
             {
                 return [
                     'password'=>'required|max:255',
-                    'email'=>'required|email|unique:contacts|max:255',
+                    'email' => 'required|email|unique:users|max:255',
                 ];
             }
             case 'PUT':
             {
                 return [
                     'password'=>'max:255',
-                    'email'=>'email|unique:contacts|max:255',
+                    'email' => 'email|unique:users|max:255',
                 ];
             }
             case 'PATCH':
