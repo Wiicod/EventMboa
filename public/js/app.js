@@ -11,6 +11,7 @@ var filter =angular.module('mboa.filter', ['ui.router']);
 // Declare app level module which depends on views, and components
 angular.module('mboa', [
   'ui.router',
+  'satellizer',
   //'mp.datePicker',
   'textAngular',
   'ngFileUpload',
