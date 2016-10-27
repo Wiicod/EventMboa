@@ -29,21 +29,22 @@ class EventRequest extends Request
         {
             case 'GET':
             {
-                return [];
-            }
-            case 'DELETE':
-            {
                 return [
                     'creator' => 'required|integer|exists:events,id',
                     'event_topic_id' => 'required|integer|exists:event_topics,id',
                     'event_type_id' => 'required|integer|exists:event_types,id',
                     'organizer_id' => 'integer|exists:organizers,id',
+                    'town_id' => 'integer|exists:towns,id',
                     'name' => 'required|max:255',
                     'recurring' => 'required|max:255',
                     'banner_picture' => 'required|image',
                     'description' => 'required',
                     'start_date' => 'required|date|date_format:"Y-m-d H:i:s"',
                     'end_date' => 'required|date|date_format:"Y-m-d H:i:s"'
+                ];
+            }
+            case 'DELETE': {
+                return [
 
                 ];
             }
@@ -54,6 +55,7 @@ class EventRequest extends Request
                     'event_topic_id'=>'required|integer|exists:event_topics,id',
                     'event_type_id'=>'required|integer|exists:event_types,id',
                     'organizer_id'=>'integer|exists:organizers,id',
+                    'town_id' => 'integer|exists:towns,id',
                     'name'=>'required|max:255',
                     'recurring'=>'required|max:255',
                     'banner_picture'=>'required|image',
@@ -70,6 +72,7 @@ class EventRequest extends Request
                     'event_topic_id'=>'integer|exists:event_topics,id',
                     'event_type_id'=>'integer|exists:event_types,id',
                     'organizer_id'=>'integer|exists:organizers,id',
+                    'town_id' => 'integer|exists:towns,id',
                     'name'=>'max:255',
                     'recurring'=>'max:255',
                     'banner_picture'=>'image',

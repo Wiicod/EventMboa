@@ -64,6 +64,8 @@ class AuthenticateController extends Controller
 
         }
 
+        $user = User::with($user->getForeign())->find($user->id);
+
         return response()->json(compact('user'));
     }
 

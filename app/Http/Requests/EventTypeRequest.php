@@ -31,7 +31,8 @@ class EventTypeRequest extends Request
             {
                 return [
                     'name' => 'required|max:255',
-                    'description' => 'required'
+                    'description' => 'required',
+                    'image' => 'image',
                 ];
             }
             case 'DELETE':
@@ -42,14 +43,16 @@ class EventTypeRequest extends Request
             {
                 return [
                     'name'=>'required|max:255',
-                    'description'=>'required'
+                    'description' => 'required',
+                    'image' => 'image',
                 ];
             }
             case 'PUT':
             {
                 return [
                     'name'=>'max:255',
-                    'description'=>''
+                    'description' => '',
+                    'image' => 'image',
                 ];
             }
             case 'PATCH':

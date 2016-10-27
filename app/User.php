@@ -24,7 +24,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    private $foreign = [];
+    private $foreign = ['person'];
     private $files = [];
 
     /**

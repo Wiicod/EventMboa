@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class EventType extends Model
 {
     //
-    protected $fillable =['id','name','description'];
+    protected $fillable = ['id', 'name', 'description', 'image'];
 
     private $foreign = [];
 
-    private $files = [];
+    private $files = ['image'];
 
     /**
      * @return array

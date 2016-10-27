@@ -84,9 +84,11 @@ $factory->define(EventTopic::class, function (Faker\Generator $faker) {
 
 $factory->define(EventType::class, function (Faker\Generator $faker) {
 
+    $image = FactoryHelper::fakeFile($faker, 'event_type');
     return [
         'name' => $faker->name,
         'description' => $faker->text,
+        'image' => $image
     ];
 
 });
@@ -98,6 +100,7 @@ $factory->define(Event::class, function (Faker\Generator $faker) {
     $organizer = FactoryHelper::getOrCreate(Organizer::class);
     $event_topic = FactoryHelper::getOrCreate(EventTopic::class);
     $event_type = FactoryHelper::getOrCreate(EventType::class);
+    $town = FactoryHelper::getOrCreate(Town::class);
 
     return [
         'creator' => $user->id,
@@ -111,6 +114,7 @@ $factory->define(Event::class, function (Faker\Generator $faker) {
         'recurring' => $faker->name,
         'banner_picture' => $banner,
         'status' => rand(0, count(Event::$Status)),
+        'town_id' => $town->id,
     ];
 
 });
