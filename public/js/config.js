@@ -26,17 +26,8 @@ config
     .config(['$stateProvider', '$urlRouterProvider',
     //'NgAdminConfigurationProvider',
     function($stateProvider,$urlRouterProvider
-             //,NgAdminConfigurationProvider
     ){
     $urlRouterProvider.otherwise( '/home');
-
-    //var nga = NgAdminConfigurationProvider;
-    //// create an admin application
-    //var admin = nga.application('EventMboa');
-    //// more configuation here later
-    //// ...
-    //// attach the admin application to the DOM and run it
-    //nga.configure(admin);
 
     $stateProvider
         .state('home',{
@@ -45,11 +36,11 @@ config
             loginRequired:false,
             views:{
                 '':{
-                    templateUrl: template_url+'index.html'
+                    templateUrl: template_url+'index.html',
+                    controller:"HeaderCtrl"
                 },
                 'header@home': {
-                    templateUrl: template_url+'static/header.html',
-                    controller:"HeaderCtrl"
+                    templateUrl: template_url+'static/header.html'
                 },
                 'body@home': {
                     templateUrl: template_url+'home/content.html',
@@ -62,7 +53,7 @@ config
             }
         })
         .state('events',{
-            url:"/evenements/:target/:id?",
+            url:"/evenements/:id/:target?",
             title: "Evénements",
             loginRequired:false,
             views:{
@@ -71,7 +62,7 @@ config
                     controller:"EventCtrl"
                 },
                 'header@events': {
-                    templateUrl: template_url+'event/header-events.html',
+                    templateUrl: template_url+'static/header.html',
                     controller:"HeaderCtrl"
                 },
                 'detail@events': {
@@ -90,10 +81,10 @@ config
             views:{
                 '':{
                     templateUrl: template_url+'index.html',
-                    controller:"EventCtrl"
+                    controller:"DetailEventCtrl"
                 },
                 'header@details': {
-                    templateUrl: template_url+'event/header-events.html',
+                    templateUrl: template_url+'static/header.html',
                     controller:"HeaderCtrl"
                 },
                 'body@details': {
@@ -466,4 +457,5 @@ config
                 }
             }
         });
-}]);
+}])
+;

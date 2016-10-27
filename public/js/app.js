@@ -11,8 +11,8 @@ var filter =angular.module('mboa.filter', ['ui.router']);
 // Declare app level module which depends on views, and components
 angular.module('mboa', [
   'ui.router',
-  //'mp.datePicker',
   'satellizer',
+  //'mp.datePicker',
   'restangular',
   'textAngular',
   'ngFileUpload',
@@ -49,10 +49,10 @@ angular.module('mboa', [
 
     });
 
-    Restangular.all('contact').getList().then(function (data) {
-      console.log(data);
-
-    });
+    //Restangular.all('contact').getList().then(function (data) {
+    //  console.log(data);
+    //
+    //});
         //$rootScope.$on('$stateChangeStart',function(event,toState,toParams,fromState){
         //  console.log("");
         //})

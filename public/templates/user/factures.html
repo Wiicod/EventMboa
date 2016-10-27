@@ -1,7 +1,7 @@
 <section id="compte">
-    <h1 class="bold">Factures <a class="pull-right" data-toggle="modal" href="/#factureModal"><i class="fa fa-info"></i></a></h1>
+    <h1 class="bold"><ff translate >Factures</ff> <a class="pull-right" data-toggle="modal" href="/#factureModal"><i class="fa fa-info"></i></a></h1>
     <div class="row-fluid" ng-if="events.length==0">
-        <p>Ici seront affichés les factures perçu par EventMboa sur tous vos événements à billets payant.</p>
+        <p translate >Ici seront affichés les factures perçu par EventMboa sur tous vos événements à billets payant.</p>
     </div>
     <div class="row-fluid" ng-if="events.length>0">
         <div class="col-lg-6 pull-right">
@@ -13,9 +13,9 @@
         </div>
         <table class="table">
             <thead>
-                <th>Evénement</th>
-                <th>Montant</th>
-                <th>Statut</th>
+                <th translate >Evénement</th>
+                <th translate >Montant</th>
+                <th translate >Statut</th>
             </thead>
             <tbody>
                 <tr ng-repeat="e in events|orderBy:'-date_fin':true|filter:searchKey">
@@ -25,9 +25,9 @@
                 </tr>
                 <!-- A retirer quand il y'aura les données-->
                 <tr>
-                    <td>Titre événement</td>
-                    <td>4500 Fcfa</td>
-                    <td>Payé</td>
+                    <td translate >Titre événement</td>
+                    <td translate >4500 Fcfa</td>
+                    <td translate >Payé</td>
                 </tr>
             </tbody>
         </table>
@@ -43,35 +43,35 @@
             </div>
             <div class="modal-body" style="background: #F8F8FA">
 
-                <h2 class="text-body-large text-body--significant l-pad-bot-1">Je croyais que c&#39;était le participant/l&#39;acheteur du billet qui payait les frais. Pourquoi ai-je reçu cette facture ?</h2>
+                <h2 class="text-body-large text-body--significant l-pad-bot-1" translate>Je croyais que c&#39;était le participant/l&#39;acheteur du billet qui payait les frais. Pourquoi ai-je reçu cette facture ?</h2>
 
-                <p>Nous vous envoyons cette facture afin d&#39;encaisser les Frais de service EventMboa payés par vos participants sur les billets que vous avez vendus. Lorsque la solution de paiement d&#39;une tierce partie (comme PayPal, Google Checkout, ou Authorize.net) ou une méthode de paiement hors ligne est utilisée, vous recevez tous les paiements directement sur votre compte. Ceux-ci incluent les Frais de service EventMboa payés par vos participants (que ces frais soient répercutés sur les participants, ou qu&#39;ils soient inclus dans le prix du billet). <a href='https://www.eventmboa.fr/support/articleredirect?anum=4213'>En apprendre davantage sur le système de facturation d&#39;EventMboa</a></p>
+                <p translate >Nous vous envoyons cette facture afin d&#39;encaisser les Frais de service EventMboa payés par vos participants sur les billets que vous avez vendus. Lorsque la solution de paiement d&#39;une tierce partie (comme PayPal, Google Checkout, ou Authorize.net) ou une méthode de paiement hors ligne est utilisée, vous recevez tous les paiements directement sur votre compte. Ceux-ci incluent les Frais de service EventMboa payés par vos participants (que ces frais soient répercutés sur les participants, ou qu&#39;ils soient inclus dans le prix du billet). <a href='https://www.eventmboa.fr/support/articleredirect?anum=4213'>En apprendre davantage sur le système de facturation d&#39;EventMboa</a></p>
 
                 <h2 class="text-body-large text-body--significant l-pad-bot-1 l-mar-top-4">Quand mon paiement est-il dû ?</h2>
 
-                <p>Votre paiement est dû dans les 30 jours suivant la date de la facture. La date d'échéance de la facture est affichée à côté du bouton Payer maintenant lorsque vous consultez une facture dans la <a href='/invoices'>section factures de Mon compte.</a></p>
+                <p translate >Votre paiement est dû dans les 30 jours suivant la date de la facture. La date d'échéance de la facture est affichée à côté du bouton Payer maintenant lorsque vous consultez une facture dans la <a href='/invoices'>section factures de Mon compte.</a></p>
 
-                <h2 class="text-body-large text-body--significant l-pad-bot-1 l-mar-top-4">Que signifient les termes utilisés dans la section Factures de mon compte ?</h2>
+                <h2 class="text-body-large text-body--significant l-pad-bot-1 l-mar-top-4" translate >Que signifient les termes utilisés dans la section Factures de mon compte ?</h2>
                 <div class="prose"><ul>
-                    <li>Les Ventes de billets représentent le montant total des ventes traitées par EventMboa pour une facture donnée ou un événement donné. Ce chiffre n&#39;inclut pas les Frais EventMboa.</li>
-                    <li>Les Frais EventMboa sont les frais minimes que nous facturons sur chaque billet que vous vendez. Vous consulter notre grille tarifaire <a href='/fees'>ici</a>.</li>
-                    <li>La Période de facturation est la période concernée par votre facture. EventMboa envoie au début de chaque mois une facture pour les frais encaissés au cours du mois précédent.</li>
-                    <li >Le Prix est le montant que vous recevez pour chaque billet, en tant qu&#39;organisateur de l&#39;événement. Cela n&#39;inclut pas les Frais EventMboa.</li>
-                    <li>Le Paiement reçu renvoie au montant payé par le participant pour une commande. Ce chiffre tient compte du prix des billets, de la quantité de billets, des Frais EventMboa et des Taxes (le cas échéant).</li>
-                    <li>Les Taxes encaissées représentent le montant total des taxes encaissées pour l&#39;ensemble des commandes d&#39;un événement.</li>
-                    <li>Les taxes correspondent au montant des taxes facturées sur une commande donnée. Cette colonne n'apparaît que si l'encaissement de taxes est activé pour l'événement, dans votre compte. Pour en savoir plus sur la facturation des taxes, cliquez <a href='https://www.eventmboa.fr/support/articleredirect?anum=3573'>ici</a>.</li>
+                    <li translate >Les Ventes de billets représentent le montant total des ventes traitées par EventMboa pour une facture donnée ou un événement donné. Ce chiffre n&#39;inclut pas les Frais EventMboa.</li>
+                    <li translate >Les Frais EventMboa sont les frais minimes que nous facturons sur chaque billet que vous vendez. Vous consulter notre grille tarifaire <a href='/fees'>ici</a>.</li>
+                    <li translate >La Période de facturation est la période concernée par votre facture. EventMboa envoie au début de chaque mois une facture pour les frais encaissés au cours du mois précédent.</li>
+                    <li translate >Le Prix est le montant que vous recevez pour chaque billet, en tant qu&#39;organisateur de l&#39;événement. Cela n&#39;inclut pas les Frais EventMboa.</li>
+                    <li translate >Le Paiement reçu renvoie au montant payé par le participant pour une commande. Ce chiffre tient compte du prix des billets, de la quantité de billets, des Frais EventMboa et des Taxes (le cas échéant).</li>
+                    <li translate >Les Taxes encaissées représentent le montant total des taxes encaissées pour l&#39;ensemble des commandes d&#39;un événement.</li>
+                    <li translate >Les taxes correspondent au montant des taxes facturées sur une commande donnée. Cette colonne n'apparaît que si l'encaissement de taxes est activé pour l'événement, dans votre compte. Pour en savoir plus sur la facturation des taxes, cliquez <a href='https://www.eventmboa.fr/support/articleredirect?anum=3573'>ici</a>.</li>
                 </ul></div>
 
-                <h2 class="text-body-large text-body--significant l-pad-bot-1 l-mar-top-4">Comment puis-je afficher les frais détaillés de toutes mes factures ?</h2>
-                <p>Cliquez sur le numéro de facture afin d&#39;afficher la facture détaillée pour votre événement.</p>
+                <h2 class="text-body-large text-body--significant l-pad-bot-1 l-mar-top-4" translate >Comment puis-je afficher les frais détaillés de toutes mes factures ?</h2>
+                <p translate >Cliquez sur le numéro de facture afin d&#39;afficher la facture détaillée pour votre événement.</p>
 
-                <h2 class="text-body-large text-body--significant l-pad-bot-1 l-mar-top-4">Puis-je payer ma facture avec ma carte bancaire ou par virement bancaire ?</h2>
-                <p>Vous pouvez payer en ligne avec votre carte de crédit, carte de débit, ou votre compte PayPal.</p>
+                <h2 class="text-body-large text-body--significant l-pad-bot-1 l-mar-top-4" translate >Puis-je payer ma facture avec ma carte bancaire ou par virement bancaire ?</h2>
+                <p translate >Vous pouvez payer en ligne avec votre carte de crédit, carte de débit, ou votre compte PayPal.</p>
 
-                <h2 class="text-body-large text-body--significant l-pad-bot-1 l-mar-top-4">Si je ne souhaite pas payer cette facture en ligne, puis-je vous envoyer un chèque par courrier ?</h2>
-                <p>Si vous avez encaissé les paiements pour votre événement en dollars US, vous pouvez payer par chèque. Pour les événements facturés dans d&#39;autres devises, vous devez payer en ligne.</p>
+                <h2 class="text-body-large text-body--significant l-pad-bot-1 l-mar-top-4" translate >Si je ne souhaite pas payer cette facture en ligne, puis-je vous envoyer un chèque par courrier ?</h2>
+                <p translate >Si vous avez encaissé les paiements pour votre événement en dollars US, vous pouvez payer par chèque. Pour les événements facturés dans d&#39;autres devises, vous devez payer en ligne.</p>
 
-                <p><strong>Pour les événements facturés en dollars US, établissez vos chèques à l&#39;ordre de « EventMboa » en indiquant le numéro de la facture et/ou votre adresse e-mail sur le chèque, et joignez la facture imprimée. Adressez-les à :</strong></p>
+                <p><strong translate >Pour les événements facturés en dollars US, établissez vos chèques à l&#39;ordre de « EventMboa » en indiquant le numéro de la facture et/ou votre adresse e-mail sur le chèque, et joignez la facture imprimée. Adressez-les à :</strong></p>
 
                 EventMboa, Inc<br />
                 P.O. Box 204845<br />
@@ -92,11 +92,11 @@
                 <p>En cas de remboursement d'une commande lorsque la facture a déjà été émise pour ce mois-là, des frais seront appliqués sur la facture suivante que nous émettrons. Si vous n'attendez pas d'autre facture, vous devrez contacter le <a href='/support/contact-us'>Service clientèle</a> pour obtenir de l'aide.</p>
 
 
-                <h2 class="text-body-large text-body--significant l-pad-bot-1 l-mar-top-4">À quelle fréquence est-ce que je recevrai une facture ?</h2>
-                <p>EventMboa envoie une facture au début de chaque mois, concernant les frais encaissés au cours du mois précédent. Il n&#39;y a pas de frais mensuels récurrents, de frais d&#39;installation, ou de frais cachés. Si vous ne devez aucun frais, vous ne recevrez pas de facture. <a href='/fees'>En apprendre davantage sur les frais d&#39;EventMboa</a></p>
+                <h2 class="text-body-large text-body--significant l-pad-bot-1 l-mar-top-4" translate >À quelle fréquence est-ce que je recevrai une facture ?</h2>
+                <p translate >EventMboa envoie une facture au début de chaque mois, concernant les frais encaissés au cours du mois précédent. Il n&#39;y a pas de frais mensuels récurrents, de frais d&#39;installation, ou de frais cachés. Si vous ne devez aucun frais, vous ne recevrez pas de facture. <a href='/fees'>En apprendre davantage sur les frais d&#39;EventMboa</a></p>
             </div>
             <div class="modal-footer">
-                <button id="close" class="btn btn-main" data-dismiss="modal">Fermer</button>
+                <button id="close" class="btn btn-main" data-dismiss="modal" translate >Fermer</button>
             </div>
         </form><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

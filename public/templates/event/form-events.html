@@ -2,22 +2,22 @@
     <div class="container">
         <div class="row no-padding">
             <div class="col-lg-6 col-sm-6">
-                <h1 class="title">Créer un événement</h1>
+                <h1 class="title" translate>Créer un événement</h1>
             </div>
             <div class="col-lg-6 col-sm-6" style="margin-top: 3%; text-align: right;">
-                <button class="btn btn-main btn-reverse">Sauvegarde</button>
-                <button class="btn btn-main btn-reverse">Apercu</button>
-                <button class="btn btn-main btn-green">Publier événement</button>
+                <button class="btn btn-main btn-reverse" translate>Sauvegarde</button>
+                <button class="btn btn-main btn-reverse" translate>Apercu</button>
+                <button class="btn btn-main btn-green" translate>Publier événement</button>
             </div>
         </div>
     </div>
 
     <div class="banner">
         <div class="container" style="padding-left: 0px">
-            <div class="choice active" ng-click="option='modifier'" ng-class="{'active':option=='modifier'}">
+            <div class="choice active" ng-click="option='modifier'" ng-class="{'active':option=='modifier'}" translate>
                 Modifier
             </div>
-            <div class="choice" ng-click="option='visualisation'" ng-class="{'active':option=='visualisation'}">
+            <div class="choice" ng-click="option='visualisation'" ng-class="{'active':option=='visualisation'}" translate>
                 Design
             </div>
         </div>
@@ -28,22 +28,22 @@
             <!--Premiere partie : description de l'événement-->
             <div class="row" style="margin-top: 25px; margin-left: 33px">
                 <div class="col-lg-10 col-sm-10 col-md-10 " style="border-bottom: 1px solid #e7e7e7; padding: 0">
-                    <h2><span class="number main">1</span>Description de l'événement</h2>
+                    <h2><span class="number main">1</span><ff translate >Description de l'événement</ff></h2>
                 </div>
                 <div class="clear-fix"></div>
 
                 <div class="col-lg-9 col-sm-9" style="margin-top: 20px">
                     <div class="form-group">
-                        <label for="nom">Nom de l'événement <span class="requis">*</span></label>
+                        <label for="nom"><ff translate >Non de l'événement</ff> <span class="requis">*</span></label>
                         <input type="text" id="nom" ng-model="e.titre" placeholder="Donnez un titre court et distinctif" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="adresse">Adresse </label>
                         <input type="text" id="adresse" ng-model="e.adresse.lieu" placeholder="Précisez où il est organisé" class="form-control"/>
                         <div>
-                            <a ng-click="lieu='ligne'"><i class="fa fa-globe"></i> Evenement en ligne</a>
+                            <a ng-click="lieu='ligne'"><i class="fa fa-globe"></i><ff translate >Evenement en ligne</ff> </a>
                             &nbsp;
-                            <a ng-click="lieu='adresse'"><i class="fa fa-globe"></i> Veuillez saisir l'adresse</a>
+                            <a ng-click="lieu='adresse'"><i class="fa fa-globe"></i><ff translate >Veuillez saisir l'adresse</ff> </a>
                         </div>
 
                         <div class="row" style="margin-top: 10px" ng-if="lieu=='adresse'">
@@ -64,9 +64,9 @@
                                     <select ng-model="e.adresse.pays" class="form-control"
                                             ng-options="p.id as p.nom for p in pays"
                                             >
-                                        <option value="" disabled>Sélectionnez votre pays</option>
+                                        <option value="" disabled><ff translate >Sélectionnez votre pays</ff></option>
                                     </select>
-                                    <a href=""><i class="fa fa-reload"></i> Redéfinissez le lieu</a>
+                                    <a href=""><i class="fa fa-reload"></i> <ff translate >Redéfinissez le lieu</ff></a>
                                 </div>
 
                             </div>
@@ -79,7 +79,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-6 col-sm-6">
-                                <label>Début</label>
+                                <label translate>Début</label>
                                 <div class="row">
                                     <div class="col-lg-6 col-sm-6">
                                         <input type="text" class="form-control" placeholder="20/09/2015"/>
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6">
-                                <label>Se termine</label>
+                                <label translate>Se termine</label>
                                 <div class="row">
                                     <div class="col-lg-6 col-sm-6">
                                         <input type="text" class="form-control" placeholder="20/09/2015"/>
@@ -104,7 +104,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nom">Image de l'événement</label>
+                        <label for="nom" translate>Image de l'événement</label>
                         <div class="row">
                             <div class="col-lg-9">
                                 <div class="drop-box center" id="image_boutique">
@@ -112,8 +112,8 @@
                                         <div class="col-lg-6">
                                             <i class="fa fa-camera"></i>
                                             <br/>
-                                            <div class="text-uppercase">Ajouter une image de l'événement</div>
-                                            <p class="small-text">
+                                            <div class="text-uppercase" translate>Ajouter une image de l'événement</div>
+                                            <p class="small-text" translate>
                                                 Choississez une belle image que représentera votre événement
                                             </p>
                                         </div>
@@ -126,31 +126,31 @@
                                 <input type="file" name="icone_boutique" id="id_icone_boutique"  class="hide">
                             </div>
                             <div class="col-lg-3">
-                                <p class="small-text">Nous recommandons d'utiliser une image d'au moins 2160 x 1080 px (ratio 2:1) ne dépassant pas 10 Mo</p>
+                                <p class="small-text" translate>Nous recommandons d'utiliser une image d'au moins 2160 x 1080 px (ratio 2:1) ne dépassant pas 10 Mo</p>
                             </div>
                         </div>
 
                     </div>
 
                     <div class="form-group">
-                        <label for="nom">Description de l'événement</label>
+                        <label for="nom" translate>Description de l'événement</label>
                         <text-angular ng-model="e.description"></text-angular>
 
                     </div>
 
                     <div class="form-group">
-                        <label for="nom">Nom de l'organisateur</label>
+                        <label for="nom" translate>Nom de l'organisateur</label>
                         <br/>
                         <div>
-                            <a ng-click="user='edit'">Modifier l'organisateur</a> |
-                            <a ng-click="user='new'">Nouvel organisateur</a>
+                            <a ng-click="user='edit'" translate>Modifier l'organisateur</a> |
+                            <a ng-click="user='new'" translate>Nouvel organisateur</a>
                         </div>
                         <div ng-if="e.organisateur.nom!=undefined || user!='new'&& user!='edit'">
                             <select class="form-control"
                                     style="height: 35.1px"
                                     ng-model="e.organisateur.nom"
                                     ng-options="o.id as o.nom for o in organisateurs">
-                                <option value="">Organisateur</option>
+                                <option value="" translate>Organisateur</option>
                             </select>
                         </div>
                         <div ng-if="user=='new'||user=='edit'">
@@ -159,7 +159,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nom">Description de l'organisateur</label>
+                        <label for="nom" translate>Description de l'organisateur</label>
                         <div class="row-fluid"
                              ng-if="e.organisateur.nom!=undefined || user!='new'&& user!='edit'"
                                 >
@@ -197,32 +197,32 @@
             <!-- Deuxieme partie : Billets -->
             <div class="row" style="margin-top: 25px; margin-left: 33px">
                 <div class="col-lg-10 col-sm-10 col-md-10 " style="border-bottom: 1px solid #e7e7e7; padding: 0">
-                    <h2><span class="number main">2</span>Créez des billets</h2>
+                    <h2><span class="number main">2</span> <ff translate >Créez des billets</ff></h2>
                 </div>
                 <div class="clear-fix"></div>
 
                 <div class="col-lg-9 col-sm-9" style="margin-top: 20px">
                     <div class="form-group text-center">
                         <div ng-if="type!='Gratuit'&& type!='Payant'">
-                            <div style="margin-bottom: 15px">Avec quel type de billet souhaitez-vous commencer ?</div>
+                            <div style="margin-bottom: 15px" translate>Avec quel type de billet souhaitez-vous commencer ?</div>
                             <div class="btn-group">
                                 <button class="btn btn-main btn-reverse"
                                         ng-click="ajouter('Gratuit')">
-                                    <i class="fa fa-plus-circle"></i> Billet gratuit
+                                    <i class="fa fa-plus-circle"></i><ff translate >Billet gratuit</ff>
                                 </button>
                                 <button class="btn btn-main btn-reverse"
                                         ng-click="ajouter('Payant')">
-                                    <i class="fa fa-plus-circle"></i> Billet payant
+                                    <i class="fa fa-plus-circle"></i> <ff translate >Billet payant</ff>
                                 </button>
                             </div>
                         </div>
                         <div class="row" ng-if="type=='Gratuit'||type=='Payant'">
                             <table class="table">
                                 <thead>
-                                    <th class="col-lg-5 col-sm-5 com-md-5">Nom du billet <span class="requis">*</span></th>
-                                    <th class="col-lg-2 col-sm-2 com-md-2">Qté disponible <span class="requis">*</span></th>
-                                    <th class="col-lg-3 col-sm-3 com-md-3">Prix</th>
-                                    <th class="col-lg-2 col-sm-2 com-md-2">Actions</th>
+                                    <th class="col-lg-5 col-sm-5 com-md-5"><ff translate >Nom du billet </ff><span class="requis">*</span></th>
+                                    <th class="col-lg-2 col-sm-2 com-md-2"><ff translate >Qté disponible</ff> <span class="requis">*</span></th>
+                                    <th class="col-lg-3 col-sm-3 com-md-3"><ff translate >Prix</ff></th>
+                                    <th class="col-lg-2 col-sm-2 com-md-2"><ff translate >Actions</ff></th>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="b in billets">
@@ -248,28 +248,28 @@
                             <div class="btn-group">
                                 <button class="btn btn-main btn-reverse"
                                         ng-click="ajouter('Gratuit')">
-                                    <i class="fa fa-plus-circle"></i> Billet gratuit</button>
+                                    <i class="fa fa-plus-circle"></i> <ff translate >Billet gratuit</ff></button>
                                 <button class="btn btn-main btn-reverse"
                                         ng-click="ajouter('Payant')">
-                                    <i class="fa fa-plus-circle"></i> Billet payant</button>
+                                    <i class="fa fa-plus-circle"></i> <ff translate >Billet payant</ff></button>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group" ng-if="type=='Payant'">
-                        <label>Mode de paiement<span class="requis">*</span></label>
+                        <label><ff translate >Mode de paiement</ff><span class="requis">*</span></label>
                         <div class="row check">
                             <div class="col-lg-6">
                                 <div class="checkbox">
                                     <label for="orange">
-                                        <input type="checkbox" ng-model="e.paiement.orange" id="orange"> Orange Money
+                                        <input type="checkbox" ng-model="e.paiement.orange" id="orange"><ff translate >Orange Money</ff>
                                     </label>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="checkbox">
                                     <label for="paypal">
-                                        <input type="checkbox" ng-model="e.paiement.paypal" id="paypal"> PayPal
+                                        <input type="checkbox" ng-model="e.paiement.paypal" id="paypal"><ff translate >PayPal</ff>
                                     </label>
                                 </div>
                             </div>
@@ -282,46 +282,46 @@
             <!-- Troisième partie : Infos supplémentaires -->
             <div class="row" style="margin-top: 25px; margin-left: 33px">
                 <div class="col-lg-10 col-sm-10 col-md-10 " style="border-bottom: 1px solid #e7e7e7; padding: 0">
-                    <h2><span class="number main">3</span>Paramètres supplémentaires</h2>
+                    <h2><span class="number main">3</span><ff translate >Paramètres supplémentaires</ff></h2>
                 </div>
                 <div class="clear-fix"></div>
 
                 <div class="col-lg-9 col-sm-9" style="margin-top: 20px">
 
                     <div class="form-group">
-                        <label>Confidentialité</label>
+                        <label translate>Confidentialité</label>
                         <div class="row-fluid check">
                             <div class="checkbox">
                                 <label for="public">
-                                    <input type="radio" checked value="Public" ng-model="e.confidentialite" id="public"> Evénement public
+                                    <input type="radio" checked value="Public" ng-model="e.confidentialite" id="public"> <ff translate >Evénement public</ff>
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label for="privee">
-                                    <input type="radio" value="Privée" ng-model="e.confidentialite" id="privee"> Evénement privé
+                                    <input type="radio" value="Privée" ng-model="e.confidentialite" id="privee"> <ff translate >Evénement privé</ff>
                                 </label>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group" ng-if="e.confidentialite=='Public'">
-                        <label>Type d'événement</label>
+                        <label translate>Type d'événement</label>
                         <select ng-model="e.type" class="form-control"
                                 ng-options="t.id as t.nom for t in types">
-                            <option value="" disabled>Selectionnez le type d'événement</option>
+                            <option value="" disabled translate>Selectionnez le type d'événement</option>
                         </select>
                     </div>
 
                     <div class="form-group" ng-if="e.confidentialite=='Public'">
-                        <label>thème de l'événement</label>
+                        <label translate>thème de l'événement</label>
                         <select ng-model="e.type" class="form-control"
                                 ng-options="t.id as t.nom for t in themes">
-                            <option value="" disabled>Selectionnez le thème de l'événement</option>
+                            <option value="" disabled translate>Selectionnez le thème de l'événement</option>
                         </select>
                     </div>
 
                     <div class="form-group" ng-if="e.confidentialite=='Privée'">
-                        <label>Mails des participants</label>
+                        <label translate>Mails des participants</label>
                         <textarea ng-model="e.liste_participant" class="form-control"
                                   placeholder="Veuillez séparer les adresses par des ';'"></textarea>
                     </div>
@@ -331,7 +331,7 @@
                         <div class="checkbox check">
                             <label for="billet">
                                 <input type="checkbox" ng-model="e.billet_restant" id="billet">
-                                Afficher le nombre de billets restants sur la page de l'événement
+                                <ff translate >Afficher le nombre de billets restants sur la page de l'événement</ff>
                             </label>
                         </div>
                     </div>
@@ -342,9 +342,9 @@
 
         <!--<hr/>-->
         <div class="text-center end">
-            <h1>Beau travail ! Vous y êtes presque.</h1>
-            <button class="btn btn-main btn-reverse">Sauvegardé l'événement</button>
-            <button class="btn btn-main btn-green">Publier</button>
+            <h1 translate>Beau travail ! Vous y êtes presque.</h1>
+            <button class="btn btn-main btn-reverse" translate>Sauvegardé l'événement</button>
+            <button class="btn btn-main btn-green" translate>Publier</button>
         </div>
     </form>
 
@@ -356,9 +356,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="intro-message">
-                            <h4 class="date-titre">Le {{e.date_debut}} à {{e.adresse.ville}}</h4>
+                            <h4 class="date-titre"><ff translate >Le</ff> {{e.date_debut}} à {{e.adresse.ville}}</h4>
                             <h1>{{e.titre}}</h1>
-                            <h4>Par :{{e.organisateur.nom}} </h4>
+                            <h4><ff translate >Par</ff> :{{e.organisateur.nom}} </h4>
                         </div>
                     </div>
 
@@ -376,8 +376,8 @@
                                 <a href="#" title="Partager"><i class="fa fa-share-alt fa-2x"></i></a>
                             </div>
                             <div class="col-lg-6" style="text-align: right">
-                                <div class="btn-white">Gratuit</div>
-                                <button class="btn btn-main btn-green" data-toggle="modal" href="/#inscriptionModal">S'inscrire</button>
+                                <div class="btn-white" translate>Gratuit</div>
+                                <button class="btn btn-main btn-green" data-toggle="modal" href="/#inscriptionModal" translate>S'inscrire</button>
                             </div>
                         </div>
                     </div>
@@ -390,13 +390,13 @@
                 <div class="row-fluid">
                     <div class="col-lg-9">
                         <dl>
-                            <dt>DESCRIPTION</dt>
+                            <dt translate>DESCRIPTION</dt>
                             <dd>
                                 <p>{{e.description}}</p>
                             </dd>
                         </dl>
                         <dl>
-                            <dt>TAGS</dt>
+                            <dt translate>TAGS</dt>
                             <dd>
                                 <section>
                             <span>
@@ -412,12 +412,12 @@
 
                     <div class="col-lg-3">
                         <dl>
-                            <dt>DATE ET HEURE</dt>
+                            <dt translate>DATE ET HEURE</dt>
                             <dd>{{e.date_debut}}-{{e.date_fin}}</dd>
                         </dl>
 
                         <dl>
-                            <dt>ADRESSE</dt>
+                            <dt translate>ADRESSE</dt>
                             <dd>{{e.adresse.boite_postale}} {{e.adresse.adresse}}</dd>
                             <dd>{{e.adresse.rue}}</dd>
                             <dd>{{e.adresse.ville}}</dd>
@@ -435,7 +435,7 @@
                         <div class="text-center">
                             <div class="divider"></div>
                             <h3 class="bold">{{e.organisateur.nom}}</h3>
-                            <div>Organisateur de {{e.titre}}</div>
+                            <div><ff translate >Organisateur de</ff> {{e.titre}}</div>
                             <div class="image">
                                 <img src="{{e.organisateur.image}}" alt="" title="{{e.organisateur.image}}"/>
                             </div>
@@ -444,7 +444,7 @@
                             </p>
                             <p class="option">
                                 <a><i class="fa fa-navicon"></i> Profil</a>
-                                <a href="mailto:{{e.organisateur.email}}"><i class="fa fa-envelope-o"></i> Contactez</a>
+                                <a href="mailto:{{e.organisateur.email}}"><i class="fa fa-envelope-o"></i><ff translate >Contactez</ff> </a>
                             </p>
                         </div>
                     </div>
@@ -478,13 +478,13 @@
                     <div class="clearfix"></div>
                     <div class="col-lg-12 check">
                         <div class="form-group">
-                            <label>Description du billet</label>
+                            <label translate>Description du billet</label>
                             <textarea class="form-control" ng-model="billet_detail.description"
                                       placeholder="Donnez à vos participas plus de renseignements sur ce type de billet."></textarea>
                             <div class="row-fluid">
                                 <div class="checkbox">
                                     <label for="afficher">
-                                        <input type="checkbox" g-model="billet_detail.afficher" id="afficher"> Afficher la description du billet.
+                                        <input type="checkbox" g-model="billet_detail.afficher" id="afficher"> <ff translate >Afficher la description du billet.</ff>
                                     </label>
                                 </div>
                             </div>
@@ -493,14 +493,14 @@
                         <div class="form-group">
                             <label>Circuit de vente</label>
                             <select class="form-control">
-                                <option value="Partout">Partout</option>
-                                <option value="En ligne">En ligne uniquement</option>
-                                <option value="A l'entrée">A l'entrée uniquement</option>
+                                <option value="Partout" translate>Partout</option>
+                                <option value="En ligne" translate>En ligne uniquement</option>
+                                <option value="A l'entrée" translate>A l'entrée uniquement</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label>Debut de la vente de billets</label>
+                            <label translate>Debut de la vente de billets</label>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <input type="text" placeholder="10/10/2016" ng-model="billet_detail.date_debut_vente" class="form-control"/>
@@ -512,7 +512,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Fin de la vente de billets</label>
+                            <label translate>Fin de la vente de billets</label>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <input type="text" placeholder="10/10/2016" ng-model="billet_detail.date_fin_vente" class="form-control"/>
@@ -524,7 +524,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Nombre de billets autorisé par commande</label>
+                            <label translate>Nombre de billets autorisé par commande</label>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <input type="number" min="1" max="{{billet_detail.quantite}}" placeholder="1" ng-model="billet_detail.min_autorise" class="form-control"/>
@@ -539,8 +539,8 @@
             </div>
             <div class="modal-footer">
                 <button type="reset" ng-click="annuler(billet_detail)" class="btn btn-main btn-reverse"
-                        >Annuler les modifications</button>
-                <button id="close" class="btn btn-main" data-dismiss="modal">Fermer</button>
+                         translate>Annuler les modifications</button>
+                <button id="close" class="btn btn-main" data-dismiss="modal" translate>Fermer</button>
             </div>
         </form><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

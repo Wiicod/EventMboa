@@ -7,7 +7,8 @@
                         <h1>Lorem ipsum dolor sit amet</h1>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi assumenda dicta expedita fuga iusto molestias, nam nisi nobis placeat quas, repellat voluptates. A alias aliquam, animi exercitationem iste quidem reprehenderit!</p>
                         <p>
-                            <a href="" class="btn btn-primary btn-main" ui-sref="login">Commencer</a>
+                            <a href="" class="btn btn-primary btn-main" ng-if="!loguer" ui-sref="login" translate>Commencer</a>
+                            <a href="" class="btn btn-primary btn-main" ng-if="loguer" ui-sref="create" translate>Commencer</a>
                         </p>
                     </div>
                 </div>
@@ -34,29 +35,32 @@
 
 <section id="form">
     <div class="container">
-        <div class="row no-padding">
-            <div class="col-lg-4" style="padding-left: 15px"><input type="text" class="form-control" placeholder="Rechercher des événements ou des catégories"/></div>
-            <div class="col-lg-3"><input type="text" class="form-control" placeholder="Entrez la ville ou le lieu"/></div>
+        <form class="row no-padding" ng-submit="search(key)">
+            <div class="col-lg-4" style="padding-left: 15px">
+                <input type="text" ng-model="key.titre" class="form-control" placeholder="Rechercher des événements ou des catégories"/></div>
             <div class="col-lg-3">
-                <select class="form-control">
-                    <option value="">Toutes les dates</option>
+                <input type="text" ng-model="key.ville" class="form-control" placeholder="Entrez la ville ou le lieu"/></div>
+            <div class="col-lg-3">
+                <select class="form-control" ng-model="key.date" ng-options="d.value as d.name for d in date_deb|orderBy:'-value':true">
+                    <option value="" translate>Toutes les dates</option>
                 </select>
             </div>
             <div class="col-lg-2" style="padding-right: 15px">
-                <button class="btn btn-primary btn-main">Rechercher</button>
+                <button class="btn btn-primary btn-main" translate>Rechercher</button>
             </div>
-        </div>
+        </form>
 
-        <h3>Evénement pour vous à {{user.current_ville}}</h3>
+        <h3><ff translate >Evénement pour vous à</ff> {{user.current_ville}}</h3>
 
         <div class="row">
-            <div class="col-lg-4" ng-repeat="e in events | limitTo:12" ui-sref="details({nom:e.titre})">
+            <div class="col-lg-4" ng-repeat="e in events | limitTo:6|orderBy:'-start_date':false"
+                 ng-if="e.tickets.length>0"
+                 ui-sref="details({nom:e.name+'/'+e.id})">
                 <div class="card">
                     <div class="card-image">
-                        <img class="img-responsive" src="images/r.jpg">
-                        <span class="card-title">Gratuit</span>
+                        <img class="img-responsive" src="{{e.banner_picture}}">
+                        <span class="card-title" translate>{{e.tickets[0].amount}} Fcfa</span>
                     </div>
-
                     <div class="card-content">
                         <!--<ul class="nav">-->
                             <!--<li class="date">MER. 14 SEPT. 20:00</li>-->
@@ -64,14 +68,15 @@
                             <!--<li class="lieu">Ville, Pays</li>-->
                         <!--</ul>-->
                         <div class="date">{{e.date_debut}}</div>
-                        <div class="titre">{{e.titre}}</div>
-                        <div class="lieu">{{e.adresse.ville}}, {{e.adresse.pays}}</div>
+                        <div class="titre">
+                            {{e.name|limitTo:50}}</div>
+                        <div class="lieu">{{e.town.name}}, {{e.town.country.name}}</div>
                     </div>
 
                     <div class="card-action">
                         <div class="tag">
-                            <a href="#">#{{e.confidentialite.type_evenement}}</a>
-                            <a href="#">#{{e.confidentialite.theme}}</a>
+                            <a href="#">#{{e.event_topic.name|limitTo:15}}</a>
+                            <a href="#">#{{e.event_type.name|limitTo:15}}</a>
                         </div>
                         <div class="action">
                             <a href="#" class="pull-right" title="Partager"><i class="fa fa-share-alt"></i></a>
@@ -81,25 +86,25 @@
 
                     </div>
                 </div>
+                <div class="clearfix"></div>
             </div>
             <div class="clearfix"></div>
             <div class="text-center">
-                <a ui-sref="events" class="btn btn-primary btn-main">Plus d'événements</a>
+                <a ui-sref="events" class="btn btn-primary btn-main" translate>Plus d'événements</a>
             </div>
         </div>
 
 
-        <h3>Parcourir par catégories</h3>
+        <h3 translate>Parcourir par catégories</h3>
 
         <div class="row">
 
             <div class="content_middle">
-                <div class="col-md-4 col2" ng-repeat="c in categories | orderBy">
-                    <a href="#" ui-sref="events({target:c.nom})" class="b-link-stroke b-animate-go  thickbox">
-                        <img src="{{c.image}}" class="img-responsive" alt="{{c.nom}}"/>
+                <div class="col-md-4 col2" ng-repeat="c in categories | orderBy:'-update_at':true|limitTo:9">
+                    <a href="#" ui-sref="events({target:c.name,id:'type'})" class="b-link-stroke b-animate-go  thickbox">
+                        <img src="{{c.image}}" class="img-responsive" alt="{{c.name}}"/>
                         <div class="b-wrapper">
-                            <h2 class="b-animate b-from-left    b-delay03 ">{{c.nom}}</h2>
-                            <p class="b-animate b-from-right    b-delay03 ">{{c.description}}</p>
+                            <h2 class="b-animate b-from-left    b-delay03 ">{{c.name}}</h2>
                         </div>
                     </a>
                 </div>

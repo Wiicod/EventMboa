@@ -5,15 +5,16 @@
 
 @font-face {
     font-family: 'Benton Sans';
-    src: url('fonts/Benton_Sans/BentonSans-Light.ttf');
+    src: url('fonts/Benton_Sans/BentonSans-Regular.ttf');
 }
 
 body{
     background: #F8F8FA;
-    font-family: "Benton Sans","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif !important;
+    font-family: 'Benton Sans',"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif !important;
     font-size: 17px !important;
-    color: #45494E;
+    color: #282C35 !important;
     letter-spacing: 1px;
+    text-rendering: optimizelegibility;
 }
 
 .logo {
@@ -67,6 +68,12 @@ a{
   margin-top: 25px;
 }
 
+#form h3{
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 400;
+}
+
 #form input, #form select, .input{
   border-radius: 0;
   border-left: 1px solid #D2D6DF;
@@ -83,7 +90,7 @@ a{
   line-height: 24px;
   font-weight: 400;
   letter-spacing: 0.5px;
-  height: 44px;
+  height: 48px !important;
 }
 
 #form .btn-template-main{
@@ -137,7 +144,7 @@ li.active > a{
 }
 ul.dropdown-menu > li{
     text-transform: none !important;
-    padding: 12px 20px;
+    padding: 5px 20px;
     color: #666A73 !important;
     font-size: 18px;
 }
@@ -208,7 +215,7 @@ ul.dropdown-menu > li.divider{
   background-clip: padding-box;
   position: relative;
   width: 100%;
-  height: 165px;
+  height: 165px !important;
   /*z-index: -1;*/
 }
 .card .card-image span.card-title {
@@ -253,14 +260,32 @@ ul.dropdown-menu > li.divider{
   border-top: 1px solid #EFF2F5;
 }
 
-.titre{
+.titress{
     margin-top: 3px;
     font-size: 16px;
     font-weight: 600;
     max-height: 45px;
     overflow: hidden;
 }
-
+.titre{
+    display: block;
+    display: -webkit-box;
+    /*max-height: 38px;*/
+    margin: 0 auto;
+    margin-top: 3px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #282C35;
+    font-size: 15px;
+    line-height: 19px;
+    max-height: 45px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 0;
+    height: 38px;
+}
 .titres{
     white-space: normal;
     color: #282C35;
@@ -279,8 +304,8 @@ ul.dropdown-menu > li.divider{
     color: #45494E;
     font-size: 12px;
     line-height: 18px;
-    height: 18px;
-    text-transform: uppercase;
+    height: 24px;
+    /*text-transform: uppercase;*/
     letter-spacing: 1px;
     padding: 5px 0 0;
 }
@@ -292,7 +317,7 @@ ul.dropdown-menu > li.divider{
     color: #666A73;
     font-size: 12px;
     line-height: 18px;
-    height: 20px;
+    height: 25px;
     padding: 5px 0 0;
 }
 
@@ -306,6 +331,7 @@ ul.dropdown-menu > li.divider{
     line-height: 40px;
     padding-right: 80px;
     padding-left: 15px;
+    /*font-weight: bold;*/
 }
 .card-action .tag a {
     color: #45494E;
@@ -368,7 +394,7 @@ ul.dropdown-menu > li.divider{
     position:absolute;
     width:100%;
     height:100%;
-    top:4em;
+    top:3em;
     left:0;
     text-align:center;
     color:#ffffff;
@@ -423,6 +449,7 @@ ul.dropdown-menu > li.divider{
 .b-from-left{
     position:relative;
     left:-100%;
+    text-shadow: 1px 1px 1px #000;
 }
 .b-animate-go:hover .b-from-left{
     left:0;
@@ -474,14 +501,15 @@ ul.dropdown-menu > li.divider{
 }
 
 .content_middle img{
-    width: 100%;
-    height: 220px;
+    width: 100% !important;
+    min-width: 377px;
+    height: 177px !important;
 }
 
-img{
-    height: 100% !important;
-    width: 100% !important;
-}
+/*img{*/
+    /*height: 100% !important;*/
+    /*width: 100% !important;*/
+/*}*/
 
 .price{
     position: relative;
@@ -528,14 +556,13 @@ header ul.nav > li{
     /*padding-bottom: 50px;*/
     text-align: left;
     color: #f8f8f8;
-    background: url(../images/score-bg.jpg) no-repeat center center;
-    background-size: cover;
 }
 
 
 .intro-message {
     position: relative;
-    padding: 20% 0px;
+    padding: 20% 100px;
+    text-shadow: 1px 1px 1px #000;
 }
 
 .intro-message > h1 {
@@ -599,8 +626,8 @@ h4.date-titre{
     border-color: #D2D6DF;
     border-width: 0 0 1px 0;
     background-color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     box-sizing: border-box;
     color:#333;
 }
@@ -670,11 +697,11 @@ div.free{
     width: auto;
     height: auto;
     border: 0;
-    padding: 11px 20px;
+    padding: 11px 50px;
     text-decoration: none;
     line-height: 22px;
-    font-weight: 400;
-    font-size: 16px;
+    font-weight: bold;
+    font-size: 24px !important;
     letter-spacing: 1px;
     text-transform: uppercase;
     border-radius: 3px;
@@ -1147,4 +1174,18 @@ ul .row{
 }
 #accordion .nav >li:hover>a{
     background: #fff;
+}
+
+.message{
+    color: red;
+}
+
+.sz{
+    font-size: 35px;
+    line-height: 50px;
+    font-weight: 600;
+    color: #282C35;
+}
+.blue{
+    color :#00a8f2;
 }

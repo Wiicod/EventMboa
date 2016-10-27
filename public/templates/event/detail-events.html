@@ -1,12 +1,12 @@
-<div class="intro-header">
+<div class="intro-header" style="background: url('/../..{{event.banner_picture}}');background-size: cover">
     <div class="container">
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-message">
-                    <h4 class="date-titre">Le {{event.date_debut}} à {{event.adresse.ville}}</h4>
-                    <h1>{{event.titre}}</h1>
-                    <h4>Par :{{event.organisateur.nom}} </h4>
+                    <h4 class="date-titre"><ff translate >Le</ff> {{event.date_debut}} <ff translate >à</ff> {{event.adresse.ville}}</h4>
+                    <h1>{{event.name}}</h1>
+                    <h4><ff translate >Par</ff> : {{event.organizer.name}} </h4>
                 </div>
             </div>
 
@@ -16,7 +16,7 @@
     <!-- /.container -->
     <div class="clearfix"></div>
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-bottom: 0 !important;">
             <div class="col-lg-12" style="padding-left: 0;padding-right: 0px">
                 <div class="listing clearfix">
                     <div class="col-lg-6" style="margin-top: 10px">
@@ -24,8 +24,8 @@
                         <a href="#" title="Partager"><i class="fa fa-share-alt fa-2x"></i></a>
                     </div>
                     <div class="col-lg-6" style="text-align: right">
-                        <div class="btn-white">Gratuit</div>
-                        <button class="btn btn-main btn-green" data-toggle="modal" href="/#inscriptionModal">S'inscrire</button>
+                        <div class="btn-white" translate >{{event.tickets[0].amount}} Fcfa</div>
+                        <button class="btn btn-main btn-green" data-toggle="modal" href="/#inscriptionModal" translate >S'inscrire</button>
                     </div>
                 </div>
             </div>
@@ -36,40 +36,40 @@
 <section id="detail">
     <div class="container description">
         <div class="row-fluid">
-            <div class="col-lg-9">
+            <div class="col-lg-8">
                 <dl>
-                    <dt>DESCRIPTION</dt>
+                    <dt translate >DESCRIPTION</dt>
                     <dd>
                         <p>{{event.description}}</p>
                     </dd>
                 </dl>
                 <dl>
-                    <dt>TAGS</dt>
+                    <dt translate >TAGS</dt>
                     <dd>
                         <section>
                             <span>
-                                <a ui-sref="events({target:event.confidentialite.theme})" class="badge">{{event.confidentialite.theme}}</a>
+                                <a ui-sref="events({target:event.event_topic.name})" class="badge">{{event.event_topic.name}}</a>
                             </span>
                             <span>
-                                <a ui-sref="events({target:event.confidentialite.type_evenement})" class="badge">{{event.confidentialite.type_evenement}}</a>
+                                <a ui-sref="events({target:event.event_type.name})" class="badge">{{event.event_type.name}}</a>
                             </span>
                         </section>
                     </dd>
                 </dl>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-4">
                 <dl>
-                    <dt>DATE ET HEURE</dt>
-                    <dd>{{event.date_debut}}-{{event.date_fin}}</dd>
+                    <dt translate >DATE ET HEURE</dt>
+                    <dd>du <strong>{{event.date_debut}}</strong> au <strong>{{event.date_fin}}</strong></dd>
                 </dl>
 
                 <dl>
-                    <dt>ADRESSE</dt>
+                    <dt translate >ADRESSE</dt>
                     <dd>{{event.adresse.boite_postale}} {{event.adresse.adresse}}</dd>
                     <dd>{{event.adresse.rue}}</dd>
-                    <dd>{{event.adresse.ville}}</dd>
-                    <dd>{{event.adresse.pays}}</dd>
+                    <dd>{{event.town.name}}</dd>
+                    <dd>{{event.town.country.name}}</dd>
 
                 </dl>
             </div>
@@ -82,17 +82,17 @@
             <div class="col-lg-12">
                 <div class="text-center">
                     <div class="divider"></div>
-                    <h3 class="bold">{{event.organisateur.nom}}</h3>
-                    <div>Organisateur de {{event.titre}}</div>
+                    <h3 class="bold">{{event.organizer.name}}</h3>
+                    <div><ff translate >Organisateur de</ff> <strong>{{event.name}}</strong></div>
                     <div class="image">
-                        <img src="{{event.organisateur.image}}" alt="" title="{{event.organisateur.image}}"/>
+                        <img src="{{event.organizer.image}}" alt="" title="{{event.organizer.name}}"/>
                     </div>
                     <p style="text-align: left;margin-top: 10px;">
-                        {{event.organisateur.description}}
+                        {{event.organizer.description}}
                     </p>
                     <p class="option">
-                        <a ui-sref="{{event.organisateur.lien}}"><i class="fa fa-navicon"></i> Profil</a>
-                        <a ui-sref="{{event.organisateur.email}}"><i class="fa fa-envelope-o"></i> Contactez</a>
+                        <a ui-sref="profil{{event.organizer.name}}"><i class="fa fa-navicon"></i> <ff translate >Profil</ff></a>
+                        <a ui-sref="contact-organisateur{{event.organisateur.email}}"><i class="fa fa-envelope-o"></i> <ff translate >Contactez</ff></a>
                     </p>
                 </div>
             </div>
@@ -120,11 +120,11 @@
                 <div class="select">
                     <div class="row">
                         <div class="col-lg-9">
-                            Participant <br/>
-                            <span class="text-uppercase">{{event.billets[0].type}}</span>
+                            <ff translate >{{event.tickets[0].name}}</ff> <br/>
+                            <span class="text-uppercase">{{event.tickets[0].amount}} Fcfa</span>
                         </div>
                         <div class="col-lg-3">
-                            <input type="number" min="1" max="{{event.billets[0].commande}}" class="form-control"/>
+                            <input type="number" min="1" max="{{event.tickets[0].max_command}}" ng-model="qte" class="form-control"/>
                         </div>
                     </div>
                 </div>
@@ -132,13 +132,13 @@
             <div class="modal-footer left">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="btn-white">Qté : {{commande.nombre_billet}}</div>
+                        <div class="btn-white"><ff translate >Qté</ff> : {{qte}}</div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="btn-white">{{event.billets[0].type}}</div>
+                        <div class="btn-white">{{event.tickets[0].amount*qte}} Fcfa</div>
                     </div>
                     <div class="col-lg-4" style="text-align: right">
-                        <button class="btn btn-main btn-green">Compléter</button>
+                        <button class="btn btn-main btn-green" translate>Compléter</button>
                     </div>
                 </div>
             </div>
@@ -147,4 +147,4 @@
 </div><!-- /.modal -->
 <!--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyByV_jQXlpxJrBLpyEUSr2aV3wmIV4hawg&sensor=false"></script>-->
 <!--<script src="js/app_js/x.js"></script>-->
-<script>console.log("e");initMap();</script>
+<!--<script>console.log("e");initMap();</script>-->
