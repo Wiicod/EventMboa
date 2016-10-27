@@ -46,6 +46,7 @@ Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function
     Route::get('/refresh', 'AuthenticateController@refreshToken');
     Route::get('authenticated-user', 'AuthenticateController@get_authenticated_user');
 
+    Route::resource('adress', 'AdressController');
     Route::resource('contact', 'ContactController');
     Route::resource('country', 'CountryController');
     Route::resource('distribution_point', 'DistributionPointController');

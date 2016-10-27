@@ -9,7 +9,7 @@ class Town extends Model
     //
     protected $fillable =['id','country_id','name'];
 
-    private $foreign = ['country', 'events'];
+    private $foreign = ['country', 'events', 'adresses'];
 
     private $files = [];
 
@@ -38,9 +38,9 @@ class Town extends Model
         return $this->belongsTo('App\Country');
     }
 
-    public function events()
+    public function adresses()
     {
-        return $this->hasMany('App\Event');
+        return $this->hasMany('App\Adress');
     }
 
 }

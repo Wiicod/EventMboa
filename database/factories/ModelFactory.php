@@ -11,6 +11,7 @@
 |
 */
 
+use App\Adress;
 use App\Contact;
 use App\Country;
 use App\DistributionPoint;
@@ -35,6 +36,17 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(Adress::class, function (Faker\Generator $faker) {
+    $town = FactoryHelper::getOrCreate(Town::class);
+    return [
+        'name' => $faker->address,
+        'street' => $faker->streetName,
+        'post_box' => $faker->postcode,
+        'town_id' => $town->id,
+
     ];
 });
 
@@ -100,7 +112,7 @@ $factory->define(Event::class, function (Faker\Generator $faker) {
     $organizer = FactoryHelper::getOrCreate(Organizer::class);
     $event_topic = FactoryHelper::getOrCreate(EventTopic::class);
     $event_type = FactoryHelper::getOrCreate(EventType::class);
-    $town = FactoryHelper::getOrCreate(Town::class);
+    $adress = FactoryHelper::getOrCreate(Adress::class);
 
     return [
         'creator' => $user->id,
@@ -114,7 +126,7 @@ $factory->define(Event::class, function (Faker\Generator $faker) {
         'recurring' => $faker->name,
         'banner_picture' => $banner,
         'status' => rand(0, count(Event::$Status)),
-        'town_id' => $town->id,
+        'adress_id' => $adress->id,
     ];
 
 });
