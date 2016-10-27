@@ -13,7 +13,6 @@ angular.module('mboa', [
   'ui.router',
   'satellizer',
   //'mp.datePicker',
-  'satellizer',
   'restangular',
   'textAngular',
   'ngFileUpload',
@@ -27,10 +26,10 @@ angular.module('mboa', [
   function ($log, $state, $rootScope, $location, Restangular) {
         $log.debug("startApp running ");
 
-    Restangular.all('contact').getList().then(function (data) {
-      console.log(data);
-
-    });
+    //Restangular.all('contact').getList().then(function (data) {
+    //  console.log(data);
+    //
+    //});
         //$rootScope.$on('$stateChangeStart',function(event,toState,toParams,fromState){
         //  console.log("");
         //})

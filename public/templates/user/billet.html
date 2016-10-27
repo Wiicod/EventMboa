@@ -9,23 +9,23 @@
                         <li ng-class="{'active':choix=='online'}">
                             <a href="/#accueil" ng-click="choixEvent(0)" data-toggle="tab">
                                 {{eventOnline.length}}<br/>
-                                Evénements à venir
+                                <ff translate ></ff>Evénements à venir
                             </a>
                         </li>
                         <li ng-class="{'active':choix=='save'}">
                             <a href="/#livres" ng-click="choixEvent(1)" data-toggle="tab">
                             {{eventSave.length}}<br/>
-                            Evénements sauvegardés </a></li>
+                                <ff translate ></ff> Evénements sauvegardés </a></li>
                         <li ng-class="{'active':choix=='passed'}">
                             <a href="/#témoignages" ng-click="choixEvent(2)" data-toggle="tab">
                             {{eventPassed.length}}<br/>
-                            Evénements antérieurs </a></li>
+                                <ff translate ></ff>Evénements antérieurs </a></li>
                     </ul>
                     <div class="tab-content" style="border-top: 2px solid #f1f1f1; padding-top: 15px;">
                         <div class="row-fluid">
                             <div class="col-lg-12 text-center" ng-if="events.length==0" style="background: #eee">
                                 <img src="images/simple-black-calendar-512.png" style="width: 20% !important; text-align: center" />
-                                <p>Vous n'avez aucun événements</p>
+                                <p translate>Vous n'avez aucun événements</p>
                             </div>
                         </div>
                         <div ng-if="events.length>0" class="row" ng-repeat="e in events" >
@@ -40,7 +40,7 @@
                                     <div class="item-9" >
                                         <div class="date">{{e.date_debut}}</div>
                                         <div class="titre">{{e.titre}}</div>
-                                        <div class="lieu" style="position: absolute;bottom: 0;">
+                                        <div class="lieu" style="position: absolute;bottom: 0;" translate>
                                             Commande non-payante n° 545662783 de 3 Billets le 1 septembre 2016 </div>
                                     </div>
                                 </div>
@@ -64,23 +64,23 @@
         <div class="modal-body" style="background: #F8F8FA">
             <div class="row">
                 <div class="col-lg-4 form-group">
-                    <label>Type</label>
+                    <label translate>Type</label>
                     <div>{{billet.billets[0].type}}</div>
                 </div>
                 <div class="col-lg-4 form-group">
-                    <label>Type</label>
+                    <label translate>Type</label>
                     <div>{{billet.billets[0].type}}</div>
                 </div>
                 <div class="col-lg-4 form-group">
-                    <label>Type</label>
+                    <label translate>Type</label>
                     <div>{{billet.billets[0].type}}</div>
                 </div>
 
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-main" type="submit">Enregistrer</button>
-            <button id="close" class="btn btn-main hide" data-dismiss="modal">Fermer</button>
+            <button class="btn btn-main" type="submit" translate>Enregistrer</button>
+            <button id="close" class="btn btn-main hide" data-dismiss="modal" translate>Fermer</button>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

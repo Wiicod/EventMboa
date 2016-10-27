@@ -1,18 +1,18 @@
 <section id="compte">
-    <h1 class="bold">Panneau de gestion</h1>
+    <h1 class="bold" translate >Panneau de gestion</h1>
     <div class="row">
         <div class="col-lg-9">
             <div class="tabbable">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="/#accueil" data-toggle="tab">Billets</a></li>
+                    <li class="active"><a href="/#accueil" data-toggle="tab" translate>Billets</a></li>
                     <!--<li><a href="/#livres" data-toggle="tab">Invitations</a></li>-->
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="accueil">
                     <table class="table">
                         <thead>
-                            <th>Billets vendus</th>
-                            <th>Billets disponibles</th>
+                            <th translate >Billets vendus</th>
+                            <th translate >Billets disponibles</th>
                         </thead>
                         <tbody>
                             <tr ng-repeat="n in [1,2,3,4]">
@@ -39,22 +39,22 @@
     <div class="row">
         <form ng-submit="modifierUrlEvent(event)">
             <div class="form-group">
-                <label>L'url de votre événement</label>
+                <label translate >L'url de votre événement</label>
                 <input type="url" ng-model="event.lien" placeholder="http://www.eventmboa.com/" class="form-control"/>
             </div>
         </form>
     </div>
 
     <div class="row">
-        <h4>Commandes récentes</h4>
+        <h4 translate >Commandes récentes</h4>
         <table class="table">
             <thead>
-                <th>Numéro de commande</th>
-                <th>Acheteur du billet</th>
-                <th>Quantité</th>
-                <th>Prix</th>
-                <th>Date</th>
-                <th>Paiement</th>
+                <th translate >Numéro de commande</th>
+                <th translate >Acheteur du billet</th>
+                <th translate >Quantité</th>
+                <th translate >Prix</th>
+                <th translate >Date</th>
+                <th translate >Paiement</th>
             </thead>
             <tbody>
                 <tr ng-repeat="c in commandes|orderBy:'-date':true">
@@ -69,14 +69,14 @@
         </table>
     </div>
     <div class="row">
-        <h4>Ventes par type de billet</h4>
+        <h4 translate >Ventes par type de billet</h4>
         <table class="table">
             <thead>
-                <th>Type de billet</th>
-                <th>Prix</th>
-                <th>Vendu</th>
-                <th>Statut</th>
-                <th>Fin des ventes</th>
+                <th translate >Type de billet</th>
+                <th translate >Prix</th>
+                <th translate >Vendu</th>
+                <th translate >Statut</th>
+                <th translate >Fin des ventes</th>
             </thead>
             <tbody>
                 <tr ng-repeat="c in commandes|orderBy:'-date':true">
@@ -102,21 +102,21 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>Titulaire <span class="requis">*</span></label>
+                            <label><ff translate >Titulaire</ff> <span class="requis">*</span></label>
                             <input type="text" ng-model="no.titulaire" placeholder="Titulaire du numéro" class="form-control"/>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>Numéro <span class="requis">*</span></label>
+                            <label><ff translate >Numéro</ff> <span class="requis">*</span></label>
                             <input type="text" ng-model="no.numero" placeholder="Numéro" class="form-control"/>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-main" type="submit">Enregistrer</button>
-                <button id="close" class="btn btn-main hide" data-dismiss="modal">Fermer</button>
+                <button class="btn btn-main" type="submit" translate >Enregistrer</button>
+                <button id="close" class="btn btn-main hide" data-dismiss="modal" translate >Fermer</button>
             </div>
         </form><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

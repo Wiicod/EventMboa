@@ -5,9 +5,10 @@ controller
     .controller('AppCtrl',['$scope',function($scope){
 
     }])
-    .controller('AuthCtrl', ['$scope', '$auth', '$state', '$stateParams', function ($scope, $auth, $state, $stateParams) {
-        $scope.message="";
 
+    .controller('AuthCtrl', ['$scope', '$auth', '$state', '$stateParams','$rootScope',
+        function ($scope, $auth, $state, $stateParams,$rootScope) {
+        $scope.message="";
 
         $scope.signup = function () {
             $auth.signup($scope.auth).then(function (response) {
@@ -25,21 +26,22 @@ controller
         $scope.login = function () {
             $auth.login($scope.auth).then(function (response) {
                 // tu stocke xa dans le rootScope au cas ou !!!
-                console.log(response.data.user);
                 var t = response.data.token;
                 $auth.setToken(t);
                 console.info('Logged in successfully.');
-                if ($stateParams.next) {
-                    $state.go($stateParams.next.name);
+                if ($rootScope.next!=undefined) {
+                    $state.go($rootScope.next);
                 } else {
                     $state.go('home');
                 }
             }, function (error) {
                 console.error(error);
+                $scope.message="Paramètres de connexion invalides";
             });
         }
 
     }])
+
     .controller('CreateCtrl',['$scope','$filter',function($scope,$filter){
         $scope.message="";
         $scope.option="modifier";
@@ -103,54 +105,164 @@ controller
         });
         // fin image
     }])
-    .controller('HeaderCtrl', ['$scope', '$auth', '$state', function ($scope, $auth, $state) {
 
+    .controller('HeaderCtrl', ['$scope', '$auth', '$state','$rootScope','Restangular', function ($scope, $auth, $state,$rootScope,Restangular) {
+        $scope.loguer=false;
+        $scope.lieu=false;
+        if($state.current.name!='home'){
+            $scope.lieu=true;
+        }
         $scope.logout = function () {
             $auth.logout();
+            $scope.loguer=false;
             $state.go('home');
+        };
+
+        Restangular.one('authenticated-user').get().then(function(data){
+            console.log(data);
+        });
+
+        $scope.create_event=function(){
+            $rootScope.next="create";
+            $state.go('login');
         };
 
         $scope.searchEvent=function(key){
             console.log(key);
             // à faire
         };
-        $scope.u={nom:"John Doe"};
+        if($auth.getToken()!=null){
+            $scope.loguer=true;
+        }else{$scope.loguer=false;}
     }])
+
     .controller('FooterCtrl',['$scope',function($scope){
         $scope.currentDate=new Date();
         $scope.pays=pays;
         $scope.villes=villes;
 
     }])
-    .controller('HomeCtrl',['$scope',function($scope) {
-        $scope.categories=categories;
-        $scope.events=events;
+
+    .controller('HomeCtrl',['$scope','Restangular',function($scope,Restangular) {
+        Restangular.all('event_topic').getList().then(function (data) {
+           // console.log(data);
+            $scope.categories = data;
+        }, function (err) {
+            console.log(err);
+        });
+        Restangular.all('event').getList().then(function (events) {
+            angular.forEach(events,function(v,k){
+                v.id=parseInt(Math.random(1,5)*10000)+""+ v.id;
+                var d=new Date(v.start_date);
+                v.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
+                d=new Date(v.end_date);
+                v.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
+            });
+            $scope.events = events;
+        }, function (err) {
+            console.log(err);
+        });
+
+        $scope.search=function(s){
+
+        };
 
         $(function(){
             homeCarrousel();
             hoverPack();
         });
     }])
-    .controller('EventCtrl', ['$scope', '$stateParams', 'Restangular', function ($scope, $stateParams, Restangular) {
-        $scope.categories=categories;
-        // filtre avc undescore pour chercher suivant la categorie et le titre
-        $scope.event=events[0];
-        //angular.forEach(categories,function(v,k){
-        //
-        //});
 
+    .controller('EventCtrl', ['$scope', '$stateParams', 'Restangular', function ($scope, $stateParams, Restangular) {
+        var id=$stateParams.id;
+        var target=$stateParams.target;
+
+        $scope.categories=[];
+        $scope.types=[];
+        $scope.par_page=12;
+        // filtre avc undescore pour chercher suivant la categorie et le titre
         // example d utilisation de restangular c valable pour le post put delete regarde juste la doc
         //tu pouvais aussi utilise la factorie customize Event k j ai cree
+        $scope.date_deb=[];
         Restangular.all('event').getList().then(function (events) {
-            console.log(events);
-            $scope.events = events;
+            if(id!="" && target!=""){
+                var out = _.filter(events, function (e) {
+                    if(id=="topic"){
+                        return _.some(e.event_topic, { 'name': target });
+                    }
+                    else if(target=='type'){
+                        return _.some(e.event_type, { 'name': target });
+                    }
+                });
+                events=out;
+            }
+            var tm=[];
+            angular.forEach(events,function(v,k){
+                //Restangular.one('countries', v.city);
+                v.id=parseInt(Math.random(1,5)*10000)+""+ v.id;
+                var d=new Date(v.start_date);
+                $scope.date_deb.push({name:jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900),value:v.start_date});
+                v.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
+                d=new Date(v.end_date);
+                v.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
+                if(v.tickets.length>0){
+                    if($scope.categories.length==0){
+                        $scope.categories.push(v.event_topic);
+                    }
+                    else{
+                        angular.forEach($scope.categories,function(d,dd){
+                            if(v.event_topic.name!= d.name){
+                                $scope.categories.push(v.event_topic);
+                            }
+                        });
+                    }
+                    if($scope.types.length==0){
+                        $scope.types.push(v.event_type);
+                    }
+                    else{
+                        angular.forEach($scope.types,function(d,dd){
+                            if(v.event_type.name!= d.name){
+                                $scope.types.push(v.event_type);
+                            }
+                        });
+                    }
+
+                    tm.push(v);
+                }
+            });
+            $scope.events = tm;
         }, function (err) {
             console.log(err);
         });
 
 
-        $scope.events=events;
+
+       // $scope.events=events;
     }])
+
+    .controller('DetailEventCtrl', ['$scope', '$stateParams', 'Restangular', function ($scope, $stateParams, Restangular) {
+        var nom=$stateParams.nom;
+        var id=parseInt(nom.substring(nom.length-1,nom.length));
+        console.log(id);
+        Restangular.one('event',id).get().then(function (data) {
+            console.log(data);
+            var t=data.banner_picture.substring(0,10);
+            t+="/"+data.banner_picture.substring(11,data.banner_picture.length);
+            data.banner_picture=t;
+            var d=new Date(data.start_date);
+            data.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
+            d=new Date(data.end_date);
+            data.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
+            $scope.event = data;
+        }, function (err) {
+            console.log(err);
+        });
+        $scope.qte=0;
+
+
+       // $scope.events=events;
+    }])
+
     .controller('MyEventCtrl',['$scope','$stateParams','$filter',function($scope,$stateParams,$filter){
         $scope.eventOnline=$filter('filter')(events,{statut:0});
         $scope.eventPassed=$filter('filter')(events,{statut:2});
@@ -163,6 +275,7 @@ controller
         }
 
     }])
+
     .controller('BilletCtrl',['$scope','$state','$filter',function($scope,$state,$filter){
         $scope.eventOnline=$filter('filter')(events,{statut:0});
         $scope.eventPassed=$filter('filter')(events,{statut:2});
@@ -193,6 +306,7 @@ controller
         };
 
     }])
+
     .controller('ProfilCtrl',['$scope','$filter',function($scope,$filter){
         $scope.users=organisateurs;
         $scope.user=$scope.users[0];
@@ -225,6 +339,7 @@ controller
             $scope.organisateur={};
         }
     }])
+
     .controller('CompteCtrl',['$scope','$filter',function($scope,$filter){
         $scope.users=organisateurs;
         $scope.compte=$scope.users[0];
@@ -279,9 +394,11 @@ controller
 
 
     }])
+
     .controller('FacturesCtrl',['$scope',function($scope){
         $scope.events=[];
     }])
+
     .controller('OMCtrl',['$scope',"$filter",function($scope,$filter){
         $scope.om=[
             {numero:696969696,titulaire:"Titulaire",id:1},
@@ -317,6 +434,7 @@ controller
             $scope.no=o;
         }
     }])
+
     .controller('UserCtrl',['$scope','$state',function($scope,$state){
         $scope.choix=$state.current.name;
 
@@ -327,6 +445,7 @@ controller
             console.log(m);
         };
     }])
+
     .controller('TestCtrl',['$scope',function($scope){
         $scope.click_im=function(){
             $("#im").trigger("click");
@@ -340,6 +459,7 @@ controller
            $("#image").fadeIn("fast").attr("src",URL.createObjectURL($scope.theFile));
        }
     }])
+
     .controller('GestionCtrl',['$scope','$state','$filter',function($scope,$state,$filter){
         $scope.choix=$state.current.name;
         $scope.event=$filter('filter')(events,{id:$state.params.id})[0];
@@ -349,11 +469,13 @@ controller
             console.log(e);
         };
     }])
+
     .controller('ProductCtrl',['$scope','$stateParams',function($scope,$stateParams){
         $scope.category=$stateParams.category;
         $scope.choice=$stateParams.choice;
         $scope.product=$stateParams.product;
     }])
+
     .controller('ContactCtrl',['$scope','$filter',function($scope,$filter){
         $scope.oldContact={};
         $scope.contacts=[{nom:"nom",prenom:"prenom",email:"qsd",id:4}];

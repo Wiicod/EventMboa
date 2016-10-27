@@ -21,16 +21,16 @@ _________________________________________________________ -->
                     <li class="dropdown">
                         <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Catégorie <i class="fa fa-angle-down pull-right"></i></a>
                         <ul class="dropdown-menu">
-                            <li ng-repeat="c in categories">
-                                <a ui-sref="events({target:c.id})">{{c.nom}}</a>
+                            <li ng-repeat="c in categories |orderBy:'-name':true">
+                                <a ui-sref="events({target:c.name+'/'+c.id,id:'topic'})">{{c.name}}</a>
                             </li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Type <i class="fa fa-angle-down pull-right"></i></a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a ui-sref="events({target:c.id})">{{c.nom}}</a>
+                            <li ng-repeat="t in types |orderBy:'-name':true">
+                                <a ui-sref="events({target:t.name+'/'+t.id,id:'type'})">{{t.name}}</a>
                             </li>
                         </ul>
                     </li>
@@ -38,10 +38,10 @@ _________________________________________________________ -->
                         <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Billets <i class="fa fa-angle-down pull-right"></i></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a ui-sref="events({target:gratuit})">Gratuit</a>
+                                <a ui-sref="events({target:gratuit})" translate>Gratuit</a>
                             </li>
                             <li>
-                                <a ui-sref="events({target:payant})">Payant</a>
+                                <a ui-sref="events({target:payant})" translate>Payant</a>
                             </li>
                         </ul>
                     </li>
