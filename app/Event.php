@@ -9,10 +9,10 @@ class Event extends Model
     //
     public static $Status = ['new', 'created', 'active', 'end'];
     protected $fillable =['id','creator','event_topic_id','name','description','event_type_id','organizer_id',
-    'start_date','end_date','recurring','banner_picture','status'];
+        'start_date', 'end_date', 'recurring', 'banner_picture', 'status', 'town_id'];
     protected $dates=['start_date', 'end_date','created_at','updated_at'];
 
-    private $foreign = ['event_topic', 'event_type', 'organizer', 'event_links','tickets'];
+    private $foreign = ['event_topic', 'event_type', 'organizer', 'event_links', 'town'];
 
     private $files = ['banner_picture'];
 
@@ -51,6 +51,11 @@ class Event extends Model
 
     public function event_topic(){
         return $this->belongsTo('App\EventTopic');
+    }
+
+    public function town()
+    {
+        return $this->belongsTo('App\Town');
     }
 
     public function event_links(){

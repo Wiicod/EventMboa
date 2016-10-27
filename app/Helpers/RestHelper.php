@@ -112,6 +112,11 @@ class RestHelper
         $m = $Model::find($id);
         $name = explode("App\\", $Model)[1];
         if ($m) {
+            foreach ($m->getFiles() as $img) {
+                if (Storage::has($img))
+                    Storage::delete($img);
+            }
+
             $m->delete();
             Log::critical(Carbon::now() . 'the ' . $name . ' ' . $m->getLabel() . ' has been deleted');
             return Response::json($m, 200, [], JSON_NUMERIC_CHECK);
