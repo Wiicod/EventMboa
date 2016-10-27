@@ -12,7 +12,7 @@ class Event extends Model
         'start_date', 'end_date', 'recurring', 'banner_picture', 'status', 'town_id'];
     protected $dates=['start_date', 'end_date','created_at','updated_at'];
 
-    private $foreign = ['event_topic', 'event_type', 'organizer', 'event_links', 'town'];
+    private $foreign = ['event_topic', 'event_type', 'organizer', 'event_links', 'town','tickets'];
 
     private $files = ['banner_picture'];
 

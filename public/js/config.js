@@ -53,7 +53,7 @@ config
             }
         })
         .state('events',{
-            url:"/evenements/:target/:id?",
+            url:"/evenements/:id/:target?",
             title: "Evénements",
             loginRequired:false,
             views:{

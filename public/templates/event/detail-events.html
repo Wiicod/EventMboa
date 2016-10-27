@@ -6,7 +6,7 @@
                 <div class="intro-message">
                     <h4 class="date-titre"><ff translate >Le</ff> {{event.date_debut}} <ff translate >à</ff> {{event.adresse.ville}}</h4>
                     <h1>{{event.name}}</h1>
-                    <h4><ff translate >Par</ff> :{{event.organizer.name}} </h4>
+                    <h4><ff translate >Par</ff> : {{event.organizer.name}} </h4>
                 </div>
             </div>
 
@@ -24,7 +24,7 @@
                         <a href="#" title="Partager"><i class="fa fa-share-alt fa-2x"></i></a>
                     </div>
                     <div class="col-lg-6" style="text-align: right">
-                        <div class="btn-white" translate >{{event.tickets[0].amount}} F</div>
+                        <div class="btn-white" translate >{{event.tickets[0].amount}} Fcfa</div>
                         <button class="btn btn-main btn-green" data-toggle="modal" href="/#inscriptionModal" translate >S'inscrire</button>
                     </div>
                 </div>
@@ -68,8 +68,8 @@
                     <dt translate >ADRESSE</dt>
                     <dd>{{event.adresse.boite_postale}} {{event.adresse.adresse}}</dd>
                     <dd>{{event.adresse.rue}}</dd>
-                    <dd>{{event.adresse.ville}}</dd>
-                    <dd>{{event.adresse.pays}}</dd>
+                    <dd>{{event.town.name}}</dd>
+                    <dd>{{event.town.country.name}}</dd>
 
                 </dl>
             </div>
@@ -121,7 +121,7 @@
                     <div class="row">
                         <div class="col-lg-9">
                             <ff translate >{{event.tickets[0].name}}</ff> <br/>
-                            <span class="text-uppercase">{{event.tickets[0].amount}} F</span>
+                            <span class="text-uppercase">{{event.tickets[0].amount}} Fcfa</span>
                         </div>
                         <div class="col-lg-3">
                             <input type="number" min="1" max="{{event.tickets[0].max_command}}" ng-model="qte" class="form-control"/>
@@ -135,7 +135,7 @@
                         <div class="btn-white"><ff translate >Qté</ff> : {{qte}}</div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="btn-white">{{event.tickets[0].amount*qte}} F</div>
+                        <div class="btn-white">{{event.tickets[0].amount*qte}} Fcfa</div>
                     </div>
                     <div class="col-lg-4" style="text-align: right">
                         <button class="btn btn-main btn-green" translate>Compléter</button>

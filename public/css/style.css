@@ -144,7 +144,7 @@ li.active > a{
 }
 ul.dropdown-menu > li{
     text-transform: none !important;
-    padding: 12px 20px;
+    padding: 5px 20px;
     color: #666A73 !important;
     font-size: 18px;
 }
@@ -317,7 +317,7 @@ ul.dropdown-menu > li.divider{
     color: #666A73;
     font-size: 12px;
     line-height: 18px;
-    height: 20px;
+    height: 25px;
     padding: 5px 0 0;
 }
 
@@ -394,7 +394,7 @@ ul.dropdown-menu > li.divider{
     position:absolute;
     width:100%;
     height:100%;
-    top:4em;
+    top:3em;
     left:0;
     text-align:center;
     color:#ffffff;
@@ -449,6 +449,7 @@ ul.dropdown-menu > li.divider{
 .b-from-left{
     position:relative;
     left:-100%;
+    text-shadow: 1px 1px 1px #000;
 }
 .b-animate-go:hover .b-from-left{
     left:0;
@@ -500,14 +501,15 @@ ul.dropdown-menu > li.divider{
 }
 
 .content_middle img{
-    width: 100%;
-    height: 220px;
+    width: 100% !important;
+    min-width: 377px;
+    height: 177px !important;
 }
 
-img{
-    height: 100% !important;
-    width: 100% !important;
-}
+/*img{*/
+    /*height: 100% !important;*/
+    /*width: 100% !important;*/
+/*}*/
 
 .price{
     position: relative;
@@ -560,6 +562,7 @@ header ul.nav > li{
 .intro-message {
     position: relative;
     padding: 20% 100px;
+    text-shadow: 1px 1px 1px #000;
 }
 
 .intro-message > h1 {
@@ -1182,5 +1185,7 @@ ul .row{
     line-height: 50px;
     font-weight: 600;
     color: #282C35;
-    padding-bottom: 30px !important;
+}
+.blue{
+    color :#00a8f2;
 }

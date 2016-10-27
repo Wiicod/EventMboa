@@ -109,7 +109,8 @@ controller
     .controller('HeaderCtrl', ['$scope', '$auth', '$state','$rootScope','Restangular', function ($scope, $auth, $state,$rootScope,Restangular) {
         $scope.loguer=false;
         $scope.lieu=false;
-        if($state.current.name!='home'){
+
+        if($state.current.name!='home' && $state.current.name!="events"){
             $scope.lieu=true;
         }
         $scope.logout = function () {
@@ -119,7 +120,8 @@ controller
         };
 
         Restangular.one('authenticated-user').get().then(function(data){
-            console.log(data);
+            //console.log(data);
+            $scope.user=data;
         });
 
         $scope.create_event=function(){
@@ -129,6 +131,8 @@ controller
 
         $scope.searchEvent=function(key){
             console.log(key);
+            $rootScope.searchKey=key;
+            $state.go("events");
             // à faire
         };
         if($auth.getToken()!=null){
@@ -143,28 +147,39 @@ controller
 
     }])
 
-    .controller('HomeCtrl',['$scope','Restangular',function($scope,Restangular) {
-        Restangular.all('event_topic').getList().then(function (data) {
-           // console.log(data);
+    .controller('HomeCtrl',['$scope','Restangular','$rootScope','$state',function($scope,Restangular,$rootScope,$state) {
+        Restangular.all('event_type').getList().then(function (data) {
             $scope.categories = data;
         }, function (err) {
             console.log(err);
         });
+        $scope.date_deb=[];
         Restangular.all('event').getList().then(function (events) {
+            var tm=[];
             angular.forEach(events,function(v,k){
                 v.id=parseInt(Math.random(1,5)*10000)+""+ v.id;
                 var d=new Date(v.start_date);
+                $scope.date_deb.push({name:jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900),value:v.start_date});
                 v.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
                 d=new Date(v.end_date);
                 v.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
+                Restangular.one('country', v.town.country_id).get().then(function(data){
+                    v.town.country=data;
+                });
+                if(v.tickets.length>0 && v.status=="active"){
+                    tm.push(v);
+                }
             });
-            $scope.events = events;
+            $scope.events = tm;
         }, function (err) {
             console.log(err);
         });
 
         $scope.search=function(s){
-
+            console.log(s);
+            $rootScope.search=s;
+            //if(s.titre!=""|| s.date!=null|| s.ville!="")
+            $state.go("events");
         };
 
         $(function(){
@@ -173,10 +188,13 @@ controller
         });
     }])
 
-    .controller('EventCtrl', ['$scope', '$stateParams', 'Restangular', function ($scope, $stateParams, Restangular) {
+    .controller('EventCtrl', ['$scope', '$stateParams', '$rootScope', 'Restangular','$filter', function ($scope, $stateParams, $rootScope, Restangular,$filter) {
         var id=$stateParams.id;
         var target=$stateParams.target;
-
+        var se=$rootScope.search;
+        // console.log(se);
+        var searchKey=$rootScope.searchKey;
+        console.log("Event",searchKey);
         $scope.categories=[];
         $scope.types=[];
         $scope.par_page=12;
@@ -184,52 +202,60 @@ controller
         // example d utilisation de restangular c valable pour le post put delete regarde juste la doc
         //tu pouvais aussi utilise la factorie customize Event k j ai cree
         $scope.date_deb=[];
+
+        Restangular.all('event_topic').getList().then(function (data) {$scope.categories=data;});
+        Restangular.all('event_type').getList().then(function (data) {$scope.types=data;});
         Restangular.all('event').getList().then(function (events) {
             if(id!="" && target!=""){
                 var out = _.filter(events, function (e) {
                     if(id=="topic"){
-                        return _.some(e.event_topic, { 'name': target });
+                        $scope.titre="Recherche des événements suivant la catégorie <span class='blue'>'"+target+"'</span>";
+                        if(e.event_topic.name==target){
+                            return e;
+                        }
                     }
-                    else if(target=='type'){
-                        return _.some(e.event_type, { 'name': target });
+                    else if(id=='type'){
+                        $scope.titre="Recherche des événements suivant le type <span class='blue'>'"+target+"'</span>";
+                        if(e.event_type.name==target){
+                            return e;
+                        }
                     }
                 });
                 events=out;
             }
+            else if(se!=undefined){
+                // rechercher
+                var out = _.filter(events, function (e) {
+                    if(e.name==se.titre || e.start_date==se.date ||e.town.name==se.ville){
+                        return e;
+                    }
+                    else{
+
+                    }
+                });
+            }
+            else if(searchKey!=undefined && searchKey!=""){
+                $scope.titre="Recherche des événements suivant le mot <span class='blue'>'"+target+"'</span>";
+            }
+            else{
+                $scope.titre="Evénements pour vous";
+            }
             var tm=[];
             angular.forEach(events,function(v,k){
-                //Restangular.one('countries', v.city);
                 v.id=parseInt(Math.random(1,5)*10000)+""+ v.id;
                 var d=new Date(v.start_date);
                 $scope.date_deb.push({name:jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900),value:v.start_date});
                 v.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
                 d=new Date(v.end_date);
                 v.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
-                if(v.tickets.length>0){
-                    if($scope.categories.length==0){
-                        $scope.categories.push(v.event_topic);
-                    }
-                    else{
-                        angular.forEach($scope.categories,function(d,dd){
-                            if(v.event_topic.name!= d.name){
-                                $scope.categories.push(v.event_topic);
-                            }
-                        });
-                    }
-                    if($scope.types.length==0){
-                        $scope.types.push(v.event_type);
-                    }
-                    else{
-                        angular.forEach($scope.types,function(d,dd){
-                            if(v.event_type.name!= d.name){
-                                $scope.types.push(v.event_type);
-                            }
-                        });
-                    }
-
+                Restangular.one('country', v.town.country_id).get().then(function(data){
+                    v.town.country=data;
+                });
+                if(v.tickets.length>0 && v.status=="active"){
                     tm.push(v);
                 }
             });
+            $scope.searchKey=searchKey;
             $scope.events = tm;
         }, function (err) {
             console.log(err);
@@ -253,6 +279,9 @@ controller
             data.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
             d=new Date(data.end_date);
             data.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
+            Restangular.one('country', data.town.country_id).get().then(function(c){
+                data.town.country=c;
+            });
             $scope.event = data;
         }, function (err) {
             console.log(err);
@@ -260,7 +289,6 @@ controller
         $scope.qte=0;
 
 
-       // $scope.events=events;
     }])
 
     .controller('MyEventCtrl',['$scope','$stateParams','$filter',function($scope,$stateParams,$filter){
