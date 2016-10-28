@@ -75,7 +75,6 @@ class Event extends Model
         return $this->belongsTo('App\User');
     }
 
-
     public function intrested_users(){
         return $this->belongsToMany('App\User','intrested_events');
     }

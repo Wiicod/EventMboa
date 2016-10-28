@@ -48,6 +48,7 @@ Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
     Route::resource('town', 'TownController');
     Route::resource('country', 'CountryController');
     Route::resource('help', 'HelpController');
+    Route::resource('adress', 'AdressController');
 });
 
 
@@ -56,10 +57,10 @@ Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function
     Route::get('/refresh', 'AuthenticateController@refreshToken');
     Route::get('authenticated-user', 'AuthenticateController@get_authenticated_user');
 
-    Route::resource('adress', 'AdressController');
-    Route::post('/create', 'EventController@store');
-    Route::post('/delete', 'EventController@destroy');
-    Route::post('/update', 'EventController@update');
+
+    Route::put('/event/{event}','EventController@update');
+    Route::delete('event/{event}','EventController@destroy');
+    Route::post('event','EventController@store');
 
     Route::resource('contact', 'ContactController');
 //    Route::resource('country', 'CountryController');
