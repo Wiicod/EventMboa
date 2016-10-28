@@ -10,7 +10,7 @@
 
 body{
     background: #F8F8FA;
-    font-family: 'Benton Sans',"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif !important;
+    font-family: 'Benton Sans', "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
     font-size: 17px !important;
     color: #282C35 !important;
     letter-spacing: 1px;
@@ -68,7 +68,7 @@ a{
   margin-top: 25px;
 }
 
-#form h3{
+#form h3 {
     font-size: 20px;
     line-height: 30px;
     font-weight: 400;
@@ -90,7 +90,7 @@ a{
   line-height: 24px;
   font-weight: 400;
   letter-spacing: 0.5px;
-  height: 48px !important;
+    height: 48px !important;
 }
 
 #form .btn-template-main{
@@ -215,7 +215,7 @@ ul.dropdown-menu > li.divider{
   background-clip: padding-box;
   position: relative;
   width: 100%;
-  height: 165px !important;
+    height: 165px !important;
   /*z-index: -1;*/
 }
 .card .card-image span.card-title {
@@ -260,14 +260,15 @@ ul.dropdown-menu > li.divider{
   border-top: 1px solid #EFF2F5;
 }
 
-.titress{
+.titress {
     margin-top: 3px;
     font-size: 16px;
     font-weight: 600;
     max-height: 45px;
     overflow: hidden;
 }
-.titre{
+
+.titre {
     display: block;
     display: -webkit-box;
     /*max-height: 38px;*/
@@ -394,7 +395,7 @@ ul.dropdown-menu > li.divider{
     position:absolute;
     width:100%;
     height:100%;
-    top:3em;
+    top: 3em;
     left:0;
     text-align:center;
     color:#ffffff;
@@ -507,8 +508,8 @@ ul.dropdown-menu > li.divider{
 }
 
 /*img{*/
-    /*height: 100% !important;*/
-    /*width: 100% !important;*/
+/*height: 100% !important;*/
+/*width: 100% !important;*/
 /*}*/
 
 .price{
@@ -1176,16 +1177,17 @@ ul .row{
     background: #fff;
 }
 
-.message{
+.message {
     color: red;
 }
 
-.sz{
+.sz {
     font-size: 35px;
     line-height: 50px;
     font-weight: 600;
     color: #282C35;
 }
-.blue{
-    color :#00a8f2;
+
+.blue {
+    color: #00a8f2;
 }

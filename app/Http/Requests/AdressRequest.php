@@ -62,10 +62,7 @@ class AdressRequest extends Request
             }
             default:
                 return [
-                    'first_name' => 'required|max:255',
-                    'last_name' => 'required|max:255',
-                    'email' => 'required|email|unique:contacts|max:255',
-                    'user_id' => 'required|integer|exists:users,id'
+
                 ];
         }
     }

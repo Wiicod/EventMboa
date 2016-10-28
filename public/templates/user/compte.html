@@ -1,32 +1,34 @@
 <section id="compte">
-    <h1 class="bold" translate >Informations du compte</h1>
+    <h1 class="bold" translate>Informations du compte</h1>
     <div class="row">
         <div class="col-lg-9">
             <form ng-submit="modifierEmail(compte)">
                 <div class="form-group">
-                    <h3 translate >Adresse e-mail du compte</h3>
+                    <h3 translate>Adresse e-mail du compte</h3>
                     <p>{{compte.email}}</p>
-                    <button class="btn btn-main btn-reverse" ng-if="!modMail" ng-click="modMail=true" translate >Modifier</button>
+                    <button class="btn btn-main btn-reverse" ng-if="!modMail" ng-click="modMail=true" translate>
+                        Modifier
+                    </button>
                 </div>
 
                 <div class="form-group" ng-if="modMail">
-                    <label translate >Nouvelle adresse e-mail</label>
+                    <label translate>Nouvelle adresse e-mail</label>
                     <input  type="email" ng-model="compte.email" placeholder="" class="form-control"/>
                 </div>
 
                 <div class="form-group" ng-if="modMail">
-                    <label translate >Votre mot de passe actuel</label>
+                    <label translate>Votre mot de passe actuel</label>
                     <input  type="password" ng-model="compte.password" value="********" placeholder="" class="form-control"/>
                 </div>
             </form>
             <form ng-submit="enregistrerCompte(compte)">
                 <div class="form-group">
-                    <h3 translate >Photo de profil</h3>
+                    <h3 translate>Photo de profil</h3>
                     <div style="padding: 10px;">
                         <i ng-if="no_image && compte.image==undefined" class="fa fa-user fa-4x" style="font-size: 8em;"></i>
                         <img  src="{{compte.image}}" id="image" style="width: 30% !important;" alt=""/>
                     </div>
-                    <p style="font-size: 15px" translate >
+                    <p style="font-size: 15px" translate>
                         JPG, GIF ou PNG de moins de 1MO. Ce sont les images carrées qui rendent le mieux.
                     </p>
                     <input type="file" style="display: none"
@@ -35,14 +37,14 @@
                 </div>
 
                 <div class="form-group">
-                    <h3 translate >Coordonnées</h3>
+                    <h3 translate>Coordonnées</h3>
                     <div class="row">
                         <div class="col-lg-6">
-                            <label translate >Nom</label>
+                            <label translate>Nom</label>
                             <input type="text" ng-model="compte.nom" class="form-control"/>
                         </div>
                         <div class="col-lg-6">
-                            <label translate >Prénom</label>
+                            <label translate>Prénom</label>
                             <input type="text" ng-model="compte.prenom" class="form-control"/>
                         </div>
                     </div>
@@ -51,79 +53,79 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-6">
-                            <label translate >Téléphone</label>
+                            <label translate>Téléphone</label>
                             <input type="text" ng-model="compte.home_phone" class="form-control"/>
                         </div>
                         <div class="col-lg-6">
-                            <label translate >Portable</label>
+                            <label translate>Portable</label>
                             <input type="text" ng-model="compte.cell_phone" class="form-control"/>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label translate >Site web</label>
+                    <label translate>Site web</label>
                     <input type="url" ng-model="compte.lien" class="form-control"/>
                 </div>
 
                 <div class="form-group">
-                    <h3 translate >Domicile</h3>
-                    <label translate >adresse</label>
+                    <h3 translate>Domicile</h3>
+                    <label translate>adresse</label>
                     <input type="url" ng-model="compte.adresse.adresse" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <label translate >Ville</label>
+                    <label translate>Ville</label>
                     <input type="text" ng-model="compte.adresse.ville" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-6">
-                            <label translate >Pays</label>
+                            <label translate>Pays</label>
                             <select ng-model="compte.adresse.pays" class="form-control">
-                                <option value=""disabled translate >Pays</option>
+                                <option value="" disabled translate>Pays</option>
                             </select>
                         </div>
                         <div class="col-lg-6">
-                            <label translate >Boîte postale</label>
+                            <label translate>Boîte postale</label>
                             <input type="number" min="0" ng-model="compte.adresse.code_postal" class="form-control"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <h3 translate >Autres informations</h3>
-                    <label translate >sexe</label>
+                    <h3 translate>Autres informations</h3>
+                    <label translate>sexe</label>
                     <select ng-model="compte.sexe" class="form-control">
-                        <option value=""disabled translate >Sexe</option>
-                        <option value="M" translate >Homme</option>
-                        <option value="F" translate >Femme</option>
+                        <option value="" disabled translate>Sexe</option>
+                        <option value="M" translate>Homme</option>
+                        <option value="F" translate>Femme</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label translate >Date de naissance</label>
+                    <label translate>Date de naissance</label>
                     <div class="row">
                         <div class="col-lg-3">
                             <select ng-model="compte.date_naissance.jour" class="form-control">
-                                <option value=""disabled translate >Jour</option>
+                                <option value="" disabled translate>Jour</option>
                                 <option ng-repeat="a in jours" value="{{a}}">{{a}}</option>
                             </select>
                         </div>
                         <div class="col-lg-4">
                             <select ng-model="compte.date_naissance.mois" class="form-control">
-                                <option value=""disabled translate >Mois</option>
+                                <option value="" disabled translate>Mois</option>
                                 <option ng-repeat="a in mois" value="{{a.valeur}}">{{a.name}}</option>
                             </select>
                         </div>
                         <div class="col-lg-4">
                             <select ng-model="compte.date_naissance.annee" class="form-control">
-                                <option value=""disabled translate >Année</option>
+                                <option value="" disabled translate>Année</option>
                                 <option ng-repeat="a in annees" value="{{a}}">{{a}}</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-main" translate >sauvegarder</button>
+                <button type="submit" class="btn btn-main" translate>sauvegarder</button>
             </form>
         </div>
     </div>

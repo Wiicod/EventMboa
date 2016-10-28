@@ -20,8 +20,10 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="" ng-if="lieu"><a ui-sref="events"><span translate>Parcourir</span></a></li>
                     <li class=""><a href="#"><span translate>Aide</span></a></li>
-                    <li class="" ng-if="!loguer"><a href="#" ui-sref="register"><span translate >Ouvrir un compte</span></a></li>
-                    <li class="" ng-if="!loguer"><a href="#" ui-sref="login"><span translate >Se connecter</span></a></li>
+                    <li class="" ng-if="!loguer"><a href="#" ui-sref="register"><span translate>Ouvrir un compte</span></a>
+                    </li>
+                    <li class="" ng-if="!loguer"><a href="#" ui-sref="login"><span translate>Se connecter</span></a>
+                    </li>
                     <li class="dropdown" ng-if="loguer">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="/#"><i class="fa fa-user"></i>&nbsp;
                             <span class="caret"></span></a>
@@ -29,7 +31,7 @@
                             <li>
                                 <a ui-sref="billet">
                                     <div class="row">
-                                        <div class="col-lg-9" translate >Billets</div>
+                                        <div class="col-lg-9" translate>Billets</div>
                                         <div class="col-lg-3">4</div>
                                     </div>
                                 </a>
@@ -37,22 +39,25 @@
                             <li>
                                 <a ui-sref="save">
                                     <div class="row">
-                                        <div class="col-lg-9" translate >Sauvegardés</div>
+                                        <div class="col-lg-9" translate>Sauvegardés</div>
                                         <div class="col-lg-3"></div>
                                     </div>
                                 </a>
                             </li>
                             <li class="divider"></li>
-                            <li><a ui-sref="myEvent" translate >Gérer les événements</a></li>
-                            <li><a ui-sref="profil" translate >Profil d'organisateur</a></li>
-                            <li><a ui-sref="myContact" translate >Contact</a></li>
+                            <li><a ui-sref="myEvent" translate>Gérer les événements</a></li>
+                            <li><a ui-sref="profil" translate>Profil d'organisateur</a></li>
+                            <li><a ui-sref="myContact" translate>Contact</a></li>
                             <li class="divider"></li>
-                            <li><a ui-sref="compte" translate >Paramètres du compte</a></li>
-                            <li><a href="#" ng-click="logout()" translate >Se déconnecter</a></li>
+                            <li><a ui-sref="compte" translate>Paramètres du compte</a></li>
+                            <li><a href="#" ng-click="logout()" translate>Se déconnecter</a></li>
                         </ul>
                     </li>
-                    <li class="active" ng-if="loguer"><a href="#" ui-sref="create"><span>Créer un événement</span></a></li>
-                    <li class="active" ng-if="!loguer"><a href="#" ng-click="create_event()"><span>Créer un événement</span></a></li>
+                    <li class="active" ng-if="loguer"><a href="#" ui-sref="create"><span>Créer un événement</span></a>
+                    </li>
+                    <li class="active" ng-if="!loguer"><a href="#"
+                                                          ng-click="create_event()"><span>Créer un événement</span></a>
+                    </li>
                 </ul>
             </div>
         </nav>

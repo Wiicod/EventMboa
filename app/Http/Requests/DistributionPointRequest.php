@@ -30,7 +30,7 @@ class DistributionPointRequest extends Request
             case 'GET':
             {
                 return [
-                    'town_id' => 'required|integer|exists:towns,id',
+                    'adress_id' => 'required|integer|exists:adresses,id',
                     'ticket_id' => 'required|integer|exists:tickets,id',
                     'name' => 'required|max:255',
                     'date' => 'required|date|date_format:"Y-m-d H:i:s"'
@@ -43,7 +43,7 @@ class DistributionPointRequest extends Request
             case 'POST':
             {
                 return [
-                    'town_id'=>'required|integer|exists:towns,id',
+                    'adress_id' => 'required|integer|exists:adresses,id',
                     'ticket_id'=>'required|integer|exists:tickets,id',
                     'name'=>'required|max:255',
                     'date' => 'required|date|date_format:"Y-m-d H:i:s"'
@@ -52,7 +52,7 @@ class DistributionPointRequest extends Request
             case 'PUT':
             {
                 return [
-                    'town_id'=>'integer|exists:towns,id',
+                    'adress_id' => 'integer|exists:adresses,id',
                     'ticket_id'=>'integer|exists:tickets,id',
                     'name'=>'max:255',
                     'date' => 'date|date_format:"Y-m-d H:i:s"'

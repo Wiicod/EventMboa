@@ -19,7 +19,8 @@
 _________________________________________________________ -->
                 <ul class="nav navbar text-uppercase">
                     <li class="dropdown">
-                        <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Catégories <i class="fa fa-angle-down pull-right"></i></a>
+                        <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Catégories <i
+                                class="fa fa-angle-down pull-right"></i></a>
                         <ul class="dropdown-menu">
                             <li ng-repeat="c in categories |orderBy:'-name':true">
                                 <a ui-sref="events({target:c.name,id:'topic'})">{{c.name}}</a>
@@ -27,7 +28,8 @@ _________________________________________________________ -->
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Types <i class="fa fa-angle-down pull-right"></i></a>
+                        <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Types <i
+                                class="fa fa-angle-down pull-right"></i></a>
                         <ul class="dropdown-menu">
                             <li ng-repeat="t in types |orderBy:'-name':true">
                                 <a ui-sref="events({target:t.name,id:'type'})">{{t.name}}</a>

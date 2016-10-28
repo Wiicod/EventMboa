@@ -63,10 +63,10 @@ $factory->define(Contact::class, function (Faker\Generator $faker) {
 
 $factory->define(DistributionPoint::class, function (Faker\Generator $faker) {
 
-    $town = FactoryHelper::getOrCreate(Town::class);
+    $adress = FactoryHelper::getOrCreate(Adress::class);
     $ticket = FactoryHelper::getOrCreate(Ticket::class);
     return [
-        'town_id' => $town->id,
+        'adress_id' => $adress->id,
         'ticket_id' => $ticket->id,
         'name' => $faker->name,
         'date' => $faker->dateTime,
@@ -115,7 +115,7 @@ $factory->define(Event::class, function (Faker\Generator $faker) {
     $adress = FactoryHelper::getOrCreate(Adress::class);
 
     return [
-        'creator' => $user->id,
+        'user_id' => $user->id,
         'organizer_id' => $organizer->id,
         'event_topic_id' => $event_topic->id,
         'event_type_id' => $event_type->id,
@@ -154,6 +154,7 @@ $factory->define(IntrestedEvent::class, function (Faker\Generator $faker) {
 $factory->define(Organizer::class, function (Faker\Generator $faker) {
 
     $image = FactoryHelper::fakeFile($faker, 'organizer');
+    $user = FactoryHelper::getOrCreate(User::class);
     return [
         'name' => $faker->name,
         'description' => $faker->text,
@@ -163,7 +164,8 @@ $factory->define(Organizer::class, function (Faker\Generator $faker) {
         'twitter' => $faker->url,
         'instagram' => $faker->url,
         'google' => $faker->url,
-        'web_site' => $faker->url
+        'web_site' => $faker->url,
+        'user_id' => $user->id
 
     ];
 
@@ -187,6 +189,7 @@ $factory->define(Participant::class, function (Faker\Generator $faker) {
 $factory->define(Person::class, function (Faker\Generator $faker) {
 
     $user = FactoryHelper::getOrCreate(User::class, true);
+    $adress = FactoryHelper::getOrCreate(Adress::class, true);
     $picture = FactoryHelper::fakeFile($faker, 'person');
     return [
         'first_name' => $faker->firstName,
@@ -201,6 +204,9 @@ $factory->define(Person::class, function (Faker\Generator $faker) {
         'twitter' => $faker->url,
         'instagram' => $faker->url,
         'google' => $faker->url,
+        'web_site' => $faker->url,
+        'sex' => $faker->boolean(),
+        'adress_id' => $adress->id
 
     ];
 

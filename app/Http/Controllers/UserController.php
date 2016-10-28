@@ -39,7 +39,10 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         //
-        return RestHelper::store(User::class, $request->all());
+        $data = $request->all();
+        if ($request->password)
+            $data['password'] = bcrypt($request->password);
+        return RestHelper::store(User::class, $data);
     }
 
     /**
@@ -75,7 +78,10 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         //
-        return RestHelper::update(User::class, $request->all(), $id);
+        $data = $request->all();
+        if ($request->password)
+            $data['password'] = bcrypt($request->password);
+        return RestHelper::update(User::class, $data, $id);
     }
 
     /**

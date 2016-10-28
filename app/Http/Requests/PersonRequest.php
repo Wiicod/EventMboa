@@ -42,6 +42,9 @@ class PersonRequest extends Request
                     'instagram' => 'url|max:255',
                     'google' => 'url|max:255',
                     'linked' => 'url|max:255',
+                    'sex' => 'required|max:1',
+                    'web_site' => 'url',
+                    'adress_id' => 'required|integer|exists:adresses,id',
                 ];
             }
             case 'DELETE':
@@ -63,6 +66,9 @@ class PersonRequest extends Request
                     'instagram'=>'url|max:255',
                     'google'=>'url|max:255',
                     'linked'=>'url|max:255',
+                    'sex' => 'required|max:1',
+                    'web_site' => 'url|max:255',
+                    'adress_id' => 'required|integer|exists:adresses,id',
                 ];
             }
             case 'PUT':
@@ -80,6 +86,9 @@ class PersonRequest extends Request
                     'instagram'=>'url|max:255',
                     'google'=>'url|max:255',
                     'linked'=>'url|max:255',
+                    'sex' => 'max:1',
+                    'web_site' => 'url|max:255',
+                    'adress_id' => 'integer|exists:adresses,id',
                 ];
             }
             case 'PATCH':

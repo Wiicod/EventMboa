@@ -47,9 +47,10 @@ class UserRequest extends Request
             }
             case 'PUT':
             {
+
                 return [
                     'password'=>'max:255',
-                    'email' => 'email|unique:users|max:255',
+                    'email' => 'email|max:255|unique:users,email,' . $this->route()->getParameter('user'),
                 ];
             }
             case 'PATCH':

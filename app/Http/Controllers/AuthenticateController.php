@@ -35,7 +35,7 @@ class AuthenticateController extends Controller
                 return response()->json(['erreur' => 'donnees de connexion invalide'], 401);
             }
         } catch (JWTException $e) {
-            return response()->json(['erreur' => 'impossible de creer le token'], 500);
+            return response()->json(['erreur' => 'bad credential'], 403);
         }
 
         // if no errors are encountered we can return a JWT
