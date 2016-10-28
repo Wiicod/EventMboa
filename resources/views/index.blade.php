@@ -79,6 +79,7 @@
 	<script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<script src="vendor/dirPagination.min.js"></script>
 	<script src="vendor/ng-file-upload.min.js"></script>
+	<script src="vendor/angular-cookies/angular-cookies.min.js"></script>
 
 	<script src='vendor/textAngular/dist/textAngular-rangy.min.js'></script>
 	<script src='vendor/textAngular/dist/textAngular-sanitize.min.js'></script>

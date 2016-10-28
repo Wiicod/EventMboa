@@ -6,8 +6,8 @@ controller
 
     }])
 
-    .controller('AuthCtrl', ['$scope', '$auth', '$state', '$stateParams','$rootScope',
-        function ($scope, $auth, $state, $stateParams,$rootScope) {
+    .controller('AuthCtrl', ['$scope', '$auth', '$state', '$stateParams','$cookies','Restangular','$rootScope',
+        function ($scope, $auth, $state, $stateParams,$cookies,Restangular,$rootScope) {
         $scope.message="";
 
         $scope.signup = function () {
@@ -16,6 +16,9 @@ controller
                 console.log(response.data.user);
                 $auth.setToken(response.data.token);
                 console.info('Signup  successfully.');
+                Restangular.one('authenticated-user').get().then(function(data){
+                    $cookies.putObject("user",data.user,{path: '/'});
+                });
                 $state.go('home');
 
             }, function (error) {
@@ -34,6 +37,9 @@ controller
                 } else {
                     $state.go('home');
                 }
+                Restangular.one('authenticated-user').get().then(function(data){
+                    $cookies.putObject("user",data.user,{path: '/'});
+                });
             }, function (error) {
                 console.error(error);
                 $scope.message="Paramètres de connexion invalides";
@@ -119,11 +125,6 @@ controller
             $state.go('home');
         };
 
-        Restangular.one('authenticated-user').get().then(function(data){
-            //console.log(data);
-            $scope.user=data;
-        });
-
         $scope.create_event=function(){
             $rootScope.next="create";
             $state.go('login');
@@ -165,13 +166,13 @@ controller
                 d=new Date(v.end_date);
                 v.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
                 Restangular.one('town', v.adress.town_id).get().then(function(data){
-                    console.log(data);
-                    v.town.country=data;
+                    v.town=data;
                 });
                 if(v.tickets.length>0 && v.status=="active"){
                     tm.push(v);
                 }
             });
+            console.log(tm);
             $scope.events = tm;
         }, function (err) {
             console.log(err);
@@ -250,8 +251,8 @@ controller
                 v.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
                 d=new Date(v.end_date);
                 v.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
-                Restangular.one('country', v.town.country_id).get().then(function(data){
-                    v.town.country=data;
+                Restangular.one('town', v.adress.town_id).get().then(function(data){
+                    v.town=data;
                 });
                 if(v.tickets.length>0 && v.status=="active"){
                     tm.push(v);
@@ -281,8 +282,8 @@ controller
             data.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
             d=new Date(data.end_date);
             data.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
-            Restangular.one('country', data.town.country_id).get().then(function(c){
-                data.town.country=c;
+            Restangular.one('town', data.adress.town_id).get().then(function(t){
+                data.town=t;
             });
             $scope.event = data;
         }, function (err) {
@@ -293,10 +294,14 @@ controller
 
     }])
 
-    .controller('MyEventCtrl',['$scope','$stateParams','$filter',function($scope,$stateParams,$filter){
+    .controller('MyEventCtrl',['$scope','$stateParams','$filter','Restangular',function($scope,$stateParams,$filter,Restangular){
         $scope.eventOnline=$filter('filter')(events,{statut:0});
         $scope.eventPassed=$filter('filter')(events,{statut:2});
         $scope.eventSave=$filter('filter')(events,{statut:1});
+
+        Restangular.all("event").getList().then(function(data){
+            console.log(data);
+        });
 
         $scope.events=$scope.eventOnline;
         $scope.choixEvent=function(choix){
@@ -337,10 +342,8 @@ controller
 
     }])
 
-    .controller('ProfilCtrl',['$scope','$filter',function($scope,$filter){
-        $scope.users=organisateurs;
-        $scope.user=$scope.users[0];
-        $scope.organisateur={};
+    .controller('ProfilCtrl',['$scope','$filter','Restangular','$cookies',function($scope,$filter,Restangular,$cookies){
+        $scope.organisateur=$cookies.getObject("user");
         $scope.user_event=undefined;
         $scope.no_image=true;
 
@@ -355,12 +358,6 @@ controller
             });
         };
 
-        $scope.$watch('organisateur.who',function(){
-            if($scope.organisateur.who!=undefined){
-                $scope.organisateur=$filter('filter')($scope.users,{nom:$scope.organisateur.who},true)[0];
-            }
-        });
-
         $scope.enregistrerOrgansiateur=function(o){
             console.log(o);
         };
@@ -370,36 +367,40 @@ controller
         }
     }])
 
-    .controller('CompteCtrl',['$scope','$filter',function($scope,$filter){
-        $scope.users=organisateurs;
-        $scope.compte=$scope.users[0];
+    .controller('CompteCtrl',['$scope','$filter','Restangular','$state','$cookies',function($scope,$filter,Restangular,$state,$cookies){
+        $scope.compte=$cookies.getObject("user");
+        var d=new Date($scope.compte.person.birthdate);
+        $scope.compte.jour= d.getDate();
+        $scope.compte.mois= d.getMonth()+1;
+        $scope.compte.annee= d.getYear()+1900;
+        $scope.email=$scope.compte.email;
         $scope.user_event=undefined;
         $scope.no_image=true;
         $scope.modMail=false;
-        $scope.email=$scope.compte.email;
-        $scope.annees=[];
-        $scope.mois=[
-            {valeur:1,name:'Janvier'},
-            {valeur:2,name:'Février'},
-            {valeur:3,name:'Mars'},
-            {valeur:4,name:'Avril'},
-            {valeur:5,name:'Mai'},
-            {valeur:6,name:'Juin'},
-            {valeur:7,name:'Juillet'},
-            {valeur:8,name:'Août'},
-            {valeur:9,name:'Septembre'},
-            {valeur:10,name:'Octobre'},
-            {valeur:11,name:'Novembre'},
-            {valeur:12,name:'Décembre'}
-            ];
-        $scope.jours=[];
-        for(var i=new Date().getFullYear();i>new Date().getFullYear()-80;i--){
-            $scope.annees.push(i);
-        }
 
-        for(i=1;i<32;i++){
-            $scope.jours.push(i);
-        }
+        //$scope.annees=[];
+        //$scope.mois=[
+        //    {valeur:1,name:'Janvier'},
+        //    {valeur:2,name:'Février'},
+        //    {valeur:3,name:'Mars'},
+        //    {valeur:4,name:'Avril'},
+        //    {valeur:5,name:'Mai'},
+        //    {valeur:6,name:'Juin'},
+        //    {valeur:7,name:'Juillet'},
+        //    {valeur:8,name:'Août'},
+        //    {valeur:9,name:'Septembre'},
+        //    {valeur:10,name:'Octobre'},
+        //    {valeur:11,name:'Novembre'},
+        //    {valeur:12,name:'Décembre'}
+        //    ];
+        //$scope.jours=[];
+        ////for(var i=new Date().getFullYear();i>new Date().getFullYear()-80;i--){
+        //    $scope.annees.push(i);
+        //}
+        //
+        //for(i=1;i<32;i++){
+        //    $scope.jours.push(i);
+        //}
 
         $scope.click_im=function(){
             $("#im").trigger("click");
@@ -413,15 +414,28 @@ controller
             console.log($scope.compte);
         };
 
-        $scope.modifierEmail=function(e){
-            console.log(e);
-        }
+        $scope.modifierEmail=function(u,e){
+            //console.log(u,e);
+            Restangular.one("user", u.user.id).get().then(function(user){
+                console.log(user);
+                user.paypal_email= e.email;
+                user.put();
+                $scope.paypal=user.paypal_email;
+            });
+        };
 
         $scope.enregistrerCompte=function(c){
             console.log(c);
         };
 
+        $scope.choix=$state.current.name;
 
+        $scope.enregistrerSociaux=function(s){
+            console.log(s);
+        };
+        $scope.modifierMotDePasse=function(m){
+            console.log(m);
+        };
 
     }])
 
@@ -465,17 +479,6 @@ controller
         }
     }])
 
-    .controller('UserCtrl',['$scope','$state',function($scope,$state){
-        $scope.choix=$state.current.name;
-
-        $scope.enregistrerSociaux=function(s){
-            console.log(s);
-        };
-        $scope.modifierMotDePasse=function(m){
-            console.log(m);
-        };
-    }])
-
     .controller('TestCtrl',['$scope',function($scope){
         $scope.click_im=function(){
             $("#im").trigger("click");
@@ -506,37 +509,63 @@ controller
         $scope.product=$stateParams.product;
     }])
 
-    .controller('ContactCtrl',['$scope','$filter',function($scope,$filter){
+    .controller('ContactCtrl',['$scope','$filter','Restangular','$cookies',function($scope,$filter,Restangular,$cookies){
+        $scope.user=$cookies.getObject("user");
+        $scope.contact={};
+        $scope.contact.action="nouveau";
+        console.log($scope.user.id);
+        Restangular.all("contact?user_id="+$scope.user.id).getList().then(function(c){
+            $scope.contacts=c;
+        },function(e){
+            console.log(e);
+        });
+
+        var allContact=Restangular.all("contact");
+
+
         $scope.oldContact={};
-        $scope.contacts=[{nom:"nom",prenom:"prenom",email:"qsd",id:4}];
-        $scope.enregistrerContact=function(c){
+        //$scope.contacts=[{nom:"nom",prenom:"prenom",email:"qsd",id:4}];
+        $scope.enregistrerContact=function(contact){
             var id;
-            if($scope.oldContact.id!=undefined){
-                // edition
-                var target=$filter('filter')($scope.contacts,{id:$scope.oldContact.id},true)[0];
-                $scope.contacts.splice($scope.contacts.indexOf(target),1);
-                id=$scope.oldContact.id;
+            var c=contact.contact;
+            if(contact.action=="editer"){
+               contact.put();
             }
-            var x= c.split(';');// recupération des lignes
-            for(var i=0;i< x.length;i++){
-                var xx=x[i].split(',');
-                $scope.contacts.push({nom:xx[2],prenom:xx[1],email:xx[0],id:id});
+            else{
+                // ajout
+                var x= c.split(';');// recupération des lignes
+                console.log("qsd");
+                for(var i=0;i< x.length;i++){
+                    var xx=x[i].split(',');
+                    allContact.post({last_name:xx[2],first_name:xx[1],email:xx[0],user_id:$scope.user.id});
+                }
+                Restangular.all("contact?user_id="+$scope.user.id).getList().then(function(c){
+                    $scope.contacts=c;
+                },function(e){
+                    console.log(e);
+                });
             }
             $scope.contact="";
             $("#close").trigger("click");
         };
-        $scope.titre="Nouveau contact";
+
+
+        $scope.nouveau=function(){
+            $scope.titre="Nouveau contact";
+            $scope.contact.action="nouveau";
+        }
 
         $scope.choixContact=function(c){
             $scope.oldContact=c;
-            console.log(c);
-            $scope.contact= c.email+","+ c.prenom+","+ c.nom;
+            $scope.contact=c;
+            $scope.contact.action="editer";
             $scope.titre="Modifier contact";
         };
 
         $scope.supprimer=function(c){
             var target=$filter('filter')($scope.contacts,{id:c.id},true)[0];
             $scope.contacts.splice($scope.contacts.indexOf(target),1);
+            Restangular.one("contact", c.id).get().then(function(data){data.remove();});
         };
 
     }])

@@ -14,6 +14,8 @@
     "ngmap": "~1.17.6",
     "angular-qr": "latest",
     "restangular": "^1.5.2",
-    "satellizer": "^0.15.5"
+    "satellizer": "^0.15.5",
+    "ng-cookies": "~1.1.1",
+    "angular-cookies": "~1.5.8"
   }
 }

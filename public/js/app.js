@@ -12,7 +12,7 @@ var filter =angular.module('mboa.filter', ['ui.router']);
 angular.module('mboa', [
   'ui.router',
   'satellizer',
-  //'mp.datePicker',
+  'ngCookies',
   'restangular',
   'textAngular',
   'ngFileUpload',
@@ -42,7 +42,6 @@ angular.module('mboa', [
 
         return false; // error handled
       } else {
-        console.info('ahah');
         return true; // error not handled
       }
 

@@ -1,16 +1,16 @@
 <section id="gerer">
     <div class="container">
         <div class="row" style="margin-top: 30px">
-            <div class="col-lg-8 col-sm-8 col-md-8">
+            <div class="col-lg-9 col-sm-9 col-md-9">
                 <h1 translate >Contacts</h1>
             </div>
-            <div class="col-lg-4" style="margin-top: 25px" ng-if="contacts.length>0">
-                <button class="btn btn-main" data-toggle="modal" href="/#contactModal" translate >Ajouter contact</button>
+            <div class="col-lg-3" style="margin-top: 25px;text-align: right" ng-if="contacts.length>0">
+                <button class="btn btn-main" data-toggle="modal" ng-click="nouveau()" href="/#contactModal" translate >Ajouter contact</button>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-9 text-center">
-                <div class="row" ng-if="contacts.length>0">
+                <div class="row" ng-class="{'hide':contacts.length==0}">
                     <div class="col-lg-7">
                         <div class="input-group input-group-lg">
                             <input type="text" ng-model="searchKey" class="form-control form-input"
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <table class="table text-capitalize" ng-if="contacts.length>0">
+                <table class="table text-capitalize" ng-class="{'hide':contacts.length==0}" >
                     <thead>
                         <th translate >Nom</th>
                         <th translate >Prénom</th>
@@ -28,16 +28,16 @@
                         <th translate >Actions</th>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="c in contacts|orderBy:'-nom':true|filter:searchKey">
-                            <td>{{c.nom}}</td>
-                            <td>{{c.prenom}}</td>
+                        <tr ng-repeat="c in contacts|orderBy:'-last_name':true|filter:searchKey">
+                            <td>{{c.last_name}}</td>
+                            <td>{{c.first_name}}</td>
                             <td>{{c.email}}</td>
                             <td>
-                                <a ng-click="choixContact(c)" data-toggle="modal" href="/#contactModal">
-                                    <i class="fa fa-edit fa-lg"></i></a>
+                                <span ng-click="choixContact(c)" data-toggle="modal" href="/#contactModal">
+                                    <i class="fa fa-edit fa-lg"></i></span>
                                 &nbsp;
                                 &nbsp;
-                                <a ng-click="supprimer(c)"><i class="fa fa-trash fa-lg"></i></a>
+                                <span ng-click="supprimer(c)"><i class="fa fa-trash fa-lg"></i></span>
                             </td>
                         </tr>
                     </tbody>
@@ -68,6 +68,17 @@
                         <span class="requis small" translate > Bientôt disponible.</span>
                     </div>
                 </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#"><img class="media-object"  style="width: 90px !important; height: 90px !important;"
+                                         src="images/fb.png"></a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading bold" translate >Facebook</h4>
+                        <p class="small-text" translate >Importez vos contacts facebook.</p>
+                        <span class="requis small" translate > Bientôt disponible.</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -80,13 +91,41 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title text-center text-uppercase bold">{{titre}}</h4>
             </div>
-            <div class="modal-body" style="background: #F8F8FA">
+            <div class="modal-body" style="background: #F8F8FA" ng-if="contact.action=='editer'">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Nom</th>
+                                    <td>
+                                        <input type="text" placeholder="Nom" ng-model="contact.last_name" class="form-control"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Prénom</th>
+                                    <td>
+                                        <input type="text" placeholder="Prénom" ng-model="contact.first_name" class="form-control"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>
+                                        <input type="email" placeholder="Email" ng-model="contact.email" class="form-control"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" style="background: #F8F8FA" ng-if="contact.action=='nouveau'">
                 <div class="row">
                     <div class="col-lg-12">
                         <ff translate >Saisissez l'e-mail, le prénom, le nom de famille en les séparant par des virgules.
                             Chaque nouveau contact doit être séparé par un point-virgule</ff>
 
-                        <textarea ng-model="contact" placeholder="johndoe@gmail.com,John,Doe" class="form-control"></textarea>
+                        <textarea ng-model="contact.contact" placeholder="johndoe@gmail.com,John,Doe" class="form-control"></textarea>
                     </div>
                 </div>
             </div>

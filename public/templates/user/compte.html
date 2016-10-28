@@ -2,29 +2,31 @@
     <h1 class="bold" translate >Informations du compte</h1>
     <div class="row">
         <div class="col-lg-9">
-            <form ng-submit="modifierEmail(compte)">
+            <div >
                 <div class="form-group">
                     <h3 translate >Adresse e-mail du compte</h3>
-                    <p>{{compte.email}}</p>
-                    <button class="btn btn-main btn-reverse" ng-if="!modMail" ng-click="modMail=true" translate >Modifier</button>
+                    <p>{{compte.email}}{{}}</p>
+                    <a class="btn btn-main btn-reverse" ng-class="{'hide':modMail}" ng-click="modMail=true" translate >Modifier</a>
                 </div>
+                <form ng-submit="modifierEmail(user_auth,xcompte)" ng-if="modMail">
+                    <div class="form-group">
+                        <label translate >Nouvelle adresse e-mail</label>
+                        <input  type="email" ng-model="xcompte.email" placeholder="" class="form-control"/>
+                    </div>
 
-                <div class="form-group" ng-if="modMail">
-                    <label translate >Nouvelle adresse e-mail</label>
-                    <input  type="email" ng-model="compte.email" placeholder="" class="form-control"/>
-                </div>
-
-                <div class="form-group" ng-if="modMail">
-                    <label translate >Votre mot de passe actuel</label>
-                    <input  type="password" ng-model="compte.password" value="********" placeholder="" class="form-control"/>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label translate >Votre mot de passe actuel</label>
+                        <input  type="password" ng-model="xcompte.password" value="********" placeholder="" class="form-control"/>
+                    </div>
+                    <button type="submit" class="btn btn-main">Enregistrer</button>
+                </form>
+            </div>
             <form ng-submit="enregistrerCompte(compte)">
                 <div class="form-group">
                     <h3 translate >Photo de profil</h3>
                     <div style="padding: 10px;">
-                        <i ng-if="no_image && compte.image==undefined" class="fa fa-user fa-4x" style="font-size: 8em;"></i>
-                        <img  src="{{compte.image}}" id="image" style="width: 30% !important;" alt=""/>
+                        <i ng-if="no_image && compte.person.picture==undefined" class="fa fa-user fa-4x" style="font-size: 8em;"></i>
+                        <img  src="{{compte.person.picture}}" id="image" style="width: 30% !important;" alt=""/>
                     </div>
                     <p style="font-size: 15px" translate >
                         JPG, GIF ou PNG de moins de 1MO. Ce sont les images carrées qui rendent le mieux.
@@ -39,11 +41,11 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <label translate >Nom</label>
-                            <input type="text" ng-model="compte.nom" class="form-control"/>
+                            <input type="text" ng-model="compte.person.first_name" class="form-control"/>
                         </div>
                         <div class="col-lg-6">
                             <label translate >Prénom</label>
-                            <input type="text" ng-model="compte.prenom" class="form-control"/>
+                            <input type="text" ng-model="compte.person.last_name" class="form-control"/>
                         </div>
                     </div>
                 </div>
@@ -52,39 +54,40 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <label translate >Téléphone</label>
-                            <input type="text" ng-model="compte.home_phone" class="form-control"/>
+                            <input type="text" ng-model="compte.person.home_phone" class="form-control"/>
                         </div>
                         <div class="col-lg-6">
                             <label translate >Portable</label>
-                            <input type="text" ng-model="compte.cell_phone" class="form-control"/>
+                            <input type="text" ng-model="compte.person.cell_phone" class="form-control"/>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label translate >Site web</label>
-                    <input type="url" ng-model="compte.lien" class="form-control"/>
+                    <input type="url" ng-model="compte.person.web_site" class="form-control"/>
                 </div>
 
                 <div class="form-group">
                     <h3 translate >Domicile</h3>
                     <label translate >adresse</label>
-                    <input type="url" ng-model="compte.adresse.adresse" class="form-control"/>
+                    <input type="url" ng-model="compte.person.adress.name" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label translate >Ville</label>
-                    <input type="text" ng-model="compte.adresse.ville" class="form-control"/>
+                    <input type="text" ng-model="compte.person.adress.town.name" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-6">
                             <label translate >Pays</label>
-                            <select ng-model="compte.adresse.pays" class="form-control">
+                            <select ng-model="compte.person.adress.town.country.name" class="form-control"
+                                    >
                                 <option value=""disabled translate >Pays</option>
                             </select>
                         </div>
                         <div class="col-lg-6">
                             <label translate >Boîte postale</label>
-                            <input type="number" min="0" ng-model="compte.adresse.code_postal" class="form-control"/>
+                            <input type="number" min="0" ng-model="compte.person.adress.post_box" class="form-control"/>
                         </div>
                     </div>
                 </div>
@@ -92,7 +95,7 @@
                 <div class="form-group">
                     <h3 translate >Autres informations</h3>
                     <label translate >sexe</label>
-                    <select ng-model="compte.sexe" class="form-control">
+                    <select ng-model="compte.person.sexe" class="form-control">
                         <option value=""disabled translate >Sexe</option>
                         <option value="M" translate >Homme</option>
                         <option value="F" translate >Femme</option>
@@ -103,22 +106,23 @@
                     <label translate >Date de naissance</label>
                     <div class="row">
                         <div class="col-lg-3">
-                            <select ng-model="compte.date_naissance.jour" class="form-control">
-                                <option value=""disabled translate >Jour</option>
-                                <option ng-repeat="a in jours" value="{{a}}">{{a}}</option>
-                            </select>
+                            <div class="row">
+                                <div class="col-lg-6" style="padding-top: 9px;">Jour</div>
+                                <div class="col-lg-6"><input type="text" ng-model="compte.jour" class="form-control" placeholder="00"/></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="row">
+                                <div class="col-lg-6" style="padding-top: 9px;">Mois</div>
+                                <div class="col-lg-6"><input type="text" ng-model="compte.mois" class="form-control" placeholder="00"/></div>
+                            </div>
                         </div>
                         <div class="col-lg-4">
-                            <select ng-model="compte.date_naissance.mois" class="form-control">
-                                <option value=""disabled translate >Mois</option>
-                                <option ng-repeat="a in mois" value="{{a.valeur}}">{{a.name}}</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-4">
-                            <select ng-model="compte.date_naissance.annee" class="form-control">
-                                <option value=""disabled translate >Année</option>
-                                <option ng-repeat="a in annees" value="{{a}}">{{a}}</option>
-                            </select>
+                            <div class="row">
+                                <div class="col-lg-6" style="padding-top: 9px;">Annee</div>
+                                <div class="col-lg-6">
+                                    <input type="text" ng-model="compte.annee" class="form-control" placeholder="0000"/></div>
+                            </div>
                         </div>
                     </div>
                 </div>

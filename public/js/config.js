@@ -269,7 +269,7 @@ config
             views:{
                 '':{
                     templateUrl: template_url+'user/index.html',
-                    controller:"UserCtrl"
+                    controller:"CompteCtrl"
                 },
                 'header@user': {
                     templateUrl: template_url+'static/header.html',
@@ -375,7 +375,7 @@ config
                     controller:'AppCtrl'
                 },
                 'header@create': {
-                    templateUrl: template_url+'event/header-events.html',
+                    templateUrl: template_url+'static/header.html',
                     controller:"HeaderCtrl"
                 },
                 'body@create': {

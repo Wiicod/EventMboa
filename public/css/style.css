@@ -148,6 +148,12 @@ ul.dropdown-menu > li{
     color: #666A73 !important;
     font-size: 18px;
 }
+header ul.dropdown-menu > li{
+    text-transform: none !important;
+    padding: 12px 20px;
+    color: #666A73 !important;
+    font-size: 18px;
+}
 ul.dropdown-menu > li a{
     padding: 0;
 }
