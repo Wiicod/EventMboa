@@ -299,19 +299,45 @@ controller
 
     }])
 
-    .controller('MyEventCtrl',['$scope','$stateParams','$filter','Restangular',function($scope,$stateParams,$filter,Restangular){
-        $scope.eventOnline=$filter('filter')(events,{statut:0});
-        $scope.eventPassed=$filter('filter')(events,{statut:2});
-        $scope.eventSave=$filter('filter')(events,{statut:1});
+    .controller('MyEventCtrl',['$scope','$stateParams','$filter','Restangular','$cookies',function($scope,$stateParams,$filter,Restangular,$cookies){
+        $scope.user=$cookies.getObject("user");
 
-        Restangular.all("event").getList().then(function(data){
+        Restangular.all("event").getList({user_id:$scope.user.id}).then(function(data){
             console.log(data);
+            $scope.eventOnline=$filter("filter")(data,{status:"active"},true);
+            $scope.eventPassed=$filter("filter")(data,{status:"end"},true);
+            $scope.eventSaved=$filter("filter")(data,{status:"save"},true);
+
+            $scope.events=$scope.eventOnline;
+
         });
 
+        //$scope.eventOnlinse= _.filter($scope.data,function(e){
+        //    if(e.status=="active"){
+        //        return e;
+        //    }
+        //});
+        //$scope.eventSave= _.filter($scope.data,function(e){
+        //    if(e.status=="save"){
+        //        return e;
+        //    }
+        //});
+        //$scope.eventPassed= _.filter($scope.data,function(e){
+        //    if(e.status=="end"){
+        //        return e;
+        //    }
+        //});
         $scope.events=$scope.eventOnline;
+
         $scope.choixEvent=function(choix){
             console.log(choix);
-            $scope.events=$filter('filter')(events,{statut:choix});
+            if(choix==0){
+                $scope.events=$scope.eventOnline;
+            }else if(choix==1){
+                $scope.events=$scope.eventSaved;
+            }else if(choix==2){
+                $scope.events=$scope.eventPassed;
+            }
         }
 
     }])
@@ -518,7 +544,6 @@ controller
         $scope.user=$cookies.getObject("user");
         $scope.contact={};
         $scope.contact.action="nouveau";
-        console.log($scope.user.id);
         Restangular.all("contact?user_id="+$scope.user.id).getList().then(function(c){
             $scope.contacts=c;
         },function(e){
@@ -527,14 +552,18 @@ controller
 
         var allContact=Restangular.all("contact");
 
-
-        $scope.oldContact={};
-        //$scope.contacts=[{nom:"nom",prenom:"prenom",email:"qsd",id:4}];
         $scope.enregistrerContact=function(contact){
             var id;
             var c=contact.contact;
             if(contact.action=="editer"){
-               contact.put();
+                Restangular.one("contact", contact.id).get().then(function(data){
+                    console.log(data);
+                    data.email=contact.email;
+                    data.last_name=contact.last_name;
+                    data.first_name=contact.first_name;
+                    console.log(data);
+                    data.put();
+                });
             }
             else{
                 // ajout
@@ -550,7 +579,6 @@ controller
                     console.log(e);
                 });
             }
-            $scope.contact="";
             $("#close").trigger("click");
         };
 
@@ -561,7 +589,6 @@ controller
         }
 
         $scope.choixContact=function(c){
-            $scope.oldContact=c;
             $scope.contact=c;
             $scope.contact.action="editer";
             $scope.titre="Modifier contact";

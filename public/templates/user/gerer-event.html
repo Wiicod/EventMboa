@@ -26,9 +26,9 @@
             <div class="col-lg-12">
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="/#accueil" ng-click="choixEvent(0)" data-toggle="tab">En ligne {{eventOnline.length}}</a></li>
-                        <li><a href="/#livres" ng-click="choixEvent(1)" data-toggle="tab">Avant-projets {{eventSave.length}}</a></li>
-                        <li><a href="/#témoignages" ng-click="choixEvent(2)" data-toggle="tab">Passés {{eventPassed.length}}</a></li>
+                        <li class="active"><a ng-click="choixEvent(0)" data-toggle="tab">En ligne {{eventOnline.length}}</a></li>
+                        <li><a ng-click="choixEvent(1)" data-toggle="tab">Avant-projets {{eventSaved.length}}</a></li>
+                        <li><a ng-click="choixEvent(2)" data-toggle="tab">Passés {{eventPassed.length}}</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="row-fluid">
@@ -40,19 +40,19 @@
                         <div ng-if="events.length>0" class="row-fluid" ng-repeat="e in events" >
                             <div class="event">
                                 <div class="col-lg-9">
-                                    <a ui-sref="details({nom:e.titre})"><h3 >{{e.titre}}</h3></a>
-                                    <div class="e-date">{{e.date_debut}}</div>
+                                    <a ui-sref="details({nom:e.titre})"><h3 >{{e.name}}</h3></a>
+                                    <div class="e-date">{{e.start_date}}</div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <div class="progress" style="margin-top: 15px">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="60"
-                                             aria-valuemin="0" aria-valuemax="100" style="width: {{(e.billet_vendu*100)/e.billets[0].quantite}}%">
-                                        </div>
-                                    </div>
-                                    Billets vendus : {{e.billet_vendu}}/{{e.billets[0].quantite}}
-                                </div>
+                                <!--<div class="col-lg-3" ng-if="e.status=='active'||e.status=='end'">-->
+                                    <!--<div class="progress" style="margin-top: 15px">-->
+                                        <!--<div class="progress-bar" role="progressbar" aria-valuenow="60"-->
+                                             <!--aria-valuemin="0" aria-valuemax="100" style="width: {{(e.billet_vendu*100)/e.billets[0].quantite}}%">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--Billets vendus : {{e.billet_vendu}}/{{e.billets[0].quantite}}-->
+                                <!--</div>-->
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-9">
                                     <ul class="nav navbar-nav">
                                         <li><a ui-sref="panneau({id:e.id})"><i class="fa fa-gear"></i> Gérer</a></li>
                                         <li><a ui-sref="create({id:e.id,target:'modifier'})"><i class="fa fa-edit"></i> Modifier</a></li>

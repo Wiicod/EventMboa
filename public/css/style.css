@@ -1089,6 +1089,9 @@ tbody tr td{
 /*Event handle*/
 .event{
     border-bottom: 1px solid #F1F1F1;
+    background: #F8F8FA;
+    box-shadow: 0px 0px 6px #afafaf;
+    margin-bottom: 15px;
 }
 .event h3{
     color:#00a1ee ;
