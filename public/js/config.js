@@ -36,11 +36,11 @@ config
             loginRequired:false,
             views:{
                 '':{
-                    templateUrl: template_url+'index.html',
-                    controller:"HeaderCtrl"
+                    templateUrl: template_url + 'index.html',
+                    controller: "HeaderCtrl"
                 },
                 'header@home': {
-                    templateUrl: template_url+'static/header.html'
+                    templateUrl: template_url + 'static/header.html'
                 },
                 'body@home': {
                     templateUrl: template_url+'home/content.html',
@@ -53,7 +53,7 @@ config
             }
         })
         .state('events',{
-            url:"/evenements/:id/:target?",
+            url: "/evenements/:id/:target?",
             title: "Evénements",
             loginRequired:false,
             views:{
@@ -62,7 +62,7 @@ config
                     controller:"EventCtrl"
                 },
                 'header@events': {
-                    templateUrl: template_url+'static/header.html',
+                    templateUrl: template_url + 'static/header.html',
                     controller:"HeaderCtrl"
                 },
                 'detail@events': {
@@ -81,10 +81,10 @@ config
             views:{
                 '':{
                     templateUrl: template_url+'index.html',
-                    controller:"DetailEventCtrl"
+                    controller: "DetailEventCtrl"
                 },
                 'header@details': {
-                    templateUrl: template_url+'static/header.html',
+                    templateUrl: template_url + 'static/header.html',
                     controller:"HeaderCtrl"
                 },
                 'body@details': {
@@ -457,5 +457,5 @@ config
                 }
             }
         });
-}])
+    }])
 ;

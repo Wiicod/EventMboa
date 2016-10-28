@@ -9,17 +9,20 @@
                         <li ng-class="{'active':choix=='online'}">
                             <a href="/#accueil" ng-click="choixEvent(0)" data-toggle="tab">
                                 {{eventOnline.length}}<br/>
-                                <ff translate ></ff>Evénements à venir
+                                <ff translate></ff>
+                                Evénements à venir
                             </a>
                         </li>
                         <li ng-class="{'active':choix=='save'}">
                             <a href="/#livres" ng-click="choixEvent(1)" data-toggle="tab">
                             {{eventSave.length}}<br/>
-                                <ff translate ></ff> Evénements sauvegardés </a></li>
+                                <ff translate></ff>
+                                Evénements sauvegardés </a></li>
                         <li ng-class="{'active':choix=='passed'}">
                             <a href="/#témoignages" ng-click="choixEvent(2)" data-toggle="tab">
                             {{eventPassed.length}}<br/>
-                                <ff translate ></ff>Evénements antérieurs </a></li>
+                                <ff translate></ff>
+                                Evénements antérieurs </a></li>
                     </ul>
                     <div class="tab-content" style="border-top: 2px solid #f1f1f1; padding-top: 15px;">
                         <div class="row-fluid">

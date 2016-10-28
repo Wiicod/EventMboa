@@ -57,6 +57,7 @@ class OrganizerRequest extends Request
                     'instagram'=>'url|max:255',
                     'twitter'=>'url|max:255',
                     'web_site'=>'url|max:255',
+                    'user_id' => 'required|integer|exists:users,id',
                 ];
             }
             case 'PUT':
@@ -71,6 +72,7 @@ class OrganizerRequest extends Request
                     'instagram'=>'url|max:255',
                     'twitter'=>'url|max:255',
                     'web_site'=>'url|max:255',
+                    'user_id' => 'integer|exists:users,id',
                 ];
             }
             case 'PATCH':

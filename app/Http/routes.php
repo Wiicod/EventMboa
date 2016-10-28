@@ -27,7 +27,7 @@ Route::get('/img/{model}/{image}', function ($model, $image) {
     $path = storage_path('app/') . $filename;
     $file = Storage::get($filename);
     //$type = File::mimeType($path);
-    $type="image/jpeg";
+    $type = "image/jpeg";
     $response = Response::make($file, 200);
     $response->header("Content-Type", $type);
     return $response;

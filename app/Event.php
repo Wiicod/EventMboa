@@ -8,11 +8,11 @@ class Event extends Model
 {
     //
     public static $Status = ['new', 'created', 'active', 'end'];
-    protected $fillable =['id','creator','event_topic_id','name','description','event_type_id','organizer_id',
-        'start_date', 'end_date', 'recurring', 'banner_picture', 'status', 'adress_id'];
+    protected $fillable = ['id', 'event_topic_id', 'name', 'description', 'event_type_id', 'organizer_id',
+        'start_date', 'end_date', 'recurring', 'banner_picture', 'status', 'adress_id', 'user_id'];
     protected $dates=['start_date', 'end_date','created_at','updated_at'];
 
-    private $foreign = ['event_topic', 'event_type', 'organizer', 'event_links', 'adress','tickets'];
+    private $foreign = ['event_topic', 'event_type', 'organizer', 'event_links', 'adress', 'user'];
 
     private $files = ['banner_picture'];
 
@@ -69,8 +69,10 @@ class Event extends Model
     public function organizer(){
         return $this->belongsTo('App\Organizer');
     }
-    public function creator(){
-        return $this->belongsTo('App\User','creator');
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
     public function intrested_users(){

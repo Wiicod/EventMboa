@@ -8,9 +8,9 @@ class Organizer extends Model
 {
     //
     protected $fillable =['id','name','description','image','web_site','facebook','twitter','instagram','google',
-        'linkedin'];
+        'linkedin', 'user_id'];
 
-    private $foreign = [];
+    private $foreign = ['user'];
 
     private $files = ['image'];
 
@@ -30,6 +30,11 @@ class Organizer extends Model
     public function getLabel()
     {
         return $this->name;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
     public function events(){

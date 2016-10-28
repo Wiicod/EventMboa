@@ -33,19 +33,24 @@
 
                         <h4 class="">
                             <a ui-href="panneau({id:event.id})">
-                                <i class="fa fa-home"></i> <ff translate >Panneau de gestion</ff></a>
+                                <i class="fa fa-home"></i>
+                                <ff translate>Panneau de gestion</ff>
+                            </a>
                         </h4>
                     </div>
                     <div class="panel">
                         <div class="panel-heading">
                             <h4 class="">
                                 <a data-toggle="collapse" data-parent="#accordion" href="/#collapse1">
-                                    <i class="fa fa-volume-off"></i> <ff translate >Inviter</ff></a>
+                                    <i class="fa fa-volume-off"></i>
+                                    <ff translate>Inviter</ff>
+                                </a>
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse in">
                             <ul class="nav">
-                                <li ng-class="{'active':choix=='invitation'}" ng-click="choix='invitation'"><a ui-sref="invitation({id:event.id})" translate>Invitations par mail</a></li>
+                                <li ng-class="{'active':choix=='invitation'}" ng-click="choix='invitation'"><a
+                                        ui-sref="invitation({id:event.id})" translate>Invitations par mail</a></li>
                             </ul>
                         </div>
                     </div>
@@ -53,12 +58,16 @@
                         <div class="panel-heading">
                             <h4 class="">
                                 <a data-toggle="collapse" data-parent="#accordion" href="/#collapse2">
-                                    <i class="fa fa-commenting-o"></i> <ff translate >Communiquer</ff></a>
+                                    <i class="fa fa-commenting-o"></i>
+                                    <ff translate>Communiquer</ff>
+                                </a>
                             </h4>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse in">
                             <ul class="nav">
-                                <li ng-class="{'active':choix=='email-participant'}" ng-click="choix='email-participant'"><a ui-sref="email-participant" translate>E-mails aux participants</a></li>
+                                <li ng-class="{'active':choix=='email-participant'}"
+                                    ng-click="choix='email-participant'"><a ui-sref="email-participant" translate>E-mails
+                                    aux participants</a></li>
                             </ul>
                         </div>
                     </div>

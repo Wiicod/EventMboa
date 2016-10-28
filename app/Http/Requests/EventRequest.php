@@ -30,11 +30,11 @@ class EventRequest extends Request
             case 'GET':
             {
                 return [
-                    'creator' => 'required|integer|exists:events,id',
                     'event_topic_id' => 'required|integer|exists:event_topics,id',
                     'event_type_id' => 'required|integer|exists:event_types,id',
-                    'organizer_id' => 'integer|exists:organizers,id',
-                    'town_id' => 'integer|exists:towns,id',
+                    'organizer_id' => 'required_without:user_id|integer|exists:organizers,id',
+                    'user_id' => 'required_without:organizer_id|integer|exists:users,id',
+                    'adress_id' => 'integer|exists:adresses,id',
                     'name' => 'required|max:255',
                     'recurring' => 'required|max:255',
                     'banner_picture' => 'required|image',
@@ -51,11 +51,11 @@ class EventRequest extends Request
             case 'POST':
             {
                 return [
-                    'creator'=>'required|integer|exists:events,id',
                     'event_topic_id'=>'required|integer|exists:event_topics,id',
                     'event_type_id'=>'required|integer|exists:event_types,id',
-                    'organizer_id'=>'integer|exists:organizers,id',
-                    'town_id' => 'integer|exists:towns,id',
+                    'organizer_id' => 'required_without:user_id|integer|exists:organizers,id',
+                    'user_id' => 'required_without:organizer_id|integer|exists:users,id',
+                    'adress_id' => 'integer|exists:adresses,id',
                     'name'=>'required|max:255',
                     'recurring'=>'required|max:255',
                     'banner_picture'=>'required|image',
@@ -68,11 +68,11 @@ class EventRequest extends Request
             case 'PUT':
             {
                 return [
-                    'creator'=>'integer|exists:events,id',
                     'event_topic_id'=>'integer|exists:event_topics,id',
                     'event_type_id'=>'integer|exists:event_types,id',
-                    'organizer_id'=>'integer|exists:organizers,id',
-                    'town_id' => 'integer|exists:towns,id',
+                    'organizer_id' => 'integer|exists:organizers,id',
+                    'user_id' => 'integer|exists:users,id',
+                    'adress_id' => 'integer|exists:adresses,id',
                     'name'=>'max:255',
                     'recurring'=>'max:255',
                     'banner_picture'=>'image',

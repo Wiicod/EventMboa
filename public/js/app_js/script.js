@@ -4,8 +4,8 @@
 var pays= ["Cameroun","Senegal","Cote d'ivoire","Mali","Botsawana","Madagascar","Niger", "Maroc","Tunisie","Tchad","RDCongo","Guinnée Bissau","Guinnée","l'Ouganda","l'Egypt" ,"Nigeria","Ghana","Gabon","Kenya","Afrique du Sud","Algérie","Rwanda"];
 var villes=["Douala","Yaoundé","Dakar","Abidjan","Abuja","Bamako","Antananarivo", "Accra","Bissau","Conakry","Le Caire","Libreville","Nairobi","Ndjamena","Niamey", "Pretoria","Rabat","Yamoussoukro","Alger","Kampala","Kigali","Kinshasa","Gaborone", "Tunis"]
 
-var jour=["DIM.","LUN.","MAR.","MER.","JEU.","VEN.","SAM."];
-var mois=["JANV.","FEVR.","MARS","AVRI.","MAI","JUIN","JUIL.","AOUT","SEPT","OCTO.","NOVE.","DECE."];
+var jour = ["DIM.", "LUN.", "MAR.", "MER.", "JEU.", "VEN.", "SAM."];
+var mois = ["JANV.", "FEVR.", "MARS", "AVRI.", "MAI", "JUIN", "JUIL.", "AOUT", "SEPT", "OCTO.", "NOVE.", "DECE."];
 
 var categories=[
     {

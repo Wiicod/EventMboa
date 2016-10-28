@@ -32,7 +32,7 @@ controller
                 var t = response.data.token;
                 $auth.setToken(t);
                 console.info('Logged in successfully.');
-                if ($rootScope.next!=undefined) {
+                if ($rootScope.next != undefined) {
                     $state.go($rootScope.next);
                 } else {
                     $state.go('home');
@@ -42,7 +42,7 @@ controller
                 });
             }, function (error) {
                 console.error(error);
-                $scope.message="Paramètres de connexion invalides";
+                $scope.message = "Paramètres de connexion invalides";
             });
         }
 
@@ -112,16 +112,16 @@ controller
         // fin image
     }])
 
-    .controller('HeaderCtrl', ['$scope', '$auth', '$state','$rootScope','Restangular', function ($scope, $auth, $state,$rootScope,Restangular) {
-        $scope.loguer=false;
-        $scope.lieu=false;
+    .controller('HeaderCtrl', ['$scope', '$auth', '$state', '$rootScope', 'Restangular', function ($scope, $auth, $state, $rootScope, Restangular) {
+        $scope.loguer = false;
+        $scope.lieu = false;
 
-        if($state.current.name!='home' && $state.current.name!="events"){
-            $scope.lieu=true;
+        if ($state.current.name != 'home' && $state.current.name != "events") {
+            $scope.lieu = true;
         }
         $scope.logout = function () {
             $auth.logout();
-            $scope.loguer=false;
+            $scope.loguer = false;
             $state.go('home');
         };
 
@@ -132,13 +132,15 @@ controller
 
         $scope.searchEvent=function(key){
             console.log(key);
-            $rootScope.searchKey=key;
+            $rootScope.searchKey = key;
             $state.go("events");
             // à faire
         };
-        if($auth.getToken()!=null){
-            $scope.loguer=true;
-        }else{$scope.loguer=false;}
+        if ($auth.getToken() != null) {
+            $scope.loguer = true;
+        } else {
+            $scope.loguer = false;
+        }
     }])
 
     .controller('FooterCtrl',['$scope',function($scope){
@@ -148,13 +150,13 @@ controller
 
     }])
 
-    .controller('HomeCtrl',['$scope','Restangular','$rootScope','$state',function($scope,Restangular,$rootScope,$state) {
+    .controller('HomeCtrl', ['$scope', 'Restangular', '$rootScope', '$state', function ($scope, Restangular, $rootScope, $state) {
         Restangular.all('event_type').getList().then(function (data) {
             $scope.categories = data;
         }, function (err) {
             console.log(err);
         });
-        $scope.date_deb=[];
+        $scope.date_deb = [];
         Restangular.all('event').getList().then(function (events) {
             console.log(events[0]);
             var tm=[];
@@ -168,7 +170,7 @@ controller
                 Restangular.one('town', v.adress.town_id).get().then(function(data){
                     v.town=data;
                 });
-                if(v.tickets.length>0 && v.status=="active"){
+                if (v.tickets.length > 0 && v.status == "active") {
                     tm.push(v);
                 }
             });
@@ -178,9 +180,9 @@ controller
             console.log(err);
         });
 
-        $scope.search=function(s){
+        $scope.search = function (s) {
             console.log(s);
-            $rootScope.search=s;
+            $rootScope.search = s;
             //if(s.titre!=""|| s.date!=null|| s.ville!="")
             $state.go("events");
         };
@@ -191,57 +193,61 @@ controller
         });
     }])
 
-    .controller('EventCtrl', ['$scope', '$stateParams', '$rootScope', 'Restangular','$filter', function ($scope, $stateParams, $rootScope, Restangular,$filter) {
-        var id=$stateParams.id;
-        var target=$stateParams.target;
-        var se=$rootScope.search;
+    .controller('EventCtrl', ['$scope', '$stateParams', '$rootScope', 'Restangular', '$filter', function ($scope, $stateParams, $rootScope, Restangular, $filter) {
+        var id = $stateParams.id;
+        var target = $stateParams.target;
+        var se = $rootScope.search;
         // console.log(se);
-        var searchKey=$rootScope.searchKey;
-        console.log("Event",searchKey);
-        $scope.categories=[];
-        $scope.types=[];
-        $scope.par_page=12;
+        var searchKey = $rootScope.searchKey;
+        console.log("Event", searchKey);
+        $scope.categories = [];
+        $scope.types = [];
+        $scope.par_page = 12;
         // filtre avc undescore pour chercher suivant la categorie et le titre
         // example d utilisation de restangular c valable pour le post put delete regarde juste la doc
         //tu pouvais aussi utilise la factorie customize Event k j ai cree
-        $scope.date_deb=[];
+        $scope.date_deb = [];
 
-        Restangular.all('event_topic').getList().then(function (data) {$scope.categories=data;});
-        Restangular.all('event_type').getList().then(function (data) {$scope.types=data;});
+        Restangular.all('event_topic').getList().then(function (data) {
+            $scope.categories = data;
+        });
+        Restangular.all('event_type').getList().then(function (data) {
+            $scope.types = data;
+        });
         Restangular.all('event').getList().then(function (events) {
-            if(id!="" && target!=""){
+            if (id != "" && target != "") {
                 var out = _.filter(events, function (e) {
-                    if(id=="topic"){
-                        $scope.titre="Recherche des événements suivant la catégorie <span class='blue'>'"+target+"'</span>";
-                        if(e.event_topic.name==target){
+                    if (id == "topic") {
+                        $scope.titre = "Recherche des événements suivant la catégorie <span class='blue'>'" + target + "'</span>";
+                        if (e.event_topic.name == target) {
                             return e;
                         }
                     }
-                    else if(id=='type'){
-                        $scope.titre="Recherche des événements suivant le type <span class='blue'>'"+target+"'</span>";
-                        if(e.event_type.name==target){
+                    else if (id == 'type') {
+                        $scope.titre = "Recherche des événements suivant le type <span class='blue'>'" + target + "'</span>";
+                        if (e.event_type.name == target) {
                             return e;
                         }
                     }
                 });
-                events=out;
+                events = out;
             }
-            else if(se!=undefined){
+            else if (se != undefined) {
                 // rechercher
                 var out = _.filter(events, function (e) {
-                    if(e.name==se.titre || e.start_date==se.date ||e.town.name==se.ville){
+                    if (e.name == se.titre || e.start_date == se.date || e.town.name == se.ville) {
                         return e;
                     }
-                    else{
+                    else {
 
                     }
                 });
             }
-            else if(searchKey!=undefined && searchKey!=""){
-                $scope.titre="Recherche des événements suivant le mot <span class='blue'>'"+target+"'</span>";
+            else if (searchKey != undefined && searchKey != "") {
+                $scope.titre = "Recherche des événements suivant le mot <span class='blue'>'" + target + "'</span>";
             }
-            else{
-                $scope.titre="Evénements pour vous";
+            else {
+                $scope.titre = "Evénements pour vous";
             }
             var tm=[];
             angular.forEach(events,function(v,k){
@@ -258,22 +264,21 @@ controller
                     tm.push(v);
                 }
             });
-            $scope.searchKey=searchKey;
+            $scope.searchKey = searchKey;
             $scope.events = tm;
         }, function (err) {
             console.log(err);
         });
 
 
-
-       // $scope.events=events;
+        // $scope.events=events;
     }])
 
     .controller('DetailEventCtrl', ['$scope', '$stateParams', 'Restangular', function ($scope, $stateParams, Restangular) {
-        var nom=$stateParams.nom;
-        var id=parseInt(nom.substring(nom.length-1,nom.length));
+        var nom = $stateParams.nom;
+        var id = parseInt(nom.substring(nom.length - 1, nom.length));
         console.log(id);
-        Restangular.one('event',id).get().then(function (data) {
+        Restangular.one('event', id).get().then(function (data) {
             console.log(data);
             var t=data.banner_picture.substring(0,10);
             t+="/"+data.banner_picture.substring(11,data.banner_picture.length);
@@ -289,7 +294,7 @@ controller
         }, function (err) {
             console.log(err);
         });
-        $scope.qte=0;
+        $scope.qte = 0;
 
 
     }])

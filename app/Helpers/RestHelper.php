@@ -28,13 +28,16 @@ class RestHelper
     public static function get($Model)
     {
         $ms = new  $Model;
-        foreach ($ms->getForeign() as $f) {
-            if (Input::get($f)) {
-                $ms = $ms->where($f, '=', Input::get($f));
+        $data = Input::get();
+        $fo = $ms->getForeign();
+        $field = $ms->getFillable();
+        foreach ($data as $key => $value) {
+            if (in_array($key, $field)) {
+                $ms = $ms->where($key, '=', $value);
             }
         }
 
-        $ms = $ms->with($ms->getForeign())->orderBy('updated_at')->get();
+        $ms = $ms->with($fo)->orderBy('updated_at')->get();
 
         return Response::json($ms, 200, [], JSON_NUMERIC_CHECK);
     }
