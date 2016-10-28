@@ -155,6 +155,7 @@ controller
         });
         $scope.date_deb=[];
         Restangular.all('event').getList().then(function (events) {
+            console.log(events[0]);
             var tm=[];
             angular.forEach(events,function(v,k){
                 v.id=parseInt(Math.random(1,5)*10000)+""+ v.id;
@@ -163,7 +164,8 @@ controller
                 v.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
                 d=new Date(v.end_date);
                 v.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
-                Restangular.one('country', v.town.country_id).get().then(function(data){
+                Restangular.one('town', v.adress.town_id).get().then(function(data){
+                    console.log(data);
                     v.town.country=data;
                 });
                 if(v.tickets.length>0 && v.status=="active"){
