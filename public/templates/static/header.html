@@ -4,11 +4,14 @@
             <div class="navbar-header">
                 <!-- Mobile Toggle Menu Button -->
                 <a href="#" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-                <a class="navbar-brand logo" ui-sref="home">
-                    EventMboa
+                <a class="navbar-brand logo" ui-sref="home" st>
+                    <img src="images/logo/256_2.png" alt=""/>
                 </a>
+                <!--<a class="navbar-brand logo" ui-sref="home">-->
+                    <!--EventMboa-->
+                <!--</a>-->
                 <ul class="nav navbar-nav" ng-if="!lieu">
-                    <li class=""><a href="#" ui-sref="events" data-nav-section="home"><span>Parcourir</span></a></li>
+                    <li class=""><a href="#" ui-sref="events" data-nav-section="home"><span translate>Parcourir</span></a></li>
                 </ul>
             </div>
             <div style="float: left; width: 30%" ng-if="lieu">
@@ -32,7 +35,7 @@
                                 <a ui-sref="billet">
                                     <div class="row">
                                         <div class="col-lg-9" translate>Billets</div>
-                                        <div class="col-lg-3">4</div>
+                                        <div class="col-lg-3">{{billet}}</div>
                                     </div>
                                 </a>
                             </li>
@@ -40,7 +43,7 @@
                                 <a ui-sref="save">
                                     <div class="row">
                                         <div class="col-lg-9" translate>Sauvegardés</div>
-                                        <div class="col-lg-3"></div>
+                                        <div class="col-lg-3">{{save}}</div>
                                     </div>
                                 </a>
                             </li>
@@ -53,10 +56,9 @@
                             <li><a href="#" ng-click="logout()" translate>Se déconnecter</a></li>
                         </ul>
                     </li>
-                    <li class="active" ng-if="loguer"><a href="#" ui-sref="create"><span>Créer un événement</span></a>
+                    <li class="active" ng-if="loguer"><a ui-sref="create"><span translate>Créer un événement</span></a>
                     </li>
-                    <li class="active" ng-if="!loguer"><a href="#"
-                                                          ng-click="create_event()"><span>Créer un événement</span></a>
+                    <li class="active" ng-if="!loguer"><a ng-click="create_event()"><span translate>Créer un événement</span></a>
                     </li>
                 </ul>
             </div>

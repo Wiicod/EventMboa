@@ -12,6 +12,7 @@ var filter =angular.module('mboa.filter', ['ui.router']);
 angular.module('mboa', [
   'ui.router',
   'satellizer',
+  'gettext',
   'ngCookies',
   'restangular',
   'textAngular',
@@ -22,9 +23,12 @@ angular.module('mboa', [
   'mboa.config',
   'mboa.directives',
   'mboa.filter'
-]).run(['$log', '$state', '$rootScope', '$location', 'Restangular', '$auth',
-  function ($log, $state, $rootScope, $location, Restangular, $auth) {
+]).run(['$log', '$state', '$rootScope', '$location', 'Restangular', '$auth','gettextCatalog',
+  function ($log, $state, $rootScope, $location, Restangular, $auth,gettextCatalog) {
         $log.debug("startApp running ");
+    gettextCatalog.currentLanguage="fr_FR";
+    gettextCatalog.debug=false;
+
     var attempt = 0;
     Restangular.setErrorInterceptor(function (response, deferred, responseHandler) {
       if (response.status === 401) {

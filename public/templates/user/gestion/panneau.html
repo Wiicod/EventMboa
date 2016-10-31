@@ -11,13 +11,15 @@
                     <div class="tab-pane active" id="accueil">
                     <table class="table">
                         <thead>
+                        <th translate>Intitulé du billet</th>
                         <th translate>Billets vendus</th>
                         <th translate>Billets disponibles</th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="n in [1,2,3,4]">
-                                <td>{{event.billet_vendu}} {{n}}</td>
-                                <td>{{event.billet_restant}}</td>
+                            <tr ng-repeat="t in event.tickets">
+                                <td>{{t.name}} </td>
+                                <td>{{t.participant.length}} </td>
+                                <td>{{t.quantity-t.participant.length}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -29,25 +31,27 @@
         <div class="col-lg-3">
             <div class="progress" style="margin-top: 15px">
                 <div class="progress-bar" role="progressbar" aria-valuenow="60"
-                     aria-valuemin="0" aria-valuemax="100" style="width: {{(event.billet_vendu*100)/event.billets[0].quantite}}%">
+                     aria-valuemin="0" aria-valuemax="100" style="width: {{vendu*100/quantite}}%">
                 </div>
             </div>
-            Billets vendus : {{event.billet_vendu}}/{{event.billets[0].quantite}}
+           <ff translate>Billets vendus</ff> : {{vendu}}/{{quantite}}
         </div>
     </div>
 
     <div class="row">
         <form ng-submit="modifierUrlEvent(event)">
-            <div class="form-group">
+            <div class="form-group" ng-repeat="link in event.event_links">
                 <label translate>L'url de votre événement</label>
-                <input type="url" ng-model="event.lien" placeholder="http://www.eventmboa.com/" class="form-control"/>
+                <span class="clearfix"></span>
+                <strong>{{link.name}}</strong>:{{link.url}}
+                <!--<input type="url" ng-model="link.url" placeholder="http://www.eventmboa.com/" class="form-control"/>-->
             </div>
         </form>
     </div>
 
     <div class="row">
-        <h4 translate>Commandes récentes</h4>
-        <table class="table">
+        <h4 translate>Participants</h4>
+        <table class="table" ng-repeat="t in event.tickets" ng-if="t.participant.length>0">
             <thead>
             <th translate>Numéro de commande</th>
             <th translate>Acheteur du billet</th>
@@ -57,71 +61,15 @@
             <th translate>Paiement</th>
             </thead>
             <tbody>
-                <tr ng-repeat="c in commandes|orderBy:'-date':true">
-                    <td>{{c.numero}}</td>
-                    <td>{{c.acheteur}}</td>
-                    <td>{{c.quantite}}</td>
-                    <td>{{c.prix}}</td>
-                    <td>{{c.date}}</td>
-                    <td>{{c.paiement}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row">
-        <h4 translate>Ventes par type de billet</h4>
-        <table class="table">
-            <thead>
-            <th translate>Type de billet</th>
-            <th translate>Prix</th>
-            <th translate>Vendu</th>
-            <th translate>Statut</th>
-            <th translate>Fin des ventes</th>
-            </thead>
-            <tbody>
-                <tr ng-repeat="c in commandes|orderBy:'-date':true">
-                    <td>{{c.numero}}</td>
-                    <td>{{c.acheteur}}</td>
-                    <td>{{c.quantite}}</td>
-                    <td>{{c.prix}}</td>
-                    <td>{{c.date}}</td>
+                <tr ng-repeat="p in t.participant|orderBy:'-name':true">
+                    <td>{{p.numero}}</td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.number}}</td>
+                    <td>{{p.ticket.amount}}</td>
+                    <td>{{p.created_at}}</td>
+                    <td>{{p.paiement}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </section>
-
-<div class="modal fade" id="omModal" tabindex="-1" role="dialog" aria-labelledby="Agent" aria-hidden="true">
-    <div class="modal-dialog" style="width: 35%;">
-        <form class="modal-content" ng-submit="enregistrerOM(no)">
-            <div class="modal-header" style="background: #EFF2F5">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title text-center text-uppercase bold">{{titre}}</h4>
-            </div>
-            <div class="modal-body" style="background: #F8F8FA">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>
-                                <ff translate>Titulaire</ff>
-                                <span class="requis">*</span></label>
-                            <input type="text" ng-model="no.titulaire" placeholder="Titulaire du numéro" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>
-                                <ff translate>Numéro</ff>
-                                <span class="requis">*</span></label>
-                            <input type="text" ng-model="no.numero" placeholder="Numéro" class="form-control"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-main" type="submit" translate>Enregistrer</button>
-                <button id="close" class="btn btn-main hide" data-dismiss="modal" translate>Fermer</button>
-            </div>
-        </form><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

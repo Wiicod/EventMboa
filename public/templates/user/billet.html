@@ -7,22 +7,21 @@
                 <div class="tabbable">
                     <ul class="nav nav-tabs text-center">
                         <li ng-class="{'active':choix=='online'}">
-                            <a href="/#accueil" ng-click="choixEvent(0)" data-toggle="tab">
+                            <a ng-click="choixEvent(0)" data-toggle="tab">
                                 {{eventOnline.length}}<br/>
-                                <ff translate></ff>
-                                Evénements à venir
+                                <ff translate>Evénements à venir</ff>
                             </a>
                         </li>
                         <li ng-class="{'active':choix=='save'}">
-                            <a href="/#livres" ng-click="choixEvent(1)" data-toggle="tab">
+                            <a ng-click="choixEvent(1)" data-toggle="tab">
                             {{eventSave.length}}<br/>
-                                <ff translate></ff>
-                                Evénements sauvegardés </a></li>
+                                <ff translate>Evénements sauvegardés</ff>
+                                 </a></li>
                         <li ng-class="{'active':choix=='passed'}">
-                            <a href="/#témoignages" ng-click="choixEvent(2)" data-toggle="tab">
+                            <a ng-click="choixEvent(2)" data-toggle="tab">
                             {{eventPassed.length}}<br/>
-                                <ff translate></ff>
-                                Evénements antérieurs </a></li>
+                                <ff translate>Evénements antérieurs</ff>
+                                </a></li>
                     </ul>
                     <div class="tab-content" style="border-top: 2px solid #f1f1f1; padding-top: 15px;">
                         <div class="row-fluid">
@@ -31,24 +30,30 @@
                                 <p translate>Vous n'avez aucun événements</p>
                             </div>
                         </div>
-                        <div ng-if="events.length>0" class="row" ng-repeat="e in events" >
+                        <div ng-if="events.length>0" class="row"
+                             dir-paginate="e in events | orderBy : '-start_date' : true| itemsPerPage: par_page ">
                             <div class="event" ng-click="choixBillet(e)" data-toggle="modal" href="/#billetModal">
                                 <div class="col-lg-3">
                                     <div class="image" style="height:100px; cursor: pointer">
-                                        <img src="{{e.image_baniere}}" class="img-responsive" alt="{{e.titre}}"/>
+                                        <img src="{{e.banner_picture}}" class="img-responsive" alt="{{e.name}}"/>
                                     </div>
 
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="item-9" >
                                         <div class="date">{{e.date_debut}}</div>
-                                        <div class="titre">{{e.titre}}</div>
-                                        <div class="lieu" style="position: absolute;bottom: 0;" translate>
-                                            Commande non-payante n° 545662783 de 3 Billets le 1 septembre 2016 </div>
+                                        <div class="titre">{{e.name}}</div>
+                                        <div class="lieu">
+                                            {{e.description|limitTo:50}}
+                                            <!--Commande n° {{e.billet.numero_commande}} de {{e.billet.quantity}} Billets le {{e.billet.date}} -->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
+                        </div>
+                        <div class="text-center" >
+                            <dir-pagination-controls></dir-pagination-controls>
                         </div>
 
                     </div>
@@ -62,7 +67,7 @@
     <div class="modal-dialog" style="width: 35%;">
         <div class="modal-header" style="background: #EFF2F5">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title text-center text-uppercase bold">Commande pour {{billet.titre}}</h4>
+            <h4 class="modal-title text-center text-uppercase bold"><ff translate>Commande pour </ff>{{billet.titre}}</h4>
         </div>
         <div class="modal-body" style="background: #F8F8FA">
             <div class="row">

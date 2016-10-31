@@ -57,7 +57,7 @@ class ContactRequest extends Request
                 return [
                     'first_name'=>'max:255',
                     'last_name'=>'max:255',
-                    'email' => 'email|max:255|unique:contacts,email,' . $this->route()->getParameter('user'),
+                    'email' => 'email|max:255|unique:contacts,email,' . $this->route()->getParameter('contact'),
                     'user_id'=>'integer|exists:users,id'
                 ];
             }

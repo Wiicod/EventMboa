@@ -88,6 +88,9 @@
 	<script src='vendor/satellizer/dist/satellizer.min.js'></script>
 
 
+	<script src='vendor/angular-gettext/dist/angular-gettext.min.js'></script>
+
+	<script src="js/app_js/translation.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/controllers.js"></script>
 	<script src="js/directives.js"></script>

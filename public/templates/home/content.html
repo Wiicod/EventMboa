@@ -8,7 +8,7 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi assumenda dicta expedita fuga iusto molestias, nam nisi nobis placeat quas, repellat voluptates. A alias aliquam, animi exercitationem iste quidem reprehenderit!</p>
                         <p>
                             <a href="" class="btn btn-primary btn-main" ng-if="!loguer" ui-sref="login" translate>Commencer</a>
-                            <a href="" class="btn btn-primary btn-main" ng-if="loguer" ui-sref="create" translate>Commencer</a>
+                            <a href="" class="btn btn-primary btn-main" ng-if="loguer" ui-sref="create" translate>Créer un événement</a>
                         </p>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 <div class="card">
                     <div class="card-image">
                         <img class="img-responsive" src="{{e.banner_picture}}">
-                        <span class="card-title" translate>{{e.tickets[0].amount}} Fcfa</span>
+                        <span class="card-title">{{e.tickets[0].amount}} Fcfa</span>
                     </div>
                     <div class="card-content">
                         <!--<ul class="nav">-->

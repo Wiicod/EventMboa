@@ -48,7 +48,8 @@ controller
 
     }])
 
-    .controller('CreateCtrl',['$scope','$filter',function($scope,$filter){
+    .controller('CreateCtrl',['$scope','$filter','Restangular','$cookies',function($scope,$filter,Restangular,$cookies){
+        $scope.user=$cookies.getObject("user");
         $scope.message="";
         $scope.option="modifier";
         $scope.e={};
@@ -57,6 +58,28 @@ controller
         $scope.inclure=false;
         $scope.billets=[];
         $scope.organisateurs=organisateurs;
+
+        Restangular.all('country').getList().then(function (data) {
+            $scope.pays = data;
+        });
+        Restangular.all('event_topic').getList().then(function (data) {
+            $scope.categories = data;
+        });
+        Restangular.all('event_type').getList().then(function (data) {
+            $scope.types = data;
+        });
+        Restangular.all('organizer').getList({user_id:$scope.user.id}).then(function(o){
+            $scope.organisateurs=o;
+        });
+
+        $scope.uploadFiles = function(file) {
+            console.log(file);
+            $scope.fileData = file;
+            var fd = new FormData();
+            fd.append('file', file);
+            Restangular.one('event').withHttpConfig({transformRequest: angular.identity})
+                .customPOST(fd, '', undefined, {'Content-Type': undefined})
+        };
 
         $scope.ajouter=function(type){
             $scope.type=type;
@@ -112,11 +135,11 @@ controller
         // fin image
     }])
 
-    .controller('HeaderCtrl', ['$scope', '$auth', '$state', '$rootScope', 'Restangular', function ($scope, $auth, $state, $rootScope, Restangular) {
+    .controller('HeaderCtrl', ['$scope', '$auth', '$state', '$rootScope','$cookies', 'Restangular', function ($scope, $auth, $state, $rootScope, $cookies,Restangular) {
         $scope.loguer = false;
         $scope.lieu = false;
 
-        if ($state.current.name != 'home' && $state.current.name != "events") {
+        if ($state.current.name != 'home' && $state.current.name != "events" &&$state.current.name!="login"&&$state.current.name!="register") {
             $scope.lieu = true;
         }
         $scope.logout = function () {
@@ -136,8 +159,24 @@ controller
             $state.go("events");
             // à faire
         };
-        if ($auth.getToken() != null) {
+
+        if ($auth.isAuthenticated()&& $auth.getToken() != null) {
             $scope.loguer = true;
+
+            if($cookies.getObject("user")!=undefined){
+                Restangular.all("interested_event").getList({user_id:$cookies.getObject("user").id}).then(function(event){
+                    $scope.save=0;
+                    $scope.billet=0;
+                    angular.forEach(event,function(e,k){
+                        if(e.event.status=="save"){
+                            $scope.save++;
+                        }
+                        if(e.event.status=="active"){
+                            $scope.billet++;
+                        }
+                    });
+                });
+            }
         } else {
             $scope.loguer = false;
         }
@@ -158,7 +197,7 @@ controller
         });
         $scope.date_deb = [];
         Restangular.all('event').getList().then(function (events) {
-            console.log(events[0]);
+            //console.log(events[0]);
             var tm=[];
             angular.forEach(events,function(v,k){
                 v.id=parseInt(Math.random(1,5)*10000)+""+ v.id;
@@ -174,7 +213,7 @@ controller
                     tm.push(v);
                 }
             });
-            console.log(tm);
+            //console.log(tm);
             $scope.events = tm;
         }, function (err) {
             console.log(err);
@@ -302,6 +341,7 @@ controller
     .controller('MyEventCtrl',['$scope','$stateParams','$filter','Restangular','$cookies',function($scope,$stateParams,$filter,Restangular,$cookies){
         $scope.user=$cookies.getObject("user");
 
+        var participants=Restangular.all("participant").getList();
         Restangular.all("event").getList({user_id:$scope.user.id}).then(function(data){
             console.log(data);
             $scope.eventOnline=$filter("filter")(data,{status:"active"},true);
@@ -309,7 +349,24 @@ controller
             $scope.eventSaved=$filter("filter")(data,{status:"save"},true);
 
             $scope.events=$scope.eventOnline;
-
+            angular.forEach(data,function(e,k){
+                e.quantite_vendu=0;
+                e.quantite_total=0;
+                participants.then(function(p){
+                    $scope.participants=p;
+                    //console.log($scope.event,$scope.participants);
+                    angular.forEach(e.tickets,function(v,k){
+                        e.quantite_total+= v.quantity;
+                        var x=_.filter($scope.participants,function(p){
+                            if(v.id==p.ticket_id){
+                                e.quantite_vendu+= p.number;
+                                return p;
+                            }
+                        });
+                        v.participant=x;
+                    });
+                });
+            });
         });
 
         //$scope.eventOnlinse= _.filter($scope.data,function(e){
@@ -342,28 +399,53 @@ controller
 
     }])
 
-    .controller('BilletCtrl',['$scope','$state','$filter',function($scope,$state,$filter){
-        $scope.eventOnline=$filter('filter')(events,{statut:0});
-        $scope.eventPassed=$filter('filter')(events,{statut:2});
-        $scope.eventSave=$filter('filter')(events,{statut:1});
+    .controller('BilletCtrl',['$scope','$state','$filter','Restangular','$cookies',function($scope,$state,$filter,Restangular,$cookies){
+
+        Restangular.all("interested_event").getList({user_id:$cookies.getObject("user").id}).then(function(event){
+            $scope.eventOnline=[];
+            $scope.eventPassed=[];
+            $scope.eventSave=[];
+            angular.forEach(event,function(e,k){
+                var d=new Date(e.event.start_date);
+                e.event.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
+                if(e.event.status=="active"){
+                    $scope.eventOnline.push(e.event);
+                }
+                else if(e.event.status=="end"){
+                    $scope.eventPassed.push(e.event);
+                }
+                else if(e.event.status=="save"){
+                    $scope.eventSave.push(e.event);
+                }
+            });
+            if($state.current.name=='billet'){
+                $scope.events=$scope.eventOnline;
+                $scope.choix="online";
+            }
+            else if($state.current.name=="save"){
+                $scope.events=$scope.eventSave;
+                $scope.choix="save";
+            }
+            else{
+                $scope.events=$scope.eventPassed;
+                $scope.choix="passed";
+            }
+            $scope.par_page=5;
+        });
+
 
         $scope.choix="";
 
-        if($state.current.name=='billet'){
-            $scope.events=$scope.eventOnline;
-            $scope.choix="online";
-        }
-        else if($state.current.name=="save"){
-            $scope.events=$scope.eventSave;
-            $scope.choix="save";
-        }
-        else{
-            $scope.events=$scope.eventPassed;
-            $scope.choix="passed";
-        }
-
         $scope.choixEvent=function(choix){
-            $scope.events=$filter('filter')(events,{statut:choix});
+            if(choix==0){
+                $scope.events= $scope.eventOnline;
+            }
+            if(choix==2){
+                $scope.events=$scope.eventPassed;
+            }
+            if(choix==1){
+                $scope.events= $scope.eventSave;
+            }
         };
 
         $scope.choixBillet=function(b){
@@ -374,7 +456,14 @@ controller
     }])
 
     .controller('ProfilCtrl',['$scope','$filter','Restangular','$cookies',function($scope,$filter,Restangular,$cookies){
-        $scope.organisateur=$cookies.getObject("user");
+        $scope.user=$cookies.getObject("user");
+        var organisateurs=Restangular.all("organizer");
+        organisateurs.getList({user_id:$scope.user.id}).then(function(o){
+            $scope.organisateurs=o;
+            console.log(o);
+        });
+        $scope.par_page=5;
+        $scope.organisateur={};
         $scope.user_event=undefined;
         $scope.no_image=true;
 
@@ -384,22 +473,46 @@ controller
         $scope.fileNameChanged=function(element){
             $scope.$apply(function() {
                 $scope.organisateur.image = element.files[0];
-                $("#image").fadeIn("fast").attr("src",URL.createObjectURL($scope.organisateur.image));
-                $scope.no_image=false;
             });
+            $("#image").fadeIn("fast").attr("src",URL.createObjectURL($scope.organisateur.image));
+            $scope.no_image=false;
         };
 
         $scope.enregistrerOrgansiateur=function(o){
+            o.user_id=$scope.user.id;
             console.log(o);
+            organisateurs.post($scope.organisateur);
         };
 
         $scope.nouveauOrganisateur=function(){
             $scope.organisateur={};
         }
+
+        $scope.choixOrganisateur=function(o){
+            $scope.organisateur=o;
+            $(".close").trigger("click");
+        }
+
+        $scope.supprimer=function(o){
+            $scope.organisateurs.splice($scope.organisateurs.indexOf(o),1);
+            Restangular.one("organizer", o.id).get().then(function(og){
+                og.remove();
+            });
+        };
     }])
 
     .controller('CompteCtrl',['$scope','$filter','Restangular','$state','$cookies',function($scope,$filter,Restangular,$state,$cookies){
         $scope.compte=$cookies.getObject("user");
+        Restangular.one("adress",$scope.compte.person.adress_id).get().then(function(a){
+            Restangular.one("country", a.town.country_id).get().then(function(c){
+                a.town.country=c;
+            });
+            $scope.compte.person.adress=a;
+        });
+        Restangular.all("country").getList().then(function(c){
+            $scope.pays=c;
+        });
+        console.log($scope.compte);
         var d=new Date($scope.compte.person.birthdate);
         $scope.compte.jour= d.getDate();
         $scope.compte.mois= d.getMonth()+1;
@@ -524,10 +637,34 @@ controller
        }
     }])
 
-    .controller('GestionCtrl',['$scope','$state','$filter',function($scope,$state,$filter){
-        $scope.choix=$state.current.name;
-        $scope.event=$filter('filter')(events,{id:$state.params.id})[0];
+    .controller('GestionCtrl',['$scope','$state','$filter','Restangular',function($scope,$state,$filter,Restangular){
+        var id=$state.params.id;
 
+        var events=Restangular.one("event").get({id:id});
+        var participants=Restangular.all("participant").getList();
+        events.then(function(e){
+            $scope.event=e[0];
+            $scope.quantite=0;
+            $scope.vendu=0;
+            participants.then(function(p){
+                $scope.participants=p;
+                //console.log($scope.event,$scope.participants);
+                angular.forEach($scope.event.tickets,function(v,k){
+                    $scope.quantite+= v.quantity;
+                    var x=_.filter($scope.participants,function(p){
+                        if(v.id==p.ticket_id){
+                            $scope.vendu+= p.number;
+                            return p;
+                        }
+                    });
+                    v.participant=x;
+                });
+                console.log($scope.event);
+            });
+        });
+
+
+        $scope.choix=$state.current.name;
 
         $scope.modifierUrlEvent=function(e){
             console.log(e);

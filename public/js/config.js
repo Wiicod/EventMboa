@@ -334,8 +334,7 @@ config
             loginRequired:false,
             views:{
                 'detail@user': {
-                    templateUrl: template_url+'user/compte.html',
-                    controller:"CompteCtrl"
+                    templateUrl: template_url+'user/compte.html'
                 }
             }
         })
