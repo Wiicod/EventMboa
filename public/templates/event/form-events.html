@@ -40,11 +40,11 @@
                         <label for="nom">
                             <ff translate>Non de l'événement</ff>
                             <span class="requis">*</span></label>
-                        <input type="text" id="nom" ng-model="e.titre" placeholder="Donnez un titre court et distinctif" class="form-control"/>
+                        <input type="text" id="nom" ng-model="e.titre" placeholder="{{'Donnez un titre court et distinctif'|translate}}" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="adresse" translate>Adresse </label>
-                        <input type="text" id="adresse" ng-model="e.adresse.lieu" placeholder="Précisez où il est organisé" class="form-control"/>
+                        <input type="text" id="adresse" ng-model="e.adresse.lieu" placeholder="{{'Précisez où il est organisé'|translate}}" class="form-control"/>
                         <div>
                             <a ng-click="lieu='ligne'"><i class="fa fa-globe"></i>
                                 <ff translate>Evenement en ligne</ff>
@@ -58,16 +58,16 @@
                         <div class="row" style="margin-top: 10px" ng-if="lieu=='adresse'">
                             <div class="col-lg-8">
                                 <div class="form-group">
-                                    <input type="text" ng-model="e.adresse.adresse1" placeholder="Adresse 1" class="form-control"/>
-                                    <input type="text" ng-model="e.adresse.adresse2" placeholder="Adresse 1" class="form-control"/>
-                                    <input type="text" ng-model="e.adresse.ville" placeholder="Ville" class="form-control"/>
+                                    <input type="text" ng-model="e.adresse.adresse1" placeholder="{{'Adresse 1'|translate}}" class="form-control"/>
+                                    <input type="text" ng-model="e.adresse.adresse2" placeholder="{{'Adresse 2'|translate}}" class="form-control"/>
+                                    <input type="text" ng-model="e.adresse.ville" placeholder="{{'Ville'|translate}}" class="form-control"/>
 
                                     <div class="row">
                                         <div class="col-lg-6 col-sm-6">
-                                            <input type="text" ng-model="e.adresse.region" placeholder="Région" class="form-control"/>
+                                            <input type="text" ng-model="e.adresse.region" placeholder="{{'Région'|translate}}" class="form-control"/>
                                         </div>
                                         <div class="col-lg-6 col-sm-6">
-                                            <input type="text" ng-model="e.adresse.boite" placeholder="Boîte postale" class="form-control"/>
+                                            <input type="text" ng-model="e.adresse.boite" placeholder="{{'Boîte postale'|translate}}" class="form-control"/>
                                         </div>
                                     </div>
                                     <select ng-model="e.adresse.pays" class="form-control"
@@ -95,10 +95,10 @@
                                 <label translate>Commence</label>
                                 <div class="row">
                                     <div class="col-lg-6 col-sm-6">
-                                        <input type="text" class="form-control" placeholder="20/09/2015"/>
+                                        <input type="text" class="form-control" placeholder="10/09/2015"/>
                                     </div>
                                     <div class="col-lg-6 col-sm-6">
-                                        <input type="text" class="form-control" placeholder="20:30"/>
+                                        <input type="text" class="form-control" placeholder="10:30"/>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                         <input type="text" class="form-control" placeholder="20/09/2015"/>
                                     </div>
                                     <div class="col-lg-6 col-sm-6">
-                                        <input type="text" class="form-control" placeholder="20:30"/>
+                                        <input type="text" class="form-control" placeholder="20:50"/>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                             </select>
                         </div>
                         <div ng-if="user=='new'||user=='edit'">
-                            <input type="text" ng-model="e.oragnisateur.name" placeholder="Nom de l'organisateur" class="form-control"/>
+                            <input type="text" ng-model="e.oragnisateur.name" placeholder="{{'Nom de l'organisateur'|translate}}" class="form-control"/>
                         </div>
                     </div>
 
@@ -195,11 +195,11 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label><i class="fa fa-facebook"></i> Facebook</label>
-                                    <input type="text" class="form-control" ng-model="e.organisateur.lien_facebook" placeholder="Lien vers page Facebook"/>
+                                    <input type="text" class="form-control" ng-model="e.organisateur.lien_facebook" placeholder="{{'Lien vers page Facebook'|translate}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label><i class="fa fa-twitter"></i> Twitter</label>
-                                    <input type="text" class="form-control" ng-model="e.organisateur.lien_facebook" placeholder="Lien vers page Twitter"/>
+                                    <input type="text" class="form-control" ng-model="e.organisateur.lien_facebook" placeholder="{{'Lien vers page Twitter'|translate}}"/>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +252,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="b in billets">
-                                        <td><input type="text" ng-model="b.nom" placeholder="Billet à tarif préférentiel, RSVP..." class="form-control"/></td>
+                                        <td><input type="text" ng-model="b.nom" placeholder="{{'Billet à tarif préférentiel, RSVP...'|translate}}" class="form-control"/></td>
                                         <td><input type="number" min="0" step="1" ng-model="b.quantite" placeholder="100" class="form-control"/></td>
                                         <td ng-if="b.type=='Gratuit'">{{b.type}}</td>
                                         <td ng-if="b.type=='Payant'">
@@ -361,7 +361,7 @@
                     <div class="form-group" ng-if="e.confidentialite=='Privée'">
                         <label translate>Mails des participants</label>
                         <textarea ng-model="e.liste_participant" class="form-control"
-                                  placeholder="Veuillez séparer les adresses par des ';'"></textarea>
+                                  placeholder="{{'Veuillez séparer les adresses par des ';''|translate}}"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -519,7 +519,7 @@
                         <div class="form-group">
                             <label translate>Description du billet</label>
                             <textarea class="form-control" ng-model="billet_detail.description"
-                                      placeholder="Donnez à vos participas plus de renseignements sur ce type de billet."></textarea>
+                                      placeholder="{{'Donnez à vos participants plus de renseignements sur ce type de billet.'|translate}}"></textarea>
                             <div class="row-fluid">
                                 <div class="checkbox">
                                     <label for="afficher">

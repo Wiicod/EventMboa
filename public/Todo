@@ -8,6 +8,8 @@
 - regarder les details d'un billet sur eventbrite
 
 - creer un organisateur on dit erreur le champ image est requis alors qu'il est là
+- il faut que tous les objets qui ont l'image là quand on les enregistre ça renvoi l'id pour que je set l'image a parti de l'id là
+
 
 ========
 = Fait =
@@ -22,3 +24,4 @@
 - profil
 
 
+http://www.17educations.com/whatsapp/send-whatsapp-message-using-php/

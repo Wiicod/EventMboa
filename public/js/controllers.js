@@ -481,17 +481,32 @@ controller
         $scope.enregistrerOrgansiateur=function(o){
             o.user_id=$scope.user.id;
             console.log(o);
-            organisateurs.post($scope.organisateur);
+            var fd = new FormData();
+            fd.append('name', o.name);
+            fd.append('description', o.description);
+            fd.append('web_site', o.web_site);
+            fd.append('user_id', o.user_id);
+            fd.append('google', o.google);
+            fd.append('twitter', o.twitter);
+            fd.append('facebook', o.facebook);
+            fd.append('instagram', o.instagram);
+            fd.append('linkedin', o.linkedin);
+            fd.append('image', o.image);
+            console.log(fd);
+            Restangular.one('organizer').withHttpConfig({transformRequest: angular.identity})
+                .customPOST(fd, '', undefined, {'Content-Type': undefined});
+
+            //console.log(organisateurs.post($scope.organisateur));
         };
 
         $scope.nouveauOrganisateur=function(){
             $scope.organisateur={};
-        }
+        };
 
         $scope.choixOrganisateur=function(o){
             $scope.organisateur=o;
             $(".close").trigger("click");
-        }
+        };
 
         $scope.supprimer=function(o){
             $scope.organisateurs.splice($scope.organisateurs.indexOf(o),1);
