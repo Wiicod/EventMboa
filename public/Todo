@@ -3,22 +3,25 @@
 ===========
 - gerer les loading
 - gerer le scroll
-- hover sur catégorie type te billet
+- hover sur catÃ©gorie type te billet
 - enlever le rafraichissement du token
 - regarder les details d'un billet sur eventbrite
 
-- creer un organisateur on dit erreur le champ image est requis alors qu'il est là
-- il faut que tous les objets qui ont l'image là quand on les enregistre ça renvoi l'id pour que je set l'image a parti de l'id là
+- creer un organisateur on dit erreur le champ image est requis alors qu'il est lÃ 
+- il faut que tous les objets qui ont l'image lÃ  quand on les enregistre Ã§a renvoi l'id pour que je set l'image a parti de l'id lÃ 
+- gerer le translate des titres qui sont dÃ©finis dans le scope
+- billet : les onglets ne marchent pas, les event n'affichent pas la date de l'event
+- panneau, limitÃ© le nombre de participant et ajouter un search, bouton show???
 
 
 ========
 = Fait =
 ========
-- Intégration de panneau
+- IntÃ©gration de panneau
      manque du numero de la commande et du mode de paiement de l'acheteur
 
-- Intégration de gerer-event
-- Intégration de billet
+- IntÃ©gration de gerer-event
+- IntÃ©gration de billet
      manque detail d'un billet
 - billet et event save
 - profil

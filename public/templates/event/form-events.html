@@ -345,7 +345,7 @@
                     <div class="form-group" ng-if="e.confidentialite=='Public'">
                         <label translate>Type d'événement</label>
                         <select ng-model="e.type" class="form-control"
-                                ng-options="t.id as t.name for t in types">
+                                ng-options="t.id as t.name for t in types | orderBy:'-name':true">
                             <option value="" disabled translate>Selectionnez le type d'événement</option>
                         </select>
                     </div>
@@ -353,7 +353,7 @@
                     <div class="form-group" ng-if="e.confidentialite=='Public'">
                         <label translate>thème de l'événement</label>
                         <select ng-model="e.type" class="form-control"
-                                ng-options="t.id as t.name for t in categories">
+                                ng-options="t.id as t.name for t in categories | orderBy:'-name':true">
                             <option value="" disabled translate>Selectionnez le thème de l'événement</option>
                         </select>
                     </div>

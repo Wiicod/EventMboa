@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-lg-4 col-sm-1 col-md-4">
                 <div class="input-group input-group-lg">
-                    <input type="text" class="form-control form-input" ng-model="searchKey" placeholder="Rechercher un événement ou un participant">
+                    <input type="text" class="form-control form-input" ng-model="searchKey" placeholder="{{'Recherche d\'événements ';''|translate}}">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
                 </div>
             </div>
@@ -26,7 +26,7 @@
             <div class="col-lg-12">
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a ng-click="choixEvent(0)" data-toggle="tab"><ff translate>En ligne</ff>e {{eventOnline.length}}</a></li>
+                        <li class="active"><a ng-click="choixEvent(0)" data-toggle="tab"><ff translate>En ligne</ff> {{eventOnline.length}}</a></li>
                         <li><a ng-click="choixEvent(1)" data-toggle="tab"><ff translate>Avant-projets</ff> {{eventSaved.length}}</a></li>
                         <li><a ng-click="choixEvent(2)" data-toggle="tab"><ff translate>Passés</ff> {{eventPassed.length}}</a></li>
                     </ul>
