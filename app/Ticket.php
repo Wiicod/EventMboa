@@ -12,7 +12,7 @@ class Ticket extends Model
         'listing_privity','max_command'];
     protected $dates=['start_date','end_date','created_at','updated_at'];
 
-    private $foreign = ['event'];
+    private $foreign = ['event', 'ticket'];
 
     private $files = [];
 

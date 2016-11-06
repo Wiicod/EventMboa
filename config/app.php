@@ -157,6 +157,11 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /*
+         * Validator Providers ...
+         */
+        App\Providers\Validation\ValidationServiceProvider::class,
+
+        /*
          * Vendor Service Providers ...
          */
         Webpatser\Countries\CountriesServiceProvider::class,

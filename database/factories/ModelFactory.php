@@ -25,6 +25,7 @@ use App\IntrestedEvent;
 use App\Organizer;
 use App\Participant;
 use App\Person;
+use App\Publicity;
 use App\Ticket;
 use App\TicketTypePayment;
 use App\Town;
@@ -208,6 +209,27 @@ $factory->define(Person::class, function (Faker\Generator $faker) {
         'sex' => $faker->boolean(),
         'adress_id' => $adress->id
 
+    ];
+
+});
+
+$factory->define(Publicity::class, function (Faker\Generator $faker) {
+
+    $event = FactoryHelper::getOrCreate(Event::class);
+    $banner = FactoryHelper::fakeFile($faker, 'publicity');
+
+    return [
+        'title' => $faker->title,
+        'status' => $faker->name,
+        'type' => $faker->name,
+        'company' => $faker->company,
+        'web_site' => $faker->url,
+        'url' => $faker->url,
+        'description' => $faker->text(500),
+        'banner_picture' => $banner,
+        'start_date' => $faker->dateTime,
+        'end_date' => $faker->dateTime,
+        'listing_privity' => rand(0, count(Ticket::$ListingPrivity))
     ];
 
 });

@@ -37,7 +37,7 @@ class TicketRequest extends Request
                     'quantity' => 'required|integer',
                     'max_command' => 'required|integer',
                     'event_id' => 'required|integer|exists:events,id',
-                    'start_date' => 'required|date|date_format:"Y-m-d H:i:s"',
+                    'start_date' => 'required|date|date_format:"Y-m-d H:i:s"|before:end_date',
                     'end_date' => 'required|date|date_format:"Y-m-d H:i:s"'
                 ];
             }
@@ -55,7 +55,7 @@ class TicketRequest extends Request
                     'quantity'=>'required|integer',
                     'max_command'=>'required|integer',
                     'event_id'=>'required|integer|exists:events,id',
-                    'start_date' => 'required|date|date_format:"Y-m-d H:i:s"',
+                    'start_date' => 'required|date|date_format:"Y-m-d H:i:s"|before:end_date',
                     'end_date' => 'required|date|date_format:"Y-m-d H:i:s"'
                 ];
             }
@@ -69,7 +69,7 @@ class TicketRequest extends Request
                     'quantity'=>'integer',
                     'max_command'=>'integer',
                     'event_id'=>'integer|exists:events,id',
-                    'start_date' => 'date|date_format:"Y-m-d H:i:s"',
+                    'start_date' => 'date|date_format:"Y-m-d H:i:s"|before:end_date',
                     'end_date' => 'date|date_format:"Y-m-d H:i:s"'
                 ];
             }

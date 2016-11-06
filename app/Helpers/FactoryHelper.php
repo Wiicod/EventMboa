@@ -30,8 +30,11 @@ class FactoryHelper
 
     public static function fakeFile(Generator $faker, $src)
     {
+        $dst = "storage/app/img/" . $src;
+        if (!is_dir($dst))
+            mkdir($dst, 0777, true);
 
-        $path = $faker->file("public/seeds/" . $src . "/", "storage/app/img/" . $src);
+        $path = $faker->file("public/seeds/" . $src . "/", $dst);
         $path = explode("storage/app", $path)[1];
         return $path;
     }
