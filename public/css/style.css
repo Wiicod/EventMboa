@@ -651,6 +651,10 @@ div.free{
     float: left;
 }
 
+.btn-block{
+    width: 100% !important;
+}
+
 .btn-main{
     display: inline-block;
     vertical-align: baseline;

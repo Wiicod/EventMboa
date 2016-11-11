@@ -144,7 +144,7 @@ config
             url:"/panneau-gestion/:id",
             title: "Panneau de gestion",
             parent:'gestion',
-            loginRequired:false,
+            loginRequired:true,
             views:{
                 'detail@gestion': {
                     templateUrl: template_url+'user/gestion/panneau.html'
@@ -155,7 +155,7 @@ config
             url:"/invitation/:id",
             title: "Invitation par mail",
             parent:'gestion',
-            loginRequired:false,
+            loginRequired:true,
             views:{
                 'detail@gestion': {
                     templateUrl: template_url+'user/gestion/invitation.html'
@@ -166,7 +166,7 @@ config
             url:"/email-participant/:id",
             title: "E-mail aux participants",
             parent:'gestion',
-            loginRequired:false,
+            loginRequired:true,
             views:{
                 'detail@gestion': {
                     templateUrl: template_url+'user/gestion/email-participant.html'
@@ -239,6 +239,28 @@ config
                 }
             }
         })
+        .state('detail-billet',{
+            url:"/u/billet/detail/:id",
+            title: "Détails Billet",
+            loginRequired:true,
+            views:{
+                '':{
+                    templateUrl: template_url+'index.html',
+                    controller:"DetailBilletCtrl"
+                },
+                'header@detail-billet': {
+                    templateUrl: template_url+'static/header.html',
+                    controller:"HeaderCtrl"
+                },
+                'body@detail-billet': {
+                    templateUrl: template_url+'user/billet-detail.html'
+                },
+                'footer@detail-billet': {
+                    templateUrl: template_url+'static/footer.html',
+                    controller:"FooterCtrl"
+                }
+            }
+        })
         .state('save',{
             url:"/u/save",
             title: "Sauvegardés",
@@ -265,7 +287,7 @@ config
         .state('user',{
             url:"/u",
             title: "User",
-            loginRequired:false,
+            loginRequired:true,
             views:{
                 '':{
                     templateUrl: template_url+'user/index.html',
@@ -285,7 +307,7 @@ config
             url:"/mot-de-passe",
             title: "Mot de passe",
             parent:'user',
-            loginRequired:false,
+            loginRequired:true,
             views:{
                 'detail@user': {
                     templateUrl: template_url+'user/mot-de-passe.html'
@@ -296,7 +318,7 @@ config
             url:"/om",
             title: "Orange money",
             parent:'user',
-            loginRequired:false,
+            loginRequired:true,
             views:{
                 'detail@user': {
                     templateUrl: template_url+'user/om.html',
@@ -308,7 +330,7 @@ config
             url:"/carte-bancaire",
             title: "Cartes bancaires",
             parent:'user',
-            loginRequired:false,
+            loginRequired:true,
             views:{
                 'detail@user': {
                     templateUrl: template_url+'user/carte.html',
@@ -320,7 +342,7 @@ config
             url:"/sociaux",
             title: "Réseaux sociaux",
             parent:'user',
-            loginRequired:false,
+            loginRequired:true,
             views:{
                 'detail@user': {
                     templateUrl: template_url+'user/sociaux.html'
@@ -331,7 +353,7 @@ config
             url:"/compte",
             title: "Compte",
             parent:'user',
-            loginRequired:false,
+            loginRequired:true,
             views:{
                 'detail@user': {
                     templateUrl: template_url+'user/compte.html'
@@ -342,7 +364,7 @@ config
             url:"/facture",
             title: "Factures",
             parent:'user',
-            loginRequired:false,
+            loginRequired:true,
             views:{
                 'detail@user': {
                     templateUrl: template_url+'user/factures.html',
@@ -367,7 +389,7 @@ config
         .state('create',{
             url:"/create/:id/:target?",
             title: "Créer un événement",
-            loginRequired:false,
+            loginRequired:true,
             views:{
                 '':{
                     templateUrl: template_url+'index.html',

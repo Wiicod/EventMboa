@@ -17,11 +17,11 @@
                             {{eventSave.length}}<br/>
                                 <ff translate>Evénements sauvegardés</ff>
                                  </a></li>
-                        <li ng-class="{'active':choix=='passed'}">
-                            <a ng-click="choixEvent(2)" data-toggle="tab">
-                            {{eventPassed.length}}<br/>
-                                <ff translate>Evénements antérieurs</ff>
-                                </a></li>
+                        <!--<li ng-class="{'active':choix=='passed'}">-->
+                            <!--<a ng-click="choixEvent(2)" data-toggle="tab">-->
+                            <!--{{eventPassed.length}}<br/>-->
+                                <!--<ff translate>Evénements antérieurs</ff>-->
+                                <!--</a></li>-->
                     </ul>
                     <div class="tab-content" style="border-top: 2px solid #f1f1f1; padding-top: 15px;">
                         <div class="row-fluid">
@@ -32,7 +32,7 @@
                         </div>
                         <div ng-if="events.length>0" class="row"
                              dir-paginate="e in events | orderBy : '-start_date' : true| itemsPerPage: par_page ">
-                            <div class="event" ng-click="choixBillet(e)" data-toggle="modal" href="/#billetModal">
+                            <div class="event" ng-click="choixBillet(e)">
                                 <div class="col-lg-3">
                                     <div class="image" style="height:100px; cursor: pointer">
                                         <img src="{{e.banner_picture}}" class="img-responsive" alt="{{e.name}}"/>

@@ -5,26 +5,27 @@
 - gerer le scroll
 - hover sur catégorie type te billet
 - enlever le rafraichissement du token
-- regarder les details d'un billet sur eventbrite
+
+- faire les templates des mail et du pdf
+
+- gerer google map
 
 - creer un organisateur on dit erreur le champ image est requis alors qu'il est là
 - il faut que tous les objets qui ont l'image là quand on les enregistre ça renvoi l'id pour que je set l'image a parti de l'id là
+
 - gerer le translate des titres qui sont définis dans le scope
-- billet : les onglets ne marchent pas, les event n'affichent pas la date de l'event
-- panneau, limité le nombre de participant et ajouter un search, bouton show???
+- gérer le changement automatique de la langue a partir du footer (EVARIS)
 
+- panneau : manque du mode de paiement de l'acheteur
+- detail d'un billet : faire les actions des 3 boutons
+- interested_event: limiter a un interet par event
 
-========
-= Fait =
-========
-- Intégration de panneau
-     manque du numero de la commande et du mode de paiement de l'acheteur
+- create event : faire les actions des boutons
 
-- Intégration de gerer-event
-- Intégration de billet
-     manque detail d'un billet
-- billet et event save
-- profil
+- creer et editer un evenement
+- partie admin
+- partager un event
+
 
 
 http://www.17educations.com/whatsapp/send-whatsapp-message-using-php/
