@@ -1,6 +1,6 @@
 Titre : {{$event->name}}
 
-Auteur :  {{$event->user->email}}
+Auteur :  {{$email}}
 
 Status :  {{$event->status}}
 

@@ -39,7 +39,7 @@ class FactoryHelper
         return $path;
     }
 
-    public static function NewGuid()
+    public static function NewGuid($ext)
     {
         $s = strtoupper(md5(uniqid(rand(), true)));
         $guidText =
@@ -48,7 +48,7 @@ class FactoryHelper
             substr($s, 12, 4) . '-' .
             substr($s, 16, 4) . '-' .
             substr($s, 20);
-        return $guidText;
+        return $guidText . '.' . $ext;
     }
 
 

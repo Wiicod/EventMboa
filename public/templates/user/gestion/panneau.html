@@ -16,10 +16,10 @@
                         <th translate>Billets disponibles</th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="t in event.tickets">
-                                <td>{{t.name}} </td>
-                                <td>{{t.participant.length}} </td>
-                                <td>{{t.quantity-t.participant.length}}</td>
+                        <tr ng-repeat="t in event.tickets">
+                            <td>{{t.name}}</td>
+                            <td>{{t.participant.length}}</td>
+                            <td>{{t.quantity-t.participant.length}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -34,7 +34,8 @@
                      aria-valuemin="0" aria-valuemax="100" style="width: {{vendu*100/quantite}}%">
                 </div>
             </div>
-           <ff translate>Billets vendus</ff> : {{vendu}}/{{quantite}}
+            <ff translate>Billets vendus</ff>
+            : {{vendu}}/{{quantite}}
         </div>
     </div>
 
@@ -51,7 +52,7 @@
         </div>
     </div>
 
-    <div class="row"ng-if="participants.length>0">
+    <div class="row" ng-if="participants.length>0">
         <div class="col-lg-12">
             <h4 translate>Participants</h4>
             <div class="no-padding">
@@ -59,23 +60,25 @@
                     <div class="row-fluid">
                         <div class="col-lg-6">
                             <label translate="">Filtre</label>
-                            <input type="text" ng-model="searchKey" placeholder="{{'Recherche un participant'|translate}}" class="form-control"/>
+                            <input type="text" ng-model="searchKey"
+                                   placeholder="{{'Recherche un participant'|translate}}" class="form-control"/>
                         </div>
                         <div class="col-lg-3 pull-right">
                             <label translate="">Nombre à afficher</label>
-                            <input type="number" class="form-control" ng-model="par_page" placeholder="{{'Nombre à afficher'|translate}}"/>
+                            <input type="number" class="form-control" ng-model="par_page"
+                                   placeholder="{{'Nombre à afficher'|translate}}"/>
                         </div>
                     </div>
                 </div>
             </div>
             <table class="table" ng-repeat="t in event.tickets">
                 <thead>
-                    <th translate>Numéro de commande</th>
-                    <th translate>Acheteur du billet</th>
-                    <th translate>Quantité</th>
-                    <th translate>Prix</th>
-                    <th translate>Date</th>
-                    <th translate>Paiement</th>
+                <th translate>Numéro de commande</th>
+                <th translate>Acheteur du billet</th>
+                <th translate>Quantité</th>
+                <th translate>Prix</th>
+                <th translate>Date</th>
+                <th translate>Paiement</th>
                 </thead>
                 <tbody>
                 <tr dir-paginate="p in participants |filter:searchKey | orderBy : '-id' : true| itemsPerPage: par_page ">

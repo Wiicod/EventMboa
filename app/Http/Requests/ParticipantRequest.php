@@ -38,6 +38,7 @@ class ParticipantRequest extends Request
 
                 return [
                     'number' => 'required|integer|sufficient|max:' . $max,
+                    'status' => '',
                     'name' => 'max:255|required_with:email,phone',
                     'phone' => 'required_with:email,name|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|',
                     'email' => 'max:255|email|required_with:name,phone',

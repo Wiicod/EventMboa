@@ -2,7 +2,9 @@
     <div class="container">
         <div class="row" style="margin-top: 30px">
             <div class="col-lg-9 col-sm-9 col-md-9">
-                <h1><ff translate>Commande pour</ff> <span class="blue">{{billet.event.name}}</span></h1>
+                <h1>
+                    <ff translate>Commande pour</ff>
+                    <span class="blue">{{billet.event.name}}</span></h1>
             </div>
             <!--&lt;!&ndash; Quand on voudra gerer evenement par organisateur&ndash;&gt;-->
             <!--<div class="col-lg-4 col-sm-4 col-md-4" style="padding-top: 20px">-->
@@ -14,9 +16,19 @@
         </div>
         <div class="row">
             <div class="col-lg-9 col-sm-9 col-md-9">
-                <p><ff translate>Commande n°</ff>{{billet.id}} <ff translate>le</ff> {{billet.created_at}}</p>
-                <p>{{billet.event.date_debut}} <ff translate>de</ff> {{billet.event.heure_debut}} <ff translate>à</ff>
-                    {{billet.event.heure_fin}} <ff translate>à</ff> {{billet.event.adress.town.name}}
+                <p>
+                    <ff translate>Commande n°</ff>
+                    {{billet.id}}
+                    <ff translate>le</ff>
+                    {{billet.created_at}}
+                </p>
+                <p>{{billet.event.date_debut}}
+                    <ff translate>de</ff>
+                    {{billet.event.heure_debut}}
+                    <ff translate>à</ff>
+                    {{billet.event.heure_fin}}
+                    <ff translate>à</ff>
+                    {{billet.event.adress.town.name}}
                 </p>
             </div>
         </div>
@@ -27,30 +39,36 @@
             <div class="col-lg-3">
                 <div class="btn btn-main btn-block" translate="">Imprimer les billets</div>
                 <div class="btn btn-main btn-reverse btn-block" translate="">Annuler la commande</div>
-                <div class="btn btn-main btn-reverse btn-block"><ff translate>Contacter</ff> <br/> <ff translate>l'organisateur</ff></div>
+                <div class="btn btn-main btn-reverse btn-block">
+                    <ff translate>Contacter</ff>
+                    <br/>
+                    <ff translate>l'organisateur</ff>
+                </div>
             </div>
 
             <div class="col-lg-8" style="background: #fff">
                 <h3 translate>Coordonnées</h3>
                 <table class="table">
                     <tbody>
-                        <tr>
-                            <th translate>Prénom</th>
-                            <td>{{user.person.first_name}}</td>
-                        </tr>
-                        <tr>
-                            <th translate>Nom</th>
-                            <td>{{user.person.last_name}}</td>
-                        </tr>
-                        <tr>
-                            <th translate>Email</th>
-                            <td>{{user.email}}</td>
-                        </tr>
+                    <tr>
+                        <th translate>Prénom</th>
+                        <td>{{user.person.first_name}}</td>
+                    </tr>
+                    <tr>
+                        <th translate>Nom</th>
+                        <td>{{user.person.last_name}}</td>
+                    </tr>
+                    <tr>
+                        <th translate>Email</th>
+                        <td>{{user.email}}</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
             <div class="clearfix"></div>
-            <a ui-sref="billet" translate><i class="fa fa-arrow-left"></i>  <ff translate>Retour aux commandes en cours</ff></a>
+            <a ui-sref="billet" translate><i class="fa fa-arrow-left"></i>
+                <ff translate>Retour aux commandes en cours</ff>
+            </a>
         </div>
     </div>
 </section>

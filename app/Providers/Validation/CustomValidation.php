@@ -1,6 +1,7 @@
 <?php namespace App\Providers\Validation;
 
 use App\Participant;
+use App\Ticket;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Validation\Validator;
@@ -53,7 +54,7 @@ class CustomValidation extends Validator
 
     }
 
-    public function sufficient($attribute, $value, $parameters)
+    public function validateSufficient($attribute, $value, $parameters)
     {
         // Now that we have our data we can check for the data
 
@@ -61,7 +62,7 @@ class CustomValidation extends Validator
         // Now we need to do some checking using Eloquent
         // If you don't understand this, please let me know
 
-        $ticket = Input::get('ticket_id');
+        $ticket = Ticket::find(Input::get('ticket_id'));
         $val = intval($value);
         if ($ticket == null)
             return false;

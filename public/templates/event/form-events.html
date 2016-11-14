@@ -43,11 +43,13 @@
                         <label for="nom">
                             <ff translate>Non de l'événement</ff>
                             <span class="requis">*</span></label>
-                        <input type="text" id="nom" ng-model="e.name" placeholder="{{'Donnez un titre court et distinctif'|translate}}" class="form-control"/>
+                        <input type="text" id="nom" ng-model="e.name"
+                               placeholder="{{'Donnez un titre court et distinctif'|translate}}" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="adresse" translate>Adresse </label>
-                        <input type="text" id="adresse" ng-model="e.adress.name" placeholder="{{'Précisez où il est organisé'|translate}}" class="form-control"/>
+                        <input type="text" id="adresse" ng-model="e.adress.name"
+                               placeholder="{{'Précisez où il est organisé'|translate}}" class="form-control"/>
                         <div>
                             <a ng-click="lieu='ligne'"><i class="fa fa-globe"></i>
                                 <ff translate>Evenement en ligne</ff>
@@ -61,8 +63,10 @@
                         <div class="row" style="margin-top: 10px" ng-if="lieu=='adresse'">
                             <div class="col-lg-8">
                                 <div class="form-group">
-                                    <input type="text" ng-model="e.adress.name" placeholder="{{'Adresse'|translate}}" class="form-control"/>
-                                    <input type="text" ng-model="e.adress.street" placeholder="{{'Rue'|translate}}" class="form-control"/>
+                                    <input type="text" ng-model="e.adress.name" placeholder="{{'Adresse'|translate}}"
+                                           class="form-control"/>
+                                    <input type="text" ng-model="e.adress.street" placeholder="{{'Rue'|translate}}"
+                                           class="form-control"/>
                                     <!--<input type="text" ng-model="e.adresse.ville" placeholder="{{'Ville'|translate}}" class="form-control"/>-->
                                     <select ng-model="e.adress.town" class="form-control"
                                             ng-options="v.id as v.name for v in villes|orderBy:'-name':true"
@@ -72,17 +76,18 @@
                                         </option>
                                     </select>
                                     <!--<div class="row">-->
-                                        <!--<div class="col-lg-6 col-sm-6">-->
-                                            <!--<input type="text" ng-model="e.adresse.region" placeholder="{{'Région'|translate}}" class="form-control"/>-->
-                                        <!--</div>-->
-                                        <!--<div class="col-lg-6 col-sm-6">-->
-                                            <!-- -->
-                                        <!--</div>-->
+                                    <!--<div class="col-lg-6 col-sm-6">-->
+                                    <!--<input type="text" ng-model="e.adresse.region" placeholder="{{'Région'|translate}}" class="form-control"/>-->
                                     <!--</div>-->
-                                    <input type="number" ng-model="e.adress.post_box" placeholder="{{'Boîte postale'|translate}}" class="form-control"/>
+                                    <!--<div class="col-lg-6 col-sm-6">-->
+                                    <!-- -->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <input type="number" ng-model="e.adress.post_box"
+                                           placeholder="{{'Boîte postale'|translate}}" class="form-control"/>
                                     <select ng-model="e.adress.country" class="form-control"
                                             ng-options="p.id as p.name for p in pays|orderBy:'-name':true"
-                                            >
+                                    >
                                         <option value="" disabled>
                                             <ff translate>Sélectionnez votre pays</ff>
                                         </option>
@@ -105,10 +110,12 @@
                                 <label translate>Commence</label>
                                 <div class="row">
                                     <div class="col-lg-6 col-sm-6">
-                                        <input type="text" class="form-control" ng-model="e.start_date" placeholder="10/09/2015"/>
+                                        <input type="text" class="form-control" ng-model="e.start_date"
+                                               placeholder="10/09/2015"/>
                                     </div>
                                     <div class="col-lg-6 col-sm-6">
-                                        <input type="text" class="form-control" ng-model="e.start_hour" placeholder="10:30"/>
+                                        <input type="text" class="form-control" ng-model="e.start_hour"
+                                               placeholder="10:30"/>
                                     </div>
                                 </div>
                             </div>
@@ -116,10 +123,12 @@
                                 <label translate>Se termine</label>
                                 <div class="row">
                                     <div class="col-lg-6 col-sm-6">
-                                        <input type="text" class="form-control" ng-model="e.end_date" placeholder="20/09/2015"/>
+                                        <input type="text" class="form-control" ng-model="e.end_date"
+                                               placeholder="20/09/2015"/>
                                     </div>
                                     <div class="col-lg-6 col-sm-6">
-                                        <input type="text" class="form-control" ng-model="e.end_hour" placeholder="20:50"/>
+                                        <input type="text" class="form-control" ng-model="e.end_hour"
+                                               placeholder="20:50"/>
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +158,8 @@
                                 <input type="file" name="icone_boutique" id="id_icone_boutique"  class="hide">
                             </div>
                             <div class="col-lg-3">
-                                <p class="small-text" translate>Nous recommandons d'utiliser une image d'au moins 2160 x 1080 px (ratio 2:1) ne dépassant pas 10 Mo</p>
+                                <p class="small-text" translate>Nous recommandons d'utiliser une image d'au moins 2160 x
+                                    1080 px (ratio 2:1) ne dépassant pas 10 Mo</p>
                             </div>
                         </div>
 
@@ -177,7 +187,8 @@
                             </select>
                         </div>
                         <div ng-if="user=='new'||user=='edit'">
-                            <input type="text" ng-model="e.oragnisateur.name" placeholder="{{'Nom de l\'organisateur'|translate}}" class="form-control"/>
+                            <input type="text" ng-model="e.oragnisateur.name"
+                                   placeholder="{{'Nom de l\'organisateur'|translate}}" class="form-control"/>
                         </div>
                     </div>
 
@@ -198,34 +209,43 @@
                     <div class="form-group check">
                         <div class="checkbox">
                             <label for="inclure">
-                                <input type="checkbox" ng-model="inclure" id="inclure"> <ff translate >Inclure des liens vers mes pages Facebook et Twitter</ff>
+                                <input type="checkbox" ng-model="inclure" id="inclure">
+                                <ff translate>Inclure des liens vers mes pages Facebook et Twitter</ff>
                             </label>
                         </div>
                         <div class="row-fluid" ng-if="inclure">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label><i class="fa fa-facebook"></i> <ff translate>Site web</ff></label>
-                                    <input type="text" class="form-control" ng-model="e.organizer.facebook" placeholder="{{'Site web'|translate}}"/>
+                                    <label><i class="fa fa-facebook"></i>
+                                        <ff translate>Site web</ff>
+                                    </label>
+                                    <input type="text" class="form-control" ng-model="e.organizer.facebook"
+                                           placeholder="{{'Site web'|translate}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label><i class="fa fa-facebook"></i> Facebook</label>
-                                    <input type="text" class="form-control" ng-model="e.organizer.facebook" placeholder="{{'Lien vers page Facebook'|translate}}"/>
+                                    <input type="text" class="form-control" ng-model="e.organizer.facebook"
+                                           placeholder="{{'Lien vers page Facebook'|translate}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label><i class="fa fa-twitter"></i> Twitter</label>
-                                    <input type="text" class="form-control" ng-model="e.organizer.twitter" placeholder="{{'Lien vers page Twitter'|translate}}"/>
+                                    <input type="text" class="form-control" ng-model="e.organizer.twitter"
+                                           placeholder="{{'Lien vers page Twitter'|translate}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label><i class="fa fa-instagram"></i> Instagram</label>
-                                    <input type="text" class="form-control" ng-model="e.organizer.instagram" placeholder="{{'Lien vers page Instagram'|translate}}"/>
+                                    <input type="text" class="form-control" ng-model="e.organizer.instagram"
+                                           placeholder="{{'Lien vers page Instagram'|translate}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label><i class="fa fa-google-plus"></i> Google+</label>
-                                    <input type="text" class="form-control" ng-model="e.organizer.google" placeholder="{{'Lien vers page Google'|translate}}"/>
+                                    <input type="text" class="form-control" ng-model="e.organizer.google"
+                                           placeholder="{{'Lien vers page Google'|translate}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label><i class="fa fa-linkedin"></i> LinkedIn</label>
-                                    <input type="text" class="form-control" ng-model="e.organizer.linkedin" placeholder="{{'Lien vers page LinkedIn'|translate}}"/>
+                                    <input type="text" class="form-control" ng-model="e.organizer.linkedin"
+                                           placeholder="{{'Lien vers page LinkedIn'|translate}}"/>
                                 </div>
                             </div>
                         </div>
@@ -245,7 +265,8 @@
                 <div class="col-lg-9 col-sm-9" style="margin-top: 20px">
                     <div class="form-group text-center">
                         <div ng-if="type!='Gratuit'&& type!='Payant'">
-                            <div style="margin-bottom: 15px" translate>Avec quel type de billet souhaitez-vous commencer?
+                            <div style="margin-bottom: 15px" translate>Avec quel type de billet souhaitez-vous
+                                commencer?
                             </div>
                             <div class="btn-group">
                                 <button class="btn btn-main btn-reverse"
@@ -278,7 +299,9 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="b in billets">
-                                        <td><input type="text" ng-model="b.nom" placeholder="{{'Billet à tarif préférentiel, RSVP...'|translate}}" class="form-control"/></td>
+                                        <td><input type="text" ng-model="b.nom"
+                                                   placeholder="{{'Billet à tarif préférentiel, RSVP...'|translate}}"
+                                                   class="form-control"/></td>
                                         <td><input type="number" min="0" step="1" ng-model="b.quantite" placeholder="100" class="form-control"/></td>
                                         <td ng-if="b.type=='Gratuit'">{{b.type}}</td>
                                         <td ng-if="b.type=='Payant'">
@@ -420,9 +443,17 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="intro-message">
-                            <h4 class="date-titre"><ff translate >Le</ff> {{event.date_debut}} <ff translate >à</ff> {{event.adresse.ville}}</h4>
+                            <h4 class="date-titre">
+                                <ff translate>Le</ff>
+                                {{event.date_debut}}
+                                <ff translate>à</ff>
+                                {{event.adresse.ville}}
+                            </h4>
                             <h1>{{event.name}}</h1>
-                            <h4><ff translate >Par</ff> : {{event.organizer.name}} </h4>
+                            <h4>
+                                <ff translate>Par</ff>
+                                : {{event.organizer.name}}
+                            </h4>
                         </div>
                     </div>
 
@@ -441,7 +472,9 @@
                             </div>
                             <div class="col-lg-6" style="text-align: right">
                                 <div class="btn-white">{{event.tickets[0].amount}} Fcfa</div>
-                                <button class="btn btn-main btn-green" data-toggle="modal" href="/#inscriptionModal" translate >S'inscrire</button>
+                                <button class="btn btn-main btn-green" data-toggle="modal" href="/#inscriptionModal"
+                                        translate>S'inscrire
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -454,7 +487,7 @@
                 <div class="row-fluid">
                     <div class="col-lg-8">
                         <dl>
-                            <dt translate >DESCRIPTION</dt>
+                            <dt translate>DESCRIPTION</dt>
                             <dd>
                                 <p>{{event.description}}</p>
                             </dd>
@@ -477,11 +510,15 @@
                     <div class="col-lg-4">
                         <dl>
                             <dt translate>DATE ET HEURE</dt>
-                            <dd><ff translate >du</ff> <strong>{{event.date_debut}}</strong> <ff translate >au</ff> <strong>{{event.date_fin}}</strong></dd>
+                            <dd>
+                                <ff translate>du</ff>
+                                <strong>{{event.date_debut}}</strong>
+                                <ff translate>au</ff>
+                                <strong>{{event.date_fin}}</strong></dd>
                         </dl>
 
                         <dl>
-                            <dt translate >ADRESSE</dt>
+                            <dt translate>ADRESSE</dt>
                             <dd>{{event.adress.post_box}} {{event.adress.name}}</dd>
                             <dd>{{event.adress.street}}</dd>
                             <dd>{{event.town.name}}</dd>
@@ -499,7 +536,9 @@
                         <div class="text-center">
                             <div class="divider"></div>
                             <h3 class="bold">{{event.organizer.name}}</h3>
-                            <div><ff translate >Organisateur de</ff> <strong>{{event.name}}</strong></div>
+                            <div>
+                                <ff translate>Organisateur de</ff>
+                                <strong>{{event.name}}</strong></div>
                             <div class="image">
                                 <img src="{{event.organizer.image}}" alt="" title="{{event.organizer.name}}"/>
                             </div>
@@ -507,8 +546,13 @@
                                 {{event.organizer.description}}
                             </p>
                             <p class="option">
-                                <a ui-sref="profil{{event.organizer.name}}"><i class="fa fa-navicon"></i> <ff translate >Profil</ff></a>
-                                <a ui-sref="contact-organisateur{{event.organisateur.email}}"><i class="fa fa-envelope-o"></i> <ff translate >Contactez</ff></a>
+                                <a ui-sref="profil{{event.organizer.name}}"><i class="fa fa-navicon"></i>
+                                    <ff translate>Profil</ff>
+                                </a>
+                                <a ui-sref="contact-organisateur{{event.organisateur.email}}"><i
+                                        class="fa fa-envelope-o"></i>
+                                    <ff translate>Contactez</ff>
+                                </a>
                             </p>
                         </div>
                     </div>

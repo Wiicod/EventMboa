@@ -18,7 +18,7 @@
     <br>
     <br>
     <span style="color:white;font-weight: bold;">Auteur :</span>
-    <span style="text-transform: capitalize"> {{$event->user->email}}</span>
+    <span style="text-transform: capitalize"> {{$email}}</span>
     <br>
     <br>
     <span style="color:white;font-weight: bold;">Status :</span> <span> {{$event->status}}</span>
