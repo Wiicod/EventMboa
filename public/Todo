@@ -3,25 +3,29 @@
 ===========
 - gerer les loading
 - gerer le scroll
-- hover sur catégorie type te billet
+- hover sur catÃ©gorie type te billet
 - enlever le rafraichissement du token
-- regarder les details d'un billet sur eventbrite
 
-- creer un organisateur on dit erreur le champ image est requis alors qu'il est là
-- il faut que tous les objets qui ont l'image là quand on les enregistre ça renvoi l'id pour que je set l'image a parti de l'id là
+- faire les templates des mail et du pdf
 
+- gerer google map
 
-========
-= Fait =
-========
-- Intégration de panneau
-     manque du numero de la commande et du mode de paiement de l'acheteur
+- creer un organisateur on dit erreur le champ image est requis alors qu'il est lÃ 
+- il faut que tous les objets qui ont l'image lÃ  quand on les enregistre Ã§a renvoi l'id pour que je set l'image a parti de l'id lÃ 
 
-- Intégration de gerer-event
-- Intégration de billet
-     manque detail d'un billet
-- billet et event save
-- profil
+- gerer le translate des titres qui sont dÃ©finis dans le scope
+- gÃ©rer le changement automatique de la langue a partir du footer (EVARIS)
+
+- panneau : manque du mode de paiement de l'acheteur
+- detail d'un billet : faire les actions des 3 boutons
+- interested_event: limiter a un interet par event
+
+- create event : faire les actions des boutons
+
+- creer et editer un evenement
+- partie admin
+- partager un event
+
 
 
 http://www.17educations.com/whatsapp/send-whatsapp-message-using-php/

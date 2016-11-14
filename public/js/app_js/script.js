@@ -186,7 +186,7 @@ var windowScroll = function() {
 $(function(){
     windowScroll();
     homeCarrousel();
-    console.log("ok");
+    //console.log("ok");
 });
 
 

@@ -3,23 +3,23 @@
         <div class="row no-padding">
             <div class="col-lg-8 col-sm-8">
                 <h2 class="title bold">{{event.name}} <span class="badge badge-success">{{event.status}}</span></h2>
-                <h4>{{event.start_date}}|{{event.end_date}}</h4>
+                <h4><ff translate>du</ff> {{event.date_debut}} {{event.heure_debut}} <ff translate>au</ff>  {{event.date_fin}} {{event.heure_fin}}</h4>
             </div>
-            <div class="col-lg-4 col-sm-4" style="margin-top: 3%; text-align: right;">
-                <button class="btn btn-main btn-reverse" translate>Afficher</button>
-            </div>
+            <!--<div class="col-lg-4 col-sm-4" style="margin-top: 3%; text-align: right;">-->
+                <!--<button class="btn btn-main btn-reverse" translate>Afficher</button>-->
+            <!--</div>-->
         </div>
     </div>
 
     <div class="banner">
         <div class="container" style="padding-left: 0px">
-            <div class="choice" ui-sref="create({id:event.id,target:'modifier'})" translate>
+            <div class="choice" ui-sref="create({id:event.old_id,target:'modifier'})" translate>
                 Modifier
             </div>
-            <div class="choice" ui-sref="create({id:event.id,target:'visualisation'})" translate>
+            <div class="choice" ui-sref="create({id:event.old_id,target:'visualisation'})" translate>
                 Design
             </div>
-            <div class="choice active" ui-sref="gestion({id:event.id})" translate>
+            <div class="choice active" ui-sref="gestion({id:old_id})" translate>
                 Gérer
             </div>
         </div>

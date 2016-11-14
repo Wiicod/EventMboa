@@ -61,13 +61,13 @@
         <div class="row">
             <div class="col-lg-4" ng-repeat="e in events | limitTo:6|orderBy:'-start_date':false"
                  ng-if="e.tickets.length>0"
-                 ui-sref="details({nom:e.name+'/'+e.id})">
+                 >
                 <div class="card">
-                    <div class="card-image">
+                    <div class="card-image" ui-sref="details({nom:e.name+'/'+e.id})">
                         <img class="img-responsive" src="{{e.banner_picture}}">
                         <span class="card-title">{{e.tickets[0].amount}} Fcfa</span>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content" ui-sref="details({nom:e.name+'/'+e.id})">
                         <!--<ul class="nav">-->
                             <!--<li class="date">MER. 14 SEPT. 20:00</li>-->
                             <!--<li class="titre">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid, aut autem consequatur cumque dolor dolore ea error id iste iure, libero modi nisi pariatur quasi quis ratione sunt.</li>-->
@@ -82,12 +82,12 @@
 
                     <div class="card-action">
                         <div class="tag">
-                            <a href="#">#{{e.event_topic.name|limitTo:15}}</a>
-                            <a href="#">#{{e.event_type.name|limitTo:15}}</a>
+                            <a ui-sref="events({target:e.event_topic.name,id:'topic'})">#{{e.event_topic.name|limitTo:15}}</a>
+                            <a ui-sref="events({target:e.event_type.name,id:'type'})">#{{e.event_type.name|limitTo:15}}</a>
                         </div>
                         <div class="action">
-                            <a href="#" class="pull-right" title="Partager"><i class="fa fa-share-alt"></i></a>
-                            <a href="#" class="pull-right" title="Sauvegarder"><i class="fa fa-bookmark-o"></i></a>
+                            <a class="pull-right" title="Partager"><i class="fa fa-share-alt"></i></a>
+                            <a class="pull-right" title="Sauvegarder" ng-click="interest(e)"><i class="fa fa-bookmark-o"></i></a>
                         </div>
 
 
