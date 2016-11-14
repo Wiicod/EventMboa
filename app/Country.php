@@ -15,6 +15,8 @@ class Country extends Model
     private $foreign = [];
     private $files = ['flag'];
 
+    public $timestamps = false;
+
     public function getForeign()
     {
         return $this->foreign;

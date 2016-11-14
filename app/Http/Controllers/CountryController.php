@@ -19,7 +19,7 @@ class CountryController extends Controller
         //
         $countries = new  Country();
 
-        $countries = $countries->orderBy('updated_at')->get();
+        $countries = $countries->orderBy('name')->get();
 
         return Response::json($countries, 200, [], JSON_NUMERIC_CHECK);
     }

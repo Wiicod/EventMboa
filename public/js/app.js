@@ -12,7 +12,8 @@ var filter =angular.module('mboa.filter', ['ui.router']);
 angular.module('mboa', [
   'ui.router',
   'satellizer',
-  //'mp.datePicker',
+  'gettext',
+  'ngCookies',
   'restangular',
   'textAngular',
   'ngFileUpload',
@@ -22,9 +23,12 @@ angular.module('mboa', [
   'mboa.config',
   'mboa.directives',
   'mboa.filter'
-]).run(['$log', '$state', '$rootScope', '$location', 'Restangular', '$auth',
-  function ($log, $state, $rootScope, $location, Restangular, $auth) {
+]).run(['$log', '$state', '$rootScope', '$location', 'Restangular', '$auth','gettextCatalog',
+  function ($log, $state, $rootScope, $location, Restangular, $auth,gettextCatalog) {
         $log.debug("startApp running ");
+    gettextCatalog.currentLanguage="fr_FR";
+    gettextCatalog.debug=false;
+
     var attempt = 0;
     Restangular.setErrorInterceptor(function (response, deferred, responseHandler) {
       if (response.status === 401) {
@@ -42,7 +46,6 @@ angular.module('mboa', [
 
         return false; // error handled
       } else {
-        console.info('ahah');
         return true; // error not handled
       }
 

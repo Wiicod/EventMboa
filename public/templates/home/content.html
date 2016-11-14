@@ -8,7 +8,7 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi assumenda dicta expedita fuga iusto molestias, nam nisi nobis placeat quas, repellat voluptates. A alias aliquam, animi exercitationem iste quidem reprehenderit!</p>
                         <p>
                             <a href="" class="btn btn-primary btn-main" ng-if="!loguer" ui-sref="login" translate>Commencer</a>
-                            <a href="" class="btn btn-primary btn-main" ng-if="loguer" ui-sref="create" translate>Commencer</a>
+                            <a href="" class="btn btn-primary btn-main" ng-if="loguer" ui-sref="create" translate>Créer un événement</a>
                         </p>
                     </div>
                 </div>
@@ -37,14 +37,11 @@
     <div class="container">
         <form class="row no-padding" ng-submit="search(key)">
             <div class="col-lg-4" style="padding-left: 15px">
-                <input type="text" ng-model="key.titre" class="form-control"
-                       placeholder="Rechercher des événements ou des catégories"/></div>
+                <input type="text" ng-model="key.titre" class="form-control" placeholder="{{'Rechercher des événements ou des catégories'|translate}}"/></div>
             <div class="col-lg-3">
-                <input type="text" ng-model="key.ville" class="form-control" placeholder="Entrez la ville ou le lieu"/>
-            </div>
+                <input type="text" ng-model="key.ville" class="form-control" placeholder="{{'Entrez la ville ou le lieu'|translate}}"/></div>
             <div class="col-lg-3">
-                <select class="form-control" ng-model="key.date"
-                        ng-options="d.value as d.name for d in date_deb|orderBy:'-value':true">
+                <select class="form-control" ng-model="key.date" ng-options="d.value as d.name for d in date_deb|orderBy:'-value':true">
                     <option value="" translate>Toutes les dates</option>
                 </select>
             </div>
@@ -53,10 +50,7 @@
             </div>
         </form>
 
-        <h3>
-            <ff translate>Evénement pour vous à</ff>
-            {{user.current_ville}}
-        </h3>
+        <h3><ff translate >Evénement pour vous </ff> </h3>
 
         <div class="row">
             <div class="col-lg-4" ng-repeat="e in events | limitTo:6|orderBy:'-start_date':false"
@@ -65,7 +59,7 @@
                 <div class="card">
                     <div class="card-image">
                         <img class="img-responsive" src="{{e.banner_picture}}">
-                        <span class="card-title" translate>{{e.tickets[0].amount}} Fcfa</span>
+                        <span class="card-title">{{e.tickets[0].amount}} Fcfa</span>
                     </div>
                     <div class="card-content">
                         <!--<ul class="nav">-->
@@ -75,9 +69,8 @@
                         <!--</ul>-->
                         <div class="date">{{e.date_debut}}</div>
                         <div class="titre">
-                            {{e.name|limitTo:50}}
-                        </div>
-                        <div class="lieu">{{e.town.name}}, {{e.town.country.name}}</div>
+                            {{e.name|limitTo:50}}</div>
+                        <div class="lieu">{{e.adress.name}}, {{e.town.name}}</div>
                     </div>
 
                     <div class="card-action">
@@ -108,8 +101,7 @@
 
             <div class="content_middle">
                 <div class="col-md-4 col2" ng-repeat="c in categories | orderBy:'-update_at':true|limitTo:9">
-                    <a href="#" ui-sref="events({target:c.name,id:'type'})"
-                       class="b-link-stroke b-animate-go  thickbox">
+                    <a href="#" ui-sref="events({target:c.name,id:'type'})" class="b-link-stroke b-animate-go  thickbox">
                         <img src="{{c.image}}" class="img-responsive" alt="{{c.name}}"/>
                         <div class="b-wrapper">
                             <h2 class="b-animate b-from-left    b-delay03 ">{{c.name}}</h2>

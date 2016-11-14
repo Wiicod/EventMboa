@@ -1,9 +1,9 @@
 <section id="create">
-    <div class="container">
+    <div class="container">{{ed}}
         <div class="row no-padding">
             <div class="col-lg-8 col-sm-8">
-                <h2 class="title bold">{{event.titre}} <span class="badge badge-suscess">{{event.statut}}</span></h2>
-                <h4>{{event.date_debut}}|{{event.date_fin}}</h4>
+                <h2 class="title bold">{{event.name}} <span class="badge badge-success">{{event.status}}</span></h2>
+                <h4>{{event.start_date}}|{{event.end_date}}</h4>
             </div>
             <div class="col-lg-4 col-sm-4" style="margin-top: 3%; text-align: right;">
                 <button class="btn btn-main btn-reverse" translate>Afficher</button>
@@ -66,8 +66,7 @@
                         <div id="collapse2" class="panel-collapse collapse in">
                             <ul class="nav">
                                 <li ng-class="{'active':choix=='email-participant'}"
-                                    ng-click="choix='email-participant'"><a ui-sref="email-participant" translate>E-mails
-                                    aux participants</a></li>
+                                    ng-click="choix='email-participant'"><a ui-sref="email-participant" translate>E-mails aux participants</a></li>
                             </ul>
                         </div>
                     </div>

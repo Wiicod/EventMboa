@@ -9,7 +9,7 @@ class Town extends Model
     //
     protected $fillable =['id','country_id','name'];
 
-    private $foreign = ['country', 'events', 'adresses'];
+    private $foreign = ['country', 'adresses'];
 
     private $files = [];
 

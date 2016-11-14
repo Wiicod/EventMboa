@@ -2,15 +2,11 @@
     <div class="container">
         <div class="row" style="margin-top: 30px">
             <div class="col-lg-8 col-sm-8 col-md-8">
-                <h1>Profil d'organisateur</h1>
+                <h1 translate>Profil d'organisateur</h1>
             </div>
             <div class="col-lg-4 col-sm-4 col-md-4" style="padding-top: 20px">
-                <select ng-model="organisateur.who"
-                        class="form-control"
-                        ng-options="u.nom as u.nom for u in users"
-                        >
-                    <option value="" disabled ng-click="nouveauOrganisateur()">Créer organisateur</option>
-                </select>
+                <button class="btn btn-main btn-reverse" ng-click="nouveauOrganisateur()"><i class="fa fa-plus"></i> <ff translate>Créer</ff></button>
+                <button class="btn btn-main btn-reverse" data-toggle="modal" href="/#profilModal"><i class="fa fa-edit"></i> <ff translate>Editer</ff></button>
             </div>
         </div>
         <div class="row">
@@ -18,46 +14,92 @@
                 <div class="col-lg-3 text-center">
                     <p style="padding: 10px;background: white;border: 1px solid #eee;">
                         <i ng-if="no_image && organisateur.image==undefined" class="fa fa-user fa-4x" style="font-size: 8em;"></i>
-                        <img  src="{{organisateur.image}}" id="image" alt=""/>
+                        <img  src="{{organisateur.image}}" id="image" alt="" style="width: 100%"/>
                     </p>
-                    <p style="font-size: 15px">
+                    <p style="font-size: 15px" translate>
                         JPG, GIF ou PNG de moins de 1MO. Ce sont les images carrées qui rendent le mieux.
                     </p>
                     <input type="file" style="display: none"
                            id="im" onchange="angular.element(this).scope().fileNameChanged(this)">
-                    <a class="btn btn-main btn-reverse bold" ng-click="click_im()">Choisir un fichier</a>
+                    <a class="btn btn-main btn-reverse bold" ng-click="click_im()" translate>Choisir un fichier</a>
                 </div>
 
                 <div class="col-lg-8">
                     <div class="form-group">
-                        <label>Nom de l'organsiateur</label>
-                        <input type="text" ng-model="organisateur.nom" placeholder="" class="form-control"/>
+                        <label translate>Nom de l'organsiateur</label>
+                        <input type="text" ng-model="organisateur.name" placeholder="" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label>Description de l'organsiateur</label>
+                        <label translate>Description de l'organsiateur</label>
                         <text-angular ng-model="organisateur.description"></text-angular>
                     </div>
                     <div class="form-group">
-                        <label>Site web</label>
-                        <input type="url" ng-model="organisateur.site" placeholder="http://" class="form-control"/>
+                        <label translate>Site web</label>
+                        <input type="url" ng-model="organisateur.web_site" placeholder="http://" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label>Lien vers profil</label>
-                        <input type="url" ng-model="organisateur.lien" placeholder="http://" class="form-control"/>
+                        <label translate>Page Facebook</label>
+                        <input type="text" ng-model="organisateur.facebook" placeholder="facebook.com/" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label>Page facebook</label>
-                        <input type="text" ng-model="organisateur.lien_facebook" placeholder="facebook.com/" class="form-control"/>
+                        <label translate>Page Twitter</label>
+                        <input type="text" ng-model="organisateur.twitter" placeholder="twitter.com/" class="form-control"/>
                     </div>
                     <div class="form-group">
-                        <label>Page twitter</label>
-                        <input type="text" ng-model="organisateur.lien_twitter" placeholder="facebook.com/" class="form-control"/>
+                        <label translate>Page Google+</label>
+                        <input type="text" ng-model="organisateur.google" placeholder="plus.google.com/" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label translate>Page Instagram</label>
+                        <input type="text" ng-model="organisateur.instagram" placeholder="instagram.com/" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label translate>Page LinkedIn</label>
+                        <input type="text" ng-model="organisateur.linkedin" placeholder="linkedin.com/" class="form-control"/>
                     </div>
                     <div class="button-group">
-                        <button class="btn btn-main bold" type="submit">Sauvegarder</button>
+                        <button class="btn btn-main bold" type="submit" translate>Sauvegarder</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="profilModal" tabindex="-1" role="dialog" aria-labelledby="Agent" aria-hidden="true">
+    <div class="modal-dialog" style="width: 35%;">
+        <div class="modal-header" style="background: #EFF2F5">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title text-center text-uppercase bold" translate>Profils organisateurs</h4>
+        </div>
+        <div class="modal-body" style="background: #F8F8FA">
+            <div class="row-fuild">
+                <table class="table">
+                    <thead>
+                        <th translate>Nom</th>
+                        <th translate>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="o in organisateurs | orderBy : '-name' : true| itemsPerPage: par_page ">
+                            <td>{{o.name}}</td>
+                            <td>
+                                <span ng-click="choixOrganisateur(o)">
+                                    <i class="fa fa-edit fa-lg"></i></span>
+                                &nbsp;
+                                &nbsp;
+                                <span ng-click="supprimer(o)"><i class="fa fa-trash fa-lg"></i></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center" >
+                    <dir-pagination-controls></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+        <!--<div class="modal-footer">-->
+            <!--<button class="btn btn-main" type="submit" translate>Enregistrer</button>-->
+            <!--<button id="close" class="btn btn-main hide" data-dismiss="modal" translate>Fermer</button>-->
+        <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
