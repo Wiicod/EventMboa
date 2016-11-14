@@ -1,15 +1,13 @@
+Titre : {{$event->name}}
 
+Auteur :  {{$event->user->email}}
 
-    Titre : {{$comment->title}}
+Status :  {{$event->status}}
 
-    Auteur :  {{$comment->player->username}}
+Date :   {{$event->start_date}}
 
-    Status :  {{$comment->status}}
+Description
+---------------------------------------------------------------------------------------
 
-    Date :   {{$comment->updated_at}}
-
-    Description
-    ---------------------------------------------------------------------------------------
-
-    {{$comment->description}}
+{{$event->description}}
 

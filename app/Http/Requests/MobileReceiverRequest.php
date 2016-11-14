@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class MobileReceiverRequest extends Request
 {
+    public function wantsJson()
+    {
+        return true;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,7 +16,7 @@ class MobileReceiverRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +26,34 @@ class MobileReceiverRequest extends Request
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        switch ($this->method()) {
+            case 'GET': {
+                return [
+                    'phone' => 'required|unique:mobile_receivers|max:255',
+                    'country_id' => 'required|integer|exists:countries,id'
+                ];
+            }
+            case 'DELETE': {
+                return [];
+            }
+            case 'POST': {
+                return [
+                    'phone' => 'required|unique:mobile_receivers|max:255',
+                    'country_id' => 'required|integer|exists:countries,id'
+                ];
+            }
+            case 'PUT': {
+                return [
+                    'phone' => 'unique:mobile_receivers|max:255',
+                    'country_id' => 'integer|exists:countries,id'
+                ];
+            }
+            case 'PATCH': {
+                return [
+                ];
+            }
+            default:
+                break;
+        }
     }
 }

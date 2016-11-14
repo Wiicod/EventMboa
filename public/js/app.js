@@ -23,11 +23,11 @@ angular.module('mboa', [
   'mboa.config',
   'mboa.directives',
   'mboa.filter'
-]).run(['$log', '$state', '$rootScope', '$location', 'Restangular', '$auth','gettextCatalog',
-  function ($log, $state, $rootScope, $location, Restangular, $auth,gettextCatalog) {
+]).run(['$log', '$state', '$rootScope', '$location', 'Restangular', '$auth', 'gettextCatalog',
+  function ($log, $state, $rootScope, $location, Restangular, $auth, gettextCatalog) {
         $log.debug("startApp running ");
-    gettextCatalog.currentLanguage="fr_FR";
-    gettextCatalog.debug=false;
+    gettextCatalog.currentLanguage = "fr_FR";
+    gettextCatalog.debug = false;
 
     var attempt = 0;
     Restangular.setErrorInterceptor(function (response, deferred, responseHandler) {

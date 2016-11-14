@@ -2,21 +2,22 @@
     <h1 class="bold" translate>Informations du compte</h1>
     <div class="row">
         <div class="col-lg-9">
-            <div >
+            <div>
                 <div class="form-group">
-                    <h3 translate >Adresse e-mail du compte</h3>
+                    <h3 translate>Adresse e-mail du compte</h3>
                     <p>{{compte.email}}</p>
-                    <a class="btn btn-main btn-reverse" ng-class="{'hide':modMail}" ng-click="modMail=true" translate >Modifier</a>
+                    <a class="btn btn-main btn-reverse" ng-class="{'hide':modMail}" ng-click="modMail=true" translate>Modifier</a>
                 </div>
                 <form ng-submit="modifierEmail(user_auth,xcompte)" ng-if="modMail">
                     <div class="form-group">
-                        <label translate >Nouvelle adresse e-mail</label>
-                        <input  type="email" ng-model="xcompte.email" placeholder="" class="form-control"/>
+                        <label translate>Nouvelle adresse e-mail</label>
+                        <input type="email" ng-model="xcompte.email" placeholder="" class="form-control"/>
                     </div>
 
                     <div class="form-group">
-                        <label translate >Votre mot de passe actuel</label>
-                        <input  type="password" ng-model="xcompte.password" value="********" placeholder="" class="form-control"/>
+                        <label translate>Votre mot de passe actuel</label>
+                        <input type="password" ng-model="xcompte.password" value="********" placeholder=""
+                               class="form-control"/>
                     </div>
                     <button type="submit" class="btn btn-main" translate>Enregistrer</button>
                 </form>
@@ -25,8 +26,9 @@
                 <div class="form-group">
                     <h3 translate>Photo de profil</h3>
                     <div style="padding: 10px;">
-                        <i ng-if="no_image && compte.person.picture==undefined" class="fa fa-user fa-4x" style="font-size: 8em;"></i>
-                        <img  src="{{compte.person.picture}}" id="image" style="width: 30% !important;" alt=""/>
+                        <i ng-if="no_image && compte.person.picture==undefined" class="fa fa-user fa-4x"
+                           style="font-size: 8em;"></i>
+                        <img src="{{compte.person.picture}}" id="image" style="width: 30% !important;" alt=""/>
                     </div>
                     <p style="font-size: 15px" translate>
                         JPG, GIF ou PNG de moins de 1MO. Ce sont les images carrées qui rendent le mieux.
@@ -40,11 +42,11 @@
                     <h3 translate>Coordonnées</h3>
                     <div class="row">
                         <div class="col-lg-6">
-                            <label translate >Nom</label>
+                            <label translate>Nom</label>
                             <input type="text" ng-model="compte.person.first_name" class="form-control"/>
                         </div>
                         <div class="col-lg-6">
-                            <label translate >Prénom</label>
+                            <label translate>Prénom</label>
                             <input type="text" ng-model="compte.person.last_name" class="form-control"/>
                         </div>
                     </div>
@@ -53,37 +55,37 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-6">
-                            <label translate >Téléphone</label>
+                            <label translate>Téléphone</label>
                             <input type="text" ng-model="compte.person.home_phone" class="form-control"/>
                         </div>
                         <div class="col-lg-6">
-                            <label translate >Portable</label>
+                            <label translate>Portable</label>
                             <input type="text" ng-model="compte.person.cell_phone" class="form-control"/>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label translate >Site web</label>
+                    <label translate>Site web</label>
                     <input type="url" ng-model="compte.person.web_site" class="form-control"/>
                 </div>
 
                 <div class="form-group">
-                    <h3 translate >Domicile</h3>
-                    <label translate >adresse</label>
+                    <h3 translate>Domicile</h3>
+                    <label translate>adresse</label>
                     <input type="url" ng-model="compte.person.adress.name" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <label translate >Ville</label>
+                    <label translate>Ville</label>
                     <input type="text" ng-model="compte.person.adress.town.name" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-6">
-                            <label translate >Pays</label>
+                            <label translate>Pays</label>
                             <select ng-model="compte.person.adress.town.country.id" class="form-control"
                                     ng-options="c.id as c.name for c in pays"
-                                    >
-                                <option value=""disabled translate >Pays</option>
+                            >
+                                <option value="" disabled translate>Pays</option>
                             </select>
                         </div>
                         <div class="col-lg-6">
@@ -94,12 +96,12 @@
                 </div>
 
                 <div class="form-group">
-                    <h3 translate >Autres informations</h3>
-                    <label translate >sexe</label>
+                    <h3 translate>Autres informations</h3>
+                    <label translate>sexe</label>
                     <select ng-model="compte.person.sex" class="form-control">
-                        <option value=""disabled translate >Sexe</option>
-                        <option value="M" translate >Homme</option>
-                        <option value="F" translate >Femme</option>
+                        <option value="" disabled translate>Sexe</option>
+                        <option value="M" translate>Homme</option>
+                        <option value="F" translate>Femme</option>
                     </select>
                 </div>
 
@@ -109,20 +111,23 @@
                         <div class="col-lg-3">
                             <div class="row">
                                 <div class="col-lg-6" style="padding-top: 9px;" translate>Jour</div>
-                                <div class="col-lg-6"><input type="text" ng-model="compte.jour" class="form-control" placeholder="00"/></div>
+                                <div class="col-lg-6"><input type="text" ng-model="compte.jour" class="form-control"
+                                                             placeholder="00"/></div>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="row">
                                 <div class="col-lg-6" style="padding-top: 9px;" translate>Mois</div>
-                                <div class="col-lg-6"><input type="text" ng-model="compte.mois" class="form-control" placeholder="00"/></div>
+                                <div class="col-lg-6"><input type="text" ng-model="compte.mois" class="form-control"
+                                                             placeholder="00"/></div>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="row">
                                 <div class="col-lg-6" style="padding-top: 9px;" translate>Annee</div>
                                 <div class="col-lg-6">
-                                    <input type="text" ng-model="compte.annee" class="form-control" placeholder="0000"/></div>
+                                    <input type="text" ng-model="compte.annee" class="form-control" placeholder="0000"/>
+                                </div>
                             </div>
                         </div>
                     </div>

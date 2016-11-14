@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         // Commands\Inspire::class,
+        'App\Console\Commands\EventReminder',
+        'App\Console\Commands\EventStatus'
     ];
 
     /**
@@ -26,5 +28,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('event:status')->daily();
+        $schedule->command('event:remind')->daily()->when(function () {
+            return true;
+        });
     }
 }

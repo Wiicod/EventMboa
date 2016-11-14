@@ -22,6 +22,7 @@ use App\EventType;
 use App\Help;
 use App\Helpers\FactoryHelper;
 use App\IntrestedEvent;
+use App\MobileReceiver;
 use App\Organizer;
 use App\Participant;
 use App\Person;
@@ -148,6 +149,16 @@ $factory->define(IntrestedEvent::class, function (Faker\Generator $faker) {
     return [
         'user_id' => $user->id,
         'event_id' => $event->id
+    ];
+
+});
+
+$factory->define(MobileReceiver::class, function (Faker\Generator $faker) {
+
+    $country = FactoryHelper::getOrCreate(Country::class);
+    return [
+        'country_id' => $country->id,
+        'number' => $faker->phoneNumber,
     ];
 
 });

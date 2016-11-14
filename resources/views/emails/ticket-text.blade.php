@@ -1,15 +1,13 @@
+Titre : {{$event->name}}
 
+Auteur :  {{$event->user->email}}
 
-    Titre : {{$event->name}}
+Status :  {{$event->status}}
 
-    Auteur :  {{$event->user->email}}
+Date :   {{$event->start_date}}
 
-    Status :  {{$event->status}}
+Description
+---------------------------------------------------------------------------------------
 
-    Date :   {{$event->start_date}}
-
-    Description
-    ---------------------------------------------------------------------------------------
-
-    {{$event->description}}
+{{$event->description}}
 

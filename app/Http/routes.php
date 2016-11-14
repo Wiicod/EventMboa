@@ -71,6 +71,7 @@ Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function
 //    Route::resource('event_type', 'EventTypeController');
 
     Route::resource('intrested_event', 'IntrestedEventController');
+    Route::resource('mobile_receiver', 'MobileReceiverController');
     Route::resource('publicity', 'PublicityController');
     Route::resource('organizer', 'OrganizerController');
     Route::resource('participant', 'ParticipantController');

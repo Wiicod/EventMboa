@@ -16,10 +16,10 @@
                         <th translate>Billets disponibles</th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="t in event.tickets">
-                                <td>{{t.name}} </td>
-                                <td>{{t.participant.length}} </td>
-                                <td>{{t.quantity-t.participant.length}}</td>
+                        <tr ng-repeat="t in event.tickets">
+                            <td>{{t.name}}</td>
+                            <td>{{t.participant.length}}</td>
+                            <td>{{t.quantity-t.participant.length}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -34,7 +34,8 @@
                      aria-valuemin="0" aria-valuemax="100" style="width: {{vendu*100/quantite}}%">
                 </div>
             </div>
-           <ff translate>Billets vendus</ff> : {{vendu}}/{{quantite}}
+            <ff translate>Billets vendus</ff>
+            : {{vendu}}/{{quantite}}
         </div>
     </div>
 
@@ -61,13 +62,13 @@
             <th translate>Paiement</th>
             </thead>
             <tbody>
-                <tr ng-repeat="p in t.participant|orderBy:'-name':true">
-                    <td>{{p.numero}}</td>
-                    <td>{{p.name}}</td>
-                    <td>{{p.number}}</td>
-                    <td>{{p.ticket.amount}}</td>
-                    <td>{{p.created_at}}</td>
-                    <td>{{p.paiement}}</td>
+            <tr ng-repeat="p in t.participant|orderBy:'-name':true">
+                <td>{{p.numero}}</td>
+                <td>{{p.name}}</td>
+                <td>{{p.number}}</td>
+                <td>{{p.ticket.amount}}</td>
+                <td>{{p.created_at}}</td>
+                <td>{{p.paiement}}</td>
                 </tr>
             </tbody>
         </table>

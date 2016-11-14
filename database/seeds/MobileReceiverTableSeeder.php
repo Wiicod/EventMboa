@@ -1,5 +1,6 @@
 <?php
 
+use App\MobileReceiver;
 use Illuminate\Database\Seeder;
 
 class MobileReceiverTableSeeder extends Seeder
@@ -12,6 +13,6 @@ class MobileReceiverTableSeeder extends Seeder
     public function run()
     {
         //
-        factory(Participant::class, 2)->create();
+        factory(MobileReceiver::class, 2)->create();
     }
 }

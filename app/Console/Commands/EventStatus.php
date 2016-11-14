@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Event;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class EventStatus extends Command
@@ -18,7 +20,7 @@ class EventStatus extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Update ended Event status to end';
 
     /**
      * Create a new command instance.
@@ -38,5 +40,20 @@ class EventStatus extends Command
     public function handle()
     {
         //
+        $today = Carbon::today()->toDateTimeString();
+        $events = Event::where('status', '!=', 3)
+            ->whereDate('end_date', '<=', Carbon::yesterday()->toDateTimeString())->get();
+        foreach ($events as $e) {
+            $e->status = 3;
+            $e->save();
+        }
+        $events = Event::whereDate('start_date', '<=', $today)
+            ->whereDate('end_date', '>', $today)->get();
+        foreach ($events as $e) {
+            $e->status = 2;
+            $e->save();
+        }
+
+        $this->info('Events status have been updated !');
     }
 }

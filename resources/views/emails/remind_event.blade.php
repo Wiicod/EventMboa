@@ -8,7 +8,7 @@
 ?>
 <body style="padding: 10px;background-color: beige;">
 
-<img src="{{$message->embed(public_path().'/images/logo/64_1.png')}}" />
+<img src="{{$message->embed(public_path().'/images/logo/64_1.png')}}"/>
 <hr>
 <div style="background:black;
     color: #B69E40;

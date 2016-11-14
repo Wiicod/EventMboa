@@ -6,10 +6,10 @@
             </div>
             <!--&lt;!&ndash; Quand on voudra gerer evenement par organisateur&ndash;&gt;-->
             <!--<div class="col-lg-4 col-sm-4 col-md-4" style="padding-top: 20px">-->
-                <!--<select ng-model="user_event" class="form-control"-->
-                        <!--ng-options="u.nom as u.nom for u in users">-->
-                    <!--<option value="">Tous les événements</option>-->
-                <!--</select>-->
+            <!--<select ng-model="user_event" class="form-control"-->
+            <!--ng-options="u.nom as u.nom for u in users">-->
+            <!--<option value="">Tous les événements</option>-->
+            <!--</select>-->
             <!--</div>-->
         </div>
         <div class="row">
@@ -26,9 +26,15 @@
             <div class="col-lg-12">
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a ng-click="choixEvent(0)" data-toggle="tab"><ff translate>En ligne</ff>e {{eventOnline.length}}</a></li>
-                        <li><a ng-click="choixEvent(1)" data-toggle="tab"><ff translate>Avant-projets</ff> {{eventSaved.length}}</a></li>
-                        <li><a ng-click="choixEvent(2)" data-toggle="tab"><ff translate>Passés</ff> {{eventPassed.length}}</a></li>
+                        <li class="active"><a ng-click="choixEvent(0)" data-toggle="tab">
+                            <ff translate>En ligne</ff>
+                            e {{eventOnline.length}}</a></li>
+                        <li><a ng-click="choixEvent(1)" data-toggle="tab">
+                            <ff translate>Avant-projets</ff>
+                            {{eventSaved.length}}</a></li>
+                        <li><a ng-click="choixEvent(2)" data-toggle="tab">
+                            <ff translate>Passés</ff>
+                            {{eventPassed.length}}</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="row-fluid">
@@ -40,23 +46,31 @@
                         <div ng-if="events.length>0" class="row-fluid" ng-repeat="e in events" >
                             <div class="event">
                                 <div class="col-lg-9">
-                                    <a ui-sref="details({nom:e.titre})"><h3 >{{e.name}}</h3></a>
+                                    <a ui-sref="details({nom:e.titre})"><h3>{{e.name}}</h3></a>
                                     <div class="e-date">{{e.start_date}}</div>
                                 </div>
                                 <div class="col-lg-3" ng-if="e.status=='active'||e.status=='end'">
                                     <div class="progress" style="margin-top: 15px">
                                         <div class="progress-bar" role="progressbar" aria-valuenow="60"
-                                             aria-valuemin="0" aria-valuemax="100" style="width: {{(e.quantite_vendu*100)/e.quantite_total}}%">
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style="width: {{(e.quantite_vendu*100)/e.quantite_total}}%">
                                         </div>
                                     </div>
-                                    <ff translate>Billets vendus</ff> : {{e.quantite_vendu}}/{{e.quantite_total}}
+                                    <ff translate>Billets vendus</ff>
+                                    : {{e.quantite_vendu}}/{{e.quantite_total}}
                                 </div>
 
                                 <div class="col-lg-9">
                                     <ul class="nav navbar-nav">
-                                        <li><a ui-sref="panneau({id:e.id})"><i class="fa fa-gear"></i> <ff translate>Gérer</ff></a></li>
-                                        <li><a ui-sref="create({id:e.id,target:'modifier'})"><i class="fa fa-edit"></i> <ff translate>Modifier</ff></a></li>
-                                        <li><a ui-sref="details({nom:e.name+'/'+e.id})"><i class="fa fa-eye"></i> <ff translate>Afficher</ff></a></li>
+                                        <li><a ui-sref="panneau({id:e.id})"><i class="fa fa-gear"></i>
+                                            <ff translate>Gérer</ff>
+                                        </a></li>
+                                        <li><a ui-sref="create({id:e.id,target:'modifier'})"><i class="fa fa-edit"></i>
+                                            <ff translate>Modifier</ff>
+                                        </a></li>
+                                        <li><a ui-sref="details({nom:e.name+'/'+e.id})"><i class="fa fa-eye"></i>
+                                            <ff translate>Afficher</ff>
+                                        </a></li>
                                     </ul>
                                 </div>
                                 <div class="clearfix"></div>

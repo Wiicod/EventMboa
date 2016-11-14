@@ -12,7 +12,7 @@ class Event extends Model
         'start_date', 'end_date', 'recurring', 'banner_picture', 'status', 'adress_id', 'user_id'];
     protected $dates=['start_date', 'end_date','created_at','updated_at'];
 
-    private $foreign = ['event_topic', 'event_type', 'organizer', 'event_links', 'adress', 'user','tickets'];
+    private $foreign = ['event_topic', 'event_type', 'organizer', 'event_links', 'adress', 'user', 'tickets'];
 
     private $files = ['banner_picture'];
 
@@ -41,7 +41,7 @@ class Event extends Model
 
     public function setStatusAttribute($val)
     {
-        if(is_string($val)&&strlen($val)==1){
+        if ((is_string($val) && strlen($val) == 1) or (is_int($val))) {
             $this->attributes['status']=$val;
         }else{
             $this->attributes['status'] = array_search($val, self::$Status);

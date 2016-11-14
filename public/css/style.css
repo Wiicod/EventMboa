@@ -148,7 +148,8 @@ ul.dropdown-menu > li{
     color: #666A73 !important;
     font-size: 18px;
 }
-header ul.dropdown-menu > li{
+
+header ul.dropdown-menu > li {
     text-transform: none !important;
     padding: 12px 20px;
     color: #666A73 !important;
@@ -1201,9 +1202,12 @@ ul .row{
     color: #00a8f2;
 }
 
-.badge-success{background-color:#00d656;padding: 6px 7px!important;}
+.badge-success {
+    background-color: #00d656;
+    padding: 6px 7px !important;
+}
 
-.image img{
+.image img {
     width: 100%;
     height: 100%
 }

@@ -60,7 +60,7 @@ class Ticket extends Model
 
     public function participants(){
         return $this->belongsToMany('App\User',"participants")->withPivot('id','ticket_id','user_id','number',
-            'created_at','updated_at');
+            'name', 'email', 'phone', 'created_at', 'updated_at');
     }
 
     public function type_payments(){

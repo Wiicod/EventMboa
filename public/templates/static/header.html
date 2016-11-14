@@ -8,10 +8,11 @@
                     <img src="images/logo/256_2.png" alt=""/>
                 </a>
                 <!--<a class="navbar-brand logo" ui-sref="home">-->
-                    <!--EventMboa-->
+                <!--EventMboa-->
                 <!--</a>-->
                 <ul class="nav navbar-nav" ng-if="!lieu">
-                    <li class=""><a href="#" ui-sref="events" data-nav-section="home"><span translate>Parcourir</span></a></li>
+                    <li class=""><a href="#" ui-sref="events" data-nav-section="home"><span
+                            translate>Parcourir</span></a></li>
                 </ul>
             </div>
             <div style="float: left; width: 30%" ng-if="lieu">
@@ -58,7 +59,8 @@
                     </li>
                     <li class="active" ng-if="loguer"><a ui-sref="create"><span translate>Créer un événement</span></a>
                     </li>
-                    <li class="active" ng-if="!loguer"><a ng-click="create_event()"><span translate>Créer un événement</span></a>
+                    <li class="active" ng-if="!loguer"><a ng-click="create_event()"><span
+                            translate>Créer un événement</span></a>
                     </li>
                 </ul>
             </div>

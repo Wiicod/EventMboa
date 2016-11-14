@@ -16,12 +16,12 @@
                             <a ng-click="choixEvent(1)" data-toggle="tab">
                             {{eventSave.length}}<br/>
                                 <ff translate>Evénements sauvegardés</ff>
-                                 </a></li>
+                            </a></li>
                         <li ng-class="{'active':choix=='passed'}">
                             <a ng-click="choixEvent(2)" data-toggle="tab">
                             {{eventPassed.length}}<br/>
                                 <ff translate>Evénements antérieurs</ff>
-                                </a></li>
+                            </a></li>
                     </ul>
                     <div class="tab-content" style="border-top: 2px solid #f1f1f1; padding-top: 15px;">
                         <div class="row-fluid">
@@ -52,7 +52,7 @@
                                 <div class="clearfix"></div>
                             </div>
                         </div>
-                        <div class="text-center" >
+                        <div class="text-center">
                             <dir-pagination-controls></dir-pagination-controls>
                         </div>
 
@@ -67,7 +67,10 @@
     <div class="modal-dialog" style="width: 35%;">
         <div class="modal-header" style="background: #EFF2F5">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title text-center text-uppercase bold"><ff translate>Commande pour </ff>{{billet.titre}}</h4>
+            <h4 class="modal-title text-center text-uppercase bold">
+                <ff translate>Commande pour</ff>
+                {{billet.titre}}
+            </h4>
         </div>
         <div class="modal-body" style="background: #F8F8FA">
             <div class="row">

@@ -1,5 +1,6 @@
 <?php namespace App\Providers\Validation;
 
+use App\Participant;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Validation\Validator;
@@ -47,6 +48,28 @@ class CustomValidation extends Validator
         } else {
             return true;
         }
+        //return !$result;
+
+
+    }
+
+    public function sufficient($attribute, $value, $parameters)
+    {
+        // Now that we have our data we can check for the data
+
+        // We first grab the correct table which is passed to the function
+        // Now we need to do some checking using Eloquent
+        // If you don't understand this, please let me know
+
+        $ticket = Input::get('ticket_id');
+        $val = intval($value);
+        if ($ticket == null)
+            return false;
+
+        $num = Participant::where('ticket_id', '=', $ticket->id)->get()->sum('number');
+
+
+        return ($num + $val) <= intval($ticket->quantity);
         //return !$result;
 
 

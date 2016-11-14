@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Helpers\RestHelper;
 use App\Http\Requests;
+use App\Http\Requests\MobileReceiverRequest;
+use App\MobileReceiver;
 
 class MobileReceiverController extends Controller
 {
@@ -16,6 +17,7 @@ class MobileReceiverController extends Controller
     public function index()
     {
         //
+        return RestHelper::get(MobileReceiver::class);
     }
 
     /**
@@ -31,29 +33,31 @@ class MobileReceiverController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MobileReceiverRequest $request)
     {
         //
+        return RestHelper::store(MobileReceiver::class, $request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
+        return RestHelper::show(MobileReceiver::class, $id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -64,23 +68,25 @@ class MobileReceiverController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MobileReceiverRequest $request, $id)
     {
         //
+        return RestHelper::update(MobileReceiver::class, $request->all(), $id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
+        return RestHelper::delete(MobileReceiver::class, $id);
     }
 }
