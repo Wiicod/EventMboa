@@ -5,13 +5,14 @@
         <h1 class="sz" style="padding-left: 15px;font-weight: bold;" ng-bind-html="titre"></h1>
         <div class="row">
             <div class="col-lg-4 pull-right">
-                <input type="text" ng-model="searchKey" required class="form-control" placeholder="{{'Recherche d\'événements ';''|translate}}"/>
+                <input type="text" ng-model="searchKey" required class="form-control"
+                       placeholder="{{'Recherche d\'événements ';''|translate}}"/>
             </div>
         </div>
         <div class="row no-padding card item"
              style="margin:0 15px 15px"
              dir-paginate="e in events |filter:searchKey | orderBy : '-name' : true| itemsPerPage: par_page "
-                >
+        >
             <div class="col-lg-3">
                 <div ui-sref="details({nom:e.name+'/'+e.id})" class="image" style="height:100px; cursor: pointer">
                     <img ng-src="{{e.banner_picture}}" class="img-responsive" alt="{{e.name}}"/>
@@ -33,12 +34,13 @@
                     </div>
                     <div class="action">
                         <a class="pull-right" title="Partager"><i class="fa fa-share-alt"></i></a>
-                        <a class="pull-right" title="Sauvegarder" ng-click="interest(e)"><i class="fa fa-bookmark-o"></i></a>
+                        <a class="pull-right" title="Sauvegarder" ng-click="interest(e)"><i
+                                class="fa fa-bookmark-o"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="text-center" >
+        <div class="text-center">
             <dir-pagination-controls></dir-pagination-controls>
         </div>
     </div>

@@ -19,7 +19,9 @@
 _________________________________________________________ -->
                 <ul class="nav navbar text-uppercase">
                     <li class="dropdown">
-                        <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown"><ff translate>Catégories</ff> <i
+                        <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                            <ff translate>Catégories</ff>
+                            <i
                                 class="fa fa-angle-down pull-right"></i></a>
                         <ul class="dropdown-menu">
                             <li ng-repeat="c in categories |orderBy:'-name':true">
@@ -28,7 +30,9 @@ _________________________________________________________ -->
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown"><ff translate>Types</ff> <i
+                        <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                            <ff translate>Types</ff>
+                            <i
                                 class="fa fa-angle-down pull-right"></i></a>
                         <ul class="dropdown-menu">
                             <li ng-repeat="t in types |orderBy:'-name':true">
@@ -37,15 +41,15 @@ _________________________________________________________ -->
                         </ul>
                     </li>
                     <!--<li class="dropdown">-->
-                        <!--<a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Billets <i class="fa fa-angle-down pull-right"></i></a>-->
-                        <!--<ul class="dropdown-menu">-->
-                            <!--<li>-->
-                                <!--<a ui-sref="events({target:gratuit})" translate>Gratuit</a>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<a ui-sref="events({target:payant})" translate>Payant</a>-->
-                            <!--</li>-->
-                        <!--</ul>-->
+                    <!--<a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Billets <i class="fa fa-angle-down pull-right"></i></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                    <!--<li>-->
+                    <!--<a ui-sref="events({target:gratuit})" translate>Gratuit</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a ui-sref="events({target:payant})" translate>Payant</a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
                     <!--</li>-->
                 </ul>
 

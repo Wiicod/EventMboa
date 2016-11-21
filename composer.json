@@ -12,7 +12,9 @@
         "simplesoftwareio/simple-qrcode": "~1",
         "laravel/cashier-braintree": "~1.0",
         "doctrine/dbal" : "2.5",
-        "tymon/jwt-auth": "0.5.*"
+        "tymon/jwt-auth": "0.5.*",
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
+        "barryvdh/laravel-snappy": "^0.3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

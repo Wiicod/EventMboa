@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Organizer extends Model
 {
     //
-    protected $fillable =['id','name','description','image','web_site','facebook','twitter','instagram','google',
+    protected $fillable = ['id', 'name', 'email', 'description', 'image', 'web_site', 'facebook', 'twitter', 'instagram', 'google',
         'linkedin', 'user_id'];
 
     private $foreign = ['user'];

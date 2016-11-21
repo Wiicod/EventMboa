@@ -8,7 +8,7 @@ use QrCode;
 class Participant extends Model
 {
     //
-    protected $fillable = ['id', 'user_id', 'ticket_id', 'number', 'name', 'phone', 'email'];
+    protected $fillable = ['id', 'user_id', 'ticket_id', 'number', 'name', 'phone', 'email', 'status'];
     protected $appends = array('qrcodes');
     private $foreign = ['user', 'ticket'];
     private $files = [];

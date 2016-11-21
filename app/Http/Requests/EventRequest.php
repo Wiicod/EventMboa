@@ -39,7 +39,7 @@ class EventRequest extends Request
                     'recurring' => 'required|max:255',
                     'banner_picture' => 'required|image',
                     'description' => 'required',
-                    'start_date' => 'required|date|date_format:"Y-m-d H:i:s"',
+                    'start_date' => 'required|date|date_format:"Y-m-d H:i:s"|before:end_date',
                     'end_date' => 'required|date|date_format:"Y-m-d H:i:s"'
                 ];
             }
@@ -60,7 +60,7 @@ class EventRequest extends Request
                     'recurring'=>'required|max:255',
                     'banner_picture'=>'required|image',
                     'description'=>'required',
-                    'start_date' => 'required|date|date_format:"Y-m-d H:i:s"',
+                    'start_date' => 'required|date|date_format:"Y-m-d H:i:s"|before:end_date',
                     'end_date' => 'required|date|date_format:"Y-m-d H:i:s"'
 
                 ];
@@ -76,7 +76,7 @@ class EventRequest extends Request
                     'name'=>'max:255',
                     'recurring'=>'max:255',
                     'banner_picture'=>'image',
-                    'start_date' => 'date|date_format:"Y-m-d H:i:s"',
+                    'start_date' => 'date|date_format:"Y-m-d H:i:s"|before:end_date',
                     'end_date' => 'date|date_format:"Y-m-d H:i:s"'
 
                 ];

@@ -30,10 +30,25 @@ class FactoryHelper
 
     public static function fakeFile(Generator $faker, $src)
     {
+        $dst = "storage/app/img/" . $src;
+        if (!is_dir($dst))
+            mkdir($dst, 0777, true);
 
-        $path = $faker->file("public/seeds/" . $src . "/", "storage/app/img/" . $src);
+        $path = $faker->file("public/seeds/" . $src . "/", $dst);
         $path = explode("storage/app", $path)[1];
         return $path;
+    }
+
+    public static function NewGuid($ext)
+    {
+        $s = strtoupper(md5(uniqid(rand(), true)));
+        $guidText =
+            substr($s, 0, 8) . '-' .
+            substr($s, 8, 4) . '-' .
+            substr($s, 12, 4) . '-' .
+            substr($s, 16, 4) . '-' .
+            substr($s, 20);
+        return $guidText . '.' . $ext;
     }
 
 

@@ -4,10 +4,12 @@
         <h4 class="text-center" translate>Vous avez déjà un compte?</h4>
         <h4 class="text-center"><a href="" ui-sref="login" translate>Connectez-vous</a>.</h4>
         <div class="form-group">
-            <input type="text" class="form-control" ng-model="auth.email" placeholder="{{'Adresse email'|translate}}" required/>
+            <input type="text" class="form-control" ng-model="auth.email" placeholder="{{'Adresse email'|translate}}"
+                   required/>
         </div>
         <div class="form-group">
-            <input type="password" ng-model="auth.password" placeholder="{{'Mot de passe'|translate}}" class="form-control"/>
+            <input type="password" ng-model="auth.password" placeholder="{{'Mot de passe'|translate}}"
+                   class="form-control"/>
         </div>
         <div class="form-group text-center message">
             {{message}}
@@ -16,7 +18,15 @@
             <button type="submit" class="btn btn-primary btn-main  btn-green" translate> ouvrir un compte</button>
         </div>
         <p class="small-text" style="margin-top: 15px;text-align: center">
-            <ff translate>En m'inscrivant, j'accepte</ff> <a href="" ui-sref="condition" translate>les conditions d'utilisation du service</a>, <a href="" ui-sref="politique-donnees" translate>la politique de protection des données</a> ,<ff translate> et</ff> <a href="" ui-sref="politique-cookies" translate>la politique relative aux cookies</a> <ff translate> d'EventMboa et j'accepte de recevoir des communications marketing de la part d'EventMboa.</ff>
+            <ff translate>En m'inscrivant, j'accepte</ff>
+            <a href="" ui-sref="condition" translate>les conditions d'utilisation du service</a>, <a href=""
+                                                                                                     ui-sref="politique-donnees"
+                                                                                                     translate>la
+            politique de protection des données</a> ,
+            <ff translate> et</ff>
+            <a href="" ui-sref="politique-cookies" translate>la politique relative aux cookies</a>
+            <ff translate> d'EventMboa et j'accepte de recevoir des communications marketing de la part d'EventMboa.
+            </ff>
         </p>
     </form>
 

@@ -79,6 +79,8 @@ return [
     'timezone'             => 'The :attribute must be a valid zone.',
     'unique'               => 'The :attribute has already been taken.',
     'url'                  => 'The :attribute format is invalid.',
+    'sufficient' => 'The :attribute is over the remining availble places.',
+//    'unique_with'          => 'The :attribute must be unique with :unique_with.',
 
     /*
     |--------------------------------------------------------------------------
@@ -95,6 +97,10 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'user_id' => [
+            'unique_with' => 'The :attribute must be unique with ticket_id in participants table and event_id in intrested_evetns table',
+        ],
+
     ],
 
     /*

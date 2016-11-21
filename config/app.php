@@ -157,6 +157,12 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /*
+         * Custom Providers ...
+         */
+        App\Providers\Validation\ValidationServiceProvider::class,
+        App\Providers\EmailServiceProvider::class,
+
+        /*
          * Vendor Service Providers ...
          */
         Webpatser\Countries\CountriesServiceProvider::class,
@@ -164,6 +170,7 @@ return [
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
 
     ],
 
@@ -214,6 +221,8 @@ return [
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'Image' => Barryvdh\Snappy\Facades\SnappyImage::class,
 
     ],
 

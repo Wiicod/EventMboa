@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateIntrestedEventsTable extends Migration
 {
@@ -18,6 +18,7 @@ class CreateIntrestedEventsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('event_id')->unsigned()->index();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->unique(array('user_id', 'event_id'));
 
             $table->timestamps();
         });

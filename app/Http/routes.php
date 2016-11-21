@@ -70,9 +70,9 @@ Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function
     Route::get('authenticated-user', 'AuthenticateController@get_authenticated_user');
 
 
-    Route::put('/event/{event}','EventController@update');
-    Route::delete('event/{event}','EventController@destroy');
-    Route::post('event','EventController@store');
+    Route::put('/event/{event}', 'EventController@update');
+    Route::delete('event/{event}', 'EventController@destroy');
+    Route::post('event', 'EventController@store');
 
     Route::put('/adress/{adress}','AdressController@update');
     Route::delete('adress/{adress}','AdressController@destroy');
@@ -90,8 +90,10 @@ Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function
 //    Route::resource('event_topic', 'EventTopicController');
 //    Route::resource('event_type', 'EventTypeController');
 
-    Route::resource('interested_event', 'IntrestedEventController');
-//    Route::resource('organizer', 'OrganizerController');
+    Route::resource('intrested_event', 'IntrestedEventController');
+    Route::resource('mobile_receiver', 'MobileReceiverController');
+    Route::resource('publicity', 'PublicityController');
+    Route::resource('organizer', 'OrganizerController');
     Route::resource('participant', 'ParticipantController');
     Route::resource('person', 'PersonController');
     Route::resource('ticket', 'TicketController');

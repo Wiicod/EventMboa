@@ -2,10 +2,12 @@
     <div class="container">
         <div class="row" style="margin-top: 30px">
             <div class="col-lg-9 col-sm-9 col-md-9">
-                <h1 translate >Contacts</h1>
+                <h1 translate>Contacts</h1>
             </div>
             <div class="col-lg-3" style="margin-top: 25px;text-align: right" ng-if="contacts.length>0">
-                <button class="btn btn-main" data-toggle="modal" ng-click="nouveau()" href="/#contactModal" translate >Ajouter contact</button>
+                <button class="btn btn-main" data-toggle="modal" ng-click="nouveau()" href="/#contactModal" translate>
+                    Ajouter contact
+                </button>
             </div>
         </div>
         <div class="row">
@@ -20,17 +22,17 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <table class="table text-capitalize" ng-class="{'hide':contacts.length==0}" >
+                <table class="table text-capitalize" ng-class="{'hide':contacts.length==0}">
                     <thead>
-                        <th translate >Nom</th>
-                        <th translate >Prénom</th>
-                        <th translate >Email</th>
-                        <th translate >Actions</th>
+                    <th translate>Nom</th>
+                    <th translate>Prénom</th>
+                    <th translate>Email</th>
+                    <th translate>Actions</th>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="c in contacts|orderBy:'-last_name':true|filter:searchKey">
-                            <td>{{c.last_name}}</td>
-                            <td>{{c.first_name}}</td>
+                    <tr ng-repeat="c in contacts|orderBy:'-last_name':true|filter:searchKey">
+                        <td>{{c.last_name}}</td>
+                        <td>{{c.first_name}}</td>
                             <td>{{c.email}}</td>
                             <td>
                                 <span ng-click="choixContact(c)" data-toggle="modal" href="/#contactModal">
@@ -46,11 +48,14 @@
                 <div class="" ng-if="contacts.length==0">
                     <img src="images/contact_people_14393.png" style="width: 20%!important; text-align: center" alt=""/>
 
-                    <h4 class="bold" translate >Gérer tous vos contacts au même endroit</h4>
-                    <p translate >
-                        Ajoutez et importez facilement des adresses électroniques à partir de votre boîte Gmail, Outlook, ou d'autres fichiers.Envoyez et suivez les invitations pour promouvoir votre événement.
+                    <h4 class="bold" translate>Gérer tous vos contacts au même endroit</h4>
+                    <p translate>
+                        Ajoutez et importez facilement des adresses électroniques à partir de votre boîte Gmail,
+                        Outlook, ou d'autres fichiers.Envoyez et suivez les invitations pour promouvoir votre événement.
                     </p>
-                    <button class="btn btn-main" data-toggle="modal" href="/#contactModal" translate >Ajouter des contacts</button>
+                    <button class="btn btn-main" data-toggle="modal" href="/#contactModal" translate>Ajouter des
+                        contacts
+                    </button>
                 </div>
             </div>
 
@@ -62,20 +67,20 @@
                                          src="images/G_is_For_Google_New_Logo_Thumb.png"></a>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading bold" translate >Google</h4>
-                        <p class="small-text" translate >Importez vos contacts google.</p>
-                        <span class="requis small" translate > Bientôt disponible.</span>
+                        <h4 class="media-heading bold" translate>Google</h4>
+                        <p class="small-text" translate>Importez vos contacts google.</p>
+                        <span class="requis small" translate> Bientôt disponible.</span>
                     </div>
                 </div>
                 <div class="media">
                     <div class="media-left">
-                        <a href="#"><img class="media-object"  style="width: 90px !important; height: 90px !important;"
+                        <a href="#"><img class="media-object" style="width: 90px !important; height: 90px !important;"
                                          src="images/fb.png"></a>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading bold" translate >Facebook</h4>
-                        <p class="small-text" translate >Importez vos contacts facebook.</p>
-                        <span class="requis small" translate > Bientôt disponible.</span>
+                        <h4 class="media-heading bold" translate>Facebook</h4>
+                        <p class="small-text" translate>Importez vos contacts facebook.</p>
+                        <span class="requis small" translate> Bientôt disponible.</span>
                     </div>
                 </div>
             </div>
@@ -98,19 +103,22 @@
                             <tr>
                                 <th translate>Nom</th>
                                 <td>
-                                    <input type="text" placeholder="Nom" ng-model="contact.last_name" class="form-control"/>
+                                    <input type="text" placeholder="Nom" ng-model="contact.last_name"
+                                           class="form-control"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th translate>Prénom</th>
                                 <td>
-                                    <input type="text" placeholder="Prénom" ng-model="contact.first_name" class="form-control"/>
+                                    <input type="text" placeholder="Prénom" ng-model="contact.first_name"
+                                           class="form-control"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th translate>Email</th>
                                 <td>
-                                    <input type="email" placeholder="Email" ng-model="contact.email" class="form-control"/>
+                                    <input type="email" placeholder="Email" ng-model="contact.email"
+                                           class="form-control"/>
                                 </td>
                             </tr>
                             </tbody>
@@ -121,15 +129,18 @@
             <div class="modal-body" style="background: #F8F8FA" ng-if="contact.action=='nouveau'">
                 <div class="row">
                     <div class="col-lg-12">
-                        <ff translate >Saisissez l'e-mail, le prénom, le nom de famille en les séparant par des virgules. Chaque nouveau contact doit être séparé par un point-virgule</ff>
+                        <ff translate>Saisissez l'e-mail, le prénom, le nom de famille en les séparant par des virgules.
+                            Chaque nouveau contact doit être séparé par un point-virgule
+                        </ff>
 
-                        <textarea ng-model="contact.contact" placeholder="johndoe@gmail.com,John,Doe" class="form-control"></textarea>
+                        <textarea ng-model="contact.contact" placeholder="johndoe@gmail.com,John,Doe"
+                                  class="form-control"></textarea>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-main" type="submit" translate >Enregistrer</button>
-                <button id="close" class="btn btn-main hide" data-dismiss="modal" translate >Fermer</button>
+                <button class="btn btn-main" type="submit" translate>Enregistrer</button>
+                <button id="close" class="btn btn-main hide" data-dismiss="modal" translate>Fermer</button>
             </div>
         </form><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

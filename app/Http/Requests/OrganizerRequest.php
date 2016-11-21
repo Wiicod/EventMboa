@@ -30,7 +30,8 @@ class OrganizerRequest extends Request
             case 'GET':
             {
                 return [
-                    'name' => 'required|max:255',
+                    'name' => 'required|max:255|unique:organizers',
+                    'email' => 'required|max:255|email|unique:organizers',
                     'description' => 'required',
                     'image' => 'required|image',
                     'linkedin' => 'url|max:255',
@@ -48,7 +49,8 @@ class OrganizerRequest extends Request
             case 'POST':
             {
                 return [
-                    'name'=>'required|max:255',
+                    'name' => 'required|max:255|unique:organizers',
+                    'email' => 'required|max:255|email|unique:organizers',
                     'description'=>'required',
                     'image'=>'required|image',
                     'linkedin'=>'url|max:255',
@@ -63,7 +65,8 @@ class OrganizerRequest extends Request
             case 'PUT':
             {
                 return [
-                    'name'=>'max:255',
+                    'name' => 'max:255|unique:organizers',
+                    'email' => 'required|max:255|email|unique:organizers',
                     'description'=>'',
                     'image'=>'image',
                     'linkedin'=>'url|max:255',

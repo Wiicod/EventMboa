@@ -1,5 +1,6 @@
 <section id="compte">
-    <h1 class="bold"><ff translate>Orange Money</ff>
+    <h1 class="bold">
+        <ff translate>Orange Money</ff>
         <a class="pull-right" ng-click="clearOM()"
            data-toggle="modal" href="/#omModal" title="Ajouter un compte orange money">
             <i class="fa fa-plus"></i>
@@ -18,8 +19,8 @@
         </div>
         <table class="table">
             <thead>
-                <th translate>Titulaire</th>
-                <th translate>Numéro</th>
+            <th translate>Titulaire</th>
+            <th translate>Numéro</th>
                 <th>
                     <span class="pull-right">Actions
                     </span>
@@ -53,13 +54,17 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label><ff translate>Titulaire</ff> <span class="requis">*</span></label>
+                            <label>
+                                <ff translate>Titulaire</ff>
+                                <span class="requis">*</span></label>
                             <input type="text" ng-model="no.titulaire" placeholder="Titulaire du numéro" class="form-control"/>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label><ff translate>Numéro</ff> <span class="requis">*</span></label>
+                            <label>
+                                <ff translate>Numéro</ff>
+                                <span class="requis">*</span></label>
                             <input type="text" ng-model="no.numero" placeholder="Numéro" class="form-control"/>
                         </div>
                     </div>

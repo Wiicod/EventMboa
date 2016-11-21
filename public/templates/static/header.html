@@ -8,15 +8,17 @@
                     <img src="images/logo/256_2.png" alt=""/>
                 </a>
                 <!--<a class="navbar-brand logo" ui-sref="home">-->
-                    <!--EventMboa-->
+                <!--EventMboa-->
                 <!--</a>-->
                 <ul class="nav navbar-nav" ng-if="!lieu">
-                    <li class=""><a href="#" ui-sref="events" data-nav-section="home"><span translate>Parcourir</span></a></li>
+                    <li class=""><a href="#" ui-sref="events" data-nav-section="home"><span
+                            translate>Parcourir</span></a></li>
                 </ul>
             </div>
             <div style="float: left; width: 24%" ng-if="lieu">
                 <form ng-submit="searchEvent(key)">
-                    <input type="text" ng-model="key" required class="input" placeholder="{{'Recherche d\'événements ';''|translate}}"/>
+                    <input type="text" ng-model="key" required class="input"
+                           placeholder="{{'Recherche d\'événements ';''|translate}}"/>
                 </form>
             </div>
             <div class="navbar-collapse collapse">
@@ -28,7 +30,8 @@
                     <li class="" ng-if="!loguer"><a href="#" ui-sref="login"><span translate>Se connecter</span></a>
                     </li>
                     <li class="dropdown" ng-if="loguer">
-                        <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp; {{user.person.first_name}}
+                        <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;
+                            {{user.person.first_name}}
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
@@ -58,7 +61,8 @@
                     </li>
                     <li class="active" ng-if="loguer"><a ui-sref="create"><span translate>Créer un événement</span></a>
                     </li>
-                    <li class="active" ng-if="!loguer"><a ng-click="create_event()"><span translate>Créer un événement</span></a>
+                    <li class="active" ng-if="!loguer"><a ng-click="create_event()"><span
+                            translate>Créer un événement</span></a>
                     </li>
                 </ul>
             </div>

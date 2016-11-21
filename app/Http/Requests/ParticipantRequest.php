@@ -2,6 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Participant;
+use App\Ticket;
+use Illuminate\Support\Facades\Input;
+
 class ParticipantRequest extends Request
 {
     public function wantsJson()
@@ -25,12 +29,16 @@ class ParticipantRequest extends Request
      */
     public function rules()
     {
+        $max = 2;
+
         switch($this->method())
         {
             case 'GET':
             {
+
                 return [
-                    'number' => 'required|integer',
+                    'number' => 'required|integer|sufficient|max:' . $max,
+                    'status' => '',
                     'name' => 'max:255|required_with:email,phone',
                     'phone' => 'required_with:email,name|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|',
                     'email' => 'max:255|email|required_with:name,phone',
@@ -44,23 +52,27 @@ class ParticipantRequest extends Request
             }
             case 'POST':
             {
+                if ($t = Input::get('ticket_id'))
+                    $max = Ticket::find($t)->max_command;
                 return [
-                    'number'=>'required|integer',
+                    'number' => 'required|integer|sufficient|max:' . $max,
                     'name' => 'max:255|required_with:email,phone',
                     'phone' => 'required_with:email,name|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|',
                     'email' => 'max:255|email|required_with:name,phone',
-                    'user_id' => 'required_without:name,phone,email|integer|exists:users,id',
+                    'user_id' => 'required_without:name,phone,email|integer|exists:users,id|unique_with:participants,ticket_id,ticket_id',
                     'ticket_id'=>'required|integer|exists:tickets,id'
                 ];
             }
             case 'PUT':
             {
+                $pid = $this->route()->getParameter('participant');
+                $max = Participant::find($pid)->ticket()->first()->max_command;
                 return [
-                    'number'=>'integer',
+                    'number' => 'integer|sufficient|max:' . $max,
                     'name' => 'max:255|required_with:email,phone',
                     'phone' => 'required_with:email,name|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|',
                     'email' => 'max:255|email|required_with:name,phone',
-                    'user_id' => 'required_without:name,phone,email|integer|exists:users,id',
+                    'user_id' => 'required_without:name,phone,email|integer|exists:users,id|unique_with:participants,ticket_id,ticket_id,' . $pid,
                     'ticket_id'=>'integer|exists:tickets,id'
                 ];
             }

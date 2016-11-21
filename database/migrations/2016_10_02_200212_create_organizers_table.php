@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateOrganizersTable extends Migration
 {
@@ -15,6 +15,7 @@ class CreateOrganizersTable extends Migration
         Schema::create('organizers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
+            $table->string('email')->unique();
             $table->text('description');
             $table->string('image');
             $table->string('linkedin')->nullable();

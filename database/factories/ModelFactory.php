@@ -22,9 +22,11 @@ use App\EventType;
 use App\Help;
 use App\Helpers\FactoryHelper;
 use App\IntrestedEvent;
+use App\MobileReceiver;
 use App\Organizer;
 use App\Participant;
 use App\Person;
+use App\Publicity;
 use App\Ticket;
 use App\TicketTypePayment;
 use App\Town;
@@ -125,7 +127,7 @@ $factory->define(Event::class, function (Faker\Generator $faker) {
         'end_date' => $faker->dateTime,
         'recurring' => $faker->name,
         'banner_picture' => $banner,
-        'status' => rand(0, count(Event::$Status)),
+        'status' => rand(0, count(Event::$Status) - 1),
         'adress_id' => $adress->id,
     ];
 
@@ -142,11 +144,21 @@ $factory->define(Help::class, function (Faker\Generator $faker) {
 
 $factory->define(IntrestedEvent::class, function (Faker\Generator $faker) {
 
-    $user = FactoryHelper::getOrCreate(User::class);
+    $user = FactoryHelper::getOrCreate(User::class, true);
     $event = FactoryHelper::getOrCreate(Event::class);
     return [
         'user_id' => $user->id,
         'event_id' => $event->id
+    ];
+
+});
+
+$factory->define(MobileReceiver::class, function (Faker\Generator $faker) {
+
+    $country = FactoryHelper::getOrCreate(Country::class);
+    return [
+        'country_id' => $country->id,
+        'phone' => $faker->phoneNumber,
     ];
 
 });
@@ -157,6 +169,7 @@ $factory->define(Organizer::class, function (Faker\Generator $faker) {
     $user = FactoryHelper::getOrCreate(User::class);
     return [
         'name' => $faker->name,
+        'email' => $faker->email,
         'description' => $faker->text,
         'image' => $image,
         'linkedin' => $faker->url,
@@ -173,7 +186,7 @@ $factory->define(Organizer::class, function (Faker\Generator $faker) {
 
 $factory->define(Participant::class, function (Faker\Generator $faker) {
 
-    $user = FactoryHelper::getOrCreate(User::class);
+    $user = FactoryHelper::getOrCreate(User::class, true);
     $ticket = FactoryHelper::getOrCreate(Ticket::class);
     return [
         'user_id' => $user->id,
@@ -182,6 +195,7 @@ $factory->define(Participant::class, function (Faker\Generator $faker) {
         'phone' => $faker->phoneNumber,
         'email' => $faker->email,
         'number' => rand(1, 5),
+        'status' => rand(0, count(Participant::$Status) - 1),
     ];
 
 });
@@ -212,6 +226,25 @@ $factory->define(Person::class, function (Faker\Generator $faker) {
 
 });
 
+$factory->define(Publicity::class, function (Faker\Generator $faker) {
+
+    $banner = FactoryHelper::fakeFile($faker, 'publicity');
+
+    return [
+        'title' => $faker->title,
+        'status' => $faker->name,
+        'type' => $faker->name,
+        'company' => $faker->company,
+        'web_site' => $faker->url,
+        'url' => $faker->url,
+        'description' => $faker->text(500),
+        'banner_picture' => $banner,
+        'start_date' => $faker->dateTime,
+        'end_date' => $faker->dateTime
+    ];
+
+});
+
 $factory->define(TicketTypePayment::class, function (Faker\Generator $faker) {
 
     $ticket = FactoryHelper::getOrCreate(Ticket::class);
@@ -236,7 +269,7 @@ $factory->define(Ticket::class, function (Faker\Generator $faker) {
         'amount' => rand(10, 100) * 100,
         'start_date' => $faker->dateTime,
         'end_date' => $faker->dateTime,
-        'listing_privity' => rand(0, count(Ticket::$ListingPrivity))
+        'listing_privity' => rand(0, count(Ticket::$ListingPrivity) - 1)
     ];
 
 });

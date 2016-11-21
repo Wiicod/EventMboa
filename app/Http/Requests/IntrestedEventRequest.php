@@ -30,7 +30,7 @@ class IntrestedEventRequest extends Request
             case 'GET':
             {
                 return [
-                    'user_id' => 'required|integer|exists:users,id',
+                    'user_id' => 'required|integer|exists:users,id|unique:intrested_events,user_id,event_id',
                     'event_id' => 'required|integer|exists:events,id'
                 ];
             }
@@ -41,14 +41,14 @@ class IntrestedEventRequest extends Request
             case 'POST':
             {
                 return [
-                    'user_id'=>'required|integer|exists:users,id',
+                    'user_id' => 'required|integer|exists:users,id|unique_with:intrested_events,event_id,event_id',
                     'event_id'=>'required|integer|exists:events,id'
                 ];
             }
             case 'PUT':
             {
                 return [
-                    'user_id'=>'integer|exists:users,id',
+                    'user_id' => 'integer|exists:users,id|unique_with:intrested_events,event_id,event_id,' . $this->route()->getParameter('intrested_event'),
                     'event_id'=>'integer|exists:events,id'
                 ];
             }
