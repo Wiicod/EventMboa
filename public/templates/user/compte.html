@@ -6,9 +6,10 @@
                 <div class="form-group">
                     <h3 translate>Adresse e-mail du compte</h3>
                     <p>{{compte.email}}</p>
+                    <p class="message">{{message}}</p>
                     <a class="btn btn-main btn-reverse" ng-class="{'hide':modMail}" ng-click="modMail=true" translate>Modifier</a>
                 </div>
-                <form ng-submit="modifierEmail(user_auth,xcompte)" ng-if="modMail">
+                <form ng-submit="modifierEmail(user_auth,xcompte)" ng-if="modMail" >
                     <div class="form-group">
                         <label translate>Nouvelle adresse e-mail</label>
                         <input type="email" ng-model="xcompte.email" placeholder="" class="form-control"/>
@@ -23,7 +24,7 @@
                 </form>
             </div>
             <form ng-submit="enregistrerCompte(compte)">
-                <div class="form-group">
+                <div class="form-group hide">
                     <h3 translate>Photo de profil</h3>
                     <div style="padding: 10px;">
                         <i ng-if="no_image && compte.person.picture==undefined" class="fa fa-user fa-4x"
@@ -56,36 +57,35 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <label translate>Téléphone</label>
-                            <input type="text" ng-model="compte.person.home_phone" class="form-control"/>
+                            <input type="text" ng-model="compte.person.home_phone" placeholder="+(237) 696969696" class="form-control"/>
                         </div>
                         <div class="col-lg-6">
                             <label translate>Portable</label>
-                            <input type="text" ng-model="compte.person.cell_phone" class="form-control"/>
+                            <input type="text" ng-model="compte.person.cell_phone" placeholder="+(237) 696969696" class="form-control"/>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label translate>Site web</label>
-                    <input type="url" ng-model="compte.person.web_site" class="form-control"/>
+                    <input type="url" ng-model="compte.person.web_site" placeholder="http://www.eventmboa.com" class="form-control"/>
                 </div>
-
                 <div class="form-group">
                     <h3 translate>Domicile</h3>
-                    <label translate>adresse</label>
-                    <input type="url" ng-model="compte.person.adress.name" class="form-control"/>
+                    <label translate>Rue</label>
+                    <input type="text" ng-model="compte.person.adress.street" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <label translate>Ville</label>
-                    <input type="text" ng-model="compte.person.adress.town.name" class="form-control"/>
+                    <label translate>adresse</label>
+                    <input type="text" ng-model="compte.person.adress.name" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-6">
-                            <label translate>Pays</label>
-                            <select ng-model="compte.person.adress.town.country.id" class="form-control"
-                                    ng-options="c.id as c.name for c in pays"
-                            >
-                                <option value="" disabled translate>Pays</option>
+                            <label translate>Ville</label>
+                            <select ng-model="compte.person.adress.town_id" class="form-control"
+                                    ng-options="t.id as t.name for t in ville | orderBy:'-name':true"
+                                    >
+                                <option value="" disabled translate>Ville</option>
                             </select>
                         </div>
                         <div class="col-lg-6">

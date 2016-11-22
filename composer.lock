@@ -103,16 +103,16 @@
         },
         {
             "name": "braintree/braintree_php",
-            "version": "3.17.0",
+            "version": "3.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/braintree/braintree_php.git",
-                "reference": "a51a36eade9988928aa49e36e23a5abb68a32251"
+                "reference": "cc7f22d1aaf0aa7abee7b8dd890f0c198c12db4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/braintree/braintree_php/zipball/a51a36eade9988928aa49e36e23a5abb68a32251",
-                "reference": "a51a36eade9988928aa49e36e23a5abb68a32251",
+                "url": "https://api.github.com/repos/braintree/braintree_php/zipball/cc7f22d1aaf0aa7abee7b8dd890f0c198c12db4f",
+                "reference": "cc7f22d1aaf0aa7abee7b8dd890f0c198c12db4f",
                 "shasum": ""
             },
             "require": {
@@ -146,7 +146,7 @@
                 }
             ],
             "description": "Braintree PHP Client Library",
-            "time": "2016-10-13 19:16:51"
+            "time": "2016-11-14 21:04:29"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -774,17 +774,20 @@
         },
         {
             "name": "erusev/parsedown",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7"
+                "reference": "20ff8bbb57205368b4b42d094642a3e52dac85fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
-                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/20ff8bbb57205368b4b42d094642a3e52dac85fb",
+                "reference": "20ff8bbb57205368b4b42d094642a3e52dac85fb",
                 "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
             },
             "type": "library",
             "autoload": {
@@ -809,7 +812,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2015-10-04 16:44:32"
+            "time": "2016-11-02 15:56:58"
         },
         {
             "name": "fzaninotto/faker",
@@ -1589,16 +1592,16 @@
         },
         {
             "name": "mpociot/laravel-apidoc-generator",
-            "version": "1.6.6",
+            "version": "1.6.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpociot/laravel-apidoc-generator.git",
-                "reference": "c1a50b523f2558cc9f58c5cfbbbf74ea1fe65f47"
+                "reference": "9bbc18b769b53e888709d1da204edec56ba59748"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpociot/laravel-apidoc-generator/zipball/c1a50b523f2558cc9f58c5cfbbbf74ea1fe65f47",
-                "reference": "c1a50b523f2558cc9f58c5cfbbbf74ea1fe65f47",
+                "url": "https://api.github.com/repos/mpociot/laravel-apidoc-generator/zipball/9bbc18b769b53e888709d1da204edec56ba59748",
+                "reference": "9bbc18b769b53e888709d1da204edec56ba59748",
                 "shasum": ""
             },
             "require": {
@@ -1638,7 +1641,7 @@
                 "documentation",
                 "laravel"
             ],
-            "time": "2016-10-19 18:45:04"
+            "time": "2016-11-12 23:32:47"
         },
         {
             "name": "mpociot/reflection-docblock",
@@ -2770,16 +2773,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "dff51f72b0706335131b00a7f49606168c582594"
+                "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/dff51f72b0706335131b00a7f49606168c582594",
-                "reference": "dff51f72b0706335131b00a7f49606168c582594",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/e79d363049d1c2128f133a2667e4f4190904f7f4",
+                "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4",
                 "shasum": ""
             },
             "require": {
@@ -2791,7 +2794,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -2825,20 +2828,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-11-14 01:06:16"
         },
         {
             "name": "symfony/polyfill-php56",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php56.git",
-                "reference": "3edf57a8fbf9a927533344cef65ad7e1cf31030a"
+                "reference": "1dd42b9b89556f18092f3d1ada22cb05ac85383c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php56/zipball/3edf57a8fbf9a927533344cef65ad7e1cf31030a",
-                "reference": "3edf57a8fbf9a927533344cef65ad7e1cf31030a",
+                "url": "https://api.github.com/repos/symfony/polyfill-php56/zipball/1dd42b9b89556f18092f3d1ada22cb05ac85383c",
+                "reference": "1dd42b9b89556f18092f3d1ada22cb05ac85383c",
                 "shasum": ""
             },
             "require": {
@@ -2848,7 +2851,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -2881,20 +2884,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-11-14 01:06:16"
         },
         {
             "name": "symfony/polyfill-util",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-util.git",
-                "reference": "ef830ce3d218e622b221d6bfad42c751d974bf99"
+                "reference": "746bce0fca664ac0a575e465f65c6643faddf7fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-util/zipball/ef830ce3d218e622b221d6bfad42c751d974bf99",
-                "reference": "ef830ce3d218e622b221d6bfad42c751d974bf99",
+                "url": "https://api.github.com/repos/symfony/polyfill-util/zipball/746bce0fca664ac0a575e465f65c6643faddf7fb",
+                "reference": "746bce0fca664ac0a575e465f65c6643faddf7fb",
                 "shasum": ""
             },
             "require": {
@@ -2903,7 +2906,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -2933,7 +2936,7 @@
                 "polyfill",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-11-14 01:06:16"
         },
         {
             "name": "symfony/process",
@@ -4124,16 +4127,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.27",
+            "version": "4.8.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c062dddcb68e44b563f66ee319ddae2b5a322a90"
+                "reference": "558a3a0d28b4cb7e4a593a4fbd2220e787076225"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c062dddcb68e44b563f66ee319ddae2b5a322a90",
-                "reference": "c062dddcb68e44b563f66ee319ddae2b5a322a90",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/558a3a0d28b4cb7e4a593a4fbd2220e787076225",
+                "reference": "558a3a0d28b4cb7e4a593a4fbd2220e787076225",
                 "shasum": ""
             },
             "require": {
@@ -4192,7 +4195,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-07-21 06:48:14"
+            "time": "2016-11-14 06:25:28"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -4536,16 +4539,16 @@
         },
         {
             "name": "sebastian/recursion-context",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/recursion-context.git",
-                "reference": "913401df809e99e4f47b27cdd781f4a258d58791"
+                "reference": "79860854756415e1cec8d186c9cf261cafd87dfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/913401df809e99e4f47b27cdd781f4a258d58791",
-                "reference": "913401df809e99e4f47b27cdd781f4a258d58791",
+                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/79860854756415e1cec8d186c9cf261cafd87dfc",
+                "reference": "79860854756415e1cec8d186c9cf261cafd87dfc",
                 "shasum": ""
             },
             "require": {
@@ -4585,7 +4588,7 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "time": "2015-11-11 19:50:13"
+            "time": "2016-11-14 15:54:23"
         },
         {
             "name": "sebastian/version",

@@ -32,7 +32,7 @@
                         <a title="Partager" ng-click="interest(e)"><i class="fa fa-share-alt fa-2x"></i></a>
                     </div>
                     <div class="col-lg-6" style="text-align: right">
-                        <div class="btn-white">{{event.tickets[0].amount}} Fcfa</div>
+                        <div class="btn-white" ng-repeat="t in event.tickets">{{t.amount}} Fcfa</div>
                         <button class="btn btn-main btn-green" data-toggle="modal" href="/#inscriptionModal" translate>
                             S'inscrire
                         </button>
@@ -135,37 +135,31 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title text-center text-uppercase bold" translate>S'inscrire</h4>
             </div>
-            <div class="modal-body" style="background: #F8F8FA">
-                <p>Fin de la vente le {{event.date_fin}}</p>
-                <div class="select">
+            <form ng-submit="acheterBillet(event.tickets)">
+                <div class="modal-body" style="background: #F8F8FA">
+                    <p>Fin de la vente le {{event.date_fin}}</p>
+                    <div class="select">
+                        <div class="row" ng-repeat="t in event.tickets">
+                            <div class="col-lg-9">
+                                {{t.name}} | {{t.amount}} Fcfa<br/>
+                                <span class="text-uppercase blue" ng-if="t.qte>0">{{t.amount*t.qte}} Fcfa</span>
+
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="number" min="1" max="{{t.max_command}}" ng-model="t.qte"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer left">
                     <div class="row">
-                        <div class="col-lg-9">
-                            {{event.tickets[0].name}} <br/>
-                            <span class="text-uppercase">{{event.tickets[0].amount}} Fcfa</span>
-                        </div>
-                        <div class="col-lg-3">
-                            <input type="number" min="1" max="{{event.tickets[0].max_command}}" ng-model="qte"
-                                   class="form-control"/>
+                        <div class="col-lg-4 pull-right" style="text-align: right">
+                            <button type="submit" class="btn btn-main btn-green" translate>Compléter</button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer left">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="btn-white">
-                            <ff translate>Qté</ff>
-                            : {{qte}}
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="btn-white">{{event.tickets[0].amount*qte}} Fcfa</div>
-                    </div>
-                    <div class="col-lg-4" style="text-align: right">
-                        <button class="btn btn-main btn-green" translate>Compléter</button>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

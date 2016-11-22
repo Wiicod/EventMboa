@@ -74,6 +74,28 @@ config
                 }
             }
         })
+        .state('paiement',{
+            url: "/paiement/:user_id/:ticket_id/:event_id",
+            title: "Evénements",
+            loginRequired:false,
+            views:{
+                '':{
+                    templateUrl: template_url+'index.html',
+                    controller:"PaiementCtrl"
+                },
+                'header@paiement': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller:"HeaderCtrl"
+                },
+                'body@paiement': {
+                    templateUrl: template_url+'event/mode_paiement.html'
+                },
+                'footer@paiement': {
+                    templateUrl: template_url+'static/footer.html',
+                    controller:"FooterCtrl"
+                }
+            }
+        })
         .state('details',{
             url:"/details/:nom",
             title: "Détail",

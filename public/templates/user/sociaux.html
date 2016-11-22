@@ -2,12 +2,13 @@
     <h1 class="bold" translate>Paramètres sociaux</h1>
     <div class="row">
         <div class="col-lg-9">
-            <form ng-submit="enregistrerSociaux(social)">
+            <p class="message">{{message}}</p>
+            <form ng-submit="enregistrerSociaux(compte)">
                 <div class="form-group">
                     <h3><i class="fa fa-facebook"></i>
                         <ff translate>Page Facebook</ff>
                     </h3>
-                    <input type="url" ng-model="compte.person.facebook" placeholder="http://www.facebook.com/"
+                    <input type="text" ng-model="compte.person.facebook" placeholder="http://www.facebook.com/"
                            class="form-control"/>
                 </div>
 
@@ -15,7 +16,7 @@
                     <h3><i class="fa fa-twitter"></i>
                         <ff translate>Page Twitter</ff>
                     </h3>
-                    <input type="url" ng-model="compte.person.twitter" placeholder="http://www.twitter.com/"
+                    <input type="text" ng-model="compte.person.twitter" placeholder="http://www.twitter.com/"
                            class="form-control"/>
                 </div>
 
@@ -23,7 +24,7 @@
                     <h3><i class="fa fa-google-plus"></i>
                         <ff translate>Page Google+</ff>
                     </h3>
-                    <input type="url" ng-model="compte.person.google" placeholder="http://www.facebook.com/"
+                    <input type="text" ng-model="compte.person.google" placeholder="http://www.facebook.com/"
                            class="form-control"/>
                 </div>
 
@@ -31,7 +32,7 @@
                     <h3><i class="fa fa-instagram"></i>
                         <ff translate>Page Instagram</ff>
                     </h3>
-                    <input type="url" ng-model="compte.person.instagram" placeholder="http://www.instagram.com/"
+                    <input type="text" ng-model="compte.person.instagram" placeholder="http://www.instagram.com/"
                            class="form-control"/>
                 </div>
 
@@ -39,7 +40,7 @@
                     <h3><i class="fa fa-linkedin-square"></i>
                         <ff translate>Page LinkedIn</ff>
                     </h3>
-                    <input type="url" ng-model="compte.person.linkedin" placeholder="http://www.linkedin.com/"
+                    <input type="text" ng-model="compte.person.linkedin" placeholder="http://www.linkedin.com/"
                            class="form-control"/>
                 </div>
 
