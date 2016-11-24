@@ -1,0 +1,27 @@
+<section>
+    <div class="container">
+        <h2 translate>Aide</h2>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <input type="text" ng-model="searchKey" placeholder="{{'Rechercher un sujet'|translate}}" class="form-control"/>
+                </div>
+                <div class="row"
+                     dir-paginate="a in aide |filter:searchKey | orderBy : '-title' : true| itemsPerPage: par_page "
+                     style="margin-bottom:15px; border-bottom: 1px solid #eee">
+                    <h3>{{a.title}}</h3>
+                    <p>{{a.description}}</p>
+                </div>
+                <div class="row">
+                    <div class="clearfix"></div>
+                    <div class="text-center">
+                        <dir-pagination-controls></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+               Publicité
+            </div>
+        </div>
+    </div>
+</section>

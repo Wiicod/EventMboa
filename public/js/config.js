@@ -9,7 +9,7 @@ config
 
         $authProvider.httpInterceptor = function () {
             return true;
-        }
+        };
 
         $authProvider.loginUrl = '/api/signin';
         $authProvider.signupUrl = '/api/signup';
@@ -135,6 +135,28 @@ config
                     templateUrl: template_url+'user/gerer-event.html'
                 },
                 'footer@myEvent': {
+                    templateUrl: template_url+'static/footer.html',
+                    controller:"FooterCtrl"
+                }
+            }
+        })
+        .state('aide',{
+            url:"/aide",
+            title: "Aide",
+            loginRequired:false,
+            views:{
+                '':{
+                    templateUrl: template_url+'index.html',
+                    controller:"AideCtrl"
+                },
+                'header@aide': {
+                    templateUrl: template_url+'static/header.html',
+                    controller:"HeaderCtrl"
+                },
+                'body@aide': {
+                    templateUrl: template_url+'aide/aide.html'
+                },
+                'footer@aide': {
                     templateUrl: template_url+'static/footer.html',
                     controller:"FooterCtrl"
                 }

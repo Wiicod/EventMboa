@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row" style="margin-top: 30px">
             <div class="col-lg-12 col-sm-12 col-md-12">
-                <h1 class="bold"> <ff translate>Mode de paiement pour</ff> <span class="blue">{{event.name}}</span></h1>
+                <h1 class="bold"> <ff translate>Mode de paiement pour</ff> <a ui-sref="details({nom:event.name+'/0000'+event.id})" class="blue">{{event.name}}</a></h1>
             </div>
         </div>
         <div class="row">
@@ -39,7 +39,7 @@
                         <div class="row">
                             <ff class="bold" translate>Montant à payer</ff> : <span class="blue bold">{{montant}} Fcfa</span>
                         </div>
-                        <form class="row">
+                        <form class="row" ng-submit="validerPaiement(mode_paiement,numero_om)">
                             <div class="col-lg-8">
                                 <div class="form-group">
                                     <label>Mode de paiement</label>
@@ -57,7 +57,7 @@
                                     <label translate>Numéro Orange money de la trasaction</label>
                                     <input type="text" ng-model="numero_om" class="form-control" placeholder="+ 237 696 696 696"/>
 
-                                    <button class="btn btn-main" translate>
+                                    <button class="btn btn-main" type="submit" translate>
                                         Valider
                                     </button>
                                 </div>

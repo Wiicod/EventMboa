@@ -45,6 +45,7 @@ Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
     Route::get('/event/{event}', 'EventController@show');
 //    Route::get('/event_topic', 'EventTopicController@index');
 //    Route::get('/event_topic/{event_topic}', 'EventTopicController@show');
+Route::resource('ticket', 'TicketController');
 Route::resource('event_topic', 'EventTopicController');
 
     Route::get('/event_type', 'EventTypeController@index');
@@ -60,6 +61,7 @@ Route::resource('event_topic', 'EventTopicController');
     Route::resource('country', 'CountryController');
     Route::resource('help', 'HelpController');
 //    Route::resource('adress', 'AdressController');
+Route::resource('publicity', 'PublicityController');
 Route::resource('user', 'UserController');
 });
 
@@ -92,11 +94,11 @@ Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function
 
     Route::resource('intrested_event', 'IntrestedEventController');
     Route::resource('mobile_receiver', 'MobileReceiverController');
-    Route::resource('publicity', 'PublicityController');
+
     Route::resource('organizer', 'OrganizerController');
     Route::resource('participant', 'ParticipantController');
     Route::resource('person', 'PersonController');
-    Route::resource('ticket', 'TicketController');
+//    Route::resource('ticket', 'TicketController');
     Route::resource('ticket_type_payment', 'TicketTypePaymentController');
 
     Route::resource('type_payment', 'TypePaymentController');

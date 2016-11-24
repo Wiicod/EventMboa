@@ -441,7 +441,7 @@ controller
 
     }])
 
-    .controller('PaiementCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$cookies', '$auth', function ($scope, $stateParams, $filter, Restangular, $cookies, $auth) {
+    .controller('PaiementCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$cookies', '$auth','$rootScope','$state', function ($scope, $stateParams, $filter, Restangular, $cookies, $auth,$rootScope,$state) {
         if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
             $scope.user = $cookies.getObject("user");
             var u = $cookies.getObject("user");
@@ -465,19 +465,23 @@ controller
                             $scope.montant+= b.number* b.ticket.amount;
                         }
                     });
-                    console.log($scope.billets);
                 });
 
-                // recuperation des participants de l'user
-
             }
+
+            $scope.validerPaiement=function(mode,numero){
+                alert("En cours de réalisation");
+            };
 
             $scope.annulerCommande=function(b){
                 console.log(b);
             }
 
         }
-
+        else{
+            $rootScope.next = {name: $state.current.name, params: $state.params};
+            $state.go("login");
+        }
 
     }])
 
@@ -620,6 +624,17 @@ controller
                 });
 
             });
+
+            $scope.annulerCommande=function(){
+                Restangular.all("participant").getList({ticket_id:$state.params.id}).then(function(d){
+                    angular.forEach(d,function(p,k){
+                        if(p.user_id==$scope.user.id){
+                            d.remove();
+                            //$state.go("billet");
+                        }
+                    });
+                })
+            };
         }
 
     }])
@@ -882,6 +897,16 @@ controller
            console.log($scope.theFile);
            $("#image").fadeIn("fast").attr("src",URL.createObjectURL($scope.theFile));
        }
+    }])
+
+    .controller('AideCtrl',['$scope','Restangular',function($scope,Restangular){
+        $scope.par_page=7;
+        Restangular.all("help").getList().then(function(aide){
+            $scope.aide=aide;
+        });
+        Restangular.all("publicity").getList().then(function(pub){
+            console.log(pub);
+        });
     }])
 
     .controller('GestionCtrl', ['$scope', '$state', '$filter', 'Restangular', '$cookies', '$auth', function ($scope, $state, $filter, Restangular, $cookies, $auth) {
