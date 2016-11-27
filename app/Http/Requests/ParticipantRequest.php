@@ -43,7 +43,8 @@ class ParticipantRequest extends Request
                     'phone' => 'required_with:email,name|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|',
                     'email' => 'max:255|email|required_with:name,phone',
                     'user_id' => 'required_without:name,phone,email|integer|exists:users,id',
-                    'ticket_id' => 'required|integer|exists:tickets,id'
+                    'ticket_id' => 'required|integer|exists:tickets,id',
+                    'type_payment' => 'integer|exists:ticket_type_payments,id|required_paid|is_in_ticket_method'
                 ];
             }
             case 'DELETE':
@@ -60,7 +61,8 @@ class ParticipantRequest extends Request
                     'phone' => 'required_with:email,name|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|',
                     'email' => 'max:255|email|required_with:name,phone',
                     'user_id' => 'required_without:name,phone,email|integer|exists:users,id|unique_with:participants,ticket_id,ticket_id',
-                    'ticket_id'=>'required|integer|exists:tickets,id'
+                    'ticket_id' => 'required|integer|exists:tickets,id',
+                    'type_payment' => 'integer|exists:ticket_type_payments,id|required_paid|is_in_ticket_method'
                 ];
             }
             case 'PUT':
@@ -73,7 +75,8 @@ class ParticipantRequest extends Request
                     'phone' => 'required_with:email,name|max:255|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|',
                     'email' => 'max:255|email|required_with:name,phone',
                     'user_id' => 'required_without:name,phone,email|integer|exists:users,id|unique_with:participants,ticket_id,ticket_id,' . $pid,
-                    'ticket_id'=>'integer|exists:tickets,id'
+                    'ticket_id' => 'integer|exists:tickets,id',
+                    'type_payment' => 'integer|exists:ticket_type_payments,id|required_paid|is_in_ticket_method'
                 ];
             }
             case 'PATCH':

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateTicketTypePaymentsTable extends Migration
 {
@@ -18,6 +18,7 @@ class CreateTicketTypePaymentsTable extends Migration
             $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
             $table->integer('type_payment_id')->unsigned()->index();
             $table->foreign('type_payment_id')->references('id')->on('type_payments')->onDelete('cascade');
+            $table->unique(array('ticket_id', 'type_payment_id'));
 
             $table->timestamps();
         });

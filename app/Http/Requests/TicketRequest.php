@@ -33,12 +33,13 @@ class TicketRequest extends Request
                     'name' => 'required|max:255',
                     'listing_privity' => 'required|max:255',
                     'description' => 'required',
-                    'amount' => 'required|numeric',
+                    'amount' => 'numeric',
                     'quantity' => 'required|integer',
                     'max_command' => 'required|integer',
                     'event_id' => 'required|integer|exists:events,id',
                     'start_date' => 'required|date|date_format:"Y-m-d H:i:s"|before:end_date',
-                    'end_date' => 'required|date|date_format:"Y-m-d H:i:s"'
+                    'end_date' => 'required|date|date_format:"Y-m-d H:i:s"',
+                    'taxe_include' => 'boolean'
                 ];
             }
             case 'DELETE':
@@ -51,12 +52,13 @@ class TicketRequest extends Request
                     'name'=>'required|max:255',
                     'listing_privity'=>'required|max:255',
                     'description'=>'required',
-                    'amount'=>'required|numeric',
+                    'amount' => 'numeric',
                     'quantity'=>'required|integer',
                     'max_command'=>'required|integer',
                     'event_id'=>'required|integer|exists:events,id',
                     'start_date' => 'required|date|date_format:"Y-m-d H:i:s"|before:end_date',
-                    'end_date' => 'required|date|date_format:"Y-m-d H:i:s"'
+                    'end_date' => 'required|date|date_format:"Y-m-d H:i:s"',
+                    'taxe_include' => 'boolean'
                 ];
             }
             case 'PUT':
@@ -70,7 +72,8 @@ class TicketRequest extends Request
                     'max_command'=>'integer',
                     'event_id'=>'integer|exists:events,id',
                     'start_date' => 'date|date_format:"Y-m-d H:i:s"|before:end_date',
-                    'end_date' => 'date|date_format:"Y-m-d H:i:s"'
+                    'end_date' => 'date|date_format:"Y-m-d H:i:s"',
+                    'taxe_include' => 'boolean'
                 ];
             }
             case 'PATCH':

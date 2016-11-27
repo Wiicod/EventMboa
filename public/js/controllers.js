@@ -4,6 +4,42 @@
 
 
 controller
+
+//just pr les test paypal
+    .controller('PaypalSuccesCtrl', ['$scope', 'Restangular', '$stateParams',
+        function ($scope, Restangular, $stateParams) {
+            // remarque je divisie par 3145 pour eviter k l utilisateur deduire des valeur d id
+            // ceci parceque avant de retouner j avais multilplier l id par cela
+            var id = parseInt($stateParams.id) / 3145;
+            Restangular.one('participant', id).get().then(function (data) {
+                $scope.participant = data;
+            });
+
+        }])
+    .controller('PaypalCtrl', ['$scope', 'Restangular', '$sce', '$window',
+        function ($scope, Restangular, $sce, $window) {
+
+            $scope.test = function () {
+                $scope.part = {
+                    "ticket_id": 1,
+                    "number": 3,
+                    "name": "Foris",
+                    "email": "test@gmail.com",
+                    "phone": "564 798 123 456",
+                    "type_payment": 1,
+
+
+                };
+                Restangular.all('participant').post($scope.part).then(function (data) {
+
+                    $window.location.href = data;
+
+
+                }, function (error) {
+                    console.log(error);
+                });
+            }
+        }])
     .controller('AppCtrl', ['$scope', 'gettextCatalog', function ($scope, gettextCatalog) {
 
     }])

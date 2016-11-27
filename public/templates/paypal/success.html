@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (c) 27/11/16 18:44  Foris Fomekong.
+  -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Requette reussie</h1>
+
+Nom :{{participant.name}}
+Tel :{{participant.phone}}
+Email :{{participant.email}}
+Nombre :{{participant.number}}
+Nom ticket : {{participant.ticket.name}}
+Description Ticket :{{participant.ticket.description}}
+
+Qrcodes des billets :
+<hr>
+<div ng-repeat="q in participant.qrcodes">
+    <div ng-bind-html="q"></div>
+    <br>
+    <hr>
+
+</div>
+
+</body>
+</html>

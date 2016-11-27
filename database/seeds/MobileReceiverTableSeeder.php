@@ -13,6 +13,6 @@ class MobileReceiverTableSeeder extends Seeder
     public function run()
     {
         //
-        factory(MobileReceiver::class, 2)->create();
+        factory(MobileReceiver::class, 3)->create();
     }
 }

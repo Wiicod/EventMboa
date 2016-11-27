@@ -16,6 +16,17 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::post('/#/pcancel', array(
+    'as' => 'payment.cancel',
+));
+
+Route::post('/#/pfail', array(
+    'as' => 'payment.fail',
+));
+Route::post('/#/psuccess/{id}', array(
+    'as' => 'payment.success',
+));
+
 Route::get('/img/{model}/{image}', function ($model, $image) {
 
     //do so other checks here if you wish
@@ -35,11 +46,33 @@ Route::get('/img/{model}/{image}', function ($model, $image) {
     //return Storage::get("stock-images/".$type."/".$image); //will ensure a jpg is always returned
 });
 
+Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.refresh']], function () {
+
+    Route::get('/refresh', 'AuthenticateController@refreshToken');
+
+});
+
 Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
+
+
+    // Add this route for checkout or submit form to pass the item into paypal
+    /*Route::post('payment', array(
+        'as' => 'payment',
+        'uses' => 'PaymentController@postPayment',
+    ));*/
+
+// this is after make the payment, PayPal redirect back to your site
+    Route::get('payment/status', array(
+        'as' => 'payment.status',
+        'uses' => 'ParticipantController@getPaymentStatus',
+    ));
 
 //    Route::post('/register','AuthenticateController@register');
     Route::post('/signup', 'AuthenticateController@signup');
     Route::post('/signin', 'AuthenticateController@signin');
+
+
+    Route::post('/participant', ['as' => 'original.route', 'uses' => 'ParticipantController@store']);
 
     Route::get('/event', 'EventController@index');
     Route::get('/event/{event}', 'EventController@show');
@@ -49,12 +82,13 @@ Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
     Route::resource('country', 'CountryController');
     Route::resource('help', 'HelpController');
     Route::resource('adress', 'AdressController');
+    Route::get('/refresh', 'AuthenticateController@refreshToken');
+
 });
 
 
 Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function () {
 
-    Route::get('/refresh', 'AuthenticateController@refreshToken');
     Route::get('authenticated-user', 'AuthenticateController@get_authenticated_user');
 
 
@@ -74,7 +108,7 @@ Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function
     Route::resource('mobile_receiver', 'MobileReceiverController');
     Route::resource('publicity', 'PublicityController');
     Route::resource('organizer', 'OrganizerController');
-    Route::resource('participant', 'ParticipantController');
+    Route::resource('participant', 'ParticipantController', ['except' => 'post']);
     Route::resource('person', 'PersonController');
     Route::resource('ticket', 'TicketController');
     Route::resource('ticket_type_payment', 'TicketTypePaymentController');

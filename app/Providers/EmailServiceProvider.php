@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Event;
 use App\Jobs\SendNewEventEmail;
-use App\Jobs\SendRemindEventEmail;
+use App\Jobs\SendParticpantTicketEmail;
 use App\Participant;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,14 +28,15 @@ class EmailServiceProvider extends ServiceProvider
         });
 
         Participant::created(function ($p) {
-
-            dispatch((new SendRemindEventEmail($p))->delay(60 * 5));
+            if ($p->status = 'paid')
+                dispatch((new SendParticpantTicketEmail($p))->delay(60 * 5));
 
         });
 
         Participant::updated(function ($p) {
 
-            dispatch((new SendRemindEventEmail($p))->delay(60 * 5));
+            if ($p->status = 'paid')
+                dispatch((new SendParticpantTicketEmail($p))->delay(60 * 5));
         });
     }
 

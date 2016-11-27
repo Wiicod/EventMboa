@@ -8,6 +8,7 @@ use QrCode;
 class Participant extends Model
 {
     //
+    public static $Status = ['not-paid', 'paid'];
     protected $fillable = ['id', 'user_id', 'ticket_id', 'number', 'name', 'phone', 'email', 'status'];
     protected $appends = array('qrcodes');
     private $foreign = ['user', 'ticket'];
@@ -16,6 +17,7 @@ class Participant extends Model
     /**
      * @return array
      */
+
     public function getFiles()
     {
         return $this->files;
@@ -30,6 +32,22 @@ class Participant extends Model
     public function getLabel()
     {
         return $this->user_id . ' ticket ' . $this->ticket_id . ' number ' . $this->number;
+    }
+
+
+    public function getStatusAttribute($val)
+    {
+
+        return strlen($val) == 1 ? self::$Status[$val] : $val;
+    }
+
+    public function setStatusAttribute($val)
+    {
+        if ((is_string($val) && strlen($val) == 1) or (is_int($val))) {
+            $this->attributes['status'] = $val;
+        } else {
+            $this->attributes['status'] = array_search($val, self::$Status);
+        }
     }
 
     public function getQrcodesAttribute()

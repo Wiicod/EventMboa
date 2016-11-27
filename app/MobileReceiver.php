@@ -7,27 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class MobileReceiver extends Model
 {
     //
-    public static $Status = ['not-paid', 'paid'];
-    protected $fillable = ['id', 'country_id', 'phone'];
+    protected $fillable = ['id', 'country_id', 'phone', 'type_payment_id'];
 
     private $foreign = ['country'];
 
     private $files = [];
-
-    public function getStatusAttribute($val)
-    {
-
-        return strlen($val) == 1 ? self::$Status[$val] : $val;
-    }
-
-    public function setStatusAttribute($val)
-    {
-        if ((is_string($val) && strlen($val) == 1) or (is_int($val))) {
-            $this->attributes['status'] = $val;
-        } else {
-            $this->attributes['status'] = array_search($val, self::$Status);
-        }
-    }
 
     /**
      * @return array
@@ -51,6 +35,11 @@ class MobileReceiver extends Model
     public function country()
     {
         return $this->belongsTo('App\Country');
+    }
+
+    public function type_payment()
+    {
+        return $this->belongsTo('App\TypePayment');
     }
 
 

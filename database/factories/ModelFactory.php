@@ -156,7 +156,9 @@ $factory->define(IntrestedEvent::class, function (Faker\Generator $faker) {
 $factory->define(MobileReceiver::class, function (Faker\Generator $faker) {
 
     $country = FactoryHelper::getOrCreate(Country::class);
+    $tp = FactoryHelper::getOrCreate(TypePayment::class);
     return [
+        'type_payment_id' => $tp->id,
         'country_id' => $country->id,
         'phone' => $faker->phoneNumber,
     ];
@@ -266,6 +268,7 @@ $factory->define(Ticket::class, function (Faker\Generator $faker) {
         'description' => $faker->text,
         'max_command' => rand(2, 10),
         'quantity' => rand(50, 200),
+        'taxe_include' => $faker->boolean(),
         'amount' => rand(10, 100) * 100,
         'start_date' => $faker->dateTime,
         'end_date' => $faker->dateTime,
@@ -289,6 +292,7 @@ $factory->define(TypePayment::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'description' => $faker->text,
+        'tag' => $faker->countryCode
     ];
 
 });

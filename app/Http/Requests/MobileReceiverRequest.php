@@ -30,7 +30,8 @@ class MobileReceiverRequest extends Request
             case 'GET': {
                 return [
                     'phone' => 'required|unique:mobile_receivers|max:255',
-                    'country_id' => 'required|integer|exists:countries,id'
+                    'country_id' => 'required|integer|exists:countries,id',
+                    'type_payment_id' => 'required|integer|exists:type_payments,id'
                 ];
             }
             case 'DELETE': {
@@ -39,13 +40,15 @@ class MobileReceiverRequest extends Request
             case 'POST': {
                 return [
                     'phone' => 'required|unique:mobile_receivers|max:255',
-                    'country_id' => 'required|integer|exists:countries,id'
+                    'country_id' => 'required|integer|exists:countries,id',
+                    'type_payment_id' => 'required|integer|exists:type_payments,id'
                 ];
             }
             case 'PUT': {
                 return [
                     'phone' => 'unique:mobile_receivers|max:255',
-                    'country_id' => 'integer|exists:countries,id'
+                    'country_id' => 'integer|exists:countries,id',
+                    'type_payment_id' => 'integer|exists:type_payments,id'
                 ];
             }
             case 'PATCH': {

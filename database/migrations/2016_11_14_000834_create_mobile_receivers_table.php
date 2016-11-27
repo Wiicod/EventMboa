@@ -15,6 +15,8 @@ class CreateMobileReceiversTable extends Migration
         Schema::create('mobile_receivers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('phone')->unique();
+            $table->integer('type_payment_id')->unsigned()->index()->nullable();
+            $table->foreign('type_payment_id')->references('id')->on('type_payments')->onDelete('set null');
             $table->integer('country_id')->unsigned()->index()->nullable();
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
             $table->timestamps();
