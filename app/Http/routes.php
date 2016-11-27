@@ -78,23 +78,23 @@ Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
     Route::get('/event/{event}', 'EventController@show');
 //    Route::get('/event_topic', 'EventTopicController@index');
 //    Route::get('/event_topic/{event_topic}', 'EventTopicController@show');
-Route::resource('event_topic', 'EventTopicController');
+    Route::resource('event_topic', 'EventTopicController');
 
     Route::get('/event_type', 'EventTypeController@index');
     Route::get('/event_type/{event_type}', 'EventTypeController@show');
 
-    Route::get('/adress','AdressController@index');
-    Route::get('/adress/{adress}','AdressController@show');
+    Route::get('/adress', 'AdressController@index');
+    Route::get('/adress/{adress}', 'AdressController@show');
 
-    Route::get('/organizer','OrganizerController@index');
-    Route::get('/organizer/{organizer}','OrganizerController@show');
+    Route::get('/organizer', 'OrganizerController@index');
+    Route::get('/organizer/{organizer}', 'OrganizerController@show');
 
     Route::resource('town', 'TownController');
     Route::resource('country', 'CountryController');
     Route::resource('help', 'HelpController');
     Route::resource('adress', 'AdressController');
 //    Route::resource('adress', 'AdressController');
-Route::resource('user', 'UserController');
+    Route::resource('user', 'UserController');
 });
 
 
@@ -114,13 +114,13 @@ Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function
     Route::delete('event/{event}', 'EventController@destroy');
     Route::post('event', 'EventController@store');
 
-    Route::put('/adress/{adress}','AdressController@update');
-    Route::delete('adress/{adress}','AdressController@destroy');
-    Route::post('adress','AdressController@store');
+    Route::put('/adress/{adress}', 'AdressController@update');
+    Route::delete('adress/{adress}', 'AdressController@destroy');
+    Route::post('adress', 'AdressController@store');
 
-    Route::put('/organizer/{organizer}','OrganizerController@update');
-    Route::delete('organizer/{organizer}','OrganizerController@destroy');
-    Route::post('organizer','OrganizerController@store');
+    Route::put('/organizer/{organizer}', 'OrganizerController@update');
+    Route::delete('organizer/{organizer}', 'OrganizerController@destroy');
+    Route::post('organizer', 'OrganizerController@store');
 
     Route::resource('contact', 'ContactController');
 //    Route::resource('country', 'CountryController');
