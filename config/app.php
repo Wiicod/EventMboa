@@ -168,9 +168,9 @@ return [
         Webpatser\Countries\CountriesServiceProvider::class,
         Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
-        Laravel\Cashier\CashierServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
+        Oureastudios\Laravel\BraintreeServiceProvider::class,
 
     ],
 

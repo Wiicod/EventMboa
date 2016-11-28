@@ -4,6 +4,12 @@
 
 config
 
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }
+    ])
+
     .config(['$authProvider', function ($authProvider) {
         'ngInject';
 
@@ -30,6 +36,30 @@ config
     $urlRouterProvider.otherwise( '/home');
 
     $stateProvider
+    //juste pr les tests paypals
+        .state('paypal', {
+            url: "/paypal",
+            title: 'paypal',
+            controller: 'PaypalCtrl',
+            templateUrl: template_url + 'paypal.html'
+        })
+
+        .state('psuccess', {
+            url: "/psuccess/{id}",
+            title: 'paypal success',
+            controller: 'PaypalSuccesCtrl',
+            templateUrl: template_url + 'paypal/success.html'
+        })
+        .state('pcancel', {
+            url: "/pcancel",
+            title: 'paypal cancel',
+            templateUrl: template_url + 'paypal/cancel.html'
+        })
+        .state('pfail', {
+            url: "/pfail",
+            title: 'paypal transaction failed',
+            templateUrl: template_url + 'paypal/fail.html'
+        })
         .state('home',{
             url:"/home",
             title: "Home",

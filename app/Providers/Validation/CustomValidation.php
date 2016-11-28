@@ -2,8 +2,10 @@
 
 use App\Participant;
 use App\Ticket;
+use App\TicketTypePayment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 
 // It's important to extend the Validator class
@@ -29,6 +31,14 @@ class CustomValidation extends Validator
      * $value Input value
      * $parameters Table, field1
      */
+
+    public function __construct($translator, $data, $rules, $messages = array(), $customAttributes = array())
+    {
+        parent::__construct($translator, $data, $rules, $messages, $customAttributes);
+        $this->implicitRules[] = Str::studly('required_paid');
+        //$this->implicitRules[] = Str::studly('is_in_ticket_method');
+    }
+
     public function validateUniqueWith($attribute, $value, $parameters)
     {
         // Now that we have our data we can check for the data
@@ -72,6 +82,39 @@ class CustomValidation extends Validator
 
         return ($num + $val) <= intval($ticket->quantity);
         //return !$result;
+
+
+    }
+
+    public function validateRequiredPaid($attribute, $value)
+    {
+
+        $ticket = Ticket::find(Input::get('ticket_id'));
+
+        if ($ticket == null)
+            return false;
+        if ($ticket->amount == null)
+            return true;
+        if (is_null($value))
+            return false;
+
+        return true;
+
+
+    }
+
+    public function validateIsInTicketMethod($attribute, $value)
+    {
+        if (!$this->validateInteger($attribute, $value))
+            return false;
+
+        $ticket = Ticket::find(Input::get('ticket_id'));
+
+        $ttp = TicketTypePayment::find(Input::get('type_payment'));
+        if ($ttp->ticket_id != $ticket->id)
+            return false;
+
+        return true;
 
 
     }

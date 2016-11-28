@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateTicketsTable extends Migration
 {
@@ -18,7 +18,8 @@ class CreateTicketsTable extends Migration
             $table->text('description');
             $table->integer('max_command');
             $table->integer('quantity');
-            $table->float('amount');
+            $table->boolean('taxe_include')->default(false);
+            $table->float('amount')->nullable(true);
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->string('listing_privity');

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateTypePaymentsTable extends Migration
 {
@@ -16,6 +16,7 @@ class CreateTypePaymentsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
+            $table->string('tag');
             $table->timestamps();
         });
     }

@@ -36,7 +36,7 @@ class Event extends Model
 
     public function getStatusAttribute($val){
 
-        return strlen($val) == 1 ? self::$Status[$val] : $val;
+        return strlen($val) == 1 && is_numeric($val) ? self::$Status[$val] : $val;
     }
 
     public function setStatusAttribute($val)

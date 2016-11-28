@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "99add12e85055a7beb6ef931359e14ec",
-    "content-hash": "f5bf5c255224a8384412d67237ba23ed",
+    "hash": "6e6768e456005585aee56882387e0f77",
+    "content-hash": "a24fd029676a8519123fc06e2f3df912",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -103,16 +103,16 @@
         },
         {
             "name": "braintree/braintree_php",
-            "version": "3.18.0",
+            "version": "2.40.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/braintree/braintree_php.git",
-                "reference": "cc7f22d1aaf0aa7abee7b8dd890f0c198c12db4f"
+                "reference": "5d4d2a4aab8690d0e7dbca3f168c9b6575f856de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/braintree/braintree_php/zipball/cc7f22d1aaf0aa7abee7b8dd890f0c198c12db4f",
-                "reference": "cc7f22d1aaf0aa7abee7b8dd890f0c198c12db4f",
+                "url": "https://api.github.com/repos/braintree/braintree_php/zipball/5d4d2a4aab8690d0e7dbca3f168c9b6575f856de",
+                "reference": "5d4d2a4aab8690d0e7dbca3f168c9b6575f856de",
                 "shasum": ""
             },
             "require": {
@@ -120,8 +120,9 @@
                 "ext-dom": "*",
                 "ext-hash": "*",
                 "ext-openssl": "*",
+                "ext-simplexml": "*",
                 "ext-xmlwriter": "*",
-                "php": ">=5.4.0"
+                "php": ">=5.2.1"
             },
             "require-dev": {
                 "phpunit/phpunit": "3.7.*"
@@ -129,10 +130,7 @@
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Braintree": "lib/"
-                },
-                "psr-4": {
-                    "Braintree\\": "lib/Braintree"
+                    "Braintree": "lib"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -146,7 +144,7 @@
                 }
             ],
             "description": "Braintree PHP Client Library",
-            "time": "2016-11-14 21:04:29"
+            "time": "2015-10-28 18:49:43"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -732,47 +730,6 @@
             "time": "2014-09-09 13:34:57"
         },
         {
-            "name": "dompdf/dompdf",
-            "version": "v0.6.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "cc06008f75262510ee135b8cbb14e333a309f651"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/cc06008f75262510ee135b8cbb14e333a309f651",
-                "reference": "cc06008f75262510ee135b8cbb14e333a309f651",
-                "shasum": ""
-            },
-            "require": {
-                "phenx/php-font-lib": "0.2.*"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "include/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Ménager",
-                    "email": "fabien.menager@gmail.com"
-                },
-                {
-                    "name": "Brian Sweeney",
-                    "email": "eclecticgeek@gmail.com"
-                }
-            ],
-            "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
-            "homepage": "https://github.com/dompdf/dompdf",
-            "time": "2015-12-07 04:07:13"
-        },
-        {
             "name": "erusev/parsedown",
             "version": "1.6.1",
             "source": {
@@ -1111,67 +1068,6 @@
                 "wkhtmltopdf"
             ],
             "time": "2015-11-17 13:16:27"
-        },
-        {
-            "name": "laravel/cashier-braintree",
-            "version": "v1.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/cashier-braintree.git",
-                "reference": "35fa42836e83d846e758ce503b47d8ea0fdd0947"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/cashier-braintree/zipball/35fa42836e83d846e758ce503b47d8ea0fdd0947",
-                "reference": "35fa42836e83d846e758ce503b47d8ea0fdd0947",
-                "shasum": ""
-            },
-            "require": {
-                "braintree/braintree_php": "~3.0",
-                "dompdf/dompdf": "^0.6.1",
-                "illuminate/database": "~5.1",
-                "illuminate/support": "~5.1",
-                "nesbot/carbon": "~1.0",
-                "php": ">=5.5.9",
-                "symfony/http-kernel": "~2.7|~3.0"
-            },
-            "require-dev": {
-                "illuminate/http": "~5.1",
-                "illuminate/routing": "~5.1",
-                "illuminate/view": "~5.1",
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.0",
-                "vlucas/phpdotenv": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Cashier\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
-                }
-            ],
-            "description": "Laravel Cashier provides an expressive, fluent interface to Braintree's subscription billing services.",
-            "keywords": [
-                "billing",
-                "braintree",
-                "cashier",
-                "laravel"
-            ],
-            "time": "2016-05-25 18:41:03"
         },
         {
             "name": "laravel/framework",
@@ -1885,6 +1781,59 @@
             "time": "2016-09-16 12:04:44"
         },
         {
+            "name": "oureastudios/laravel5-braintree",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oureastudios/laravel5-braintree.git",
+                "reference": "16ebcc610d9d0efef8a4ec28c19c8123586f10c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oureastudios/laravel5-braintree/zipball/16ebcc610d9d0efef8a4ec28c19c8123586f10c2",
+                "reference": "16ebcc610d9d0efef8a4ec28c19c8123586f10c2",
+                "shasum": ""
+            },
+            "require": {
+                "braintree/braintree_php": "2.x",
+                "illuminate/support": "5.x",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations"
+                ],
+                "psr-0": {
+                    "Oureastudios\\Laravel": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tameem Safi",
+                    "email": "tameemsafi@live.co.uk",
+                    "homepage": "http://oureastudios.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Brad Daily",
+                    "email": "brad@bradleyboy.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Braintree Service Provider for Laravel 5",
+            "homepage": "https://github.com/oureastudios/laravel-braintree",
+            "keywords": [
+                "braintree",
+                "braintree laravel 5"
+            ],
+            "time": "2015-05-03 17:47:01"
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v1.4.1",
             "source": {
@@ -1933,38 +1882,53 @@
             "time": "2016-03-18 20:34:03"
         },
         {
-            "name": "phenx/php-font-lib",
-            "version": "0.2.2",
+            "name": "paypal/rest-api-sdk-php",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/PhenX/php-font-lib.git",
-                "reference": "c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82"
+                "url": "https://github.com/paypal/PayPal-PHP-SDK.git",
+                "reference": "f87c4306cccf31be9acea71a55c4978a7f77afcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PhenX/php-font-lib/zipball/c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82",
-                "reference": "c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82",
+                "url": "https://api.github.com/repos/paypal/PayPal-PHP-SDK/zipball/f87c4306cccf31be9acea71a55c4978a7f77afcf",
+                "reference": "f87c4306cccf31be9acea71a55c4978a7f77afcf",
                 "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.3.0",
+                "psr/log": "^1.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "classes/"
-                ]
+                "psr-0": {
+                    "PayPal": "lib/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL"
+                "Apache-2.0"
             ],
             "authors": [
                 {
-                    "name": "Fabien Ménager",
-                    "email": "fabien.menager@gmail.com"
+                    "name": "PayPal",
+                    "homepage": "https://github.com/paypal/rest-api-sdk-php/contributors"
                 }
             ],
-            "description": "A library to read, parse, export and make subsets of different types of font files.",
-            "homepage": "https://github.com/PhenX/php-font-lib",
-            "time": "2014-02-01 15:22:28"
+            "description": "PayPal's PHP SDK for REST APIs",
+            "homepage": "http://paypal.github.io/PayPal-PHP-SDK/",
+            "keywords": [
+                "payments",
+                "paypal",
+                "rest",
+                "sdk"
+            ],
+            "time": "2016-10-27 21:14:38"
         },
         {
             "name": "php-di/invoker",
@@ -4788,7 +4752,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "webpatser/laravel-countries": 20
+        "webpatser/laravel-countries": 20,
+        "oureastudios/laravel5-braintree": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

@@ -7,14 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class MobileReceiver extends Model
 {
     //
-
-    protected $fillable = ['id', 'country_id', 'phone'];
+    protected $fillable = ['id', 'country_id', 'phone', 'type_payment_id'];
 
     private $foreign = ['country'];
 
     private $files = [];
-
-
 
     /**
      * @return array
@@ -38,6 +35,11 @@ class MobileReceiver extends Model
     public function country()
     {
         return $this->belongsTo('App\Country');
+    }
+
+    public function type_payment()
+    {
+        return $this->belongsTo('App\TypePayment');
     }
 
 

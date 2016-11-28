@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 
-class SendRemindEventEmail extends Job implements ShouldQueue
+class SendParticpantTicketEmail extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 

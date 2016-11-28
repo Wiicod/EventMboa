@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use JWTAuth;
-use Tymon\JWTAuth\Exceptions;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -45,6 +44,16 @@ class RestHelper
     public static function store($Model, $data)
     {
 
+        $m = self::pre_store($Model, $data);
+
+        $m->save();
+
+        return self::post_store($Model, $m);
+
+    }
+
+    public static function pre_store($Model, $data)
+    {
         $m = new $Model;
         $name = explode("App\\", $Model)[1];
         $field = $m->getFillable();
@@ -61,11 +70,16 @@ class RestHelper
                 }
             }
         }
-        $m->save();
+
+        return $m;
+    }
+
+    public static function post_store($Model, $m)
+    {
+        $name = explode("App\\", $Model)[1];
         $m = $Model::with($m->getForeign())->find($m->id);
         Log::info(Carbon::now() . 'the ' . $name . '  ' . $m->getLabel() . ' has been created ');
         return Response::json($m, 200, [], JSON_NUMERIC_CHECK);
-
     }
 
     public static function show($Model, $id)

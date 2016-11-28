@@ -9,11 +9,10 @@ class Ticket extends Model
     //
     public static $ListingPrivity = ['public', 'privated', 'reserved'];
     protected $fillable =['id','event_id','name','description','quantity','amount','start_date','end_date',
-        'listing_privity','max_command'];
+        'listing_privity', 'max_command', 'taxe_include'];
     protected $dates=['start_date','end_date','created_at','updated_at'];
-
-    private $foreign = ['event', 'ticket'];
-
+    protected $appends = ['taxe'];
+    private $foreign = ['event', 'distribution_points'];
     private $files = [];
 
     /**
@@ -26,7 +25,8 @@ class Ticket extends Model
 
     public function getForeign()
     {
-        return $this->foreign;
+
+        return $this->amount != null ? $this->foreign : array_merge($this->foreign, ['type_payments']);
     }
 
     public function getLabel()
@@ -65,5 +65,14 @@ class Ticket extends Model
 
     public function type_payments(){
         return $this->belongsToMany('App\TypePayment','ticket_type_payments');
+    }
+
+    public function getTaxeAttribute()
+    {
+        if ($this->taxe_include) {
+            return (($this->amount - 100) / 1.1) * 0.1 + 100;
+        } else {
+            return $this->amount * 0.1 + 100;
+        }
     }
 }

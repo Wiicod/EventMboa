@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TypePayment extends Model
 {
     //
-    protected $fillable =['id','name','description'];
+    protected $fillable = ['id', 'name', 'description', 'tag'];
 
     private $foreign = [];
 
@@ -33,5 +33,10 @@ class TypePayment extends Model
 
     public function tickets(){
         return $this->belongsToMany('App\Ticket','ticket_type_payments');
+    }
+
+    public function mobile_receivers()
+    {
+        return $this->hasMany('App\MobileReceiver');
     }
 }

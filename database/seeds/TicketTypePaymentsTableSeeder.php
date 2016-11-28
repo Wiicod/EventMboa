@@ -13,6 +13,15 @@ class TicketTypePaymentsTableSeeder extends Seeder
     public function run()
     {
         //
-        factory(TicketTypePayment::class, 10)->create();
+        $tickettypes = factory(TicketTypePayment::class, 10)->make();
+        foreach ($tickettypes as $tickettype) {
+            repeat:
+            try {
+                $tickettype->save();
+            } catch (\Illuminate\Database\QueryException $e) {
+                $tickettype = factory(App\TicketTypePayment::class)->make();
+                goto repeat;
+            }
+        }
     }
 }
