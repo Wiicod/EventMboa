@@ -21,12 +21,13 @@
 
 - creer et editer un evenement
 - choisir le mode de paiement du billet
-- partie admin
+- partie admin OK
 - partager un event
 
 - Point de distribution des billet
 
 Evaris
 Remerber token est null quand je cree un compte sur l'interface
-la mise à jour d'une personne qui n'a pas d'image est impossible a cause de l'image  Erreur:"Call to a member function getClientOriginalName() on a non-object"
+la mise à jour d'une personne qui n'a pas d'image est impossible a cause de l'image Erreur:"Call to a member function getClientOriginalName() on a non-object"
 impossible de supprimer un participant
+la route de ticket ne marche pas
