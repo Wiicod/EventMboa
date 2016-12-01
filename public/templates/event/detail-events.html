@@ -149,6 +149,19 @@
                                 <input type="number" min="1" max="{{t.max_command}}" ng-model="t.qte"
                                        class="form-control"/>
                             </div>
+                            <div class="col-lg-12">
+                                <ff translate>Mode de paiement</ff> : <span class="blue">{{mode}}</span>
+                            </div>
+                        </div>
+                        <div class="row hide">
+                            <div class="col-lg-12">
+                                <ff translate>Mode de paiement</ff><br/>
+                                <select ng-model="mode_paiement"  class="form-control"
+                                        ng-options="m.id_mode as m.name for m in mode"
+                                        >
+                                    <option value="" disabled><ff translate>Mode de paiement</ff></option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>

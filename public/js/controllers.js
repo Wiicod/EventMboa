@@ -16,17 +16,15 @@ controller
             });
 
         }])
-    .controller('PaypalCtrl', ['$scope', 'Restangular', '$sce', '$window',
+    .controller('PaypalCtrl', ['$scope', 'Restangular', '$sce', '$window','$stateParams',
         function ($scope, Restangular, $sce, $window) {
 
             $scope.test = function () {
                 $scope.part = {
-                    "ticket_id": 1,
+                    "ticket_id": 7,
                     "number": 3,
-                    "name": "Foris",
-                    "email": "test@gmail.com",
-                    "phone": "564 798 123 456",
-                    "type_payment": 1,
+                    "user_id":19,
+                    "type_payment": 3
 
 
                 };
@@ -424,10 +422,11 @@ controller
     .controller('DetailEventCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'Restangular', '$cookies', '$auth', function ($scope, $stateParams, $state, $rootScope, Restangular, $cookies, $auth) {
         var nom = $stateParams.nom.split("/")[1];
         var id = parseInt(nom.substring(4, nom.length));
+        $scope.mode=[];
         //console.log(id);
         Restangular.one('event', id).get().then(function (data) {
             //console.log(data);
-            var t = data.banner_picture.substring(0, 10);
+            var t   = data.banner_picture.substring(0, 10);
             t += "/" + data.banner_picture.substring(11, data.banner_picture.length);
             data.banner_picture = t;
             var d = new Date(data.start_date);
@@ -436,6 +435,18 @@ controller
             data.date_fin = jour[d.getDay()] + " " + d.getDate() + " " + mois[d.getMonth()] + " " + (d.getYear() + 1900);
             Restangular.one('town', data.adress.town_id).get().then(function (t) {
                 data.town = t;
+            });
+            // recuperation du mode de paiement
+            angular.forEach(data.tickets,function(t,v){
+                Restangular.all("ticket_type_payment").getList({ticket_id: t.id}).then(function(pay){
+                    angular.forEach(pay,function(type,kk){
+                        if(type.ticket_id== t.id){
+                            $scope.tag=type.type_payment.tag;
+                            $scope.mode=type.type_payment.name;
+                            t.type_payment=type.id
+                        }
+                    });
+                });
             });
             $scope.event = data;
         }, function (err) {
@@ -454,6 +465,10 @@ controller
             }
 
         };
+
+        // recuperation des modes paiements
+
+
         var participants=Restangular.all("participant");
         $scope.acheterBillet=function(t){
             if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
@@ -461,13 +476,30 @@ controller
                 var ticket_id="";
                 angular.forEach(t,function(b,k){
                     if(b.qte>0){
-                        participants.post({number: b.qte,name: u.person.first_name+" "+ u.person.last_name,
-                            phone: u.person.cell_phone,user_id: u.id,ticket_id: b.id,email: u.email});
-                        ticket_id+= b.id+"+";
+                        //console.log(b);
+                        if(u.person==null){
+                            alert("Impossible d'enregistrer votre demande : Manque d'informations sur l'utilisateur. Merci de renseigner vos informations personnelles");
+                        }
+                        else{
+                            if($scope.tag=='pp'){
+
+                            }
+                            else{
+                                console.log({number: b.qte,user_id: u.id,ticket_id: b.id,type_payment: b.type_payment});
+                                participants.post({
+                                    number: b.qte,user_id: u.id,ticket_id: b.id,type_payment: b.type_payment
+                                });
+                                ticket_id+= b.id+"+";
+                            }
+                        }
                     }
                 });
-                // redirection vers mode de paiement
-                $state.go("paiement",{user_id: u.id,ticket_id:ticket_id,event_id:id});
+                if($scope.tag=='pp'){
+                    // redirection vers paypal
+                }
+                else{
+                    $state.go("paiement",{user_id: u.id,ticket_id:ticket_id,event_id:id});
+                }
             }
             else {
                 $rootScope.next = {name: $state.current.name, params: $state.params};
@@ -485,6 +517,16 @@ controller
             var user_id=$stateParams.user_id;
             var event_id=$stateParams.event_id;
 
+            $(".modal-backdrop").hide();
+
+            // chargement du mobile receiver
+            Restangular.one("ticket",tickets_id[0]).get().then(function(ticket){
+                var id_mr=ticket.type_payments[0].id;
+                Restangular.one("mobile_receiver",id_mr).get().then(function(mo){
+                    $scope.phone=mo.phone;
+                });
+            });
+
             Restangular.one("event",event_id).get().then(function(data){
                 $scope.event=data;
             });
@@ -497,8 +539,10 @@ controller
                     angular.forEach(tickets_id,function(id,k){
                         if(id!=""&&id!=undefined){
                             var b=$filter('filter')(data,{ticket_id:id})[0];
-                            $scope.billets.push({id: b.id,quantite:b.number,ticket: b.ticket});
-                            $scope.montant+= b.number* b.ticket.amount;
+                            if(b!=undefined){
+                                $scope.billets.push({id: b.id,quantite:b.number,ticket: b.ticket});
+                                $scope.montant+= b.number* b.ticket.amount;
+                            }
                         }
                     });
                 });
@@ -510,7 +554,16 @@ controller
             };
 
             $scope.annulerCommande=function(b){
-                console.log(b);
+                Restangular.all("participant").getList({ticket_id: b.ticket.id}).then(function(data){
+                    angular.forEach(data,function(partici,kk){
+                        if(partici.user_id==$scope.user.id){
+                            $scope.montant-=partici.ticket.amount;
+                            //partici.remove();
+                        }
+                    });
+                });
+
+                //$state.go("details",{nom:$scope.event.name+"/0000"+$scope.event.id});
             }
 
         }
@@ -665,8 +718,8 @@ controller
                 Restangular.all("participant").getList({ticket_id:$state.params.id}).then(function(d){
                     angular.forEach(d,function(p,k){
                         if(p.user_id==$scope.user.id){
-                            d.remove();
-                            //$state.go("billet");
+                            Restangular.one("participant", d[0].id).remove();
+                            $state.go("billet");
                         }
                     });
                 })

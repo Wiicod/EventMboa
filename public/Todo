@@ -1,33 +1,28 @@
-===========
-= A faire =
-===========
-- gerer les loading
-- gerer le scroll
-- hover sur catégorie type te billet
-- enlever le rafraichissement du token
+============
+= Priorité =
+============
+la langue
+image de l'événement
+alerte pour la validation des formulaires
+le mode de paiement d'un evenement doit etre le même pour tous les billets
 
-- gerer google map
+==============
+= Si content =
+==============
 
-- creer un organisateur on dit erreur le champ image est requis alors qu'il est là (vagrant)
-
-- gerer le translate des titres qui sont définis dans le scope
-- gérer le changement automatique de la langue a partir du footer (EVARIS)
+- gerer la publicité : choix des positions
 
 - detail d'un billet : faire les actions des 3 boutons
-- page d'aide [OK]
 - create event : faire les actions des boutons
 
 <A HREF="mailto:san@antonio.net">san@antonio.net</A>
 
 - creer et editer un evenement
-- choisir le mode de paiement du billet
-- partie admin OK
-- partager un event
+- partager un event enlever
 
-- Point de distribution des billet
+- Point de distribution des billet à
 
 Evaris
 Remerber token est null quand je cree un compte sur l'interface
 la mise à jour d'une personne qui n'a pas d'image est impossible a cause de l'image Erreur:"Call to a member function getClientOriginalName() on a non-object"
 impossible de supprimer un participant
-la route de ticket ne marche pas

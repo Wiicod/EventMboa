@@ -36,33 +36,26 @@
                                 <div class="clearfix"></div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row-fluid">
                             <ff class="bold" translate>Montant à payer</ff> : <span class="blue bold">{{montant}} Fcfa</span>
                         </div>
                         <form class="row" ng-submit="validerPaiement(mode_paiement,numero_om)">
                             <div class="col-lg-8">
-                                <div class="form-group">
-                                    <label>Mode de paiement</label>
-                                    <select class="form-control" ng-model="mode_paiement">
-                                        <option value="" disabled translate>Selectionner le mode de paiement</option>
-                                        <option value="om" translate>Orange Mone</option>
-                                        <option value="paypal" translate>PayPal</option>
-                                    </select>
-                                </div>
 
-                                <div class="form-group" ng-if="mode_paiement=='om'">
+                                <div class="form-group">
                                     <p translate>Afin de valider votre achat, bien vouloir effectuer le transfert Orange Money du dit montant au numéro de téléphone ci-dessous.</p>
-                                    <p class="blue">+ XXX XXX XXX XXX</p>
+                                    <p class="blue">{{phone}}</p>
                                     <p translate>Pour des soucis de validation, bien vouloir renseigner le numéro orange money avec lequel vous comptez faire le trasfert</p>
-                                    <label translate>Numéro Orange money de la trasaction</label>
+                                    <label translate>Numéro Orange money de la transaction</label>
                                     <input type="text" ng-model="numero_om" class="form-control" placeholder="+ 237 696 696 696"/>
 
-                                    <button class="btn btn-main" type="submit" translate>
+                                    <button class="btn btn-main" type="submit" translate ng-if="montant>0">
                                         Valider
                                     </button>
-                                </div>
-                                <div class="form-group" ng-if="mode_paiement=='paypal'" translate>
-                                    Zone reservée aux corrdonées PayPal
+                                    <a class="btn btn-main" ui-sref="details({nom:event.name+'/0000'+event.id})" translate ng-if="montant<=0">
+                                        Retour
+                                    </a>
+
                                 </div>
                             </div>
                         </form>

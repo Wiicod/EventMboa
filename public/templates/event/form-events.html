@@ -50,7 +50,7 @@
                         <label for="adresse" translate>Adresse </label>
                         <input type="text" id="adresse" ng-model="e.adress.name"
                                placeholder="{{'Précisez où il est organisé'|translate}}" class="form-control"/>
-                        <div>
+                        <div class="hide">
                             <a ng-click="lieu='ligne'"><i class="fa fa-globe"></i>
                                 <ff translate>Evenement en ligne</ff>
                             </a>
@@ -60,7 +60,7 @@
                             </a>
                         </div>
 
-                        <div class="row" style="margin-top: 10px" ng-if="lieu=='adresse'">
+                        <div class="row" style="margin-top: 10px" ng-if="e.adress.name!=null">
                             <div class="col-lg-8">
                                 <div class="form-group">
                                     <input type="text" ng-model="e.adress.name" placeholder="{{'Adresse'|translate}}"
@@ -75,14 +75,6 @@
                                             <ff translate>Sélectionnez votre ville</ff>
                                         </option>
                                     </select>
-                                    <!--<div class="row">-->
-                                    <!--<div class="col-lg-6 col-sm-6">-->
-                                    <!--<input type="text" ng-model="e.adresse.region" placeholder="{{'Région'|translate}}" class="form-control"/>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-lg-6 col-sm-6">-->
-                                    <!-- -->
-                                    <!--</div>-->
-                                    <!--</div>-->
                                     <input type="number" ng-model="e.adress.post_box"
                                            placeholder="{{'Boîte postale'|translate}}" class="form-control"/>
                                     <select ng-model="e.adress.country" class="form-control"
@@ -98,9 +90,9 @@
                                 </div>
 
                             </div>
-                            <div class="col-lg-4">
-                                <div class="map"></div>
-                            </div>
+                            <!--<div class="col-lg-4">-->
+                                <!--<div class="map"></div>-->
+                            <!--</div>-->
                         </div>
                     </div>
 
@@ -111,11 +103,11 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-sm-6">
                                         <input type="text" class="form-control" ng-model="e.start_date"
-                                               placeholder="10/09/2015"/>
+                                               placeholder="aaaa/mm/jj"/>
                                     </div>
                                     <div class="col-lg-6 col-sm-6">
                                         <input type="text" class="form-control" ng-model="e.start_hour"
-                                               placeholder="10:30"/>
+                                               placeholder="hh:mm"/>
                                     </div>
                                 </div>
                             </div>
@@ -124,11 +116,11 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-sm-6">
                                         <input type="text" class="form-control" ng-model="e.end_date"
-                                               placeholder="20/09/2015"/>
+                                               placeholder="aaaa/mm/jj"/>
                                     </div>
                                     <div class="col-lg-6 col-sm-6">
                                         <input type="text" class="form-control" ng-model="e.end_hour"
-                                               placeholder="20:50"/>
+                                               placeholder="hh:mm"/>
                                     </div>
                                 </div>
                             </div>
