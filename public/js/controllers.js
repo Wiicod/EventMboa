@@ -16,17 +16,15 @@ controller
             });
 
         }])
-    .controller('PaypalCtrl', ['$scope', 'Restangular', '$sce', '$window',
+    .controller('PaypalCtrl', ['$scope', 'Restangular', '$sce', '$window','$stateParams',
         function ($scope, Restangular, $sce, $window) {
 
             $scope.test = function () {
                 $scope.part = {
-                    "ticket_id": 1,
+                    "ticket_id": 7,
                     "number": 3,
-                    "name": "Foris",
-                    "email": "test@gmail.com",
-                    "phone": "564 798 123 456",
-                    "type_payment": 1,
+                    "user_id":19,
+                    "type_payment": 3
 
 
                 };
@@ -47,14 +45,15 @@ controller
     .controller('AuthCtrl', ['$scope', '$auth', '$state', '$stateParams', '$cookies', 'Restangular', '$rootScope',
         function ($scope, $auth, $state, $stateParams, $cookies, Restangular, $rootScope) {
         $scope.message="";
+        //$cookies.putObject("user",undefined);
 
         $scope.signup = function () {
             $auth.signup($scope.auth).then(function (response) {
                 // tu stocke xa dans le rootScope au cas ou !!!
-                console.log(response.data.user);
                 $auth.setToken(response.data.token);
                 console.info('Signup  successfully.');
                 Restangular.one('authenticated-user').get().then(function (data) {
+                    data.user.hash=$scope.auth.password;
                     $cookies.putObject("user", data.user, {path: '/'});
                 });
                 $state.go('home');
@@ -70,15 +69,16 @@ controller
                 var t = response.data.token;
                 $auth.setToken(t);
                 console.info('Logged in successfully.');
+                Restangular.one('authenticated-user').get().then(function (data) {
+                    data.user.hash=$scope.auth.password;
+                    $cookies.putObject("user", data.user, {path: '/'});
+                });
                 if ($rootScope.next != undefined) {
                     $state.go($rootScope.next.name, $rootScope.next.params);
                     //window.location.reload();
                 } else {
                     $state.go('home');
                 }
-                Restangular.one('authenticated-user').get().then(function (data) {
-                    $cookies.putObject("user", data.user, {path: '/'});
-                });
             }, function (error) {
                 console.error(error);
                 $scope.message = "Paramètres de connexion invalides";
@@ -342,7 +342,7 @@ controller
             }
 
         };
-        console.log("Event", searchKey);
+
         $scope.categories = [];
         $scope.types = [];
         $scope.par_page = 12;
@@ -422,10 +422,11 @@ controller
     .controller('DetailEventCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'Restangular', '$cookies', '$auth', function ($scope, $stateParams, $state, $rootScope, Restangular, $cookies, $auth) {
         var nom = $stateParams.nom.split("/")[1];
         var id = parseInt(nom.substring(4, nom.length));
-        console.log(id);
+        $scope.mode=[];
+        //console.log(id);
         Restangular.one('event', id).get().then(function (data) {
-            console.log(data);
-            var t = data.banner_picture.substring(0, 10);
+            //console.log(data);
+            var t   = data.banner_picture.substring(0, 10);
             t += "/" + data.banner_picture.substring(11, data.banner_picture.length);
             data.banner_picture = t;
             var d = new Date(data.start_date);
@@ -434,6 +435,18 @@ controller
             data.date_fin = jour[d.getDay()] + " " + d.getDate() + " " + mois[d.getMonth()] + " " + (d.getYear() + 1900);
             Restangular.one('town', data.adress.town_id).get().then(function (t) {
                 data.town = t;
+            });
+            // recuperation du mode de paiement
+            angular.forEach(data.tickets,function(t,v){
+                Restangular.all("ticket_type_payment").getList({ticket_id: t.id}).then(function(pay){
+                    angular.forEach(pay,function(type,kk){
+                        if(type.ticket_id== t.id){
+                            $scope.tag=type.type_payment.tag;
+                            $scope.mode=type.type_payment.name;
+                            t.type_payment=type.id
+                        }
+                    });
+                });
             });
             $scope.event = data;
         }, function (err) {
@@ -452,6 +465,112 @@ controller
             }
 
         };
+
+        // recuperation des modes paiements
+
+
+        var participants=Restangular.all("participant");
+        $scope.acheterBillet=function(t){
+            if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
+                var u=$cookies.getObject("user");
+                var ticket_id="";
+                angular.forEach(t,function(b,k){
+                    if(b.qte>0){
+                        //console.log(b);
+                        if(u.person==null){
+                            alert("Impossible d'enregistrer votre demande : Manque d'informations sur l'utilisateur. Merci de renseigner vos informations personnelles");
+                        }
+                        else{
+                            if($scope.tag=='pp'){
+
+                            }
+                            else{
+                                console.log({number: b.qte,user_id: u.id,ticket_id: b.id,type_payment: b.type_payment});
+                                participants.post({
+                                    number: b.qte,user_id: u.id,ticket_id: b.id,type_payment: b.type_payment
+                                });
+                                ticket_id+= b.id+"+";
+                            }
+                        }
+                    }
+                });
+                if($scope.tag=='pp'){
+                    // redirection vers paypal
+                }
+                else{
+                    $state.go("paiement",{user_id: u.id,ticket_id:ticket_id,event_id:id});
+                }
+            }
+            else {
+                $rootScope.next = {name: $state.current.name, params: $state.params};
+                $state.go("login");
+            }
+        };
+
+    }])
+
+    .controller('PaiementCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$cookies', '$auth','$rootScope','$state', function ($scope, $stateParams, $filter, Restangular, $cookies, $auth,$rootScope,$state) {
+        if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
+            $scope.user = $cookies.getObject("user");
+            var u = $cookies.getObject("user");
+            var tickets_id=$stateParams.ticket_id.split("+");
+            var user_id=$stateParams.user_id;
+            var event_id=$stateParams.event_id;
+
+            $(".modal-backdrop").hide();
+
+            // chargement du mobile receiver
+            Restangular.one("ticket",tickets_id[0]).get().then(function(ticket){
+                var id_mr=ticket.type_payments[0].id;
+                Restangular.one("mobile_receiver",id_mr).get().then(function(mo){
+                    $scope.phone=mo.phone;
+                });
+            });
+
+            Restangular.one("event",event_id).get().then(function(data){
+                $scope.event=data;
+            });
+
+            if(u.id==user_id){
+                var participants=Restangular.all("participant");
+                $scope.billets=[];
+                $scope.montant=0;
+                participants.getList({user_id: u.id}).then(function(data){
+                    angular.forEach(tickets_id,function(id,k){
+                        if(id!=""&&id!=undefined){
+                            var b=$filter('filter')(data,{ticket_id:id})[0];
+                            if(b!=undefined){
+                                $scope.billets.push({id: b.id,quantite:b.number,ticket: b.ticket});
+                                $scope.montant+= b.number* b.ticket.amount;
+                            }
+                        }
+                    });
+                });
+
+            }
+
+            $scope.validerPaiement=function(mode,numero){
+                alert("En cours de réalisation");
+            };
+
+            $scope.annulerCommande=function(b){
+                Restangular.all("participant").getList({ticket_id: b.ticket.id}).then(function(data){
+                    angular.forEach(data,function(partici,kk){
+                        if(partici.user_id==$scope.user.id){
+                            $scope.montant-=partici.ticket.amount;
+                            //partici.remove();
+                        }
+                    });
+                });
+
+                //$state.go("details",{nom:$scope.event.name+"/0000"+$scope.event.id});
+            }
+
+        }
+        else{
+            $rootScope.next = {name: $state.current.name, params: $state.params};
+            $state.go("login");
+        }
 
     }])
 
@@ -594,6 +713,17 @@ controller
                 });
 
             });
+
+            $scope.annulerCommande=function(){
+                Restangular.all("participant").getList({ticket_id:$state.params.id}).then(function(d){
+                    angular.forEach(d,function(p,k){
+                        if(p.user_id==$scope.user.id){
+                            Restangular.one("participant", d[0].id).remove();
+                            $state.go("billet");
+                        }
+                    });
+                })
+            };
         }
 
     }])
@@ -661,52 +791,34 @@ controller
         }
     }])
 
-    .controller('CompteCtrl', ['$scope', '$filter', 'Restangular', '$state', '$cookies', '$auth', function ($scope, $filter, Restangular, $state, $cookies, $auth) {
+    .controller('CompteCtrl', ['$scope', '$filter', 'Restangular', '$state', '$cookies', '$auth','$timeout', function ($scope, $filter, Restangular, $state, $cookies, $auth,$timeout) {
         if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
             $scope.compte = $cookies.getObject("user");
-            Restangular.one("adress", $scope.compte.person.adress_id).get().then(function (a) {
-                Restangular.one("country", a.town.country_id).get().then(function (c) {
-                    a.town.country = c;
-                });
-                $scope.compte.person.adress = a;
-            });
+            $scope.user_auth=$cookies.getObject("user");
+            var allPerson=Restangular.all('person');
+            var allAdress=Restangular.all('adress');
             Restangular.all("country").getList().then(function (c) {
                 $scope.pays = c;
             });
-            console.log($scope.compte);
-            var d = new Date($scope.compte.person.birthdate);
-            $scope.compte.jour = d.getDate();
-            $scope.compte.mois = d.getMonth() + 1;
-            $scope.compte.annee = d.getYear() + 1900;
+            Restangular.all("town").getList().then(function (t) {
+                $scope.ville = t;
+            });
+            if($scope.compte.person!=null){
+                Restangular.one("adress", $scope.compte.person.adress_id).get().then(function (a) {
+                    $scope.compte.person.adress = a;
+                });
+
+                var d = new Date($scope.compte.person.birthdate);
+                $scope.compte.jour = d.getDate();
+                $scope.compte.mois = d.getMonth() + 1;
+                $scope.compte.annee = d.getYear() + 1900;
+            }
             $scope.email = $scope.compte.email;
             $scope.user_event = undefined;
             $scope.no_image = true;
             $scope.modMail = false;
 
-            //$scope.annees=[];
-            //$scope.mois=[
-            //    {valeur:1,name:'Janvier'},
-            //    {valeur:2,name:'Février'},
-            //    {valeur:3,name:'Mars'},
-            //    {valeur:4,name:'Avril'},
-            //    {valeur:5,name:'Mai'},
-            //    {valeur:6,name:'Juin'},
-            //    {valeur:7,name:'Juillet'},
-            //    {valeur:8,name:'Août'},
-            //    {valeur:9,name:'Septembre'},
-            //    {valeur:10,name:'Octobre'},
-            //    {valeur:11,name:'Novembre'},
-            //    {valeur:12,name:'Décembre'}
-            //    ];
-            //$scope.jours=[];
-            ////for(var i=new Date().getFullYear();i>new Date().getFullYear()-80;i--){
-            //    $scope.annees.push(i);
-            //}
-            //
-            //for(i=1;i<32;i++){
-            //    $scope.jours.push(i);
-            //}
-
+            console.log($scope.compte);
             $scope.click_im = function () {
                 $("#im").trigger("click");
             };
@@ -720,26 +832,104 @@ controller
             };
 
             $scope.modifierEmail = function (u, e) {
-                //console.log(u,e);
-                Restangular.one("user", u.user.id).get().then(function (user) {
-                    console.log(user);
-                    user.paypal_email = e.email;
-                    user.put();
-                    $scope.paypal = user.paypal_email;
-                });
+                if(e.password == u.hash){
+                    Restangular.one("user", u.id).get().then(function (user) {
+                        user.email= e.email;
+                        user.put();
+                        $scope.message="Email mis à jour";
+
+                    },function(b){
+                        $scope.message="Echec de la mise à jour";
+                        console.log(b);
+                    });
+                }
+                else{
+                    $scope.message="Mot de passe incorrect";
+                }
+                $timeout(function(){
+                    $scope.message="";
+                    $scope.modMail = false;
+                },5000);
             };
 
             $scope.enregistrerCompte = function (c) {
-                console.log(c);
+                c.person.birthdate= c.annee+"-"+ c.mois+"-"+ c.jour;
+                //http://www.www.ww +(222)414141414
+                c.person.user_id=$scope.compte.id;
+                // ajout de l'adresse
+                allAdress.post(c.person.adress);
+                allAdress.getList().then(function(data){
+                    var a=_.filter(data,function(e){
+                       if(e.name== c.person.adress.name && e.street== c.person.adress.street && e.post_box== c.person.adress.post_box ){
+                           return e;
+                       }
+                    });
+                    console.log(a);
+                    c.person.adress_id= a[0].id;
+                    allPerson.post(c.person);
+                    $scope.compte.person= c.person;
+                    $cookies.putObject("user",$scope.compte);
+                });
+
             };
 
             $scope.choix = $state.current.name;
 
             $scope.enregistrerSociaux = function (s) {
-                console.log(s);
+                var u=$scope.compte;
+                Restangular.one("person", u.person.id).get().then(function (person) {
+                    person.birthdate=person.birthdate.split(" ")[0];
+                    if(u.person.facebook!="" && u.person.facebook!=person.facebook){
+                        person.facebook= u.person.facebook;
+                    }
+                    if(u.person.google!="" && u.person.google!=person.google){
+                        person.google= u.person.google;
+                    }
+                    if(u.person.instagram!="" && u.person.instagram!=person.instagram){
+                        person.instagram= u.person.instagram;
+                    }
+                    if(u.person.twitter!="" && u.person.twitter!=person.twitter){
+                        person.twitter= u.person.twitter;
+                    }
+                    if(u.person.linkedin!="" && u.person.linkedin!=person.linkedin){
+                        person.linkedin= u.person.linkedin;
+                    }
+                    person.put();
+                    $scope.message="Paramètres sociaux mis à jour";
+                    $cookies.putObject("user",u);
+
+                },function(b){
+                    $scope.message="Echec de la mise à jour";
+                    console.log(b);
+                });
             };
             $scope.modifierMotDePasse = function (m) {
-                console.log(m);
+                var u=$scope.compte;
+                if(m.old == u.hash){
+                    if(m.new == m.reNew){
+                        Restangular.one("user", u.id).get().then(function (user) {
+                            user.password= m.reNew;
+                            user.put();
+                            $scope.message="Mot de passe mis à jour";
+                            u.hash= m.reNew;
+                            $cookies.putObject("user",u);
+
+                        },function(b){
+                            $scope.message="Echec de la mise à jour";
+                            console.log(b);
+                        });
+                    }
+                    else{
+                        $scope.message="Les mots de passe ne correspondent pas";
+                    }
+                }
+                else{
+                    $scope.message="Mot de passe incorrect";
+                }
+                $timeout(function(){
+                    $scope.message="";
+                    $scope.modMail = false;
+                },5000);
             };
         }
     }])
@@ -796,6 +986,16 @@ controller
            console.log($scope.theFile);
            $("#image").fadeIn("fast").attr("src",URL.createObjectURL($scope.theFile));
        }
+    }])
+
+    .controller('AideCtrl',['$scope','Restangular',function($scope,Restangular){
+        $scope.par_page=7;
+        Restangular.all("help").getList().then(function(aide){
+            $scope.aide=aide;
+        });
+        Restangular.all("publicity").getList().then(function(pub){
+            console.log(pub);
+        });
     }])
 
     .controller('GestionCtrl', ['$scope', '$state', '$filter', 'Restangular', '$cookies', '$auth', function ($scope, $state, $filter, Restangular, $cookies, $auth) {

@@ -78,7 +78,7 @@ Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
     Route::get('/event/{event}', 'EventController@show');
 //    Route::get('/event_topic', 'EventTopicController@index');
 //    Route::get('/event_topic/{event_topic}', 'EventTopicController@show');
-    Route::resource('event_topic', 'EventTopicController');
+Route::resource('event_topic', 'EventTopicController');
 
     Route::get('/event_type', 'EventTypeController@index');
     Route::get('/event_type/{event_type}', 'EventTypeController@show');
@@ -94,19 +94,13 @@ Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
     Route::resource('help', 'HelpController');
     Route::resource('adress', 'AdressController');
 //    Route::resource('adress', 'AdressController');
-    Route::resource('user', 'UserController');
+Route::resource('user', 'UserController');
 });
 
 
 Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function () {
 
     Route::get('/refresh', 'AuthenticateController@refreshToken');
-
-});
-
-
-Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function () {
-
     Route::get('authenticated-user', 'AuthenticateController@get_authenticated_user');
 
 
@@ -141,6 +135,46 @@ Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function
 
     Route::resource('type_payment', 'TypePaymentController');
 //    Route::resource('user', 'UserController');
+});
+
+
+Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function () {
+
+//    Route::get('/refresh', 'AuthenticateController@refreshToken');
+//    Route::get('authenticated-user', 'AuthenticateController@get_authenticated_user');
+//
+//
+//    Route::put('/event/{event}', 'EventController@update');
+//    Route::delete('event/{event}', 'EventController@destroy');
+//    Route::post('event', 'EventController@store');
+//
+//    Route::put('/adress/{adress}','AdressController@update');
+//    Route::delete('adress/{adress}','AdressController@destroy');
+//    Route::post('adress','AdressController@store');
+//
+//    Route::put('/organizer/{organizer}','OrganizerController@update');
+//    Route::delete('organizer/{organizer}','OrganizerController@destroy');
+//    Route::post('organizer','OrganizerController@store');
+//
+//    Route::resource('contact', 'ContactController');
+////    Route::resource('country', 'CountryController');
+//    Route::resource('distribution_point', 'DistributionPointController');
+////    Route::resource('event', 'EventController');
+//    Route::resource('event_link', 'EventLinkController');
+////    Route::resource('event_topic', 'EventTopicController');
+////    Route::resource('event_type', 'EventTypeController');
+//
+//    Route::resource('intrested_event', 'IntrestedEventController');
+//    Route::resource('mobile_receiver', 'MobileReceiverController');
+//
+//    Route::resource('organizer', 'OrganizerController');
+//    Route::resource('participant', 'ParticipantController');
+//    Route::resource('person', 'PersonController');
+////    Route::resource('ticket', 'TicketController');
+//    Route::resource('ticket_type_payment', 'TicketTypePaymentController');
+//
+//    Route::resource('type_payment', 'TypePaymentController');
+////    Route::resource('user', 'UserController');
 
 
 });

@@ -14,6 +14,7 @@ class Participant extends Model
     private $foreign = ['user', 'ticket'];
     private $files = [];
 
+
     /**
      * @return array
      */
