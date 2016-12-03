@@ -221,7 +221,7 @@ controller
             $scope.loguer = true;
 
             if ($cookies.getObject("user") != undefined) {
-                Restangular.all("interested_event").getList({user_id: $cookies.getObject("user").id}).then(function (event) {
+                Restangular.all("intrested_event").getList({user_id: $cookies.getObject("user").id}).then(function (event) {
                     $scope.save = 0;
                     angular.forEach(event, function (e, k) {
                         if (e.event.status == "active") {
@@ -299,7 +299,7 @@ controller
             console.log(err);
         });
 
-        var rest_interest = Restangular.all("interested_event");
+        var rest_interest = Restangular.all("intrested_event");
 
         $scope.interest = function (e) {
             if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
@@ -331,7 +331,7 @@ controller
         var se = $rootScope.search;
         // console.log(se);
         var searchKey = $rootScope.searchKey;
-        var rest_interest = Restangular.all("interested_event");
+        var rest_interest = Restangular.all("intrested_event");
         $scope.interest = function (e) {
             if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
                 rest_interest.post({user_id: $cookies.getObject("user").id, event_id: e.old_id});
@@ -441,7 +441,7 @@ controller
         });
         $scope.qte = 0;
 
-        var rest_interest = Restangular.all("interested_event");
+        var rest_interest = Restangular.all("intrested_event");
         $scope.interest = function (e) {
             if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
                 rest_interest.post({user_id: $cookies.getObject("user").id, event_id: e.old_id});
@@ -521,7 +521,7 @@ controller
 
     .controller('BilletCtrl', ['$scope', '$state', '$filter', 'Restangular', '$cookies', '$auth', function ($scope, $state, $filter, Restangular, $cookies, $auth) {
         if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
-            Restangular.all("interested_event").getList({user_id: $cookies.getObject("user").id}).then(function (event) {
+            Restangular.all("intrested_event").getList({user_id: $cookies.getObject("user").id}).then(function (event) {
                 $scope.save = 0;
                 $scope.eventSave = [];
                 angular.forEach(event, function (e, k) {
