@@ -79,7 +79,7 @@ return [
     'timezone'             => 'The :attribute must be a valid zone.',
     'unique'               => 'The :attribute has already been taken.',
     'url'                  => 'The :attribute format is invalid.',
-    'sufficient' => 'The :attribute is over the remining availble places.',
+    'sufficient' => 'The :attribute is over the remaining availble places.',
     'required_paid' => 'The :attribute required when the chosen ticket is not free.',
     'is_in_ticket_method' => 'The :attribute must be liste in the given ticket payments methods.',
 //    'unique_with'          => 'The :attribute must be unique with :unique_with.',

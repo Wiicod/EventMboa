@@ -30,9 +30,15 @@ class RestHelper
         $data = Input::get();
         $fo = $ms->getForeign();
         $field = $ms->getFillable();
+        $dates = $ms->getDates();
         foreach ($data as $key => $value) {
             if (in_array($key, $field)) {
-                $ms = $ms->where($key, '=', $value);
+                if (in_array($key, $dates)) {
+                    $ms = $ms->whereDate($key, '=', $value);
+                } else {
+
+                    $ms = $ms->where($key, '=', $value);
+                }
             }
         }
 
