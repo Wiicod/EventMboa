@@ -44,7 +44,8 @@
                                         <div class="date">{{e.date_debut}}</div>
                                         <div class="titre">{{e.name}}</div>
                                         <div class="lieu">
-                                            {{e.description|limitTo:50}}
+                                            <ff translate>Prix</ff> : <span class="blue bold">{{e.montant}} Fcfa</span> |
+                                            <ff translate>Nombre de ticket</ff> : <span class="blue bold">{{e.quantite}}</span>
                                             <!--Commande n° {{e.billet.numero_commande}} de {{e.billet.quantity}} Billets le {{e.billet.date}} -->
                                         </div>
                                     </div>

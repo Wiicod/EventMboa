@@ -10,19 +10,16 @@ le mode de paiement d'un evenement doit etre le même pour tous les billets
 = Si content =
 ==============
 
-- gerer la publicité : choix des positions
+- gerer la publicité : choix des positions [OK]
 
-- detail d'un billet : faire les actions des 3 boutons
+- detail d'un billet : faire les actions des 2 boutons [OK]
+
 - create event : faire les actions des boutons
 
-<A HREF="mailto:san@antonio.net">san@antonio.net</A>
+Que se passe t'il quand il entre le numéro qui ferra le orange money?
 
 - creer et editer un evenement
 - partager un event enlever
 
 - Point de distribution des billet à
 
-Evaris
-Remerber token est null quand je cree un compte sur l'interface
-la mise à jour d'une personne qui n'a pas d'image est impossible a cause de l'image Erreur:"Call to a member function getClientOriginalName() on a non-object"
-impossible de supprimer un participant

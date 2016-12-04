@@ -37,16 +37,27 @@
         <div class="row">
 
             <div class="col-lg-3">
-                <div class="btn btn-main btn-block" translate="">Imprimer les billets</div>
-                <div class="btn btn-main btn-reverse btn-block" translate ng-click="annulerCommande()">Annuler la commande</div>
-                <div class="btn btn-main btn-reverse btn-block">
+                <!--<div class="btn btn-main btn-block" translate="">Imprimer les billets</div>-->
+                <a href="mailto:{{organizer.email}}" class="btn btn-main btn-block">
                     <ff translate>Contacter</ff>
                     <br/>
                     <ff translate>l'organisateur</ff>
-                </div>
+                </a>
+                <div class="btn btn-main btn-reverse btn-block" translate ng-click="annulerCommande()">Annuler la commande</div>
             </div>
 
             <div class="col-lg-8" style="background: #fff">
+                <h3 translate>Détails du billet</h3>
+                <div class="row-fluid">
+                    <h4 class="blue">{{billet.name}}</h4>
+                    <p>{{billet.description}}</p>
+                    <div>
+                        <ff translate>Nombre de ticket</ff> : <span class="blue bold">{{billet.quantite}}</span> |
+                        <ff translate>Prix</ff> : <span class="blue bold">{{billet.amount}} Fcfa</span> |
+                        <ff translate>Point de distribution</ff> : <span class="blue bold">{{billet.distribution_points[0].name}}</span>
+                    </div>
+                </div>
+
                 <h3 translate>Coordonnées</h3>
                 <table class="table">
                     <tbody>

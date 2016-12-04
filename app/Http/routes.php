@@ -71,6 +71,7 @@ Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
     Route::post('/signup', 'AuthenticateController@signup');
     Route::post('/signin', 'AuthenticateController@signin');
 
+    Route::resource('publicity', 'PublicityController');
 
     Route::post('/participant', ['as' => 'original.route', 'uses' => 'ParticipantController@store']);
 
@@ -126,7 +127,6 @@ Route::group(['prefix' => '/api', 'middleware' => ['web', 'jwt.auth']], function
 
     Route::resource('intrested_event', 'IntrestedEventController');
     Route::resource('mobile_receiver', 'MobileReceiverController');
-    Route::resource('publicity', 'PublicityController');
     Route::resource('organizer', 'OrganizerController');
     Route::resource('participant', 'ParticipantController', ['except' => 'post']);
     Route::resource('person', 'PersonController');

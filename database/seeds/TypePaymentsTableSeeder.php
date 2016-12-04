@@ -23,11 +23,6 @@ class TypePaymentsTableSeeder extends Seeder
                 "name" => "Orange Money",
                 "description" => "Payer le ticket en effectuant un transfert orange money",
                 "tag" => 'om'
-            ],
-            [
-                "name" => "Mtn Mobile Money",
-                "description" => "Payer le ticket en effectuant un transfert mtn mobile money",
-                "tag" => 'mmo'
             ]
         ];
         foreach ($types as $t) {

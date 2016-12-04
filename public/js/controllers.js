@@ -21,10 +21,10 @@ controller
 
             $scope.test = function () {
                 $scope.part = {
-                    "ticket_id": 7,
+                    "ticket_id": 11,
                     "number": 3,
                     "user_id":19,
-                    "type_payment": 3
+                    "type_payment": 2
 
 
                 };
@@ -299,6 +299,11 @@ controller
             console.log(err);
         });
 
+        // recuperation de la publicite
+        Restangular.all("publicity").getList({status:"home"}).then(function(pub){
+            $scope.pub=pub;
+        });
+
         var rest_interest = Restangular.all("intrested_event");
 
         $scope.interest = function (e) {
@@ -342,6 +347,12 @@ controller
             }
 
         };
+
+        // recuperation de la publicite
+        Restangular.all("publicity").getList({status:"listing"}).then(function(pub){
+            console.log(pub);
+            $scope.pub=pub;
+        });
 
         $scope.categories = [];
         $scope.types = [];
@@ -509,8 +520,9 @@ controller
 
     }])
 
-    .controller('PaiementCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$cookies', '$auth','$rootScope','$state', function ($scope, $stateParams, $filter, Restangular, $cookies, $auth,$rootScope,$state) {
+    .controller('PaiementCtrl', ['$scope', '$stateParams', '$filter', 'Restangular', '$cookies', '$auth','$rootScope','$state','$timeout', function ($scope, $stateParams, $filter, Restangular, $cookies, $auth,$rootScope,$state,$timeout) {
         if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
+
             $scope.user = $cookies.getObject("user");
             var u = $cookies.getObject("user");
             var tickets_id=$stateParams.ticket_id.split("+");
@@ -519,35 +531,38 @@ controller
 
             $(".modal-backdrop").hide();
 
-            // chargement du mobile receiver
-            Restangular.one("ticket",tickets_id[0]).get().then(function(ticket){
-                var id_mr=ticket.type_payments[0].id;
-                Restangular.one("mobile_receiver",id_mr).get().then(function(mo){
-                    $scope.phone=mo.phone;
-                });
-            });
-
-            Restangular.one("event",event_id).get().then(function(data){
-                $scope.event=data;
-            });
-
-            if(u.id==user_id){
-                var participants=Restangular.all("participant");
-                $scope.billets=[];
-                $scope.montant=0;
-                participants.getList({user_id: u.id}).then(function(data){
-                    angular.forEach(tickets_id,function(id,k){
-                        if(id!=""&&id!=undefined){
-                            var b=$filter('filter')(data,{ticket_id:id})[0];
-                            if(b!=undefined){
-                                $scope.billets.push({id: b.id,quantite:b.number,ticket: b.ticket});
-                                $scope.montant+= b.number* b.ticket.amount;
-                            }
-                        }
+            $timeout(function(){
+                Restangular.one("ticket",tickets_id[0]).get().then(function(ticket){
+                    var id_mr=ticket.type_payments[0].id;
+                    Restangular.one("mobile_receiver",id_mr).get().then(function(mo){
+                        $scope.phone=mo.phone;
                     });
                 });
 
-            }
+                Restangular.one("event",event_id).get().then(function(data){
+                    $scope.event=data;
+                });
+
+                if(u.id==user_id){
+                    var participants=Restangular.all("participant");
+                    $scope.billets=[];
+                    $scope.montant=0;
+                    participants.getList({user_id: u.id}).then(function(data){
+                        angular.forEach(tickets_id,function(id,k){
+                            if(id!=""&&id!=undefined){
+                                var b=$filter('filter')(data,{ticket_id:id})[0];
+                                if(b!=undefined){
+                                    $scope.billets.push({id: b.id,quantite:b.number,ticket: b.ticket});
+                                    $scope.montant+= b.number* b.ticket.amount;
+                                }
+                            }
+                        });
+                    });
+
+                }
+
+            },2000);
+            // chargement du mobile receiver
 
             $scope.validerPaiement=function(mode,numero){
                 alert("En cours de réalisation");
@@ -562,9 +577,8 @@ controller
                         }
                     });
                 });
-
-                //$state.go("details",{nom:$scope.event.name+"/0000"+$scope.event.id});
-            }
+                $state.go("details",{nom:$scope.event.name+"/0000"+$scope.event.id});
+            };
 
         }
         else{
@@ -662,6 +676,8 @@ controller
                         if (data.status == "active") {
                             data = formatEvent(data, Restangular, $scope, true);
                             data.billet = e.ticket.id;
+                            data.quantite=e.number;
+                            data.montant= e.ticket.amount;
                             $scope.eventOnline.push(data);
                         }
                     });
@@ -705,10 +721,19 @@ controller
         if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
             $scope.user = $cookies.getObject("user");
             Restangular.one("ticket", $state.params.id).get().then(function (data) {
+                // recuperation de l'organisateur
+                Restangular.one("organizer",data.event.organizer_id).get().then(function(o){
+                    $scope.organizer=o;
+                });
+                // recuperation des infos participant
+                Restangular.all("participant").getList({user_id:$scope.user.id,ticket_id:data.id}).then(function(p){
+                    data.quantite= p[0].number;
+                });
                 Restangular.one("adress", data.event.adress_id).get().then(function (adr) {
                     data.event.adress = adr;
                     data.event = formatEvent(data.event, Restangular, $scope, false);
                     data.created_at = formatDate(data.created_at);
+                    console.log(data);
                     $scope.billet = data;
                 });
 

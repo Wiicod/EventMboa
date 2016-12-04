@@ -1228,3 +1228,8 @@ ul .row{
 .modal .row{
     margin-bottom: 0px;
 }
+
+.pub .b-link-stroke .b-wrapper{
+    top:1em;
+    font-size: 12px;
+}

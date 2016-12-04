@@ -29,7 +29,7 @@
                 <div class="listing clearfix">
                     <div class="col-lg-6" style="margin-top: 10px">
                         <a title="Sauvegarder" style="margin-right: 5px"><i class="fa fa-bookmark-o fa-2x"></i></a>
-                        <a title="Partager" ng-click="interest(e)"><i class="fa fa-share-alt fa-2x"></i></a>
+                        <!--<a title="Partager" ng-click="interest(e)"><i class="fa fa-share-alt fa-2x"></i></a>-->
                     </div>
                     <div class="col-lg-6" style="text-align: right">
                         <div class="btn-white" ng-repeat="t in event.tickets">{{t.amount}} Fcfa</div>
@@ -107,10 +107,10 @@
                         {{event.organizer.description}}
                     </p>
                     <p class="option">
-                        <a ui-sref="profil{{event.organizer.name}}"><i class="fa fa-navicon"></i>
-                            <ff translate>Profil</ff>
-                        </a>
-                        <a ui-sref="contact-organisateur{{event.organisateur.email}}"><i class="fa fa-envelope-o"></i>
+                        <!--<a ui-sref="profil{{event.organizer.name}}"><i class="fa fa-navicon"></i>-->
+                            <!--<ff translate>Profil</ff>-->
+                        <!--</a>-->
+                        <a href="mailto:{{event.organizer.email}}"><i class="fa fa-envelope-o"></i>
                             <ff translate>Contactez</ff>
                         </a>
                     </p>
