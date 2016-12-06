@@ -7,26 +7,81 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="../../css/animate.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="../../css/bootstrap 3.3.0.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="../../css/font-awesome.css">
+    <!-- Owl Carousel  -->
+    <link rel="stylesheet" href="../../css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../css/owl.theme.default.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
+<header role="banner">
+    <div class="fluid-container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <!-- Mobile Toggle Menu Button -->
+                <a href="#" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+                <a class="navbar-brand logo" ui-sref="home">
+                    <img src="../../images/logo/256_2.png" alt=""/>
+                </a>
+                <!--<a class="navbar-brand logo" ui-sref="home">-->
+                <!--EventMboa-->
+                <!--</a>-->
+                <ul class="nav navbar-nav" ng-if="!lieu">
+                    <li class=""><a ui-sref="events({id:'',target:''})" data-nav-section="home"><span
+                            translate>Parcourir</span></a></li>
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class=""><a ui-sref="aide"><span translate>Aide</span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
 
-<h1>Requette reussie</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 translate>Paiement effectué avec succès</h1>
+            <table class="table">
+                <thead>
+                    <th translate>Nom</th>
+                    <th translate>Téléphone</th>
+                    <th translate>Email</th>
+                    <th translate>Nombre de ticket</th>
+                    <th translate>Intitulé du ticket</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{participant.name}}</td>
+                        <td>{{participant.phone}}</td>
+                        <td>{{participant.email}}</td>
+                        <td>{{participant.number}}</td>
+                        <td>{{participant.ticket.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 translate>Description du ticket</h3>
+            <p>
+                {{participant.ticket.description}}
+            </p>
 
-Nom :{{participant.name}}
-Tel :{{participant.phone}}
-Email :{{participant.email}}
-Nombre :{{participant.number}}
-Nom ticket : {{participant.ticket.name}}
-Description Ticket :{{participant.ticket.description}}
+            <div class="text-center">
+                <hr/>
+                <a ui-sref="events({id:'',target:''})" translate>Liste des événements</a>
+            </div>
 
-Qrcodes des billets :
-<hr>
-<div ng-repeat="q in participant.qrcodes">
-    <div ng-bind-html="q"></div>
-    <br>
-    <hr>
-
+        </div>
+    </div>
 </div>
+
 
 </body>
 </html>

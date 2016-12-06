@@ -23,7 +23,7 @@ class CreateOrganizersTable extends Migration
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
             $table->string('google')->nullable();
-            $table->string('web_site');
+            $table->string('web_site')->nullable();
             $table->timestamps();
         });
     }

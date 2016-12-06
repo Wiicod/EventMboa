@@ -89,6 +89,10 @@ controller
 
     .controller('CreateCtrl', ['$scope', '$filter', 'Restangular', '$cookies', '$state', '$auth', function ($scope, $filter, Restangular, $cookies, $state, $auth) {
         if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
+            var tickets=Restangular.all("ticket");
+            var payment=Restangular.all("ticket_type_payment");
+            var adresse=Restangular.all("adress");
+
             $scope.user = $cookies.getObject("user");
             $scope.message = "";
             $scope.option = "modifier";
@@ -99,12 +103,18 @@ controller
             if ($state.params.id != "" && $state.params.id != undefined) {
                 $scope.if_id = true;
                 $scope.id = $state.params.id;
+
+                // recuperation de l"évenement
+                Restangular.one("event",$scope.id).get().then(function(e){
+                    $scope.e=e;
+                });
             }
             $scope.e = {};
             $scope.e.confidentialite = "Public";
             $scope.e.organisateur = {};
+            $scope.e.billets = [];
             $scope.inclure = false;
-            $scope.billets = [];
+
             $scope.organisateurs = organisateurs;
 
             Restangular.all('town').getList().then(function (data) {
@@ -122,6 +132,10 @@ controller
             Restangular.all('organizer').getList({user_id: $scope.user.id}).then(function (o) {
                 $scope.organisateurs = o;
             });
+            Restangular.all('type_payment').getList().then(function(p){
+                $scope.payment=p;
+            });
+
 
             $scope.reset_adress = function () {
                 $scope.e.adress = {};
@@ -138,7 +152,7 @@ controller
 
             $scope.ajouter = function (type) {
                 $scope.type = type;
-                $scope.billets.push({type: type, id: $scope.billets.length + 1});
+                $scope.e.billets.push({type: type, id: $scope.e.billets.length + 1});
             };
 
             $scope.supprimer = function (billet) {
@@ -167,22 +181,55 @@ controller
                 if (fd.get('organizer_id') == null)
                     fd.append('user_id', $scope.user.id);
                 _.each($scope.e, function (val, key) {
-                    // console.log(val,key);
+                     console.log(val,key);
                     if (key == 'start_date') {
                         fd.append(key, val.split('/').join('-') + " " + $scope.e['start_hour'] + ":00");
                     } else if (key == 'end_date') {
                         fd.append(key, val.split('/').join('-') + " " + $scope.e['end_hour'] + ":00");
+                    //}
+                    //else if(key=="organizer"){
+                    //    _.each(val,function(v,k){
+                    //        if(k=="web_site" || k=="facebook" || k=="twitter" || k=="google" || k=="instagram" || k=="linkedin"){
+                    //            v="http://www."+v;
+                    //        }
+                    //    });
                     } else {
                         fd.append(key, val);
                     }
 
                 });
 
+// Evaris
+                console.log($scope.e.adress);
+                var a=$scope.e.adress;
+                // creation de l'adresse
+                adresse.post(a);
+                // ok
                 Restangular.one('event')
                     .withHttpConfig({transformRequest: angular.identity})
                     .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data) {
-                    console.log(data)
-                    //tu cree les Event_link et Ticket ici
+                        // creation des tickets
+                        // tu dois mettre l'id de l'event qui a été crée comme ça n'a pas marché chz je ne connais pas le contenu de data
+                        _.each($scope.e.billets,function(b,k){
+                            if($scope.e.confidentialite!="Public"){
+                                b.listing=$scope.e.liste_participant;
+                            }
+                            else{
+                                b.listing=null;
+                            }
+                            tickets.post({event_id:data.id,name: b.nom,description: b.description,amount: b.prix,max_command: b.max_autorise,
+                                start_date: b.date_debut_vente+" "+ b.heure_debut_vente,end_date: b.date_fin_vente+" "+ b.heure_fin_vente,
+                            quantity: b.quantite, listing_privacy:b.listing}).then(function(billet){
+                                if(b.type=="Payant"){
+                                    // creation du lien ticket mode de paiement
+                                    // faut t'assurer que ce code marche
+                                    payment.post({ticket_id:billet.id,type_payment_id:$scope.e.paiement});
+                                }
+                            });
+
+                        });
+                        console.log(data);
+                        //tu cree les Event_link et Ticket ici
                 }, function (err) {
                     console.log(err.data);
                 });
@@ -194,7 +241,7 @@ controller
 
             };
             $scope.publish_event = function () {
-                $scope.e.status = 'save';
+                $scope.e.status = 'created';
                 $scope.enregistrerEvenement();
 
             };
@@ -812,7 +859,28 @@ controller
                 $scope.no_image = false;
             };
 
-            $scope.enregistrerOrgansiateur = function (o) {
+            $scope.enregistrerOrgansiateur = function () {
+                var fd = new FormData();
+                _.each($scope.organisateur, function (val, key) {
+                    console.log(val,key);
+                    if(key=="web_site"||key=="facebook"||key=="twitter"||key=="google"||key=="instagram"||key=="linkedin"){
+                        val="http://www."+val;
+                    }
+                    fd.append(key, val);
+
+                });
+
+                Restangular.one('organizer')
+                    .withHttpConfig({transformRequest: angular.identity})
+                    .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data) {
+                    console.log(data);
+                    //tu cree les Event_link et Ticket ici
+                }, function (err) {
+                    console.log(err.data);
+                });
+            };
+
+            $scope.enregistrerOrgansiateurs = function (o) {
                 o.user_id = $scope.user.id;
                 console.log(o);
                 var fd = new FormData();
@@ -1073,8 +1141,10 @@ controller
                     $scope.participants = p;
                     angular.forEach($scope.event.tickets, function (v, k) {
                         $scope.quantite += v.quantity;
+                        v.number=0;
                         var x = _.filter($scope.participants, function (p) {
                             if (v.id == p.ticket_id) {
+                                v.number+= p.number;
                                 $scope.vendu += p.number;
                                 return p;
                             }

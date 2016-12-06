@@ -27,6 +27,7 @@ angular.module('mboa', [
   function ($log, $state, $rootScope, $location, Restangular, $auth, gettextCatalog) {
         $log.debug("startApp running ");
     gettextCatalog.currentLanguage = "fr";
+    //gettextCatalog.currentLanguage = "en";
     gettextCatalog.debug = false;
 
     var attempt = 0;

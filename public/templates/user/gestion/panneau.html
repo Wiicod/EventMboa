@@ -18,8 +18,8 @@
                         <tbody>
                         <tr ng-repeat="t in event.tickets">
                             <td>{{t.name}}</td>
-                            <td>{{t.participant.length}}</td>
-                            <td>{{t.quantity-t.participant.length}}</td>
+                            <td>{{t.number}}</td>
+                            <td>{{t.quantity-t.number}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -73,15 +73,17 @@
             </div>
             <table class="table" ng-repeat="t in event.tickets">
                 <thead>
-                <th translate>Numéro de commande</th>
-                <th translate>Acheteur du billet</th>
-                <th translate>Quantité</th>
+                <th translate>Billet</th>
+                <th translate>N° commande</th>
+                <th translate>Client</th>
+                <th translate>Qté</th>
                 <th translate>Prix</th>
                 <th translate>Date</th>
                 <!--<th translate>Paiement</th>-->
                 </thead>
                 <tbody>
-                <tr dir-paginate="p in participants |filter:searchKey | orderBy : '-id' : true| itemsPerPage: par_page ">
+                <tr dir-paginate="p in t.participant |filter:searchKey | orderBy : '-id' : true| itemsPerPage: par_page ">
+                    <td>{{t.name}}</td>
                     <td>{{p.id}}</td>
                     <td>{{p.name}}</td>
                     <td>{{p.number}}</td>

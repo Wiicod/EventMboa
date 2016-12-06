@@ -1,25 +1,21 @@
 ============
 = Priorité =
 ============
-la langue
-image de l'événement
-alerte pour la validation des formulaires
-le mode de paiement d'un evenement doit etre le même pour tous les billets
+- la langue
+- alerte pour la validation des formulaires
+- creer et editer un evenement
 
 ==============
 = Si content =
 ==============
 
-- gerer la publicité : choix des positions [OK]
+Que se passe t'il quand il entre le numéro qui fera le orange money?
 
-- detail d'un billet : faire les actions des 2 boutons [OK]
 
-- create event : faire les actions des boutons
+=========
+= Dette =
+=========
 
-Que se passe t'il quand il entre le numéro qui ferra le orange money?
-
-- creer et editer un evenement
-- partager un event enlever
-
-- Point de distribution des billet à
-
+- prévisualisation d'un event
+- google map
+- modifier organisateur dans event_create
