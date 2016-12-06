@@ -47,7 +47,7 @@ class SendNewEventEmail extends Job implements ShouldQueue
             function ($message) use ($e, $to) {
 
                 $message->to($to)
-                    ->subject($e->title . " ( Speedy-click commentaire )");
+                    ->subject($e->title . " ( EvenMboa Event )");
             });
     }
 }

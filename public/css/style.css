@@ -1229,6 +1229,11 @@ ul .row{
     margin-bottom: 0px;
 }
 
+.event-previous-image {
+    height: 300px;
+    width: 600px;
+}
+
 .pub .b-link-stroke .b-wrapper{
     top:1em;
     font-size: 12px;

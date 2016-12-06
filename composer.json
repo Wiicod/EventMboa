@@ -15,7 +15,8 @@
         "h4cc/wkhtmltopdf-amd64": "0.12.x",
       "barryvdh/laravel-snappy": "^0.3.0",
       "oureastudios/laravel5-braintree": "dev-master",
-      "paypal/rest-api-sdk-php": "1.10.0"
+      "paypal/rest-api-sdk-php": "1.10.0",
+      "caouecs/laravel-lang": "~3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

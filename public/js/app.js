@@ -31,9 +31,13 @@ angular.module('mboa', [
 
     var attempt = 0;
     Restangular.setErrorInterceptor(function (response, deferred, responseHandler) {
-      if (response.status === 401) {
+      if (response.status === 401 || response.status === 400) {
         if (attempt <= 5) {
           attempt++;
+          var st = localStorage.getItem('satellizer_token');
+          if (st)
+            httpConfig.headers.Authorization = 'Bearer ' + st;
+
           Restangular.one('refresh').get().then(function (response) {
             $auth.setToken(response.refreshToken);
             attempt = 0;

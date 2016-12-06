@@ -161,14 +161,49 @@ controller
                 $scope.billets.push({id: id, type: type, nom: nom, quantite: quantite, prix: prix});
             };
 
-            $scope.enregistrerEvenement = function (e) {
-                console.log(e);
+            $scope.enregistrerEvenement = function () {
+                var fd = new FormData();
+                fd.append('recurring', 'unique');
+                if (fd.get('organizer_id') == null)
+                    fd.append('user_id', $scope.user.id);
+                _.each($scope.e, function (val, key) {
+                    // console.log(val,key);
+                    if (key == 'start_date') {
+                        fd.append(key, val.split('/').join('-') + " " + $scope.e['start_hour'] + ":00");
+                    } else if (key == 'end_date') {
+                        fd.append(key, val.split('/').join('-') + " " + $scope.e['end_hour'] + ":00");
+                    } else {
+                        fd.append(key, val);
+                    }
+
+                });
+
+                Restangular.one('event')
+                    .withHttpConfig({transformRequest: angular.identity})
+                    .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data) {
+                    console.log(data)
+                    //tu cree les Event_link et Ticket ici
+                }, function (err) {
+                    console.log(err.data);
+                });
+            };
+
+            $scope.save_event = function () {
+                $scope.e.status = 'save';
+                $scope.enregistrerEvenement();
+
+            };
+            $scope.publish_event = function () {
+                $scope.e.status = 'save';
+                $scope.enregistrerEvenement();
+
             };
 
             $scope.$watch('e.organisateur.nom', function () {
                 if ($scope.e.organisateur.nom != undefined)
                     $scope.e.organisateur.description = $filter("filter")($scope.organisateurs, {id: $scope.e.organisateur.nom}, true)[0].description;
             });
+
 
             // pour l'image
             $scope.upload = function (files) {
@@ -1163,6 +1198,7 @@ function formatEvent(e, Restangular, scope, flag) {
     e.heure_fin = d.getHours() + ":" + d.getMinutes();
 
     if (flag) {
+        if (e.adress != null)
         Restangular.one('town', e.adress.town_id).get().then(function (data) {
             e.town = data;
         });

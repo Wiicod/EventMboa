@@ -27,7 +27,8 @@
         </div>
     </div>
 
-    <form ng-if="option=='modifier'" ng-submit="enregistrerEvenement(e)">
+    <!-- <form ng-if="option=='modifier'" ng-submit="enregistrerEvenement(e)">-->
+    <form ng-if="option=='modifier'">
         <div class="container">
             <!--Premiere partie : description de l'événement-->
             <div class="row" style="margin-top: 25px; margin-left: 33px">
@@ -131,8 +132,12 @@
                         <label for="nom" translate>Image de l'événement</label>
                         <div class="row">
                             <div class="col-lg-9">
-                                <div class="drop-box center" id="image_boutique">
-                                    <div class="row">
+                                <div class="drop-box center" ngf-drop ngf-select ng-model="e.banner_picture"
+                                     ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true"
+                                     accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG"
+                                     ngf-pattern="'.jpg,.png,.jpeg,.JPG,.PNG,.JPEG'"
+                                     id="image_boutique" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                                    <div class="row" ng-hide="e.banner_picture">
                                         <div class="col-lg-6">
                                             <i class="fa fa-camera"></i>
                                             <br/>
@@ -145,7 +150,14 @@
                                             <img src="" id="image" alt=""/>
                                         </div>
                                     </div>
+                                    <div ng-show="e.banner_picture">
+
+                                        <img class="event-previous-image thumb " alt="Event banner"
+                                             ngf-thumbnail="e.banner_picture">.
+                                    </div>
                                 </div>
+                                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
                                 <!--<img src="images/loc.png" id="image_boutique" width="100px" height="100px" >-->
                                 <input type="file" name="icone_boutique" id="id_icone_boutique"  class="hide">
                             </div>
@@ -385,7 +397,7 @@
 
                     <div class="form-group" ng-if="e.confidentialite=='Public'">
                         <label translate>Type d'événement</label>
-                        <select ng-model="e.type" class="form-control"
+                        <select ng-model="e.event_type_id" class="form-control"
                                 ng-options="t.id as t.name for t in types | orderBy:'-name':true">
                             <option value="" disabled translate>Selectionnez le type d'événement</option>
                         </select>
@@ -393,7 +405,7 @@
 
                     <div class="form-group" ng-if="e.confidentialite=='Public'">
                         <label translate>thème de l'événement</label>
-                        <select ng-model="e.type" class="form-control"
+                        <select ng-model="e.event_topic_id" class="form-control"
                                 ng-options="t.id as t.name for t in categories | orderBy:'-name':true">
                             <option value="" disabled translate>Selectionnez le thème de l'événement</option>
                         </select>
@@ -422,8 +434,8 @@
         <!--<hr/>-->
         <div class="text-center end">
             <h1 translate>Beau travail ! Vous y êtes presque.</h1>
-            <button class="btn btn-main btn-reverse" translate>Sauvegarder l'événement</button>
-            <button class="btn btn-main btn-green" translate>Publier</button>
+            <button class="btn btn-main btn-reverse" translate ng-click="save_event()">Sauvegarder l'événement</button>
+            <button class="btn btn-main btn-green" translate ng-click="publish_event()">Publier</button>
         </div>
     </form>
 

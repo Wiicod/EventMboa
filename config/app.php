@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -160,7 +160,7 @@ return [
          * Custom Providers ...
          */
         App\Providers\Validation\ValidationServiceProvider::class,
-        //App\Providers\EmailServiceProvider::class,
+//        App\Providers\EmailServiceProvider::class,
 
         /*
          * Vendor Service Providers ...
