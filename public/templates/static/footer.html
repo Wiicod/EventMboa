@@ -1,7 +1,7 @@
 <section class="footer" style="margin-top: 15px">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-sm-3 col-md-3">
+            <div class="col-lg-4 col-sm-4 col-md-4">
                 <ul class="nav">
                     <h3 translate>Utiliser EventMboa</h3>
                     <li><a href="" translate>EventMboa App</a></li>
@@ -9,26 +9,18 @@
                     <!--<li><a href="" translate>Plan de salle</a></li>-->
                 </ul>
             </div>
-            <div class="col-lg-3 col-sm-3 col-md-3">
-                <ul class="nav">
-                    <h3 translate>Planifiez vos événements</h3>
-                    <li><a href="" translate>Associations</a></li>
-                    <li><a href="" translate>Rencontre technologiques</a></li>
-                    <li><a href="" translate>vendre des billets en ligne</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-3 col-sm-3 col-md-3">
+            <div class="col-lg-4 col-sm-4 col-md-4">
                 <ul class="nav">
                     <h3 translate>Rechercher des événmenets</h3>
-                    <li><a href="" translate>Evénements à Yaoundé</a></li>
-                    <li><a href="" translate>Evénements à Douala</a></li>
-                    <li><a href="" translate>Evénements à Bafoussam</a></li>
+                    <li><a ui-sref="events({target:'Yaoundé',id:'ville'})" translate>Evénements à Yaoundé</a></li>
+                    <li><a ui-sref="events({target:'Douala',id:'ville'})" translate>Evénements à Douala</a></li>
+                    <li><a ui-sref="events({target:'Dakar',id:'ville'})" translate>Evénements à Dakar</a></li>
                 </ul>
             </div>
-            <div class="col-lg-3 col-sm-3 col-md-3">
+            <div class="col-lg-4 col-sm-4 col-md-4">
                 <ul class="nav">
                     <h3 translate>Restons connectés</h3>
-                    <li><a href=""><i class="fa fa-envelope"></i>
+                    <li><a href="mailto:eventmoboa@gmail.com"><i class="fa fa-envelope"></i>
                         <ff translate>Contacter l'assistance</ff>
                     </a></li>
                     <li><a href="https://www.facebook.com/eventmboa/"><i class="fa fa-facebook"></i> Facebook</a></li>
@@ -55,12 +47,7 @@
             <div class="col-lg-9 col-sm-9 col-md-9 spec">
                 <ul class="nav navbar">
                     <li><a href="" translate>A propos</a></li>
-                    <!-- <li><a href="" translate>Blog</a></li>-->
-                    <li><a href="" translate>Aide</a></li>
-                    <!--<li><a href="" translate>Emploi</a></li>
-                    <li><a href="" translate>Presse</a></li>
-                    <li><a href="" translate>Sécurité</a></li>
-                    <li><a href="" translate>Développeurs</a></li>-->
+                    <li><a ui-sref="aide" translate>Aide</a></li>
                     <li><a href="" translate>Conditions d'utilisation</a></li>
                     <li><a href="" translate>Confidentialité</a></li>
                     <li><a href="" translate>Cookies</a></li>
@@ -79,7 +66,7 @@
                     &copy; EventMboa {{currentDate|date:'yyyy'}}
                 </div>
                 <div class="small text-center">
-                    <a href="http://www.wiicod.com">Wiicod</a>
+                    <a href="http://www.wiicod.com" title="Designed by Wiicod">Wiicod</a>
                 </div>
             </div>
         </div>

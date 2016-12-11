@@ -3,12 +3,13 @@
 
     <div class="col-lg-9">
         <h1 class="sz" style="padding-left: 15px;font-weight: bold;" ng-bind-html="titre"></h1>
-        <div class="row">
+        <div class="row-fluid">
             <div class="col-lg-4 pull-right">
                 <input type="text" ng-model="searchKey" required class="form-control"
                        placeholder="{{'Recherche d\'événements ';''|translate}}"/>
             </div>
         </div>
+        <div class="clearfix"></div>
         <div class="row no-padding card item"
              style="margin:0 15px 15px"
              dir-paginate="e in events |filter:searchKey | orderBy : '-name' : true| itemsPerPage: par_page "

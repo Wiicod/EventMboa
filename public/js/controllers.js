@@ -176,105 +176,118 @@ controller
             };
 
             $scope.enregistrerEvenement = function () {
-                var fd = new FormData();
-                fd.append('recurring', 'unique');
-                if (fd.get('organizer_id') == null)
-                    fd.append('user_id', $scope.user.id);
-                _.each($scope.e, function (val, key) {
+                var statut={};
+                // verification si les champs requis sont présent
+                console.log($scope.e);
+                statut=validate($scope.e);
 
-                    if (key == 'start_date') {
-                        fd.append(key, val.split('/').join('-') + " " + $scope.e['start_hour'] + ":00");
-                    } else if (key == 'end_date') {
-                        fd.append(key, val.split('/').join('-') + " " + $scope.e['end_hour'] + ":00");
-                    //}
-                    //else if(key=="organizer"){
-                    //    _.each(val,function(v,k){
-                    //        if(k=="web_site" || k=="facebook" || k=="twitter" || k=="google" || k=="instagram" || k=="linkedin"){
-                    //            v="http://www."+v;
-                    //        }
-                    //    });
-                    } else {
-                        fd.append(key, val);
-                    }
 
-                });
+                console.log(statut);
+                if(!statut.statut){
+                    alert("Creation de l'événement impossible, Champs : "+statut.message+" à renseiger");
+                }
+                else if(1==0){
+                    var fd = new FormData();
+                    fd.append('recurring', 'unique');
+                    if (fd.get('organizer_id') == null)
+                        fd.append('user_id', $scope.user.id);
+                    _.each($scope.e, function (val, key) {
+
+                        if (key == 'start_date') {
+                            fd.append(key, val.split('/').join('-') + " " + $scope.e['start_hour'] + ":00");
+                        } else if (key == 'end_date') {
+                            fd.append(key, val.split('/').join('-') + " " + $scope.e['end_hour'] + ":00");
+                            //}
+                            //else if(key=="organizer"){
+                            //    _.each(val,function(v,k){
+                            //        if(k=="web_site" || k=="facebook" || k=="twitter" || k=="google" || k=="instagram" || k=="linkedin"){
+                            //            v="http://www."+v;
+                            //        }
+                            //    });
+                        } else {
+                            fd.append(key, val);
+                        }
+                    });
 
 // Evaris
 
-                var adresse = Restangular.all("adress");
-                var a=$scope.e.adress;
-                // creation de l'adresse
-                var pro_adresse = adresse.post(a);
-                var createdad;
-                pro_adresse.then(function (data) {
-                    createdad = data;
-                    fd.append('adress_id', createdad.id);
+                    var adresse = Restangular.all("adress");
+                    var a=$scope.e.adress;
+                    // creation de l'adresse
+                    var pro_adresse = adresse.post(a);
+                    var createdad;
+                    pro_adresse.then(function (data) {
+                        createdad = data;
+                        fd.append('adress_id', createdad.id);
 
-                    var pro_event = Restangular.one('event')
-                        .withHttpConfig({transformRequest: angular.identity})
-                        .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data, status) {
-                        // creation des tickets
-                            var ev = data;
+                        var pro_event = Restangular.one('event')
+                            .withHttpConfig({transformRequest: angular.identity})
+                            .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data, status) {
+                                // creation des tickets
+                                var ev = data;
 
-                            // tu dois mettre l'id de l'event qui a été crée comme ça n'a pas marché chz je ne connais pas le contenu de data
-                            if (data.id != undefined) {
-                                _.each($scope.e.billets, function (b, k) {
-                                    if ($scope.e.confidentialite != "Public") {
-                                        b.listing = $scope.e.liste_participant;
-                                    }
-                                    else {
-                                        b.listing = 'public';
-                                    }
-
-                                    var tick_obj = {
-                                        event_id: ev.id,
-                                        name: b.nom,
-                                        description: b.nom + " ticket for " + ev.name + " event",
-                                        amount: b.prix,
-                                        max_command: b.max_command,
-                                        start_date: ev.start_date,
-                                        end_date: ev.end_date,
-                                        quantity: b.quantite,
-                                        listing_privity: b.listing
-                                    };
-                                    tickets.post(tick_obj).then(function (billet) {
-                                        console.log(billet);
-                                        if (b.type == "Payant") {
-                                            // creation du lien ticket mode de paiement
-                                            // faut t'assurer que ce code marche
-                                            Restangular.all('distribution_point').post({
-                                                name: createdad.name,
-                                                date: ev.start_date,
-                                                ticket_id: billet.id,
-                                                adress_id: createdad.id
-                                            }).then(function (da) {
-                                            });
-                                            _.each($scope.payment, function (val, key) {
-                                                var ttp = {
-                                                    ticket_id: billet.id,
-                                                    type_payment_id: val.id
-                                                };
-                                                payment.post(ttp).then(function (data) {
-                                                    console.log(data);
-                                                });
-                                            });
-
+                                // tu dois mettre l'id de l'event qui a été crée comme ça n'a pas marché chz je ne connais pas le contenu de data
+                                if (data.id != undefined) {
+                                    _.each($scope.e.billets, function (b, k) {
+                                        if ($scope.e.confidentialite != "Public") {
+                                            b.listing = $scope.e.liste_participant;
                                         }
+                                        else {
+                                            b.listing = 'public';
+                                        }
+
+                                        var tick_obj = {
+                                            event_id: ev.id,
+                                            name: b.nom,
+                                            description: b.nom + " ticket for " + ev.name + " event",
+                                            amount: b.prix,
+                                            max_command: b.max_command,
+                                            start_date: ev.start_date,
+                                            end_date: ev.end_date,
+                                            quantity: b.quantite,
+                                            listing_privity: b.listing
+                                        };
+                                        tickets.post(tick_obj).then(function (billet) {
+                                            console.log(billet);
+                                            if (b.type == "Payant") {
+                                                // creation du lien ticket mode de paiement
+                                                // faut t'assurer que ce code marche
+                                                Restangular.all('distribution_point').post({
+                                                    name: createdad.name,
+                                                    date: ev.start_date,
+                                                    ticket_id: billet.id,
+                                                    adress_id: createdad.id
+                                                }).then(function (da) {
+                                                });
+                                                _.each($scope.payment, function (val, key) {
+                                                    var ttp = {
+                                                        ticket_id: billet.id,
+                                                        type_payment_id: val.id
+                                                    };
+                                                    payment.post(ttp).then(function (data) {
+                                                        console.log(data);
+                                                    });
+                                                });
+
+                                            }
+                                        });
+
                                     });
+                                }
+                                $state.go('events', {id: ev.id});
 
-                                });
-                            }
-                            $state.go('events', {id: ev.id});
+                            }, function (err) {
+                                console.log(err.data);
+                            });
 
-                        }, function (err) {
-                            console.log(err.data);
+
+                        pro_event.then(function (data) {
+                            //creation des eventlink;
                         });
-
-
-                    pro_event.then(function (data) {
-                        //creation des eventlink;
                     });
-                });
+
+                }
+
 
             };
 
@@ -294,6 +307,10 @@ controller
                     $scope.e.organisateur.description = $filter("filter")($scope.organisateurs, {id: $scope.e.organisateur.nom}, true)[0].description;
             });
 
+            $scope.edit_event=function(){
+                console.log();
+                alert("En maintenance");
+            };
 
             // pour l'image
             $scope.upload = function (files) {
@@ -486,6 +503,75 @@ controller
         // example d utilisation de restangular c valable pour le post put delete regarde juste la doc
         //tu pouvais aussi utilise la factorie customize Event k j ai cree
         $scope.date_deb = [];
+        Restangular.all("town").getList().then(function(v){
+            $scope.villes=v;
+            if(id=="ville"){
+                $scope.ville=$filter("filter")(v,{name:target},true)[0];
+            }
+            Restangular.all('event').getList().then(function (events) {
+                if (id != "" && target != "") {
+                    var out = _.filter(events, function (e) {
+                        if (id == "topic") {
+                            $scope.titre = "Recherche des événements suivant la catégorie <span class='blue'>'" + target + "'</span>";
+                            if (e.event_topic.name == target) {
+                                return e;
+                            }
+                        }
+                        else if (id == 'type') {
+                            $scope.titre = "Recherche des événements suivant le type <span class='blue'>'" + target + "'</span>";
+                            if (e.event_type.name == target) {
+                                return e;
+                            }
+                        }
+                        else if(id=="ville"){
+                            $scope.titre = "Recherche des événements dans <span class='blue text-capitalize'>'" + target + "'</span>";
+                            if (e.adress.town_id == $scope.ville.id) {
+                                return e;
+                            }
+                        }
+                    });
+                    events = out;
+                }
+                else if (se != undefined) {
+                    // rechercher
+                    var out = _.filter(events, function (e) {
+                        if (e.name == se.titre || e.start_date == se.date || e.town.name == se.ville) {
+                            return e;
+                        }
+                        else {
+
+                        }
+                    });
+                }
+                else if (searchKey != undefined && searchKey != "") {
+                    $scope.titre = "Recherche des événements suivant le mot <span class='blue'>'" + target + "'</span>";
+                }
+                else {
+                    $scope.titre = "Evénements pour vous";
+                }
+                var tm = [];
+                angular.forEach(events, function (v, k) {
+                    //v.old_id= v.id;
+                    //v.id=parseInt(Math.random(1,5)*10000)+""+ v.id;
+                    //var d=new Date(v.start_date);
+                    //$scope.date_deb.push({name:jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900),value:v.start_date});
+                    //v.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
+                    //d=new Date(v.end_date);
+                    //v.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
+                    //Restangular.one('town', v.adress.town_id).get().then(function(data){
+                    //    v.town=data;
+                    //});
+                    v = formatEvent(v, Restangular, $scope, true);
+                    if (v.tickets.length > 0 && v.status == "active") {
+                        tm.push(v);
+                    }
+                });
+                $scope.searchKey = searchKey;
+                $scope.events = tm;
+            }, function (err) {
+                console.log(err);
+            });
+        });
 
         Restangular.all('event_topic').getList().then(function (data) {
             $scope.categories = data;
@@ -493,63 +579,7 @@ controller
         Restangular.all('event_type').getList().then(function (data) {
             $scope.types = data;
         });
-        Restangular.all('event').getList().then(function (events) {
-            if (id != "" && target != "") {
-                var out = _.filter(events, function (e) {
-                    if (id == "topic") {
-                        $scope.titre = "Recherche des événements suivant la catégorie <span class='blue'>'" + target + "'</span>";
-                        if (e.event_topic.name == target) {
-                            return e;
-                        }
-                    }
-                    else if (id == 'type') {
-                        $scope.titre = "Recherche des événements suivant le type <span class='blue'>'" + target + "'</span>";
-                        if (e.event_type.name == target) {
-                            return e;
-                        }
-                    }
-                });
-                events = out;
-            }
-            else if (se != undefined) {
-                // rechercher
-                var out = _.filter(events, function (e) {
-                    if (e.name == se.titre || e.start_date == se.date || e.town.name == se.ville) {
-                        return e;
-                    }
-                    else {
 
-                    }
-                });
-            }
-            else if (searchKey != undefined && searchKey != "") {
-                $scope.titre = "Recherche des événements suivant le mot <span class='blue'>'" + target + "'</span>";
-            }
-            else {
-                $scope.titre = "Evénements pour vous";
-            }
-            var tm = [];
-            angular.forEach(events, function (v, k) {
-                //v.old_id= v.id;
-                //v.id=parseInt(Math.random(1,5)*10000)+""+ v.id;
-                //var d=new Date(v.start_date);
-                //$scope.date_deb.push({name:jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900),value:v.start_date});
-                //v.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
-                //d=new Date(v.end_date);
-                //v.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
-                //Restangular.one('town', v.adress.town_id).get().then(function(data){
-                //    v.town=data;
-                //});
-                v = formatEvent(v, Restangular, $scope, true);
-                if (v.tickets.length > 0 && v.status == "active") {
-                    tm.push(v);
-                }
-            });
-            $scope.searchKey = searchKey;
-            $scope.events = tm;
-        }, function (err) {
-            console.log(err);
-        });
 
 
         // $scope.events=events;
@@ -916,8 +946,7 @@ controller
                 Restangular.one('organizer')
                     .withHttpConfig({transformRequest: angular.identity})
                     .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data) {
-                    console.log(data);
-                    //tu cree les Event_link et Ticket ici
+                    alert("Profil créé");
                 }, function (err) {
                     console.log(err.data);
                 });
@@ -1323,4 +1352,50 @@ function formatEvent(e, Restangular, scope, flag) {
 function formatDate(date) {
     var d = new Date(date);
     return jour[d.getDay()] + " " + d.getDate() + " " + mois[d.getMonth()] + " " + (d.getYear() + 1900);
+}
+
+function validate(e){
+    var statut=true;
+    var message="";
+    if((e.name=="" || e.name==undefined)){
+        statut=false;
+        message="Titre";
+    }
+    if((e.description=="" || e.description==undefined)){
+        statut=false;
+        message+="Description, ";
+    }
+    if((e.banner_picture=="" || e.banner_picture==undefined)){
+        statut=false;
+        message+="Image, ";
+    }
+    if((e.event_type_id=="" || e.event_type_id==undefined)){
+        statut=false;
+        message+="Type, ";
+    }
+    if((e.event_topic_id=="" || e.event_topic_id==undefined)){
+        statut=false;
+        message+="Catégorie, ";
+    }
+    if((e.start_date=="" || e.start_date==undefined)){
+        statut=false;
+        message+="Date de debut, ";
+    }
+    if((e.end_date=="" || e.end_date==undefined)){
+        statut=false;
+        message+="Date de fin, ";
+    }
+    if((e.confidentialite=="" || e.confidentialite==undefined)){
+        statut=false;
+        message+="Confidentialite, ";
+    }
+    if(e.billets.length<1){
+        statut=false;
+        message+="Billet ";
+    }
+    if(e.organizer.id=="" || e.organizer.id==undefined){
+        statut=false;
+        message+="Organisateur ";
+    }
+    return {statut:statut,message:message};
 }

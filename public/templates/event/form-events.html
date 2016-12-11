@@ -32,7 +32,7 @@
     </div>
 
     <!-- <form ng-if="option=='modifier'" ng-submit="enregistrerEvenement(e)">-->
-    <form ng-if="option=='modifier'">
+    <form ng-if="option=='modifier'" name="event">
         <div class="container">
             <!--Premiere partie : description de l'événement-->
             <div class="row" style="margin-top: 25px; margin-left: 33px">
@@ -48,12 +48,12 @@
                         <label for="nom">
                             <ff translate>Non de l'événement</ff>
                             <span class="requis">*</span></label>
-                        <input type="text" id="nom" ng-model="e.name"
+                        <input type="text" ng-minlength="3" required id="nom" ng-model="e.name"
                                placeholder="{{'Donnez un titre court et distinctif'|translate}}" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="adresse" translate>Adresse </label>
-                        <input type="text" id="adresse" ng-model="e.adress.name"
+                        <input type="text" id="adresse" ng-model="e.adress.name" ng-minlength="3" required
                                placeholder="{{'Précisez où il est organisé'|translate}}" class="form-control"/>
                         <div class="hide">
                             <a ng-click="lieu='ligne'"><i class="fa fa-globe"></i>
@@ -153,8 +153,7 @@
 
                             </div>
                             <div class="col-lg-3">
-                                <p class="small-text" translate>Nous recommandons d'utiliser une image d'au moins 2160 x
-                                    1080 px (ratio 2:1) ne dépassant pas 10 Mo</p>
+                                <p class="small-text" translate>Nous recommandons d'utiliser une image d'au moins 2160 x 1080 px (ratio 2:1) ne dépassant pas 10 Mo</p>
                             </div>
                         </div>
 
@@ -171,7 +170,7 @@
                         <br/>
                         <div>
                             <!--<a ng-click="user='edit'" translate>Modifier l'organisateur</a> |-->
-                            <a ng-click="user='new'" translate>Nouvel organisateur</a>
+                            <!--<a ng-click="user='new'" translate>Nouvel organisateur</a>-->
                         </div>
                         <div ng-if="e.organizer.nom!=undefined || user!='new'&& user!='edit'">
                             <select class="form-control"
@@ -241,8 +240,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3">
-                                <p class="small-text" translate>Nous recommandons d'utiliser une image d'au moins 2160 x
-                                    1080 px (ratio 2:1) ne dépassant pas 10 Mo</p>
+                                <p class="small-text" translate>Nous recommandons d'utiliser une image d'au moins 2160 x 1080 px (ratio 2:1) ne dépassant pas 10 Mo</p>
                             </div>
                         </div>
 
@@ -307,8 +305,7 @@
                 <div class="col-lg-9 col-sm-9" style="margin-top: 20px">
                     <div class="form-group text-center">
                         <div ng-if="type!='Gratuit'&& type!='Payant'">
-                            <div style="margin-bottom: 15px" translate>Avec quel type de billet souhaitez-vous
-                                commencer?
+                            <div style="margin-bottom: 15px" translate>Avec quel type de billet souhaitez-vous commencer?
                             </div>
                             <div class="btn-group">
                                 <button class="btn btn-main btn-reverse"
@@ -334,9 +331,11 @@
                                     <span class="requis">*</span></th>
                                 <th class="col-lg-1 col-sm-1 com-md-1">
                                     <ff translate>Max/Commande</ff>
+                                    <span class="requis">*</span>
                                 </th>
                                 <th class="col-lg-3 col-sm-3 com-md-3">
                                     <ff translate>Prix</ff>
+                                    <span class="requis">*</span>
                                 </th>
                                 <th class="col-lg-2 col-sm-2 com-md-2">
                                     <ff translate>Actions</ff>
@@ -670,7 +669,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group hide">
                             <label translate>Nombre de billets autorisé par commande</label>
                             <div class="row">
                                 <div class="col-lg-12">

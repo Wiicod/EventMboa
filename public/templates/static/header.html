@@ -23,14 +23,19 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="" ng-if="lieu"><a ui-sref="events({id:'',target:''})"><span translate>Parcourir</span></a></li>
-                    <li class=""><a ui-sref="aide"><span translate>Aide</span></a></li>
-                    <li class="" ng-if="!loguer"><a href="#" ui-sref="register"><span translate>Ouvrir un compte</span></a>
+                    <li class="active"  ng-if="!loguer"><a style="background: #d93127 !important;color: white !important;" ng-click="create_event()"><span
+                            translate>Créer un événement</span></a>
                     </li>
-                    <li class="" ng-if="!loguer"><a href="#" ui-sref="login"><span translate>Se connecter</span></a>
+                    <li class="active" ng-if="loguer"><a style="background: #d93127 !important;color: white !important;" ui-sref="create({id:'',target:''})"><span translate>Créer un événement</span></a>
                     </li>
+                    <li class="" ng-if="lieu"><a style="background: #f69524 !important;color: white !important;" ui-sref="events({id:'',target:''})"><span translate>Parcourir</span></a></li>
+                    <li class="" ng-if="!loguer"><a style="background: #f69524 !important;color: white !important;" href="#" ui-sref="login"><span translate>Se connecter</span></a>
+                    </li>
+                    <li class="" ng-if="!loguer"><a style="background: #a8aaac !important;color: white !important;" href="#" ui-sref="register"><span translate>Ouvrir un compte</span></a>
+                    </li>
+
                     <li class="dropdown" ng-if="loguer">
-                        <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;
+                        <a style="background: #3ab44b !important;color: white !important;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;
                             {{user.person.first_name}}
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -59,11 +64,7 @@
                             <li><a href="#" ng-click="logout()" translate>Se déconnecter</a></li>
                         </ul>
                     </li>
-                    <li class="active" ng-if="loguer"><a ui-sref="create({id:'',target:''})"><span translate>Créer un événement</span></a>
-                    </li>
-                    <li class="active" ng-if="!loguer"><a ng-click="create_event()"><span
-                            translate>Créer un événement</span></a>
-                    </li>
+                    <li class=""><a style="background: #0872b8 !important;color: white !important;" ui-sref="aide"><span translate>Aide</span></a></li>
                 </ul>
             </div>
         </nav>

@@ -554,7 +554,7 @@ ul.nav{
 }
 
 header ul.nav > li{
-    border: 1px solid;
+    /*border: 1px solid;*/
     border-color: #EFF2F5 transparent transparent #EFF2F5;
 }
 
@@ -566,6 +566,9 @@ header ul.nav > li{
     color: #f8f8f8;
 }
 
+.navbar{
+    border-width: 0px;
+}
 
 .intro-message {
     position: relative;
@@ -992,6 +995,12 @@ tbody tr td{
 }
 .footer h3{
     font-size: 17px;
+    margin-top:5px
+}
+
+.footer hr{
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .footer .navbar{
