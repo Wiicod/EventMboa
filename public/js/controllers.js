@@ -91,7 +91,7 @@ controller
         if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
             var tickets=Restangular.all("ticket");
             var payment=Restangular.all("ticket_type_payment");
-            var adresse=Restangular.all("adress");
+
 
             $scope.user = $cookies.getObject("user");
             $scope.message = "";
@@ -181,7 +181,7 @@ controller
                 if (fd.get('organizer_id') == null)
                     fd.append('user_id', $scope.user.id);
                 _.each($scope.e, function (val, key) {
-                     console.log(val,key);
+
                     if (key == 'start_date') {
                         fd.append(key, val.split('/').join('-') + " " + $scope.e['start_hour'] + ":00");
                     } else if (key == 'end_date') {
@@ -200,39 +200,82 @@ controller
                 });
 
 // Evaris
-                console.log($scope.e.adress);
+
+                var adresse = Restangular.all("adress");
                 var a=$scope.e.adress;
                 // creation de l'adresse
-                adresse.post(a);
-                // ok
-                Restangular.one('event')
-                    .withHttpConfig({transformRequest: angular.identity})
-                    .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data) {
-                        // creation des tickets
-                        // tu dois mettre l'id de l'event qui a été crée comme ça n'a pas marché chz je ne connais pas le contenu de data
-                        _.each($scope.e.billets,function(b,k){
-                            if($scope.e.confidentialite!="Public"){
-                                b.listing=$scope.e.liste_participant;
-                            }
-                            else{
-                                b.listing=null;
-                            }
-                            tickets.post({event_id:data.id,name: b.nom,description: b.description,amount: b.prix,max_command: b.max_autorise,
-                                start_date: b.date_debut_vente+" "+ b.heure_debut_vente,end_date: b.date_fin_vente+" "+ b.heure_fin_vente,
-                            quantity: b.quantite, listing_privacy:b.listing}).then(function(billet){
-                                if(b.type=="Payant"){
-                                    // creation du lien ticket mode de paiement
-                                    // faut t'assurer que ce code marche
-                                    payment.post({ticket_id:billet.id,type_payment_id:$scope.e.paiement});
-                                }
-                            });
+                var pro_adresse = adresse.post(a);
+                var createdad;
+                pro_adresse.then(function (data) {
+                    createdad = data;
+                    fd.append('adress_id', createdad.id);
 
+                    var pro_event = Restangular.one('event')
+                        .withHttpConfig({transformRequest: angular.identity})
+                        .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data, status) {
+                        // creation des tickets
+                            var ev = data;
+
+                            // tu dois mettre l'id de l'event qui a été crée comme ça n'a pas marché chz je ne connais pas le contenu de data
+                            if (data.id != undefined) {
+                                _.each($scope.e.billets, function (b, k) {
+                                    if ($scope.e.confidentialite != "Public") {
+                                        b.listing = $scope.e.liste_participant;
+                                    }
+                                    else {
+                                        b.listing = 'public';
+                                    }
+
+                                    var tick_obj = {
+                                        event_id: ev.id,
+                                        name: b.nom,
+                                        description: b.nom + " ticket for " + ev.name + " event",
+                                        amount: b.prix,
+                                        max_command: b.max_command,
+                                        start_date: ev.start_date,
+                                        end_date: ev.end_date,
+                                        quantity: b.quantite,
+                                        listing_privity: b.listing
+                                    };
+                                    tickets.post(tick_obj).then(function (billet) {
+                                        console.log(billet);
+                                        if (b.type == "Payant") {
+                                            // creation du lien ticket mode de paiement
+                                            // faut t'assurer que ce code marche
+                                            Restangular.all('distribution_point').post({
+                                                name: createdad.name,
+                                                date: ev.start_date,
+                                                ticket_id: billet.id,
+                                                adress_id: createdad.id
+                                            }).then(function (da) {
+                                            });
+                                            _.each($scope.payment, function (val, key) {
+                                                var ttp = {
+                                                    ticket_id: billet.id,
+                                                    type_payment_id: val.id
+                                                };
+                                                payment.post(ttp).then(function (data) {
+                                                    console.log(data);
+                                                });
+                                            });
+
+                                        }
+                                    });
+
+                                });
+                            }
+                            $state.go('events', {id: ev.id});
+
+                        }, function (err) {
+                            console.log(err.data);
                         });
-                        console.log(data);
-                        //tu cree les Event_link et Ticket ici
-                }, function (err) {
-                    console.log(err.data);
+
+
+                    pro_event.then(function (data) {
+                        //creation des eventlink;
+                    });
                 });
+
             };
 
             $scope.save_event = function () {
