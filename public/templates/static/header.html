@@ -3,14 +3,16 @@
         <nav class="navbar navbar-default">
             <div class="navbar-header">
                 <!-- Mobile Toggle Menu Button -->
-                <a href="#" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-                <a class="navbar-brand logo" ui-sref="home" st>
-                    <img src="images/logo/256_2.png" alt=""/>
+                <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+                    <i class="fa fa-list"></i>
                 </a>
-                <!--<a class="navbar-brand logo" ui-sref="home">-->
-                <!--EventMboa-->
+                <!--<a class="navbar-brand logo" ui-sref="home" st>-->
+                    <!--<img src="images/logo/256_2.png" alt=""/>-->
                 <!--</a>-->
-                <ul class="nav navbar-nav" ng-if="!lieu">
+                <a class="navbar-brand logo" ui-sref="home">
+                    EventMboa
+                </a>
+                <ul class="nav navbar-nav hidden-sm hidden-xs" ng-if="!lieu">
                     <li class=""><a ui-sref="events({id:'',target:''})" data-nav-section="home"><span
                             translate>Parcourir</span></a></li>
                 </ul>
@@ -21,6 +23,7 @@
                            placeholder="{{'Recherche d\'événements '|translate}}"/>
                 </form>
             </div>
+
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active"  ng-if="!loguer"><a style="background: #d93127 !important;color: white !important;" ng-click="create_event()"><span
@@ -65,6 +68,12 @@
                         </ul>
                     </li>
                     <li class=""><a style="background: #0872b8 !important;color: white !important;" ui-sref="aide"><span translate>Aide</span></a></li>
+                    <li class="" ng-controller="AppCtrl">
+                        <a>
+                            <span ng-click="setLanguage('fr')">Fr</span>/
+                            <span ng-click="setLanguage('en')">En</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

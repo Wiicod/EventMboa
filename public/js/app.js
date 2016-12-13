@@ -26,6 +26,9 @@ angular.module('mboa', [
 ]).run(['$log', '$state', '$rootScope', '$location', 'Restangular', '$auth', 'gettextCatalog',
   function ($log, $state, $rootScope, $location, Restangular, $auth, gettextCatalog) {
         $log.debug("startApp running ");
+    $rootScope.setLanguage=function(lan){
+      gettextCatalog.setCurrentLanguage(lan);
+    };
     gettextCatalog.currentLanguage = "fr";
     //gettextCatalog.currentLanguage = "en";
     gettextCatalog.debug = false;
@@ -56,16 +59,6 @@ angular.module('mboa', [
 
 
     });
-
-    //Restangular.all('contact').getList().then(function (data) {
-    //  console.log(data);
-    //
-    //});
-        //$rootScope.$on('$stateChangeStart',function(event,toState,toParams,fromState){
-        //  console.log("");
-        //})
-
-
 
       }])
 

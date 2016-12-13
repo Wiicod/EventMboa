@@ -1,6 +1,6 @@
 <section>
     <div class="home-carousel">
-        <div class="static">
+        <div class="static hidden-xs hidden-sm">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-lg-offset-3 text-center">
@@ -17,13 +17,13 @@
         <div class="">
             <div class="homepage owl-carousel">
                 <div class="item">
-                    <img src="images/509783.jpg" alt=""/>
+                    <img src="images/bg1.jpg" alt=""/>
                 </div>
                 <div class="item">
-                    <img src="images/jeu-bg.jpg" alt=""/>
+                    <img src="images/bg2.jpg" alt=""/>
                 </div>
                 <div class="item">
-                    <img src="images/r.jpg" alt=""/>
+                    <img src="images/bg3.jpg" alt=""/>
                 </div>
 
             </div>
@@ -34,22 +34,23 @@
 </section>
 
 <section id="form">
-    <div class="container">
+    <div class="container" style="box-shadow: 0px 1px 13px #a8aaac; padding: 15px">
         <form class="row no-padding" ng-submit="search(key)">
-            <div class="col-lg-4" style="padding-left: 15px">
+            <div class="col-lg-4 col-sm-10 col-xs-10 col-md-4" style="padding-left: 15px">
                 <input type="text" ng-model="key.titre" class="form-control"
                        placeholder="{{'Rechercher des événements ou des catégories'|translate}}"/></div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-sm-3 col-xs-3 col-md-3 hidden-sm hidden-xs">
                 <input type="text" ng-model="key.ville" class="form-control"
                        placeholder="{{'Entrez la ville ou le lieu'|translate}}"/></div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-sm-3 col-xs-5 col-md-5 hidden-sm hidden-xs">
                 <select class="form-control" ng-model="key.date"
                         ng-options="d.value as d.name for d in date_deb|orderBy:'-value':true">
                     <option value="" translate>Toutes les dates</option>
                 </select>
             </div>
-            <div class="col-lg-2" style="padding-right: 15px">
-                <button class="btn btn-primary btn-main" translate>Rechercher</button>
+            <div class="col-lg-2 col-sm-2 col-xs-2 col-md-2" style="padding-right: 15px">
+                <button class="btn btn-primary btn-main hidden-sm hidden-xs" translate>Rechercher</button>
+                <button class="btn btn-primary btn-main hidden-lg hidden-md" translate><i class="fa fa-search"></i></button>
             </div>
         </form>
 
@@ -105,7 +106,7 @@
 
         <div class="row">
             <div class="content_middle">
-                <div class="col-md-4 col2 pub" ng-repeat="p in pub | orderBy:'-update_at':true|limitTo:3">
+                <div class="col-lg-4 col2 pub" ng-repeat="p in pub | orderBy:'-update_at':true|limitTo:3">
                     <a href="{{p.url}}"
                        class="b-link-stroke b-animate-go  thickbox">
                         <img src="{{p.banner_picture}}" class="img-responsive" alt="{{p.title}}"/>

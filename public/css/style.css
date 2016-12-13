@@ -19,8 +19,13 @@ body{
 
 .logo {
   font-family: "Permanent";
-  font-size: 30px;
+  font-size: 40px;
   color: #428bca !important;
+  line-height: 50px !important;
+}
+
+.c .nav > li > a{
+    padding: 5px 0px !important;
 }
 
 a{
@@ -65,7 +70,7 @@ a{
 }
 
 #form{
-  margin-top: 25px;
+  /*margin-top: 25px m;*/
 }
 
 #form h3 {
@@ -130,14 +135,14 @@ a{
 }
 
 header .navbar-nav li{
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-weight: 500;
 }
 .active > a {
     background: #fff !important;
 }
 li.active > a{
-    color: #00a8f2 !important;
+    color: #0872b8 !important;
 }
 .dropdown-menu{
     border-radius: 0px;
@@ -441,6 +446,7 @@ ul.dropdown-menu > li.divider{
 /*-----------------------------------------------------------------------------------*/
 .b-animate-go{
     text-decoration:none;
+    max-width: 100%;
 }
 .b-animate{
     transition:all 0.5s;
@@ -528,7 +534,7 @@ ul.dropdown-menu > li.divider{
 }
 
 .item{
-    margin-bottom: 20px;
+    /*margin-bottom: 20px; m*/
 }
 
 .item-9{
@@ -658,7 +664,9 @@ div.free{
 .btn-block {
     width: 100% !important;
 }
-
+.btn-main.hidden-lg{
+    padding: 11px 12px;
+}
 .btn-main{
     display: inline-block;
     vertical-align: baseline;
@@ -666,7 +674,7 @@ div.free{
     *display: inline;
     *vertical-align: auto;
     color: #fff;
-    background-color: #00a8f2;
+    background-color: #0872b8;
     -webkit-transition: all .2s ease-out;
     -moz-transition: all .2s ease-out;
     transition: all .2s ease-out;
@@ -683,7 +691,7 @@ div.free{
     letter-spacing: 1px;
     text-transform: uppercase;
     border-radius: 3px;
-    border: 3px solid #00a8f2;
+    border: 3px solid #0872b8;
     font-weight: bold;
 }
 
@@ -694,9 +702,9 @@ div.free{
 }
 
 .btn-main.btn-reverse{
-    color: #00a8f2;
+    color: #0872b8;
     background: #fff;
-    border: 3px solid #00a8f2;
+    border: 3px solid #0872b8;
     border-radius: 3px;
 }
 
@@ -742,7 +750,7 @@ div.free{
 }
 
 .main{
-    background: #00a8f2;
+    background: #0872b8;
 }
 
 .requis{
@@ -881,8 +889,8 @@ div.free{
 }
 
 #detail .badge:hover{
-    border-color: #00a8f2;
-    color: #00a8f2;
+    border-color: #0872b8;
+    color: #0872b8;
 }
 
 #detail dt{
@@ -920,7 +928,7 @@ div.free{
     display: block;
     margin-bottom: 3px;
     background-color: #fff;
-    border-left: 5px solid #00a8f2;
+    border-left: 5px solid #0872b8;
     border-left-width: 15px;
     padding: 20px;
 }
@@ -928,13 +936,13 @@ div.free{
 
 .drop-box {
     background: #F8F8F8;
-    border: 4px dashed #00a8f2;
+    border: 4px dashed #0872b8;
     width: auto;
     height: auto;
     text-align: center;
     padding: 15px 10px;
     margin-bottom: 10px;
-    color: #00a8f2;
+    color: #0872b8;
     cursor: pointer;
 }
 
@@ -967,7 +975,7 @@ tbody tr td{
     margin-top: 0px;
     font-size: 25px;
     text-transform: capitalize;
-    color: #00a8f2;
+    color: #0872b8;
 }
 
 .end{
@@ -986,7 +994,7 @@ tbody tr td{
 /*Footer*/
 
 .footer{
-    border-top: #666A73 solid 6px;
+    border-top: #0872b8 solid 6px;
     background: #282C35;
     color: #666A73;
 }
@@ -1005,12 +1013,15 @@ tbody tr td{
 
 .footer .navbar{
     background: none;
+    min-height: 0px;
 }
 
 .footer ul.navbar li{
     display: inline-block;
     margin-right: 10px;
 }
+
+
 .footer ul.nav li{
     border: none;
 }
@@ -1124,7 +1135,7 @@ tbody tr td{
     color: #ADB0B6;
 }
 .event:hover .nav>li>a{
-    color: #00a8f2
+    color: #0872b8
 }
 
 ul.nav-tabs{
@@ -1139,13 +1150,13 @@ ul.nav-tabs li.active >a{
     border: none;
     color: #333 !important;
     border-bottom :4px solid;
-    border-color: #00a8f2;
+    border-color: #0872b8;
 }
 ul.nav-tabs li.active >a:hover,
 ul.nav-tabs li.active >a:focus{
     border: none;
     border-bottom :4px solid;
-    border-color: #00a8f2;
+    border-color: #0872b8;
 }
 ul.nav-tabs li:hover >a{
     border: none;
@@ -1212,7 +1223,7 @@ ul .row{
 }
 
 .blue {
-    color: #00a8f2;
+    color: #0872b8;
 }
 
 .badge-success {

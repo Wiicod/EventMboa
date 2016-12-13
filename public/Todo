@@ -1,16 +1,16 @@
 ============
 = Priorité =
 ============
-- la langue
 - alerte pour la validation des formulaires
 - editer un evenement
 - form validate
+- partager sur facebook
 
+======
+= OK =
+======
 
-=========
-= Dette =
-=========
-
-- prévisualisation d'un event
-- google map
-- modifier organisateur dans event_create
+- langue
+- reutilisation des adresses
+- point de distribution dans create_event
+- Responsive
