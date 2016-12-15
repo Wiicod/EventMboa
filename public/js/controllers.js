@@ -438,7 +438,7 @@ controller
         }, function (err) {
             console.log(err);
         });
-
+        $scope.host=location.host;
         // recuperation de la publicite
         Restangular.all("publicity").getList({status:"home"}).then(function(pub){
             $scope.pub=pub;
@@ -1191,8 +1191,9 @@ controller
         Restangular.all("help").getList().then(function(aide){
             $scope.aide=aide;
         });
-        Restangular.all("publicity").getList().then(function(pub){
-            //console.log(pub);
+        // recuperation de la publicite
+        Restangular.all("publicity").getList({status:"home"}).then(function(pub){
+            $scope.pub=pub;
         });
     }])
 

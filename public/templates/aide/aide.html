@@ -20,7 +20,18 @@
                 </div>
             </div>
             <div class="col-lg-4">
-               Publicité
+               <h5 translate>Publicité</h5>
+                <div class="row hidden-sm hidden-xs" ng-repeat="p in pub |orderBy:'-update_at':true| limitTo:9">
+                    <div class="col-md-12 col2 pub">
+                        <a href="{{p.url}}"
+                           class="b-link-stroke b-animate-go  thickbox">
+                            <img src="{{p.banner_picture}}" class="img-responsive" alt="{{p.title}}"/>
+                            <div class="b-wrapper">
+                                <h3 class="b-animate b-from-left    b-delay03 ">{{p.title}}</br> - <br/>{{p.company}}</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

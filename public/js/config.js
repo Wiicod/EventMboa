@@ -192,6 +192,90 @@ config
                 }
             }
         })
+        .state('apropos',{
+            url:"/apropos",
+            title: "A propos",
+            loginRequired:false,
+            views:{
+                '':{
+                    templateUrl: template_url+'index.html'
+                },
+                'header@apropos': {
+                    templateUrl: template_url+'static/header.html',
+                    controller:"HeaderCtrl"
+                },
+                'body@apropos': {
+                    templateUrl: template_url+'aide/apropos.html'
+                },
+                'footer@apropos': {
+                    templateUrl: template_url+'static/footer.html',
+                    controller:"FooterCtrl"
+                }
+            }
+        })
+        .state('confidentialite',{
+            url:"/confidentialite",
+            title: "Confidentialite",
+            loginRequired:false,
+            views:{
+                '':{
+                    templateUrl: template_url+'index.html'
+                },
+                'header@confidentialite': {
+                    templateUrl: template_url+'static/header.html',
+                    controller:"HeaderCtrl"
+                },
+                'body@confidentialite': {
+                    templateUrl: template_url+'aide/confidentialite.html'
+                },
+                'footer@confidentialite': {
+                    templateUrl: template_url+'static/footer.html',
+                    controller:"FooterCtrl"
+                }
+            }
+        })
+        .state('condition',{
+            url:"/condition",
+            title: "Condition",
+            loginRequired:false,
+            views:{
+                '':{
+                    templateUrl: template_url+'index.html'
+                },
+                'header@condition': {
+                    templateUrl: template_url+'static/header.html',
+                    controller:"HeaderCtrl"
+                },
+                'body@condition': {
+                    templateUrl: template_url+'aide/condition.html'
+                },
+                'footer@condition': {
+                    templateUrl: template_url+'static/footer.html',
+                    controller:"FooterCtrl"
+                }
+            }
+        })
+        .state('cookies',{
+            url:"/cookies",
+            title: "Cookies",
+            loginRequired:false,
+            views:{
+                '':{
+                    templateUrl: template_url+'index.html'
+                },
+                'header@cookies': {
+                    templateUrl: template_url+'static/header.html',
+                    controller:"HeaderCtrl"
+                },
+                'body@cookies': {
+                    templateUrl: template_url+'aide/cookies.html'
+                },
+                'footer@cookies': {
+                    templateUrl: template_url+'static/footer.html',
+                    controller:"FooterCtrl"
+                }
+            }
+        })
         .state('gestion',{
             url:"/u/events",
             title: "Gestion",

@@ -116,7 +116,7 @@
 	<script src="js/config.js"></script>
 
 	<!--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBRVFPk0PoHdJkvHDWb_uKA4Xa16O9fYro"></script>-->
-
+	<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 	</body>
 </html>
 

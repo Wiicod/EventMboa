@@ -79,14 +79,16 @@
                         </div>
                         <div class="lieu">{{e.adress.name}}, {{e.town.name}}</div>
                     </div>
-
+                    <!--{{host}}§details({nom:e.name+'/'+e.id})-->
                     <div class="card-action">
                         <div class="tag">
                             <a ui-sref="events({target:e.event_topic.name,id:'topic'})">#{{e.event_topic.name|limitTo:15}}</a>
                             <a ui-sref="events({target:e.event_type.name,id:'type'})">#{{e.event_type.name|limitTo:15}}</a>
                         </div>
                         <div class="action">
-                            <!--<a class="pull-right" title="Partager"><i class="fa fa-share-alt"></i></a>-->
+                            <!--<a name="fb_share" class="pull-right" title="Partager" type="box_count"-->
+                               <!--share_url="{{host}}§details({nom:e.name+'/'+e.id})"><i class="fa fa-share-alt"></i></a>-->
+
                             <a class="pull-right" title="Sauvegarder" ng-click="interest(e)"><i
                                     class="fa fa-bookmark-o"></i></a>
                         </div>
