@@ -8,6 +8,11 @@
     src: url('fonts/Benton_Sans/BentonSans-Regular.ttf');
 }
 
+@font-face {
+    font-family: 'Corbel';
+    src: url('fonts/Corbel.ttf');
+}
+
 body{
     background: #F8F8FA;
     font-family: 'Benton Sans', "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif !important;
@@ -16,9 +21,12 @@ body{
     letter-spacing: 1px;
     text-rendering: optimizelegibility;
 }
+ul.nav-tabs{
+    margin-bottom: 10px;
+}
 
 .logo {
-  font-family: "Permanent";
+  font-family: "Corbel";
   font-size: 40px;
   color: #428bca !important;
   line-height: 50px !important;
