@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://eventmboa.local'),
+    'url' => env('APP_URL', 'http://www.eventmboa.local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -92,6 +92,7 @@ return [
     */
 
     'key' => env('APP_KEY'),
+//    'key' => env('APP_KEY',$_ENV['LARAVEL_ENCRYPTION_KEY']),
 
     'cipher' => 'AES-256-CBC',
 
@@ -170,7 +171,7 @@ return [
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
-        Oureastudios\Laravel\BraintreeServiceProvider::class,
+        Aws\Laravel\AwsServiceProvider::class,
 
     ],
 

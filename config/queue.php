@@ -50,12 +50,19 @@ return [
 
         'sqs' => [
             'driver' => 'sqs',
-            'key' => 'your-public-key',
-            'secret' => 'your-secret-key',
-            'prefix' => 'https://sqs.us-east-1.amazonaws.com/your-account-id',
-            'queue' => 'your-queue-name',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'prefix' => env('QUEUE_URL'),
+            'queue' => env('QUEUE_NAME'),
             'region' => 'us-east-1',
-        ],
+        ],/* 'sqs' => [
+            'driver' => 'sqs',
+            'key' => env('AWS_ACCESS_KEY_ID',$_ENV['AWS_ACCESS_KEY_ID']),
+            'secret' => env('AWS_SECRET_ACCESS_KEY',$_ENV['AWS_SECRET_ACCESS_KEY']),
+            'prefix' =>  env('QUEUE_URL',$_ENV['QUEUE_URL']),
+            'queue' =>  env('QUEUE_NAME',$_ENV['QUEUE_NAME']),
+            'region' => 'us-east-1',
+        ],*/
 
         'redis' => [
             'driver' => 'redis',

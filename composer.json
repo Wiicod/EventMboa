@@ -16,7 +16,8 @@
       "barryvdh/laravel-snappy": "^0.3.0",
       "oureastudios/laravel5-braintree": "dev-master",
       "paypal/rest-api-sdk-php": "1.10.0",
-      "caouecs/laravel-lang": "~3.0"
+        "caouecs/laravel-lang": "~3.0",
+        "aws/aws-sdk-php-laravel": "~3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
