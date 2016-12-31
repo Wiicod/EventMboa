@@ -142,7 +142,7 @@ controller
             $scope.choixAdress=function(a){
                 console.log($scope.e.adress,a);
                 $scope.e.adress=a;
-            }
+            };
 
             $scope.reset_adress = function () {
                 $scope.e.adress = {};
@@ -191,7 +191,7 @@ controller
                     // ajout
                     var statut={};
                     // verification si les champs requis sont présent
-                    //console.log($scope.e);
+                    console.log($scope.e);
                     statut=validate($scope.e);
 
                     if(!statut.statut){
@@ -200,8 +200,6 @@ controller
                     else {
                         var fd = new FormData();
                         fd.append('recurring', 'unique');
-                        if (fd.get('organizer_id') == null)
-                            fd.append('user_id', $scope.user.id);
                         _.each($scope.e, function (val, key) {
 
                             if (key == 'start_date') {
@@ -219,81 +217,152 @@ controller
                                 fd.append(key, val);
                             }
                         });
-
+                        if (fd.get('organizer_id') == null){
+                            fd.append("organizer_id",$scope.e.organizer.id);
+                        }
+                        fd.append('user_id', $scope.user.id);
                         // Evaris
 
                         var adresse = Restangular.all("adress");
                         var a=$scope.e.adress;
+                        var createdad=$scope.e.adress;
                         // creation de l'adresse
+
                         if($scope.e.adress.id!="" && $scope.e.adress.id!=undefined && $scope.e.adress.id>0 ){
+                            fd.append('adress_id', a.id);
+                            createdad=a;
+                            console.log("a");
+                            var pro_event = Restangular.one('event')
+                                .withHttpConfig({transformRequest: angular.identity})
+                                .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data, status) {
+                                    // creation des tickets
+                                    var ev = data;
+                                    console.log("d");
+
+                                    // tu dois mettre l'id de l'event qui a été crée comme ça n'a pas marché chz je ne connais pas le contenu de data
+                                    if (data.id != undefined) {
+                                        _.each($scope.e.billets, function (b, k) {
+                                            if ($scope.e.confidentialite != "Public") {
+                                                b.listing = $scope.e.liste_participant;
+                                            }
+                                            else {
+                                                b.listing = 'public';
+                                            }
+
+                                            var tick_obj = {
+                                                event_id: ev.id,
+                                                name: b.nom,
+                                                description: b.nom + " ticket for " + ev.name + " event",
+                                                amount: b.prix,
+                                                max_command: b.max_command,
+                                                start_date: ev.start_date,
+                                                end_date: ev.end_date,
+                                                quantity: b.quantite,
+                                                listing_privity: b.listing
+                                            };
+                                            tickets.post(tick_obj).then(function (billet) {
+                                                //console.log(billet);
+                                                if (b.type == "Payant") {
+                                                    // creation du lien ticket mode de paiement
+                                                    // faut t'assurer que ce code marche
+                                                    Restangular.all('distribution_point').post({
+                                                        name: createdad.name,
+                                                        date: ev.start_date,
+                                                        ticket_id: billet.id,
+                                                        adress_id: createdad.id
+                                                    }).then(function (da) {
+                                                    });
+                                                    _.each($scope.payment, function (val, key) {
+                                                        var ttp = {
+                                                            ticket_id: billet.id,
+                                                            type_payment_id: val.id
+                                                        };
+                                                        payment.post(ttp).then(function (data) {
+                                                            //console.log(data);
+                                                        });
+                                                    });
+
+                                                }
+                                            });
+
+                                        });
+                                    }
+                                    $state.go('events', {id: ev.id});
+
+                                }, function (err) {
+                                    console.log(err.data);
+                                });
+                        }
+                        else{
                             var pro_adresse = adresse.post(a);
-                            var createdad;
                             pro_adresse.then(function (data) {
                                 createdad = data;
-                                fd.append('adress_id', createdad.id);
+                                fd.append('adress_id', data.id);
+                                console.log("b",data.id);
+                                var pro_event = Restangular.one('event')
+                                    .withHttpConfig({transformRequest: angular.identity})
+                                    .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data, status) {
+                                        // creation des tickets
+                                        var ev = data;
+                                        console.log("d");
 
+                                        // tu dois mettre l'id de l'event qui a été crée comme ça n'a pas marché chz je ne connais pas le contenu de data
+                                        if (data.id != undefined) {
+                                            _.each($scope.e.billets, function (b, k) {
+                                                if ($scope.e.confidentialite != "Public") {
+                                                    b.listing = $scope.e.liste_participant;
+                                                }
+                                                else {
+                                                    b.listing = 'public';
+                                                }
+
+                                                var tick_obj = {
+                                                    event_id: ev.id,
+                                                    name: b.nom,
+                                                    description: b.nom + " ticket for " + ev.name + " event",
+                                                    amount: b.prix,
+                                                    max_command: b.max_command,
+                                                    start_date: ev.start_date,
+                                                    end_date: ev.end_date,
+                                                    quantity: b.quantite,
+                                                    listing_privity: b.listing
+                                                };
+                                                tickets.post(tick_obj).then(function (billet) {
+                                                    //console.log(billet);
+                                                    if (b.type == "Payant") {
+                                                        // creation du lien ticket mode de paiement
+                                                        // faut t'assurer que ce code marche
+                                                        Restangular.all('distribution_point').post({
+                                                            name: createdad.name,
+                                                            date: ev.start_date,
+                                                            ticket_id: billet.id,
+                                                            adress_id: createdad.id
+                                                        }).then(function (da) {
+                                                        });
+                                                        _.each($scope.payment, function (val, key) {
+                                                            var ttp = {
+                                                                ticket_id: billet.id,
+                                                                type_payment_id: val.id
+                                                            };
+                                                            payment.post(ttp).then(function (data) {
+                                                                //console.log(data);
+                                                            });
+                                                        });
+
+                                                    }
+                                                });
+
+                                            });
+                                        }
+                                        $state.go('events', {id: ev.id});
+
+                                    }, function (err) {
+                                        console.log(err.data);
+                                    });
                             });
                         }
+                        console.log("c");
 
-                        var pro_event = Restangular.one('event')
-                            .withHttpConfig({transformRequest: angular.identity})
-                            .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data, status) {
-                                // creation des tickets
-                                var ev = data;
-
-                                // tu dois mettre l'id de l'event qui a été crée comme ça n'a pas marché chz je ne connais pas le contenu de data
-                                if (data.id != undefined) {
-                                    _.each($scope.e.billets, function (b, k) {
-                                        if ($scope.e.confidentialite != "Public") {
-                                            b.listing = $scope.e.liste_participant;
-                                        }
-                                        else {
-                                            b.listing = 'public';
-                                        }
-
-                                        var tick_obj = {
-                                            event_id: ev.id,
-                                            name: b.nom,
-                                            description: b.nom + " ticket for " + ev.name + " event",
-                                            amount: b.prix,
-                                            max_command: b.max_command,
-                                            start_date: ev.start_date,
-                                            end_date: ev.end_date,
-                                            quantity: b.quantite,
-                                            listing_privity: b.listing
-                                        };
-                                        tickets.post(tick_obj).then(function (billet) {
-                                            //console.log(billet);
-                                            if (b.type == "Payant") {
-                                                // creation du lien ticket mode de paiement
-                                                // faut t'assurer que ce code marche
-                                                Restangular.all('distribution_point').post({
-                                                    name: createdad.name,
-                                                    date: ev.start_date,
-                                                    ticket_id: billet.id,
-                                                    adress_id: createdad.id
-                                                }).then(function (da) {
-                                                });
-                                                _.each($scope.payment, function (val, key) {
-                                                    var ttp = {
-                                                        ticket_id: billet.id,
-                                                        type_payment_id: val.id
-                                                    };
-                                                    payment.post(ttp).then(function (data) {
-                                                        //console.log(data);
-                                                    });
-                                                });
-
-                                            }
-                                        });
-
-                                    });
-                                }
-                                $state.go('events', {id: ev.id});
-
-                            }, function (err) {
-                                console.log(err.data);
-                            });
 
 
                         pro_event.then(function (data) {
@@ -312,7 +381,7 @@ controller
 
             };
             $scope.publish_event = function () {
-                $scope.e.status = 'created';
+                $scope.e.status = 'active';
                 $scope.enregistrerEvenement();
 
             };
@@ -456,6 +525,7 @@ controller
         $scope.interest = function (e) {
             if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
                 rest_interest.post({user_id: $cookies.getObject("user").id, event_id: e.old_id});
+                alert("Evénement sauvegardé");
             }
             else {
                 $rootScope.next = {name: $state.current.name, params: $state.params};
@@ -487,6 +557,7 @@ controller
         $scope.interest = function (e) {
             if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
                 rest_interest.post({user_id: $cookies.getObject("user").id, event_id: e.old_id});
+                alert("Evénement sauvegardé");
             }
             else {
                 $rootScope.next = {name: $state.current.name, params: $state.params};
@@ -514,6 +585,7 @@ controller
                 $scope.ville=$filter("filter")(v,{name:target},true)[0];
             }
             Restangular.all('event').getList().then(function (events) {
+
                 if (id != "" && target != "") {
                     var out = _.filter(events, function (e) {
                         if (id == "topic") {
@@ -556,16 +628,6 @@ controller
                 }
                 var tm = [];
                 angular.forEach(events, function (v, k) {
-                    //v.old_id= v.id;
-                    //v.id=parseInt(Math.random(1,5)*10000)+""+ v.id;
-                    //var d=new Date(v.start_date);
-                    //$scope.date_deb.push({name:jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900),value:v.start_date});
-                    //v.date_debut=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
-                    //d=new Date(v.end_date);
-                    //v.date_fin=jour[d.getDay()]+" "+ d.getDate()+" "+ mois[d.getMonth()]+" "+(d.getYear()+1900);
-                    //Restangular.one('town', v.adress.town_id).get().then(function(data){
-                    //    v.town=data;
-                    //});
                     v = formatEvent(v, Restangular, $scope, true);
                     if (v.tickets.length > 0 && v.status == "active") {
                         tm.push(v);
@@ -619,7 +681,9 @@ controller
                     });
                 });
             });
+            data.banner_picture= data.banner_picture.replace("//","/");
             $scope.event = data;
+            console.log(data);
         }, function (err) {
             console.log(err);
         });
@@ -939,44 +1003,52 @@ controller
 
             $scope.enregistrerOrgansiateur = function () {
                 var fd = new FormData();
-                _.each($scope.organisateur, function (val, key) {
-                    //console.log(val,key);
-                    if(key=="web_site"||key=="facebook"||key=="twitter"||key=="google"||key=="instagram"||key=="linkedin"){
-                        val="http://www."+val;
+                if($scope.organisateur.id!=undefined && $scope.organisateur.id!=""){
+                    //Edition
+                    if(typeof $scope.organisateur.image =="string"){
+                        $scope.organisateur= _.omit($scope.organisateur,"image");
                     }
-                    fd.append(key, val);
+                    fd = new FormData();
+                    _.each($scope.organisateur, function (val, key) {
+                        fd.append(key, val);
+                    });
+                    fd.append("_method","PUT");
 
-                });
+                    Restangular.one('organizer',$scope.organisateur.id)
+                        .withHttpConfig({transformRequest: angular.identity})
+                        .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data) {
+                            alert("Profil Mod");
+                            console.log(data);
+                        }, function (err) {
+                            console.log(err.data);
+                        });
+                }
+                else{
+                     fd = new FormData();
+                    _.each($scope.organisateur, function (val, key) {
+                        //console.log(val,key);
+                        if(key=="web_site"||key=="facebook"||key=="twitter"||key=="google"||key=="instagram"||key=="linkedin"){
+                            val="http://www."+val;
+                        }
+                        fd.append(key, val);
 
-                Restangular.one('organizer')
-                    .withHttpConfig({transformRequest: angular.identity})
-                    .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data) {
-                    alert("Profil créé");
-                }, function (err) {
-                    console.log(err.data);
-                });
+                    });
+                    fd.append("user_id",$scope.user.id);
+                    console.log(fd,$scope.organisateur);
+
+                    Restangular.one('organizer')
+                        .withHttpConfig({transformRequest: angular.identity})
+                        .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data) {
+                            alert("Profil créé");
+                            console.log(data);
+                        }, function (err) {
+                            console.log(err.data);
+                        });
+                }
+
             };
 
-            $scope.enregistrerOrgansiateurs = function (o) {
-                o.user_id = $scope.user.id;
-                //console.log(o);
-                var fd = new FormData();
-                fd.append('name', o.name);
-                fd.append('description', o.description);
-                fd.append('web_site', o.web_site);
-                fd.append('user_id', o.user_id);
-                fd.append('google', o.google);
-                fd.append('twitter', o.twitter);
-                fd.append('facebook', o.facebook);
-                fd.append('instagram', o.instagram);
-                fd.append('linkedin', o.linkedin);
-                fd.append('image', o.image);
-                //console.log(fd);
-                Restangular.one('organizer').withHttpConfig({transformRequest: angular.identity})
-                    .customPOST(fd, '', undefined, {'Content-Type': undefined});
 
-                //console.log(organisateurs.post($scope.organisateur));
-            };
 
             $scope.nouveauOrganisateur = function () {
                 $scope.organisateur = {};
@@ -999,6 +1071,21 @@ controller
     .controller('CompteCtrl', ['$scope', '$filter', 'Restangular', '$state', '$cookies', '$auth','$timeout', function ($scope, $filter, Restangular, $state, $cookies, $auth,$timeout) {
         if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
             $scope.compte = $cookies.getObject("user");
+            Restangular.one("user",$scope.compte.id).get().then(function(da){
+                $scope.compte=da;
+                if($scope.compte.person!=undefined && $scope.compte.person!="" ){
+                    Restangular.one("adress", $scope.compte.person.adress_id).get().then(function (a) {
+                        $scope.compte.person.adress = a;
+                    });
+
+                    var d = new Date($scope.compte.person.birthdate);
+                    $scope.compte.jour = d.getDate();
+                    $scope.compte.mois = d.getMonth() + 1;
+                    $scope.compte.annee = d.getYear() + 1900;
+                }
+                $scope.email = $scope.compte.email;
+            });
+
             $scope.user_auth=$cookies.getObject("user");
             var allPerson=Restangular.all('person');
             var allAdress=Restangular.all('adress');
@@ -1008,33 +1095,14 @@ controller
             Restangular.all("town").getList().then(function (t) {
                 $scope.ville = t;
             });
-            if($scope.compte.person!=null){
-                Restangular.one("adress", $scope.compte.person.adress_id).get().then(function (a) {
-                    $scope.compte.person.adress = a;
-                });
 
-                var d = new Date($scope.compte.person.birthdate);
-                $scope.compte.jour = d.getDate();
-                $scope.compte.mois = d.getMonth() + 1;
-                $scope.compte.annee = d.getYear() + 1900;
-            }
-            $scope.email = $scope.compte.email;
+
             $scope.user_event = undefined;
             $scope.no_image = true;
             $scope.modMail = false;
 
             //console.log($scope.compte);
-            $scope.click_im = function () {
-                $("#im").trigger("click");
-            };
-            $scope.fileNameChanged = function (element) {
-                $scope.$apply(function () {
-                    $scope.compte.image = element.files[0];
-                    $("#image").fadeIn("fast").attr("src", URL.createObjectURL(element.files[0]));
-                    $scope.no_image = false;
-                });
-                //console.log($scope.compte);
-            };
+
 
             $scope.modifierEmail = function (u, e) {
                 if(e.password == u.hash){
@@ -1057,24 +1125,86 @@ controller
                 },5000);
             };
 
+            allAdress.getList().then(function(d){$scope.adress=d;});
+            Restangular.all("town").getList().then(function(data){$scope.villes=data;});
+            $scope.reset_adress = function () {
+                $scope.compte.person.adress = {};
+            };
+
+
+
+            $scope.choixAdress=function(a){
+                if($scope.compte==null){
+                    $scope.compte={person:{adress:a}};
+                }
+                else if($scope.compte.person==null){
+                    $scope.compte.person={adress:a};
+                }
+                else{
+                    $scope.compte.person.adress=a;
+                }
+            };
+
             $scope.enregistrerCompte = function (c) {
-                c.person.birthdate= c.annee+"-"+ c.mois+"-"+ c.jour;
-                //http://www.www.ww +(222)414141414
-                c.person.user_id=$scope.compte.id;
-                // ajout de l'adresse
-                allAdress.post(c.person.adress);
-                allAdress.getList().then(function(data){
-                    var a=_.filter(data,function(e){
-                       if(e.name== c.person.adress.name && e.street== c.person.adress.street && e.post_box== c.person.adress.post_box ){
-                           return e;
-                       }
+                console.log(c);
+                if(c.person.id!=undefined && c.person.id!=""){
+                    // edition
+                    Restangular.one("person", c.person.id).get().then(function(d){
+                        d= _.omit(d,'image');
+                        d= _.omit(d,'birthdate');
+                        if(c.mois<10){
+                            c.person.birthdate= c.annee+"-0"+ c.mois+"-"+ c.jour;
+                        }
+                        else{
+                            c.person.birthdate= c.annee+"-"+ c.mois+"-"+ c.jour;
+                        }
+                        console.log(c.person.birthdate);
+                        d.sex= c.person.sex;
+                        d.adress_id= c.person.adress_id;
+                        //d.birthdate= c.person.birthdate;
+                        d.cell_phone= c.person.cell_phone;
+                        d.home_phone= c.person.home_phone;
+                        d.first_name= c.person.first_name;
+                        d.last_name= c.person.last_name;
+                        d.web_site= c.person.web_site;
+
+                        console.log(d);
+                        d.put().then(function(d){alert("Compte Modifié")},function(d){console.log(d)});
                     });
-                    //console.log(a);
-                    c.person.adress_id= a[0].id;
-                    allPerson.post(c.person);
-                    $scope.compte.person= c.person;
-                    $cookies.putObject("user",$scope.compte);
-                });
+                }
+                else{
+                    c.person.birthdate= c.annee+"-"+ c.mois+"-"+ c.jour;
+                    //http://www.www.ww +(222)414141414
+                    c.person.user_id=$scope.compte.id;
+                    // ajout de l'adresse
+                    if(c.person.adress.id!="" && c.person.adress.id!=undefined && c.person.adress.id>0 ){
+                        c.person.adress_id= c.person.adress.id;
+                    }
+                    else{
+                        var pro_adresse = allAdress.post(a);
+                        pro_adresse.then(function (data) {
+                            c.person.adress_id=data.id;
+                        });
+                    }
+                    allPerson.post(c.person).then(function(d){console.log(d)},function(a){console.log(a)});
+                }
+
+                $scope.compte.person= c.person;
+                $cookies.putObject("user",$scope.compte);
+                //allAdress.post(c.person.adress);
+                //allAdress.getList().then(function(data){
+                //
+                //    var a=_.filter(data,function(e){
+                //       if(e.name== c.person.adress.name && e.street== c.person.adress.street && e.post_box== c.person.adress.post_box ){
+                //           return e;
+                //       }
+                //    });
+                //    //console.log(a);
+                //    c.person.adress_id= a[0].id;
+                //    allPerson.post(c.person);
+                //    $scope.compte.person= c.person;
+                //    $cookies.putObject("user",$scope.compte);
+                //});
 
             };
 
@@ -1399,7 +1529,7 @@ function validate(e){
         statut=false;
         message+="Billet ";
     }
-    if(e.organizer.id=="" || e.organizer.id==undefined){
+    if(e.organizer=="" || e.organizer==undefined || e.organizer.id=="" || e.organizer.id==undefined){
         statut=false;
         message+="Organisateur ";
     }

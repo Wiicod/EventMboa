@@ -16,7 +16,7 @@
             <div class="col-lg-4 col-sm-1 col-md-4">
                 <div class="input-group input-group-lg">
                     <input type="text" class="form-control form-input" ng-model="searchKey"
-                           placeholder="{{'Recherche d\'événements ';''|translate}}">
+                           placeholder="{{'Recherche d\'événements '|translate}}">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                                         <li><a ui-sref="create({id:e.id,target:'modifier'})"><i class="fa fa-edit"></i>
                                             <ff translate>Modifier</ff>
                                         </a></li>
-                                        <li><a ui-sref="details({nom:e.name+'/'+e.id})"><i class="fa fa-eye"></i>
+                                        <li><a ui-sref="details({nom:e.name+'/0000'+e.id})"><i class="fa fa-eye"></i>
                                             <ff translate>Afficher</ff>
                                         </a></li>
                                     </ul>

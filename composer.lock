@@ -984,7 +984,7 @@
             ],
             "authors": [
                 {
-                    "name": "FranÃ§ois Zaninotto"
+                    "name": "François Zaninotto"
                 }
             ],
             "description": "Faker is a PHP library that generates fake data for you.",
@@ -2445,7 +2445,7 @@
                     "role": "Developer"
                 },
                 {
-                    "name": "Hans-JÃ¼rgen Petrich",
+                    "name": "Hans-Jürgen Petrich",
                     "email": "petrich@tronic-media.com",
                     "role": "Developer"
                 }
@@ -4034,6 +4034,52 @@
             "time": "2015-05-11 14:41:42"
         },
         {
+            "name": "laravel/homestead",
+            "version": "v4.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/homestead.git",
+                "reference": "544c3e22657381c9243370396bfcceb0f91acfc6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/homestead/zipball/544c3e22657381c9243370396bfcceb0f91acfc6",
+                "reference": "544c3e22657381c9243370396bfcceb0f91acfc6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/console": "~2.3|~3.0",
+                "symfony/process": "~2.3|~3.0"
+            },
+            "bin": [
+                "homestead"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Homestead\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "A virtual machine for web artisans.",
+            "time": "2016-12-19 22:12:37"
+        },
+        {
             "name": "mockery/mockery",
             "version": "0.9.7",
             "source": {
@@ -4072,7 +4118,7 @@
             ],
             "authors": [
                 {
-                    "name": "PÃ¡draic Brady",
+                    "name": "Pádraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },
@@ -5087,7 +5133,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jean-FranÃ§ois Simon",
+                    "name": "Jean-François Simon",
                     "email": "jeanfrancois.simon@sensiolabs.com"
                 },
                 {

@@ -8,10 +8,10 @@
                         <ff translate>Le</ff>
                         {{event.date_debut}}
                         <ff translate>à</ff>
-                        {{event.adresse.ville}}
+                        {{event.adress.name}}
                     </h4>
                     <h1>{{event.name}}</h1>
-                    <h4>
+                    <h4 ng-if="event.organizer!=undefined">
                         <ff translate>Par</ff>
                         : {{event.organizer.name}}
                     </h4>
@@ -32,7 +32,7 @@
                         <!--<a title="Partager" ng-click="interest(e)"><i class="fa fa-share-alt fa-2x"></i></a>-->
                     </div>
                     <div class="col-lg-6" style="text-align: right">
-                        <div class="btn-white" ng-repeat="t in event.tickets">{{t.amount}} Fcfa</div>
+                        <div class="btn-white" ng-repeat="t in event.tickets">{{t.amount}} <span ng-if="t.amount!=undefined">Fcfa</span><span ng-if="t.amount==undefined" translate>Gratuit</span></div>
                         <button class="btn btn-main btn-green" data-toggle="modal" href="/#inscriptionModal" translate>
                             S'inscrire
                         </button>
@@ -50,7 +50,7 @@
                 <dl>
                     <dt translate>DESCRIPTION</dt>
                     <dd>
-                        <p>{{event.description}}</p>
+                        <p ng-bind-html="event.description"></p>
                     </dd>
                 </dl>
                 <dl>
@@ -103,8 +103,8 @@
                     <div class="image">
                         <img src="{{event.organizer.image}}" alt="" title="{{event.organizer.name}}"/>
                     </div>
-                    <p style="text-align: left;margin-top: 10px;">
-                        {{event.organizer.description}}
+                    <p style="text-align: left;margin-top: 10px;" ng-bind-html="event.organizer.description">
+
                     </p>
                     <p class="option">
                         <!--<a ui-sref="profil{{event.organizer.name}}"><i class="fa fa-navicon"></i>-->
