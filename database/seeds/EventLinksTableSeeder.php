@@ -13,6 +13,6 @@ class EventLinksTableSeeder extends Seeder
     public function run()
     {
         //
-        factory(EventLink::class, 5)->create();
+        factory(EventLink::class, 1)->create();
     }
 }
