@@ -13,7 +13,7 @@ class TicketTypePaymentsTableSeeder extends Seeder
     public function run()
     {
         //
-        $tickettypes = factory(TicketTypePayment::class, 10)->make();
+        $tickettypes = factory(TicketTypePayment::class, 1)->make();
         foreach ($tickettypes as $tickettype) {
             repeat:
             try {

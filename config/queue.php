@@ -55,7 +55,8 @@ return [
             'prefix' => env('QUEUE_URL'),
             'queue' => env('QUEUE_NAME'),
             'region' => 'us-east-1',
-        ],/* 'sqs' => [
+        ],
+        /* 'sqs' => [
             'driver' => 'sqs',
             'key' => env('AWS_ACCESS_KEY_ID',$_ENV['AWS_ACCESS_KEY_ID']),
             'secret' => env('AWS_SECRET_ACCESS_KEY',$_ENV['AWS_SECRET_ACCESS_KEY']),
