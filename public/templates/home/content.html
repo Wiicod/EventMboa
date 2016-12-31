@@ -63,11 +63,11 @@
                  ng-if="e.tickets.length>0"
             >
                 <div class="card">
-                    <div class="card-image" ui-sref="details({nom:e.name+'/'+e.id})">
+                    <div class="card-image" ui-sref="details({nom:e.name+'|'+e.id})">
                         <img class="img-responsive" src="{{e.banner_picture}}">
                         <span class="card-title">{{e.tickets[0].amount}} Fcfa</span>
                     </div>
-                    <div class="card-content" ui-sref="details({nom:e.name+'/'+e.id})">
+                    <div class="card-content" ui-sref="details({nom:e.name+'|'+e.id})">
                         <!--<ul class="nav">-->
                             <!--<li class="date">MER. 14 SEPT. 20:00</li>-->
                             <!--<li class="titre">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam aliquid, aut autem consequatur cumque dolor dolore ea error id iste iure, libero modi nisi pariatur quasi quis ratione sunt.</li>-->

@@ -653,7 +653,7 @@ controller
     }])
 
     .controller('DetailEventCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'Restangular', '$cookies', '$auth', function ($scope, $stateParams, $state, $rootScope, Restangular, $cookies, $auth) {
-        var nom = $stateParams.nom.split("/")[1];
+        var nom = $stateParams.nom.split("|")[1];
         var id = parseInt(nom.substring(4, nom.length));
         $scope.mode=[];
         //console.log(id);
@@ -692,6 +692,7 @@ controller
         $scope.interest = function (e) {
             if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
                 rest_interest.post({user_id: $cookies.getObject("user").id, event_id: e.old_id});
+                alert("Evénement sauvegardé");
             }
             else {
                 $rootScope.next = {name: $state.current.name, params: $state.params};
@@ -800,7 +801,7 @@ controller
                         }
                     });
                 });
-                $state.go("details",{nom:$scope.event.name+"/0000"+$scope.event.id});
+                $state.go("details",{nom:$scope.event.name+"|0000"+$scope.event.id});
             };
 
         }
@@ -934,7 +935,7 @@ controller
                     window.location.href = "#/u/billet/detail/" + b.billet;
                 }
                 else if ($scope.choix == 'save') {
-                    $state.go("details", {nom: b.name + "/" + b.id});
+                    $state.go("details", {nom: b.name + "|" + b.id});
                 }
             };
         }

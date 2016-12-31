@@ -63,7 +63,7 @@
         </tr>
         <tr>
             <td style="padding: 0 10px 5px; line-height: 30px">
-                <a href="{{env('APP_URL').'/#/details/'.$event->name.'/0000'.$event->id}}" style="    padding: 10px 15px;
+                <a href="{{env('APP_URL').'/#/details/'.$event->name.'|0000'.$event->id}}" style="    padding: 10px 15px;
     background: #00d656;
     color: #fff;
     font-size: 18px;
