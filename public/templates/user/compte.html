@@ -71,26 +71,38 @@
                 </div>
                 <div class="form-group">
                     <h3 translate>Domicile</h3>
-                    <label translate>Rue</label>
-                    <input type="text" ng-model="compte.person.adress.street" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <label translate>adresse</label>
-                    <input type="text" ng-model="compte.person.adress.name" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label translate>Ville</label>
-                            <select ng-model="compte.person.adress.town_id" class="form-control"
-                                    ng-options="t.id as t.name for t in ville | orderBy:'-name':true"
-                                    >
-                                <option value="" disabled translate>Ville</option>
-                            </select>
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <input type="text" ng-model="compte.person.adress.name" placeholder="{{'Adresse'|translate}}"
+                                       class="form-control"/>
+                                <input type="text" ng-model="compte.person.adress.street" placeholder="{{'Rue'|translate}}"
+                                       class="form-control"/>
+                                <!--<input type="text" ng-model="e.adresse.ville" placeholder="{{'Ville'|translate}}" class="form-control"/>-->
+                                <select ng-model="compte.person.adress.town_id" class="form-control"
+                                        ng-options="v.id as v.name for v in villes|orderBy:'-name':true"
+                                        >
+                                    <option value="" disabled>
+                                        <ff translate>Sélectionnez votre ville</ff>
+                                    </option>
+                                </select>
+                                <input type="number" ng-model="compte.person.adress.post_box"
+                                       placeholder="{{'Boîte postale'|translate}}" class="form-control"/>
+                                <a href="" ng-click="reset_adress()"><i class="fa fa-refresh"></i>
+                                    <ff translate>Redéfinissez le lieu</ff>
+                                </a>
+                            </div>
+
                         </div>
-                        <div class="col-lg-6">
-                            <label translate>Boîte postale</label>
-                            <input type="number" min="0" ng-model="compte.person.adress.post_box" class="form-control"/>
+                        <div class="col-lg-4 c" ng-if="adress.length>0">
+                            <h5 translate>Utiliser une adresse existante</h5>
+                            <div style="max-height: 150px;overflow-y: auto">
+                                <ul class="nav">
+                                    <li ng-repeat="a in adress | orderBy : '-name':true" ng-click="choixAdress(a)">
+                                        <a>{{a.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -110,15 +122,15 @@
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="row">
-                                <div class="col-lg-6" style="padding-top: 9px;" translate>Jour</div>
-                                <div class="col-lg-6"><input type="text" ng-model="compte.jour" class="form-control"
+                                <div class="col-lg-4" style="padding-top: 9px;" translate>Jour</div>
+                                <div class="col-lg-8"><input type="number" min="1" max="31" ng-model="compte.jour" class="form-control"
                                                              placeholder="00"/></div>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="row">
-                                <div class="col-lg-6" style="padding-top: 9px;" translate>Mois</div>
-                                <div class="col-lg-6"><input type="text" ng-model="compte.mois" class="form-control"
+                                <div class="col-lg-4" style="padding-top: 9px;" translate>Mois</div>
+                                <div class="col-lg-8"><input type="number" min="1" max="12" ng-model="compte.mois" class="form-control"
                                                              placeholder="00"/></div>
                             </div>
                         </div>
@@ -126,14 +138,15 @@
                             <div class="row">
                                 <div class="col-lg-6" style="padding-top: 9px;" translate>Année</div>
                                 <div class="col-lg-6">
-                                    <input type="text" ng-model="compte.annee" class="form-control" placeholder="0000"/>
+                                    <input type="number" min="1900" ng-model="compte.annee" class="form-control" placeholder="0000"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-main" translate>sauvegarder</button>
+                <button type="submit" class="btn btn-main" ng-if="compte.person.id==undefined" translate>sauvegarder</button>
+                <button type="submit" class="btn btn-main" ng-if="compte.person.id!=undefined" translate>modifier</button>
             </form>
         </div>
     </div>

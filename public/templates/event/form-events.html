@@ -399,7 +399,11 @@
                             <div class="col-lg-6" ng-repeat="p in payment">
                                 <div class="checkbox">
                                     <label for="{{p.id}}">
-                                        <input type="radio" ng-model="e.paiement" id="{{p.id}}">
+                                        <input type="radio"
+                                               ng-model="e.paiement"
+                                               value="p.name"
+                                               id="{{p.id}}"
+                                               ng-value="p.name">
                                         <ff>{{p.name}}</ff>
                                     </label>
                                 </div>
@@ -652,13 +656,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group hide">
                             <label translate>Point de distribution</label>
                             <input type="text" placeholder="Point de distribution" ng-model="billet_detail.point.name" class="form-control"/>
-                            Ajouter les element de l'adress
-                            creation du ticket > creation de l'adress>creation du point de distribution
                         </div>
-                        <div class="form-group">
+                        <div class="form-group hide">
                             <label translate>Debut de la vente de billets</label>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -670,7 +672,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group hide">
                             <label translate>Fin de la vente de billets</label>
                             <div class="row">
                                 <div class="col-lg-6">

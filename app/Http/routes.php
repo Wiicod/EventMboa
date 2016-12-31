@@ -32,7 +32,7 @@ Route::get('/img/{model}/{image}', function ($model, $image) {
     //do so other checks here if you wish
 
 
-    $filename = "img/" . $model . "/" . $image;
+    $filename = "/img/" . $model . "/" . $image;
 
     if (!Storage::has($filename)) abort(404);
     $path = storage_path('app/') . $filename;

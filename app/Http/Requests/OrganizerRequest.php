@@ -65,8 +65,8 @@ class OrganizerRequest extends Request
             case 'PUT':
             {
                 return [
-                    'name' => 'max:255|unique:organizers',
-                    'email' => 'required|max:255|email|unique:organizers',
+                    'name' => 'max:255|unique:organizers,name,' . $this->route()->getParameter('organizer'),
+                    'email' => 'required|max:255|email|unique:organizers,email,' . $this->route()->getParameter('organizer'),
                     'description'=>'',
                     'image'=>'image',
                     'linkedin'=>'url|max:255',

@@ -79,7 +79,7 @@ class PersonRequest extends Request
                     'user_id'=>'integer|exists:users,id',
                     'home_phone'=>'regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|max:255',
                     'cell_phone'=>'regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3,6}$/|max:255',
-                    'birthdate' => 'date|date_format:"Y-m-d"',
+                   // 'birthdate' => 'date|date_format:"Y-m-d"',
                     'picture'=>'image',
                     'facebook'=>'url|max:255',
                     'twitter'=>'url|max:255',

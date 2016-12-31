@@ -4,8 +4,7 @@
 
 config.config(['NgAdminConfigurationProvider', function (nga) {
     var admin = nga.application('Event Mboa Administration')
-        //.baseApiUrl('http://jsonplaceholder.typicode.com/'); // main API endpoint
-        .baseApiUrl('http://localhost/eventmboa/public/index.php/api/'); // main API endpoint
+        .baseApiUrl('http://'+location.host+'/index.php/api/'); // main API endpoint
 
     // routes
     var event = nga.entity('event').label("Evénement");
