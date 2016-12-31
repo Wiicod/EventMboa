@@ -659,9 +659,9 @@ controller
         //console.log(id);
         Restangular.one('event', id).get().then(function (data) {
             //console.log(data);
-            var t   = data.banner_picture.substring(0, 10);
+            /* var t   = data.banner_picture.substring(0, 10);
             t += "/" + data.banner_picture.substring(11, data.banner_picture.length);
-            data.banner_picture = t;
+             data.banner_picture = t;*/
             var d = new Date(data.start_date);
             data.date_debut = jour[d.getDay()] + " " + d.getDate() + " " + mois[d.getMonth()] + " " + (d.getYear() + 1900);
             d = new Date(data.end_date);
@@ -681,7 +681,6 @@ controller
                     });
                 });
             });
-            data.banner_picture= data.banner_picture.replace("//","/");
             $scope.event = data;
             console.log(data);
         }, function (err) {

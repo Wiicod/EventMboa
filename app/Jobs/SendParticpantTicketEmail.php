@@ -37,7 +37,7 @@ class SendParticpantTicketEmail extends Job implements ShouldQueue
         //
         $e = $this->participant->ticket()->first()->event()->first();
         $snappy = App::make('snappy.pdf');
-        $html = View::make("pdf.ticket", compact('e'))->render();
+
         /*$snappy->setOption('margin-left', 0);
         $snappy->setOption('margin-top', 0);
         $snappy->setOption('margin-right', 0);
@@ -48,6 +48,7 @@ class SendParticpantTicketEmail extends Job implements ShouldQueue
 
 //            $attach[$i]= public_path(FactoryHelper::NewGuid('pdf'));
 //            $attach[$i]=  $snappy->generateFromHtml($html, $attach[$i]);
+            $html = View::make("pdf.ticket", compact('e', 'i', 'participant'))->render();
 
             $attach[$i] = $snappy->getOutputFromHtml($html);
         }

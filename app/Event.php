@@ -34,6 +34,20 @@ class Event extends Model
         return $this->name;
     }
 
+    public function getBannerPictureAttribute($val)
+    {
+        if ($val == null) {
+            $val = env('APP_URL') . 'default/event.png';
+        } else {
+            $a = explode('/', $val);
+            if ($a[0] == "") {
+                array_shift($a);
+            }
+            $val = implode("/", $a);
+        }
+        return env('APP_URL') . $val;
+    }
+
     public function getStatusAttribute($val){
 
         return strlen($val) == 1 && is_numeric($val) ? self::$Status[$val] : $val;

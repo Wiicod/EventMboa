@@ -27,6 +27,7 @@ class RestHelper
     public static function get($Model)
     {
         $ms = new  $Model;
+        $ord = $ms->timestamps;
         $data = Input::get();
         $fo = $ms->getForeign();
         $field = $ms->getFillable();
@@ -42,7 +43,11 @@ class RestHelper
             }
         }
 
-        $ms = $ms->with($fo)->orderBy('updated_at')->get();
+        if ($ord) {
+            $ms = $ms->with($fo)->orderBy('updated_at')->get();
+        } else {
+            $ms = $ms->with($fo)->get();
+        }
 
         return Response::json($ms, 200, [], JSON_NUMERIC_CHECK);
     }

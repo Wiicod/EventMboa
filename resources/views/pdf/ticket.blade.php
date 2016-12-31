@@ -49,13 +49,13 @@
             </td>
             <td style="padding: 10px; font-size: 24px;color: #f69524;text-align: center">
                 <span class="fixe">Titre</span>
-                <h3>Lorem ipsum dolor sit amet, consectetur adipisici</h3>
+                <h3>{{$e->name}}</h3>
             </td>
         </tr>
         <tr>
             <td style="padding: 0 10px 5px; line-height: 30px">
                 <span class="fixe">Date et heure</span>
-                <span class="detail">du Samedi 15 Mars 2011 au Vendredi 14 Mai 2011</span>
+                <span class="detail">{{$e->start_date}} au {{$e->end_date}}1</span>
             </td>
             <td style="padding: 0 10px 5px; line-height: 30px">
                 <table>
@@ -69,7 +69,8 @@ Boite postale,Rue <br/>
                                 </span>
                         </td>
                         <td style="width: 50%;text-align: center">
-                            <img src="" alt="Qr code ici" style="width: 50%;height:100px"/>
+                            {{--<img src="" alt="Qr code ici" style="width: 50%;height:100px"/>--}}
+                            {{$participant->qrcodes[$i]}}
                         </td>
                     </tr>
                     </tbody>
