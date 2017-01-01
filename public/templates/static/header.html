@@ -12,12 +12,15 @@
                 <a class="navbar-brand logo" ui-sref="home">
                     EventMboa
                 </a>
-
+                <ul class="nav navbar-nav hidden-sm hidden-xs" ng-if="!lieu">
+                    <li class=""><a ui-sref="events({id:'',target:''})" data-nav-section="home"><span
+                            translate>Parcourir</span></a></li>
+                </ul>
             </div>
             <div style="float: left; width: 24%" >
                 <form ng-submit="searchEvent(key)">
                     <input type="text" ng-model="key" required class="input"
-                           placeholder="{{'Recherche d\'événements '|translate}}"/>
+                           placeholder="{{'Rechercher événements'|translate}}"/>
                 </form>
             </div>
 
@@ -28,7 +31,7 @@
                     </li>
                     <li class="active" ng-if="loguer"><a style="background: #d93127 !important;color: white !important;" ui-sref="create({id:'',target:''})"><span translate>Créer un événement</span></a>
                     </li>
-                    <li class=""><a style="background: #f69524 !important;color: white !important;" ui-sref="events({id:'',target:''})"><span translate>Parcourir</span></a></li>
+                    <li class="" ><a style="background: #f69524 !important;color: white !important;" ui-sref="events({id:'',target:''})"><span translate>Parcourir</span></a></li>
                     <li class="" ng-if="!loguer"><a style="background: #f69524 !important;color: white !important;" href="#" ui-sref="login"><span translate>Se connecter</span></a>
                     </li>
                     <li class="" ng-if="!loguer"><a style="background: #a8aaac !important;color: white !important;" href="#" ui-sref="register"><span translate>Ouvrir un compte</span></a>

@@ -1,0 +1,516 @@
+<section id="create">
+    <div class="container">
+        <div class="row no-padding">
+            <div class="col-lg-6 col-sm-6">
+                <h1 class="title" translate>Modifier un événement</h1>
+            </div>
+            <div class="col-lg-6 col-sm-6" ng-if="id==undefined" style="margin-top: 3%; text-align: right;">
+                <button class="btn btn-main btn-reverse" ng-click="save_event()" translate>Sauvegarde</button>
+                <!--<button class="btn btn-main btn-reverse" translate>Apercu</button>-->
+                <button class="btn btn-main btn-green" ng-click="publish_event()" translate>Publier événement</button>
+            </div>
+            <div class="col-lg-6 col-sm-6" ng-if="id!=undefined" style="margin-top: 3%; text-align: right;">
+                <button class="btn btn-main btn-green" ng-click="edit_event()" translate>Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner">
+        <div class="container" style="padding-left: 0px">
+            <div class="choice active" ng-click="option='modifier'" ng-class="{'active':option=='modifier'}" translate>
+                Modifier
+            </div>
+        </div>
+    </div>
+
+    <!-- <form ng-if="option=='modifier'" ng-submit="enregistrerEvenement(e)">-->
+    <form name="event">
+        <div class="container">
+            <!--Premiere partie : description de l'événement-->
+            <div class="row" style="margin-top: 25px; margin-left: 33px">
+                <div class="col-lg-10 col-sm-10 col-md-10 " style="border-bottom: 1px solid #e7e7e7; padding: 0">
+                    <h2><span class="number main">1</span>
+                        <ff translate>Description de l'événement</ff>
+                    </h2>
+                </div>
+                <div class="clear-fix"></div>
+
+                <div class="col-lg-9 col-sm-9" style="margin-top: 20px">
+                    <div class="form-group">
+                        <label for="nom">
+                            <ff translate>Non de l'événement</ff>
+                            <span class="requis">*</span></label>
+                        <input type="text" ng-minlength="3" required id="nom" ng-model="e.name"
+                               placeholder="{{'Donnez un titre court et distinctif'|translate}}" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="adresse" translate>Adresse </label>
+                        <input type="text" id="adresse" ng-model="e.adress.name" ng-minlength="3" required
+                               placeholder="{{'Précisez où il est organisé'|translate}}" class="form-control"/>
+                        <div class="hide">
+                            <a ng-click="lieu='ligne'"><i class="fa fa-globe"></i>
+                                <ff translate>Evenement en ligne</ff>
+                            </a>
+                            &nbsp;
+                            <a ng-click="lieu='adresse'"><i class="fa fa-globe"></i>
+                                <ff translate>Veuillez saisir l'adresse</ff>
+                            </a>
+                        </div>
+
+                        <div class="row" style="margin-top: 10px" ng-if="e.adress.name!=null">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <input type="text" ng-model="e.adress.name" placeholder="{{'Adresse'|translate}}"
+                                           class="form-control"/>
+                                    <input type="text" ng-model="e.adress.street" placeholder="{{'Rue'|translate}}"
+                                           class="form-control"/>
+                                    <!--<input type="text" ng-model="e.adresse.ville" placeholder="{{'Ville'|translate}}" class="form-control"/>-->
+                                    <select ng-model="e.adress.town_id" class="form-control"
+                                            ng-options="v.id as v.name for v in villes|orderBy:'-name':true"
+                                            >
+                                        <option value="" disabled>
+                                            <ff translate>Sélectionnez votre ville</ff>
+                                        </option>
+                                    </select>
+                                    <input type="number" ng-model="e.adress.post_box"
+                                           placeholder="{{'Boîte postale'|translate}}" class="form-control"/>
+                                    <a href="" ng-click="reset_adress()"><i class="fa fa-refresh"></i>
+                                        <ff translate>Redéfinissez le lieu</ff>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4 c" ng-if="adress.length>0">
+                                <h5 translate>Utiliser une adresse existante</h5>
+                                <div style="max-height: 150px;overflow-y: auto">
+                                    <ul class="nav">
+                                        <li ng-repeat="a in adress | orderBy : '-name':true" ng-click="choixAdress(a)">
+                                            <a>{{a.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <label translate>Commence</label>
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-6">
+                                        <input type="text" class="form-control" ng-model="e.start_date"
+                                               placeholder="aaaa-mm-jj"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <label translate>Se termine</label>
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-6">
+                                        <input type="text" class="form-control" ng-model="e.end_date"
+                                               placeholder="aaaa-mm-jj"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom" translate>Image de l'événement</label>
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <div class="drop-box center" ngf-drop ngf-select ng-model="e.banner_picture"
+                                     ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true"
+                                     accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG"
+                                     ngf-pattern="'.jpg,.png,.jpeg,.JPG,.PNG,.JPEG'"
+                                     id="image_boutique" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                                    <div class="row" ng-hide="e.banner_picture">
+                                        <div class="col-lg-12">
+                                            <i class="fa fa-camera"></i>
+                                            <br/>
+                                            <div class="text-uppercase" translate>Ajouter une image de l'événement</div>
+                                            <p class="small-text" translate>
+                                                Choississez une belle image que représentera votre événement
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="e.banner_picture">
+
+                                        <img class="event-previous-image thumb " alt="Event banner"
+                                             ngf-thumbnail="e.banner_picture">.
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="small-text" translate>Nous recommandons d'utiliser une image d'au moins 2160 x 1080 px (ratio 2:1) ne dépassant pas 10 Mo</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom" translate>Description de l'événement</label>
+                        <text-angular ng-model="e.description"></text-angular>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom" translate>Organisateur</label>
+                        <br/>
+                        <div>
+                            <!--<a ng-click="user='edit'" translate>Modifier l'organisateur</a> |-->
+                            <!--<a ng-click="user='new'" translate>Nouvel organisateur</a>-->
+                        </div>
+                        <div ng-if="e.organizer.nom!=undefined || user!='new'&& user!='edit'">
+                            <select class="form-control"
+                                    style="height: 35.1px"
+                                    ng-model="e.organizer.id"
+                                    ng-options="o.id as o.name for o in organisateurs">
+                                <option value="" translate>Organisateur</option>
+                            </select>
+                        </div>
+                        <div ng-if="user=='new'||user=='edit'">
+                            <input type="text" ng-model="e.organizer.name"
+                                   placeholder="{{'Nom de l\'organisateur'|translate}}" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="user=='new'||user=='edit'">
+                        <label for="nom" translate>Description de l'organisateur</label>
+                        <div class="row-fluid"
+                             ng-if="e.organizer.name!=undefined || user!='new'&& user!='edit'"
+                                >
+                            <div class="col-lg-12"
+                                 ng-bind-html="e.organizer.description">
+                            </div>
+                        </div>
+                        <div ng-if="user=='new'||user=='edit'" >
+                            <text-angular ng-model="e.organizer.description"></text-angular>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="user=='new'||user=='edit'">
+                        <label for="nom" translate>Email de l'organisateur</label>
+                        <div class="row-fluid"
+                             ng-if="e.organizer.name!=undefined || user!='new'&& user!='edit'"
+                                >
+                            <div class="col-lg-12"
+                                 ng-bind-html="e.organizer.email">
+                            </div>
+                        </div>
+                        <div ng-if="user=='new'||user=='edit'" >
+                            <input type="email" ng-model="e.organizer.email" placeholder="{{'Email de l\'organisateur'|translate}}" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="user=='new'||user=='edit'">
+                        <label for="nom" translate>Image de l'organisateur</label>
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <div class="drop-box center" ngf-drop ngf-select ng-model="e.organizer.image"
+                                     ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true"
+                                     accept=".jpg,.png,.jpeg,.JPG,.PNG,.JPEG"
+                                     ngf-pattern="'.jpg,.png,.jpeg,.JPG,.PNG,.JPEG'"
+                                      ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                                    <div class="row" ng-hide="e.organizer.image">
+                                        <div class="col-lg-12">
+                                            <i class="fa fa-camera"></i>
+                                            <br/>
+                                            <div class="text-uppercase" translate>Ajouter une image de l'événement</div>
+                                            <p class="small-text" translate>
+                                                Choississez une belle image que représentera votre événement
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="e.organizer.image">
+
+                                        <img class="event-previous-image thumb " alt="Event banner"
+                                             ngf-thumbnail="e.organizer.image">.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="small-text" translate>Nous recommandons d'utiliser une image d'au moins 2160 x 1080 px (ratio 2:1) ne dépassant pas 10 Mo</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group check" ng-if="user=='new'||user=='edit'">
+                        <div class="checkbox">
+                            <label for="inclure">
+                                <input type="checkbox" ng-model="inclure" id="inclure">
+                                <ff translate>Inclure des liens vers mes pages Facebook et Twitter</ff>
+                            </label>
+                        </div>
+                        <div class="row-fluid" ng-if="inclure">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>
+                                        <ff translate>Site web</ff>
+                                    </label>
+                                    <input type="text" class="form-control" ng-model="e.organizer.web_site"
+                                           placeholder="{{'Site web'|translate}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fa fa-facebook"></i> Facebook</label>
+                                    <input type="text" class="form-control" ng-model="e.organizer.facebook"
+                                           placeholder="{{'Lien vers page Facebook'|translate}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fa fa-twitter"></i> Twitter</label>
+                                    <input type="text" class="form-control" ng-model="e.organizer.twitter"
+                                           placeholder="{{'Lien vers page Twitter'|translate}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fa fa-instagram"></i> Instagram</label>
+                                    <input type="text" class="form-control" ng-model="e.organizer.instagram"
+                                           placeholder="{{'Lien vers page Instagram'|translate}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fa fa-google-plus"></i> Google+</label>
+                                    <input type="text" class="form-control" ng-model="e.organizer.google"
+                                           placeholder="{{'Lien vers page Google'|translate}}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fa fa-linkedin"></i> LinkedIn</label>
+                                    <input type="text" class="form-control" ng-model="e.organizer.linkedin"
+                                           placeholder="{{'Lien vers page LinkedIn'|translate}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deuxieme partie : Billets -->
+            <div class="row" style="margin-top: 25px; margin-left: 33px">
+                <div class="col-lg-10 col-sm-10 col-md-10 " style="border-bottom: 1px solid #e7e7e7; padding: 0">
+                    <h2><span class="number main">2</span>
+                        <ff translate>Créez des billets</ff>
+                    </h2>
+                </div>
+                <div class="clear-fix"></div>
+
+                <div class="col-lg-9 col-sm-9" style="margin-top: 20px">
+                    <div class="form-group text-center">
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                <th class="col-lg-5 col-sm-5 com-md-5">
+                                    <ff translate>Nom du billet</ff>
+                                    <span class="requis">*</span></th>
+                                <th class="col-lg-2 col-sm-2 com-md-2">
+                                    <ff translate>Qté disponible</ff>
+                                    <span class="requis">*</span></th>
+                                <th class="col-lg-1 col-sm-1 com-md-1">
+                                    <ff translate>Max/Commande</ff>
+                                    <span class="requis">*</span>
+                                </th>
+                                <th class="col-lg-3 col-sm-3 com-md-3">
+                                    <ff translate>Prix</ff>
+                                    <span class="requis">*</span>
+                                </th>
+                                <th class="col-lg-2 col-sm-2 com-md-2">
+                                    <ff translate>Actions</ff>
+                                </th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="b in e.tickets">
+                                        <td><input type="text" ng-model="b.name"
+                                                   placeholder="{{'Billet à tarif préférentiel, RSVP...'|translate}}"
+                                                   class="form-control"/></td>
+                                        <td><input type="number" min="0" step="1" ng-model="b.quantity" placeholder="100" class="form-control"/></td>
+                                        <td><input type="number" min="0" step="1" ng-model="b.max_command"
+                                                   placeholder="5" class="form-control"/></td>
+                                        <td ng-if="b.amount<=0" translate>Gratuit</td>
+                                        <td ng-if="b.amount>0">
+                                            <div class="input-group">
+                                                <input type="number" min="0" ng-model="b.amount" placeholder="500" step="500" class="form-control"/>
+                                                <span class="input-group-addon">Fcfa</span>
+                                            </div>
+                                        </td>
+                                        <td style="line-height: 40px;">
+                                            <span style="cursor: pointer" ng-click="supprimer(b)"><i class="fa fa-trash fa-lg"></i></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group">
+                                <p translate>EventMboa percevra un pourcentage sur chaque billet vendu. Bien vouloir vous referrer à l'aide pour plus ample détails</p>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-main btn-reverse"
+                                        ng-click="ajouter('Gratuit')">
+                                    <i class="fa fa-plus-circle"></i>
+                                    <ff translate>Billet gratuit</ff>
+                                </button>
+                                <button class="btn btn-main btn-reverse"
+                                        ng-click="ajouter('Payant')">
+                                    <i class="fa fa-plus-circle"></i>
+                                    <ff translate>Billet payant</ff>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group hide">
+                        <label>
+                            <ff translate>Mode de paiement</ff>
+                            <span class="requis">*</span></label>
+                        <div class="row check">
+                            <div class="col-lg-6" ng-repeat="p in payment">
+                                <div class="checkbox">
+                                    <label for="{{p.id}}">
+                                        <input type="radio"
+                                               ng-model="e.paiement"
+                                               value="p.name"
+                                               id="{{p.id}}"
+                                               ng-value="p.name">
+                                        <ff>{{p.name}}</ff>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Troisième partie : Infos supplémentaires -->
+            <div class="row" style="margin-top: 25px; margin-left: 33px">
+                <div class="col-lg-10 col-sm-10 col-md-10 " style="border-bottom: 1px solid #e7e7e7; padding: 0">
+                    <h2><span class="number main">3</span>
+                        <ff translate>Paramètres supplémentaires</ff>
+                    </h2>
+                </div>
+                <div class="clear-fix"></div>
+
+                <div class="col-lg-9 col-sm-9" style="margin-top: 20px">
+
+                    <div class="form-group">
+                        <label translate>Type d'événement</label>
+                        <select ng-model="e.event_type_id" class="form-control"
+                                ng-options="t.id as t.name for t in types | orderBy:'-name':true">
+                            <option value="" disabled translate>Selectionnez le type d'événement</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label translate>thème de l'événement</label>
+                        <select ng-model="e.event_topic_id" class="form-control"
+                                ng-options="t.id as t.name for t in categories | orderBy:'-name':true">
+                            <option value="" disabled translate>Selectionnez le thème de l'événement</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label translate>Mails des participants</label>
+                        <textarea ng-model="e.liste_participant" class="form-control"
+                                  placeholder="{{'Veuillez séparer les adresses par des points-virgules (;)'|translate}}"></textarea>
+                    </div>
+
+                    <div class="form-group hide">
+                        <label>billet restant</label>
+                        <div class="checkbox check">
+                            <label for="billet">
+                                <input type="checkbox" ng-model="e.billet_restant" id="billet">
+                                <ff translate>Afficher le nombre de billets restants sur la page de l'événement</ff>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--<hr/>-->
+
+        <div class="text-center end" ng-if="id!=undefined">
+            <h1 translate>Modification terminée.</h1>
+            <button class="btn btn-main btn-green" translate ng-click="edit_event()">Enregistrer</button>
+        </div>
+    </form>
+
+    <!--Prévisualisation-->
+
+</section>
+
+
+<div class="modal fade" id="billetModal" tabindex="-1" role="dialog" aria-labelledby="Agent" aria-hidden="true">
+    <div class="modal-dialog" style="width: 35%;">
+        <form class="modal-content">
+            <div class="modal-header" style="background: #EFF2F5">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center text-uppercase bold" translate>Description du billet</h4>
+            </div>
+            <div class="modal-body" style="background: #F8F8FA">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="titre">{{billet_detail.nom}}</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-lg-12 check">
+                        <div class="form-group">
+                            <label translate>Description du billet</label>
+                            <textarea class="form-control" ng-model="billet_detail.description"
+                                      placeholder="{{'Donnez à vos participants plus de renseignements sur ce type de billet.'|translate}}"></textarea>
+                            <div class="row-fluid">
+                                <div class="checkbox">
+                                    <label for="afficher">
+                                        <input type="checkbox" g-model="billet_detail.afficher" id="afficher">
+                                        <ff translate>Afficher la description du billet.</ff>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group hide">
+                            <label translate>Point de distribution</label>
+                            <input type="text" placeholder="Point de distribution" ng-model="billet_detail.point.name" class="form-control"/>
+                        </div>
+                        <div class="form-group hide">
+                            <label translate>Debut de la vente de billets</label>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="aaaa-mm-jj" ng-model="billet_detail.date_debut_vente" class="form-control"/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="10:15" ng-model="billet_detail.heure_debut_vente" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group hide">
+                            <label translate>Fin de la vente de billets</label>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="aaaa-mm-jj" ng-model="billet_detail.date_fin_vente" class="form-control"/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="10:15" ng-model="billet_detail.heure_fin_vente" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group hide">
+                            <label translate>Nombre de billets autorisé par commande</label>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input type="number" min="1" max="{{billet_detail.quantite}}" placeholder="{{'Max de billet par commande'|translate}}" ng-model="billet_detail.max_autorise" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" ng-click="annuler(billet_detail)" class="btn btn-main btn-reverse"
+                        translate>Annuler les modifications
+                </button>
+                <button id="close" class="btn btn-main" data-dismiss="modal" translate>Fermer</button>
+            </div>
+        </form><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

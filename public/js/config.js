@@ -566,6 +566,28 @@ config
                     controller:"FooterCtrl"
                 }
             }
+        }).state('edit',{
+            url:"/edit/:id",
+            title: "Edirer un événement",
+            loginRequired: true,
+            views:{
+                '':{
+                    templateUrl: template_url+'index.html',
+                    controller:'AppCtrl'
+                },
+                'header@edit': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller:"HeaderCtrl"
+                },
+                'body@edit': {
+                    templateUrl: template_url+'event/edit-events.html',
+                    controller:"EditCtrl"
+                },
+                'footer@edit': {
+                    templateUrl: template_url+'static/footer.html',
+                    controller:"FooterCtrl"
+                }
+            }
         })
         .state('register',{
             url:"/register",

@@ -1,15 +1,7 @@
-- fixation du header
 
-- editer un evenement ( à tester par Evaris)
-
+Regarder le controller EditCtrl
+dans la fonction enregistrer event
+il y'a le code pour enregistre l'image qui ne marche pas. le reste marche il manque l'image.
 
 php artisan queue:listen
 
-
-- modifier person : problème d'image et de date
-- il faut un slash dans le nom de l'image Evaris: quand tu creer un event, son image apparait dans le listing mais dans le detail ça ne s'affiche pas. dans la bd le nom de l'image commence avec / mais quand tu creer un event il 'ya pas de / dans le nom
-- supprimer un event
-- editer un event
-
-ajout de l'id de l'adresse
-ajout de l'id de l'utilisateur

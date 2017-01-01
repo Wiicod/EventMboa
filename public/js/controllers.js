@@ -460,6 +460,302 @@ controller
             // fin image
         }
     }])
+    .controller('EditCtrl', ['$scope', '$filter', 'Restangular', '$cookies', '$state', '$auth', function ($scope, $filter, Restangular, $cookies, $state, $auth) {
+            if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
+                var allAd=Restangular.all("adress");
+                var tickets=Restangular.all("ticket");
+                var payment=Restangular.all("ticket_type_payment");
+
+                var fd = new FormData();
+
+                $scope.user = $cookies.getObject("user");
+                $scope.message = "";
+                if ($state.params.target != undefined && $state.params.target != "") {
+                    $scope.option = $state.params.target;
+                }
+                $scope.if_id = false;
+                if ($state.params.id != "" && $state.params.id != undefined) {
+                    $scope.if_id = true;
+                    $scope.id = $state.params.id;
+
+                    // recuperation de l"évenement
+                    Restangular.one("event",$scope.id).get().then(function(e){
+                        $scope.e=e;
+                        $cookies.putObject("e",e);
+                    });
+                }
+                $scope.e = {};
+                $scope.e.confidentialite = "Public";
+                $scope.e.organisateur = {};
+                $scope.e.billets = [];
+                $scope.inclure = false;
+
+                Restangular.all('town').getList().then(function (data) {
+                    $scope.villes = data;
+                });
+                Restangular.all('country').getList().then(function (data) {
+                    $scope.pays = data;
+                });
+                Restangular.all('event_topic').getList().then(function (data) {
+                    $scope.categories = data;
+                });
+                Restangular.all('event_type').getList().then(function (data) {
+                    $scope.types = data;
+                });
+                Restangular.all('organizer').getList({user_id: $scope.user.id}).then(function (o) {
+                    $scope.organisateurs = o;
+                });
+                Restangular.all('type_payment').getList().then(function(p){
+                    $scope.payment=p;
+                });
+                Restangular.all('adress').getList().then(function(a){
+                    $scope.adress=a;
+                });
+
+                $scope.choixAdress=function(a){
+                    $scope.e.adress=a;
+                };
+
+                $scope.reset_adress = function () {
+                    $scope.e.adress = {};
+                };
+
+                $scope.uploadFiles = function (file) {
+                    //console.log(file);
+                    $scope.fileData = file;
+                    var fd = new FormData();
+                    fd.append('file', file);
+                    Restangular.one('event').withHttpConfig({transformRequest: angular.identity})
+                        .customPOST(fd, '', undefined, {'Content-Type': undefined})
+                };
+
+                $scope.ajouter = function (type) {
+                    $scope.type = type;
+                    if(type=="Gratuit"){
+                        $scope.e.tickets.push({amount:0, id: $scope.e.tickets.length + 1});
+                    }
+                    else{
+                        $scope.e.tickets.push({amount:500,type: type, id: $scope.e.tickets.length + 1});
+                    }
+
+                };
+
+                $scope.supprimer = function (billet) {
+                    console.log(billet);
+                    if(billet.id!=undefined && billet.id!=""){
+                        Restangular.one("ticket",billet.id).get().then(function(d){
+                            d.remove().then(function(q){alert("Billet supprimé")});
+                        });
+                    }
+                    $scope.e.tickets.splice($scope.e.tickets.indexOf(billet), 1);
+                };
+
+                $scope.choixBillet = function (b) {
+                    $scope.billet_detail = b;
+                    console.log(b);
+                };
+
+                $scope.annuler = function (b) {
+                    //console.log(b);
+                    var id = b.id;
+                    var nom = b.nom;
+                    var type = b.type;
+                    var quantite = b.quantite;
+                    var prix = b.prix;
+                    $scope.billets.splice($scope.billets.indexOf(b), 1);
+                    $scope.billets.push({id: id, type: type, nom: nom, quantite: quantite, prix: prix});
+                };
+
+                $scope.enregistrerEvenement = function () {
+                    var o=$cookies.getObject("e");
+                    console.log(typeof $scope.e.banner_picture);
+                    if($scope.e.id!=undefined && $scope.e.id!=""){
+                        // edition
+                        console.log(o,$scope.e);
+                        // comparaison des changement et sauvegarde des changement
+                        // comparaison adress
+                        var if_ad=false;
+                        if($scope.e.adress.id==o.adress.id){
+                            if($scope.e.adress.post_box!=o.adress.post_box){
+                                if_ad=true;
+                            }
+                            if($scope.e.adress.name!=o.adress.name){
+                                if_ad=true;
+                            }
+                            if($scope.e.adress.street!=o.adress.street){
+                                if_ad=true;
+                            }
+                            if(if_ad){
+                                console.log("q");
+                                // nouvelle adresse à creer
+                                delete $scope.e.adress['id'];
+                                allAd.post($scope.e.adress).then(function(d){
+                                    $scope.e.adress_id= d.id;
+                                    if(typeof $scope.e.banner_picture=="object"){
+                                        console.log("s");
+                                        _.each($scope.e, function (val, key) {
+                                            fd.append(key, val);
+                                        });
+                                        fd.append("_method","PUT");
+                                        Restangular.one('event',$scope.e.id)
+                                            .withHttpConfig({transformRequest: angular.identity})
+                                            .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data, status) {
+                                                console.log(data);
+                                            });
+                                    }
+                                    else{
+                                        delete $scope.e["banner_picture"];
+                                        $scope.e.put().then(function(s){console.log("Ok",s)},function(a){console.log(a)});
+                                    }
+                                },function(d){console.log(d)});
+                            }
+                            else{
+                                if(typeof $scope.e.banner_picture == "object"){
+                                    console.log("a");
+                                    _.each($scope.e, function (val, key) {
+                                        fd.append(key, val);
+                                    });
+                                    fd.append("_method","PUT");
+                                    Restangular.one('event',$scope.e.id)
+                                        .withHttpConfig({transformRequest: angular.identity})
+                                        .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data, status) {
+                                            console.log(data,status);
+                                        },function(a){console.log(a)});
+                                }
+                            }
+                        }
+                        else{
+                            console.log("qq");
+                            // la nouvelle id est deja dans le scope
+                            if(typeof $scope.e.banner_picture == "object"){
+                                console.log("a");
+                                _.each($scope.e, function (val, key) {
+                                    fd.append(key, val);
+                                });
+                                fd.append("_method","PUT");
+                                Restangular.one('event',$scope.e.id)
+                                    .withHttpConfig({transformRequest: angular.identity})
+                                    .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data, status) {
+                                        console.log(data);
+                                    });
+                            }
+                            else{
+                                delete $scope.e["banner_picture"];
+                                $scope.e.put().then(function(s){console.log("Ok",s)},function(a){console.log(a)});
+                            }
+                        }
+
+
+
+                        //comparaison billet
+                        angular.forEach($scope.e.tickets,function(b,k){
+                            var bo=$filter("filter")(o.tickets,{id: b.id},true)[0];
+                            var if_b=false;
+                            if(b.id!=undefined && b.id!="" && bo!=undefined){
+                                if(b.id==bo.id){
+                                    // modification
+                                    if(b.name!=bo.name){
+                                        if_b=true;
+                                    }
+                                    if(b.amount!=bo.amount){
+                                        if_b=true;
+                                    }
+                                    if(b.max_command!=bo.max_command){
+                                        if_b=true;
+                                    }
+                                    if(b.quantity!=bo.quantity){
+                                        if_b=true;
+                                    }
+                                    if(if_b){
+                                        console.log("s");
+                                        Restangular.one("ticket", b.id).get().then(function(d){
+                                            d.name= b.name;
+                                            d.amount= b.amount;
+                                            d.max_command=b.max_command;
+                                            d.quantity= b.quantity;
+
+                                            d.put().then(function(s){
+                                                console.log(s);
+                                                // modification du mode de payment
+                                                Restangular.all("ticket_type_payment").getList({ticket_id: d.id}).then(function(t){
+                                                    t.ticket_payment_id=$scope.e.payment;
+                                                    t.put().then(function(a){
+                                                        console.log("Mode de paiement modifié");
+                                                    })
+                                                })
+                                            },function(q){
+                                                console.log(q);
+                                            });
+                                        },function(q){console.log(q)});
+                                    }
+                                }
+                            }
+                            else{
+                                alert("Vous ne pouvez pas ajouter un billet à un évenement publié");
+                                //b.event_id=$scope.e.id;
+                                //b.description= "description de "+b.name;b.listing_privity="Pas de liste";
+                                //b.start_date=$scope.e.created_at;
+                                //var x=new Date();
+                                //b.end_date=x.getYear()+1900+"-"+ x.getMonth()+1+"-"+ x.getDate()+" 00:00:00";
+                                //console.log(b);
+                                //tickets.post(b).then(function(q){
+                                //    console.log(q);
+                                //    // gestion du mode de paiement
+                                //    if(b.amount>0){
+                                //        Restangular.all("ticket_type_payment").post(
+                                //            {ticket_id: q.id,type_payment_id:$scope.e.payment}
+                                //        ).then(function(da){
+                                //            console.log(da);
+                                //        },function(a){
+                                //            console.log(a);
+                                //        })
+                                //    }
+                                //},function(a){
+                                //    console.log(a);
+                                //});
+                            }
+                        });
+
+                        // comparaison
+
+                    }
+
+
+
+                };
+
+
+                $scope.$watch('e.organisateur.nom', function () {
+                    if ($scope.e.organisateur.nom != undefined)
+                        $scope.e.organisateur.description = $filter("filter")($scope.organisateurs, {id: $scope.e.organisateur.nom}, true)[0].description;
+                });
+
+                $scope.edit_event=function(){
+                    //console.log();
+                    //alert("En maintenance");
+                    $scope.enregistrerEvenement();
+                };
+
+                // pour l'image
+                $scope.upload = function (files) {
+                    if (files) {
+                        $scope.e.images = files;
+                    }
+                };
+                $scope.$watch('files', function () {
+                    $scope.upload($scope.files);
+                });
+                $("#image_boutique").click(function () {
+                    $("#id_icone_boutique").click();
+                });
+                $("#id_icone_boutique").change(function (event) {
+                    var tmppath = URL.createObjectURL(event.target.files[0]);
+                    $scope.upload(event.target.files[0]);
+                    $("#image").fadeIn("fast").attr("src", tmppath);
+                });
+                // fin image
+            }
+        }])
 
     .controller('HeaderCtrl', ['$scope', '$auth', '$state', '$rootScope', '$cookies', 'Restangular', function ($scope, $auth, $state, $rootScope, $cookies, Restangular) {
         $scope.loguer = false;
@@ -1060,7 +1356,7 @@ controller
                     Restangular.one('organizer',$scope.organisateur.id)
                         .withHttpConfig({transformRequest: angular.identity})
                         .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function (data) {
-                            alert("Profil Mod");
+                            alert("Profil Modifié");
                             console.log(data);
                         }, function (err) {
                             console.log(err.data);
