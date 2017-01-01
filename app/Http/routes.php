@@ -67,6 +67,11 @@ Route::group(['prefix' => '/api', 'middleware' => ['web']], function () {
         'uses' => 'ParticipantController@getPaymentStatus',
     ));
 
+    // Password Reset Routes...
+    Route::post('auth/password/email', 'Auth\PasswordResetController@sendResetLinkEmail');
+    Route::get('auth/password/verify', 'Auth\PasswordResetController@verify');
+    Route::post('auth/password/reset', 'Auth\PasswordResetController@reset');
+
 //    Route::post('/register','AuthenticateController@register');
     Route::post('/signup', 'AuthenticateController@signup');
     Route::post('/signin', 'AuthenticateController@signin');
