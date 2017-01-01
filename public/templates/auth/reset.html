@@ -1,22 +1,24 @@
 <div class="container">
-    <form class="form-signin" ng-submit="reset(auth)">
+    <form class="form-signin" ng-submit="reset()" ng-show="isValidToken">
         <h2 class="text-center" translate>Reinitialiser le mot de passe.</h2>
-        <p class="text-default" translate>
-            Saisissez votre adresse e-mail et nous vous enverrons un lien par e-mail pour réinitialiser votre mot de passe.
-        </p>
+
+
         <div class="form-group">
-            <input type="text" class="form-control" ng-model="auth.login" placeholder="{{'Adresse email'|translate}}"
+            <input type="password" class="form-control" ng-model="password"
+                   placeholder="{{'Nouveau mot de passe'|translate}}"
                    required/>
         </div>
-        <div class="form-group text-center message">
-            {{message}}
+        <div class="form-group">
+            <input type="password" class="form-control" ng-model="password_confirmation"
+                   placeholder="{{'Confirmer mot de passe'|translate}}"
+                   required/>
         </div>
+
+
         <div class="text-center">
             <button type="submit" class="btn btn-primary btn-main" translate> Reinitialiser le mot de passe</button>
         </div>
-        <div class="text-center" style="margin-top: 15px">
-            <a href="" ui-sref="login" translate>Connectez-vous</a>
-        </div>
+
 
     </form>
 

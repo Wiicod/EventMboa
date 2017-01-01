@@ -613,26 +613,49 @@ config
                 }
             }
         })
-        .state('reset',{
-            url:"/reset",
-            title: "S'identifier",
+        .state('forgot', {
+            url: "/forgot",
+            title: "Mot de passe oublie",
             loginRequired:false,
             views:{
                 '':{
                     templateUrl: template_url+'index.html',
                     controller:'AppCtrl'
                 },
-                'header@reset': {
+                'header@forgot': {
                     templateUrl: template_url+'static/header.html',
                     controller:"HeaderCtrl"
                 },
-                'body@reset': {
-                    templateUrl: template_url+'auth/reset.html',
+                'body@forgot': {
+                    templateUrl: template_url + 'auth/forgot.html',
                     controller:"AuthCtrl"
                 },
-                'footer@reset': {
+                'footer@forgot': {
                     templateUrl: template_url+'static/footer.html',
                     controller:"FooterCtrl"
+                }
+            }
+        })
+        .state('reset', {
+            url: "/reset-password/:email/:token",
+            title: "S'identifier",
+            loginRequired: false,
+            views: {
+                '': {
+                    templateUrl: template_url + 'index.html',
+                    controller: 'AppCtrl'
+                },
+                'header@reset': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'body@reset': {
+                    templateUrl: template_url + 'auth/reset.html',
+                    controller: "ResetCtrl"
+                },
+                'footer@reset': {
+                    templateUrl: template_url + 'static/footer.html',
+                    controller: "FooterCtrl"
                 }
             }
         });

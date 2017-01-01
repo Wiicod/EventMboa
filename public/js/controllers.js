@@ -42,50 +42,93 @@ controller
 
     }])
 
-    .controller('AuthCtrl', ['$scope', '$auth', '$state', '$stateParams', '$cookies', 'Restangular', '$rootScope',
+    .controller('ResetCtrl', ['$scope', '$auth', '$state', '$stateParams', '$cookies', 'Restangular', '$rootScope',
         function ($scope, $auth, $state, $stateParams, $cookies, Restangular, $rootScope) {
-        $scope.message="";
-        //$cookies.putObject("user",undefined);
 
-        $scope.signup = function () {
-            $auth.signup($scope.auth).then(function (response) {
-                // tu stocke xa dans le rootScope au cas ou !!!
-                $auth.setToken(response.data.token);
-                //console.info('Signup  successfully.');
-                Restangular.one('authenticated-user').get().then(function (data) {
-                    data.user.hash=$scope.auth.password;
-                    $cookies.putObject("user", data.user, {path: '/'});
-                });
-                $state.go('home');
+            $scope.isValidToken = false;
 
-            }, function (error) {
-                //console.error(error);
-            });
-        };
+            var verifyToken = function () {
+                var email = $state.params.email;
+                var token = $state.params.token;
 
-        $scope.login = function () {
-            $auth.login($scope.auth).then(function (response) {
-                // tu stocke xa dans le rootScope au cas ou !!!
-                var t = response.data.token;
-                $auth.setToken(t);
-                //console.info('Logged in successfully.');
-                Restangular.one('authenticated-user').get().then(function (data) {
-                    data.user.hash=$scope.auth.password;
-                    $cookies.putObject("user", data.user, {path: '/'});
-                });
-                if ($rootScope.next != undefined) {
-                    $state.go($rootScope.next.name, $rootScope.next.params);
-                    //window.location.reload();
-                } else {
+                Restangular.all('auth/password').get('verify', {'email': email, 'token': token}).then(function () {
+                    $scope.isValidToken = true;
+                }, function () {
+                    // alert('Lien invalide');
                     $state.go('home');
-                }
-            }, function (error) {
-                //console.error(error);
-                $scope.message = "Paramètres de connexion invalides";
+                });
+            };
+
+            verifyToken();
+            $scope.reset = function () {
+                var data = {
+                    email: $state.params.email,
+                    token: $state.params.token,
+                    password: $scope.password,
+                    password_confirmation: $scope.password_confirmation
+                };
+
+                Restangular.all('auth/password/reset').post(data).then(function () {
+                    alert('Password successfully changed');
+                    $state.go('login');
             });
         }
 
     }])
+    .controller('AuthCtrl', ['$scope', '$auth', '$state', '$stateParams', '$cookies', 'Restangular', '$rootScope',
+        function ($scope, $auth, $state, $stateParams, $cookies, Restangular, $rootScope) {
+            $scope.message = "";
+            //$cookies.putObject("user",undefined);
+
+            $scope.signup = function () {
+                $auth.signup($scope.auth).then(function (response) {
+                    // tu stocke xa dans le rootScope au cas ou !!!
+                    $auth.setToken(response.data.token);
+                    //console.info('Signup  successfully.');
+                    Restangular.one('authenticated-user').get().then(function (data) {
+                        data.user.hash = $scope.auth.password;
+                        $cookies.putObject("user", data.user, {path: '/'});
+                    });
+                    $state.go('home');
+
+                }, function (error) {
+                    //console.error(error);
+                });
+            };
+
+            $scope.login = function () {
+                $auth.login($scope.auth).then(function (response) {
+                    // tu stocke xa dans le rootScope au cas ou !!!
+                    var t = response.data.token;
+                    $auth.setToken(t);
+                    //console.info('Logged in successfully.');
+                    Restangular.one('authenticated-user').get().then(function (data) {
+                        data.user.hash = $scope.auth.password;
+                        $cookies.putObject("user", data.user, {path: '/'});
+                    });
+                    if ($rootScope.next != undefined) {
+                        $state.go($rootScope.next.name, $rootScope.next.params);
+                        //window.location.reload();
+                    } else {
+                        $state.go('home');
+                    }
+                }, function (error) {
+                    //console.error(error);
+                    $scope.message = "Paramètres de connexion invalides";
+                });
+            };
+
+            $scope.forgot = function () {
+                Restangular.all('auth/password/email').post({
+                    'email': $scope.email
+                }).then(function () {
+                    alert('Please check your email for instructions on how to reset your password');
+                    $state.go('home');
+                });
+            };
+
+
+        }])
 
     .controller('CreateCtrl', ['$scope', '$filter', 'Restangular', '$cookies', '$state', '$auth', function ($scope, $filter, Restangular, $cookies, $state, $auth) {
         if ($auth.isAuthenticated() && $auth.getToken() != null && $cookies.getObject("user") != undefined && $cookies.getObject("user") != "") {
