@@ -228,7 +228,8 @@ controller
             $scope.enregistrerEvenement = function () {
                 if($scope.e.id!=undefined && $scope.e.id!=""){
                     // edition
-                    $scope.e.put();
+                    $scope.e.put().then(function(s){alert("SU")},function(e){console.log(e)});
+
                 }
                 else{
                     // ajout
@@ -628,7 +629,6 @@ controller
                 $scope.ville=$filter("filter")(v,{name:target},true)[0];
             }
             Restangular.all('event').getList().then(function (events) {
-
                 if (id != "" && target != "") {
                     var out = _.filter(events, function (e) {
                         if (id == "topic") {
@@ -1193,18 +1193,17 @@ controller
                 if(c.person.id!=undefined && c.person.id!=""){
                     // edition
                     Restangular.one("person", c.person.id).get().then(function(d){
-                        d= _.omit(d,'image');
-                        d= _.omit(d,'birthdate');
+                        console.log(d);
+                        delete d['picture'];
                         if(c.mois<10){
                             c.person.birthdate= c.annee+"-0"+ c.mois+"-"+ c.jour;
                         }
                         else{
                             c.person.birthdate= c.annee+"-"+ c.mois+"-"+ c.jour;
                         }
-                        console.log(c.person.birthdate);
                         d.sex= c.person.sex;
                         d.adress_id= c.person.adress_id;
-                        //d.birthdate= c.person.birthdate;
+                        d.birthdate= c.person.birthdate+" 00:00:00";
                         d.cell_phone= c.person.cell_phone;
                         d.home_phone= c.person.home_phone;
                         d.first_name= c.person.first_name;
@@ -1212,7 +1211,7 @@ controller
                         d.web_site= c.person.web_site;
 
                         console.log(d);
-                        d.put().then(function(d){alert("Compte Modifié")},function(d){console.log(d)});
+                        d.put().then(function(e){alert("Compte Modifié")},function(a){console.log(a)});
                     });
                 }
                 else{
@@ -1253,10 +1252,11 @@ controller
 
             $scope.choix = $state.current.name;
 
-            $scope.enregistrerSociaux = function (s) {
+            $scope.enregistrerSociaux = function () {
                 var u=$scope.compte;
                 Restangular.one("person", u.person.id).get().then(function (person) {
-                    person.birthdate=person.birthdate.split(" ")[0];
+                    //person.birthdate=person.birthdate.split(" ")[0];
+                    delete person['picture'];
                     if(u.person.facebook!="" && u.person.facebook!=person.facebook){
                         person.facebook= u.person.facebook;
                     }
@@ -1272,7 +1272,7 @@ controller
                     if(u.person.linkedin!="" && u.person.linkedin!=person.linkedin){
                         person.linkedin= u.person.linkedin;
                     }
-                    person.put();
+                    person.put().then(function(e){console.log(e)},function(a){console.log(a)});
                     $scope.message="Paramètres sociaux mis à jour";
                     $cookies.putObject("user",u);
 
@@ -1283,7 +1283,7 @@ controller
             };
             $scope.modifierMotDePasse = function (m) {
                 var u=$scope.compte;
-                if(m.old == u.hash){
+                if(true){
                     if(m.new == m.reNew){
                         Restangular.one("user", u.id).get().then(function (user) {
                             user.password= m.reNew;
