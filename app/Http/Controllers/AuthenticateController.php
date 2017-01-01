@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\Requests\UserRequest;
 use App\User;
 use Carbon\Carbon;
@@ -13,7 +12,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use JWTAuth;
 use Mockery\CountValidator\Exception;
-use Tymon\JWTAuth\Exceptions;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -25,6 +23,8 @@ class AuthenticateController extends Controller
     public function signin(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        if ($request->login)
+            $credentials['email'] = $request->login;
         //dd($credentials);
 
         try {

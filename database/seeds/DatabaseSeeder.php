@@ -29,11 +29,11 @@ class DatabaseSeeder extends Seeder
         $this->call(ParticipantsTableSeeder::class);
         $this->call(PeopleTableSeeder::class);
         $this->call(PublicitiesTableSeeder::class);
-        $this->call(TicketsTableSeeder::class);
+        // $this->call(TicketsTableSeeder::class);
         $this->call(TownsTableSeeder::class);
         $this->call(TypePaymentsTableSeeder::class);
         $this->call(MobileReceiverTableSeeder::class);
-        $this->call(TicketTypePaymentsTableSeeder::class);
+        //$this->call(TicketTypePaymentsTableSeeder::class);
         $this->command->info('All seeders completed!');
     }
 

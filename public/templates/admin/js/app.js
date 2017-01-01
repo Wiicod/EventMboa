@@ -12,6 +12,7 @@ var filter =angular.module('em-admin.filter', ['ui.router']);
 angular.module('em-admin', [
   'ui.router',
   'ng-admin',
+  'ng-admin.jwt-auth',
   'em-admin.config'
 ]).
     run(['$log','$state','$rootScope','$location',

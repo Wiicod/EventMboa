@@ -115,8 +115,6 @@ class RestHelper
             foreach ($data as $key => $value) {
                 if (in_array($key, $field)) {
                     if (in_array($key, $m->getFiles())) {
-                    echo dd($key);
-                    dd($key);
                         if (Storage::has($m->$key))
                             Storage::delete($m->$key);
                         $image = $value;

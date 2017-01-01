@@ -12,6 +12,10 @@
 */
 
 
+Route::get('/manage/', function () {
+    return view('admin');
+});
+
 Route::get('/', function () {
     return view('index');
 });
